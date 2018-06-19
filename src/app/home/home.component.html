@@ -1,0 +1,40 @@
+<div style="height: 80vh">
+    <div class="flex-center flex-column">
+        <h1 class="animated fadeIn mb-4">Cards & Tokens</h1>
+        <p class="animated fadeIn text-muted">Welcome</p>
+    
+        <div class="animated fadeIn mb-4" [hidden]="vapaee.logged">
+            <button type="button" class="btn btn-primary relative waves-light" (click)="basicModal.show()" mdbRippleRadius>Login</button>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #basicModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header vapaee-logo-container">
+                <div class="text-center animated fadeIn" style="width: 100%">
+                    <br>
+                    <img src="http://accounts.vapaee.com/catalog/view/theme/vapaee/image/Logo.png" style="width: 250px">
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="icon-panel" class="text-center panel panel-default animated fadeIn">
+                    <h4>Login with any social account</h4>
+                    <br>
+                    <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=Google&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
+                        <img src="http://accounts.vapaee.com/image/themezee_social_icons/google.png" alt="Google" title="Google">
+                    </a>
+                    <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=GitHub&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
+                        <img src="http://accounts.vapaee.com/image/themezee_social_icons/github.png" alt="GitHub" title="GitHub">
+                    </a>
+                    <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=Twitter&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
+                        <img src="http://accounts.vapaee.com/image/themezee_social_icons/twitter.png" alt="Twitter" title="Twitter">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews +SymLinksIfOwnerMatch
+
+    # http://stackoverflow.com/a/35815809/2274525
+    RewriteEngine on
+
+    # ----------- http://localhost/newrichontheblock -----------
+    # si el dominio es localhost
+    #   si la uri no tiene el prefijo /newrichontheblock/www (esto es para evitar ciclos infinitos)
+    #     si la referencia no ubica un archivo
+    #       si la referencia no ubica un difectorio
+    # -> pruebo de vuelta añadiendo el prefico /newrichontheblock/www/ (o sea, re dirijo a la carpeta www)
+    #RewriteCond %{HTTP_HOST} ^localhost [NC]
+    #RewriteCond %{REQUEST_URI} !^/newrichontheblock/www/
+    #RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteRule ^(.*)$ /newrichontheblock/www/$1 [L]
+    
+    # como estoy usando angularjs con html5Mode (no usa /#/home sino /home)
+    # si el dominio es localhost
+    #   si la referencia no ubica un archivo
+    #     si la referencia no ubica un difectorio
+    # -> redirijo al index de la carpeta www, concatenando el path luego de un /#
+    #RewriteCond %{HTTP_HOST} ^localhost [NC]
+    #RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteRule ^(.*)$ /newrichontheblock/www/index.php#$1 [L]    
+    
+    # si me escriben solo el dominio (el path es /) no entra en los casos anteriores así que
+    # si el dominio es localhost
+    #   si la uri es /newrichontheblock/
+    # -> redirigir a /newrichontheblock/www/index.php
+    #RewriteCond %{HTTP_HOST} ^localhost [NC]
+    #RewriteCond %{REQUEST_URI} ^/newrichontheblock/$
+    #RewriteRule ^(.*)$ /newrichontheblock/www/index.php [L]    
+    
+    # ----------- http://newrichontheblock -----------
+    # Return specific empty file for /cordova.js
+    RewriteCond %{REQUEST_URI} /cordova.js [NC]
+    RewriteRule ^(.*)$ /www/assets/empty.js [L]
+
+    # RewriteBase /
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+    
+    # si la uri no tiene el prefijo /www (esto es para evitar ciclos infinitos)
+    #   si la referencia no ubica un archivo
+    #     si la referencia no ubica un difectorio
+    # -> pruebo de vuelta añadiendo el prefico /www/ (o sea, re dirijo a la carpeta www)
+    RewriteCond %{REQUEST_URI} !^/www/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /www/$1 [L]
+    
+    # como estoy usando angularjs con html5Mode (no usa /#/home sino /home)
+    # si la referencia no ubica un archivo
+    #   si la referencia no ubica un difectorio
+    # -> redirijo al index de la carpeta www, concatenando el path luego de un /#
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /www/index.php#$1 [L]    
+    
+    # si me escriben solo el dominio (el path es /) no entra en los casos anteriores así que
+    # si la uri es /
+    # -> redirigir a /www/index.php
+    RewriteCond %{REQUEST_URI} ^/$
+    RewriteRule ^(.*)$ /www/index.php [L]        
+    
+</IfModule>
