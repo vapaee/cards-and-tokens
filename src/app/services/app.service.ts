@@ -1,5 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AppComponent } from '../app.component';
+import { VapaeeUserService } from './vapaee-user.service';
+
 
 @Injectable({
     providedIn: 'root'
@@ -7,19 +10,37 @@ import { Router } from '@angular/router';
 export class AppService {
     public path: string;
     router : Router;
+    route : ActivatedRoute;
     state : string;
     prev_state : string;
-    constructor(router: Router) {
+    appcomp: AppComponent;
+
+    constructor(public vapaee: VapaeeUserService, router: Router, route: ActivatedRoute) {
         this.router = router;
+        this.route = route;
 
         this.router.events.subscribe((event) => {
             if (event.constructor.name === "NavigationEnd") {
                 this.prev_state = this.state;
                 this.path = this.router.url;
-                this.state = this.path.substr(1);
+                this.state = this.route.root.firstChild.snapshot.data.state;
+                
+                if (this.getState().data.logged && !this.vapaee.logged) {
+                    console.log("REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
+                    this.router.navigate(['home']);
+                }
             }
         });
         
+        
+    }
+
+    init (appcomp: AppComponent) {
+        this.appcomp = appcomp;
+    }
+
+    askForLogin() {
+        this.appcomp.loginModal.show();
     }
 
 
@@ -61,6 +82,12 @@ export class AppService {
         } else {
             return false;
         }
-    }    
+    }
+
+    getState(name?:string) {
+        name = name || this.route.root.firstChild.snapshot.data.state;
+        console.log("getState----------------->", this.router.config.filter(e => e.data.state === name).pop());
+        return this.router.config.filter(e => e.data.state === name).pop();
+    }
     
 }

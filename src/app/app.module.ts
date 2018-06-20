@@ -14,20 +14,23 @@ import { ProfileComponent } from './profile/profile.component';
 import { CommingSoonComponent } from './comming-soon/comming-soon.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+
+
 const routes: Routes = [
-  { path: 'profile', component: ProfileComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'albums', component: CommingSoonComponent },
-  { path: 'editor', component: CommingSoonComponent },
-  { path: 'inventory', component: CommingSoonComponent },
-  { path: 'mastery', component: CommingSoonComponent },
-  { path: 'market', component: CommingSoonComponent },
-  { path: 'games', component: CommingSoonComponent },
+  { path: 'home',      data: { state: "home" }, component: HomeComponent },
+  { path: 'profile',   data: { state: "profile", logged: true }, component: ProfileComponent },
+  { path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonComponent },
+  { path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonComponent },
+  { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonComponent },
+  { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonComponent },
+  { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonComponent },
+  { path: 'games',     data: { state: "games", logged: true }, component: CommingSoonComponent },
   { path: '',
     redirectTo: '/home',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    data: { state:"redirect" }
   },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**',        data: { state:"404" }, component: PageNotFoundComponent }
 ];
 
 @NgModule({

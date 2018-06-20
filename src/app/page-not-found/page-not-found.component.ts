@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { VapaeeUserService } from "../services/vapaee-user.service";
+import { AppService } from "../services/app.service";
 
 @Component({
   selector: 'app-page-not-found',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  constructor(public vapaee: VapaeeUserService, public app: AppService) {
+  }
 
   ngOnInit() {
   }

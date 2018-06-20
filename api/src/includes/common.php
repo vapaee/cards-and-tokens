@@ -54,7 +54,18 @@ function insert_globals() {
 }
 
 function check_vapaee_user() {
-    global $config;
+    global $config; $basename = $config['basename'];
+    // trace("$basename.check_vapaee_user() COOKIES['foreign_token']: " . (isset($_COOKIE["foreign_token"]) ? $_COOKIE["foreign_token"]: ""));
+
+    $parts = explode("/", $_SERVER["REQUEST_URI"]);
+    $file = $parts[sizeof($parts)-1];
+    trace("$basename.check_vapaee_user() FILE NOT FOUND: " . $file);
+    if (strpos($file, '.') !== false) {
+        // trace("$basename.check_vapaee_user() FILE NOT FOUND: " . $file);
+        header("HTTP/1.0 404 Not Found");
+        die();
+    }
+
     if (!isset($_COOKIE["foreign_token"])) {
        // $URL = "http://accounts.vapaee.com/index.php?route=oauth/endpoint/createforeign";
         $URL = "http://accounts.vapaee.com/index.php?route=extension/module/oauth/endpoint/createforeign";
@@ -67,9 +78,10 @@ function check_vapaee_user() {
         // error_log("CONFIG  token: " . $foreign_token . " " . $_SERVER['REQUEST_URI']);
         // header("Location: $url");
         echo "<script>\n";
-        echo "   window.location.href='$url';";
+        echo "   window.location.href='$url';\n";
         echo "</script>\n";
         echo "</head><body></body></html>\n";
+        trace("$basename.check_vapaee_user() --> //accounts.vapaee.com (foreign_token:$foreign_token)");
         die();
     } else {
         echo "<script>\n";

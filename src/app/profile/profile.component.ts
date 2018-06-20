@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VapaeeUserService } from "../services/vapaee-user.service";
+import { AppService } from "../services/app.service";
 
 @Component({
   selector: 'app-profile',
@@ -8,8 +9,7 @@ import { VapaeeUserService } from "../services/vapaee-user.service";
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public vapaee: VapaeeUserService) {
-      
+  constructor(public vapaee: VapaeeUserService, public app: AppService) {
   }
 
   ngOnInit() {
