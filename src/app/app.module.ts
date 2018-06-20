@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommingSoonComponent } from './comming-soon/comming-soon.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -30,7 +31,8 @@ const routes: Routes = [
     pathMatch: 'full',
     data: { state:"redirect" }
   },
-  { path: '**',        data: { state:"404" }, component: PageNotFoundComponent }
+  { path: 'loading',   data: { state: "loading" }, component: LoadingComponent },
+  { path: '**',        data: { state: "404" }, component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -39,7 +41,8 @@ const routes: Routes = [
     HomeComponent,
     ProfileComponent,
     PageNotFoundComponent,
-    CommingSoonComponent
+    CommingSoonComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

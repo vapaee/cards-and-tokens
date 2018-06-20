@@ -24,15 +24,36 @@ export class AppService {
                 this.prev_state = this.state;
                 this.path = this.router.url;
                 this.state = this.route.root.firstChild.snapshot.data.state;
-                
-                if (this.getState().data.logged && !this.vapaee.logged) {
-                    console.log("REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
-                    this.router.navigate(['home']);
-                }
+                this.checkRedirect();
             }
         });
-        
-        
+    }
+
+    private checkRedirect() {
+        console.log("app.checkRedirect()....  State: ", this.state);
+        if (this.vapaee.ready) {
+            if (this.state === 'loading') {
+                if (this.getState(this.prev_state).data.logged && !this.vapaee.logged) {
+                    console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
+                    this.router.navigate(['home']);
+                }                    
+            } else {
+                if (this.getState().data.logged && !this.vapaee.logged) {
+                    console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
+                    this.router.navigate(['home']);
+                }    
+            }
+        } else {
+            if (this.getState().data.logged) {
+                console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
+                this.router.navigate(['loading']);
+                this.vapaee.whenReady.then(() => {
+                    this.checkRedirect();
+                });                
+            } else {
+                console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
+            }            
+        }
     }
 
     init (appcomp: AppComponent) {
@@ -86,7 +107,6 @@ export class AppService {
 
     getState(name?:string) {
         name = name || this.route.root.firstChild.snapshot.data.state;
-        console.log("getState----------------->", this.router.config.filter(e => e.data.state === name).pop());
         return this.router.config.filter(e => e.data.state === name).pop();
     }
     
