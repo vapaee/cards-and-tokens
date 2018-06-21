@@ -12,7 +12,7 @@ export class AppService {
     router : Router;
     route : ActivatedRoute;
     state : string;
-    prev_state : string;
+    prev_state : string = "none";
     appcomp: AppComponent;
 
     constructor(public vapaee: VapaeeUserService, router: Router, route: ActivatedRoute) {
@@ -30,13 +30,16 @@ export class AppService {
     }
 
     private checkRedirect() {
-        console.log("app.checkRedirect()....  State: ", this.state);
+        console.log("app.checkRedirect()....  State: ", this.prev_state, this.state, "ready:", this.vapaee.ready);
         if (this.vapaee.ready) {
             if (this.state === 'loading') {
-                if (this.getState(this.prev_state).data.logged && !this.vapaee.logged) {
-                    console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
+                if (this.vapaee.logged || !this.getState(this.prev_state).data.logged) {
+                    console.log("app.checkRedirect() ta todo bien REDIRECTION --> ", this.prev_state);
+                    this.router.navigate([this.prev_state]);
+                } else {
+                    console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
                     this.router.navigate(['home']);
-                }                    
+                }
             } else {
                 if (this.getState().data.logged && !this.vapaee.logged) {
                     console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");

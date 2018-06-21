@@ -25,7 +25,7 @@ export class VapaeeUserService {
             this.vapaee_client_id = this.cookieService.get('vapaee_client_id');
             this.foreign_token = this.cookieService.get('foreign_token');
             this.cookieService.delete("foreign_token");
-            setTimeout(() => {this.cookieService.delete("foreign_token");}, 1000);
+            // setTimeout(() => {this.cookieService.delete("foreign_token");}, 1000);
             if (this.foreign_token) {
                 console.log("this.foreign_token", this.foreign_token);
                 var URL = "http://accounts.vapaee.com/index.php?route=extension/module/oauth/endpoint/useforeign";
