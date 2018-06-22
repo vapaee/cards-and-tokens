@@ -14,26 +14,54 @@ import { ProfileComponent } from './profile/profile.component';
 import { CommingSoonComponent } from './comming-soon/comming-soon.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoadingComponent } from './loading/loading.component';
+import { DeployComponent } from './deploy/deploy.component';
+import { MainComponent } from './main/main.component';
+
+
 
 
 
 const routes: Routes = [
-  { path: 'home',      data: { state: "home" }, component: HomeComponent },
-  { path: 'profile',   data: { state: "profile", logged: true }, component: ProfileComponent },
-  { path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonComponent },
-  { path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonComponent },
-  { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonComponent },
-  { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonComponent },
-  { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonComponent },
-  { path: 'games',     data: { state: "games", logged: true }, component: CommingSoonComponent },
-  { path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
-    data: { state:"redirect" }
-  },
+  { path: 'deploy',    data: { state: "deploy" }, component: DeployComponent },
   { path: 'loading',   data: { state: "loading" }, component: LoadingComponent },
+  { path: '',          data: { state: "main" }, component: MainComponent,
+    children: [
+        { path: 'home',      data: { state: "home" }, component: HomeComponent },
+        { path: 'profile',   data: { state: "profile", logged: true }, component: ProfileComponent },
+        { path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonComponent },
+        { path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonComponent },
+        { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonComponent },
+        { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonComponent },
+        { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonComponent },
+        { path: 'games',     data: { state: "games", logged: true }, component: CommingSoonComponent },
+        { path: '',
+            redirectTo: '/home',
+            pathMatch: 'full',
+            data: { state:"redirect" }
+        },
+        { path: '**',        data: { state: "404" }, component: PageNotFoundComponent }
+    ]
+  },
   { path: '**',        data: { state: "404" }, component: PageNotFoundComponent }
 ];
+
+/*
+const routes: Routes = [
+{ path: 'home',      data: { state: "home" }, component: HomeComponent },
+{ path: 'profile',   data: { state: "profile", logged: true }, component: ProfileComponent },
+{ path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonComponent },
+{ path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonComponent },
+{ path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonComponent },
+{ path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonComponent },
+{ path: 'market',    data: { state: "market", logged: true }, component: CommingSoonComponent },
+{ path: 'games',     data: { state: "games", logged: true }, component: CommingSoonComponent },
+{ path: 'deploy',    data: { state: "deploy" }, component: DeployComponent },
+{ path: '',          data: { state: "main" }, component: MainComponent },
+{ path: 'loading',   data: { state: "loading" }, component: LoadingComponent },
+{ path: '**',        data: { state: "404" }, component: PageNotFoundComponent }
+];
+*/
+
 
 @NgModule({
   declarations: [
@@ -42,7 +70,9 @@ const routes: Routes = [
     ProfileComponent,
     PageNotFoundComponent,
     CommingSoonComponent,
-    LoadingComponent
+    LoadingComponent,
+    DeployComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
