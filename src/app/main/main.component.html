@@ -52,12 +52,38 @@
 
       <!-- User Account -->
       <ul class="navbar-nav ml-auto">
-          <li class="nav-item" [hidden]="!vapaee.logged" [ngClass]="{active: app.stateStartsWith('profile')}">
-              <a class="nav-link waves-light" routerLink="/profile" mdbWavesEffect>{{vapaee.user_name}}</a>
-          </li>
-          <li class="nav-item" [hidden]="vapaee.logged">
-              <a class="nav-link waves-light" (click)="app.askForLogin()" mdbWavesEffect>Login</a>
-          </li>
+          <li [hidden]="!vapaee.logged" class="nav-item dropdown d-none d-lg-block" dropdown >
+            <a dropdownToggle mdbWavesEffect [ngClass]="{active: app.stateStartsWith('profile')}" 
+               type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                {{vapaee.user_name}}
+            <span class="caret"></span></a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                <a class="nav-link waves-light" routerLink="/profile" mdbWavesEffect>
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile
+                </a>
+                <a class="nav-link waves-light"
+                    href="http://accounts.vapaee.com/index.php?route=account/logout&redirect=http://cardsandtokens.com/" mdbWavesEffect>
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                </a>
+            </div>
+        </li>
+        <li class="nav-item d-lg-none d-md-block" [hidden]="!vapaee.logged">
+            <div class="divider dropdown-divider"></div>
+        </li>
+        <li class="nav-item" [hidden]="vapaee.logged">
+            <a class="nav-link waves-light" (click)="app.askForLogin()" mdbWavesEffect><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+        </li>
+        <li class="nav-item d-lg-none d-md-block" [hidden]="!vapaee.logged">
+            <a class="nav-link waves-light" routerLink="/profile" mdbWavesEffect>
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile
+            </a>            
+        </li>
+        <li class="nav-item d-lg-none d-md-block" [hidden]="!vapaee.logged">
+            <a class="nav-link waves-light"
+                href="http://accounts.vapaee.com/index.php?route=account/logout&redirect=http://cardsandtokens.com/" mdbWavesEffect>
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+            </a>           
+        </li>
       </ul>
       <!-- User Account -->
 
@@ -68,33 +94,3 @@
 <!--/.Navbar-->
   
 <router-outlet></router-outlet>
-
-<div mdbModal #loginModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myloginModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header vapaee-logo-container">
-              <div class="text-center animated fadeIn" style="width: 100%">
-                  <br>
-                  <img src="http://accounts.vapaee.com/catalog/view/theme/vapaee/image/Logo.png" style="width: 250px">
-                  <br>
-                  <br>
-              </div>
-          </div>
-          <div class="modal-body">
-              <div id="icon-panel" class="text-center panel panel-default animated fadeIn">
-                  <h4>Login with any social account</h4>
-                  <br>
-                  <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=Google&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
-                      <img src="http://accounts.vapaee.com/image/themezee_social_icons/google.png" alt="Google" title="Google">
-                  </a>
-                  <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=GitHub&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
-                      <img src="http://accounts.vapaee.com/image/themezee_social_icons/github.png" alt="GitHub" title="GitHub">
-                  </a>
-                  <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=Twitter&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
-                      <img src="http://accounts.vapaee.com/image/themezee_social_icons/twitter.png" alt="Twitter" title="Twitter">
-                  </a>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>

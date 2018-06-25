@@ -1,6 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
 import { VapaeeUserService } from "./services/vapaee-user.service";
 import { AppService } from "./services/app.service";
+import { CntService } from "./services/cnt.service";
 
 @Component({
     selector: 'app-root',
@@ -10,7 +11,17 @@ import { AppService } from "./services/app.service";
 export class AppComponent {
     @ViewChild('loginModal') public loginModal;
 
-    constructor(public vapaee: VapaeeUserService, public app: AppService) {
+    constructor(public vapaee: VapaeeUserService, public app: AppService, public cnt: CntService) {
         this.app.init(this);
+        this.cnt.init(null);
+    }
+
+    ngOnInit() {
+        this.app.onWindowsResize();
+    }
+
+    @HostListener('window:resize')
+    onWindowsResize() {
+        this.app.onWindowsResize();
     }
 }

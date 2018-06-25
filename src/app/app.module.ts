@@ -8,6 +8,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { VapaeeUserService } from './services/vapaee-user.service';
 import { AppService } from './services/app.service';
+import { CntService } from './services/cnt.service';
+import { ComponentService } from './deploy/comp/component.service';
+
 
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -16,6 +19,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoadingComponent } from './loading/loading.component';
 import { DeployComponent } from './deploy/deploy.component';
 import { MainComponent } from './main/main.component';
+import { EditorComponent } from './editor/editor.component';
+import { ComponentHost } from './deploy/comp/comp';
+import { TestComponent } from './deploy/comp/test/test.component';
+import { TestVideoComponent } from './deploy/comp/test-video/test-video.component';
 
 
 
@@ -29,7 +36,7 @@ const routes: Routes = [
         { path: 'home',      data: { state: "home" }, component: HomeComponent },
         { path: 'profile',   data: { state: "profile", logged: true }, component: ProfileComponent },
         { path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonComponent },
-        { path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonComponent },
+        { path: 'editor',    data: { state: "editor", logged: true }, component: EditorComponent },
         { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonComponent },
         { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonComponent },
         { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonComponent },
@@ -45,24 +52,6 @@ const routes: Routes = [
   { path: '**',        data: { state: "404" }, component: PageNotFoundComponent }
 ];
 
-/*
-const routes: Routes = [
-{ path: 'home',      data: { state: "home" }, component: HomeComponent },
-{ path: 'profile',   data: { state: "profile", logged: true }, component: ProfileComponent },
-{ path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonComponent },
-{ path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonComponent },
-{ path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonComponent },
-{ path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonComponent },
-{ path: 'market',    data: { state: "market", logged: true }, component: CommingSoonComponent },
-{ path: 'games',     data: { state: "games", logged: true }, component: CommingSoonComponent },
-{ path: 'deploy',    data: { state: "deploy" }, component: DeployComponent },
-{ path: '',          data: { state: "main" }, component: MainComponent },
-{ path: 'loading',   data: { state: "loading" }, component: LoadingComponent },
-{ path: '**',        data: { state: "404" }, component: PageNotFoundComponent }
-];
-*/
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +61,15 @@ const routes: Routes = [
     CommingSoonComponent,
     LoadingComponent,
     DeployComponent,
-    MainComponent
+    MainComponent,
+    EditorComponent,
+    ComponentHost,
+    TestComponent,
+    TestVideoComponent
+  ],
+  entryComponents: [
+    TestComponent,
+    TestVideoComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +83,9 @@ const routes: Routes = [
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
     VapaeeUserService,
+    CntService,
     AppService,
+    ComponentService,
     HttpClient,
     CookieService
   ],

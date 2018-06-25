@@ -1,8 +1,7 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { VapaeeUserService } from './vapaee-user.service';
-
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +13,7 @@ export class AppService {
     state : string;
     prev_state : string = "none";
     appcomp: AppComponent;
+    device: {big?:boolean, small?:boolean, tiny?:boolean, portrait?:boolean, wide?:boolean, height?:number, width?: number} = {};
 
     constructor(public vapaee: VapaeeUserService, router: Router, route: ActivatedRoute) {
         this.router = router;
@@ -29,38 +29,71 @@ export class AppService {
         });
     }
 
+    init (appcomp: AppComponent) {
+        this.appcomp = appcomp;
+    }
+
+    onWindowsResize() {
+        this.device.small = false;
+        this.device.tiny = false;
+        this.device.height = window.innerHeight;
+        this.device.width = window.innerWidth;
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+        if (w / h > 1) {
+            this.device.portrait = false;
+            this.device.wide = true;
+        } else {
+            this.device.portrait = true;
+            this.device.wide = false;
+        }
+
+        if (this.device.portrait && h < 700) {
+            this.device.small = true;
+        }
+
+        if (this.device.wide && w < 800) {
+            this.device.small = true;
+        }
+        
+        if ( w < 650 || h < 700) {
+            this.device.small = true;
+        }
+        
+        if ( w < 560 || h < 650) {
+            this.device.tiny = true;
+        }        
+    }
+
     private checkRedirect() {
-        console.log("app.checkRedirect()....  State: ", this.prev_state, this.state, "ready:", this.vapaee.ready);
+        // console.log("app.checkRedirect()....  State: ", this.prev_state, this.state, "ready:", this.vapaee.ready);
         if (this.vapaee.ready) {
             if (this.state === 'loading') {
                 if (this.vapaee.logged || !this.getState(this.prev_state).data.logged) {
-                    console.log("app.checkRedirect() ta todo bien REDIRECTION --> ", this.prev_state);
+                    // console.log("app.checkRedirect() ta todo bien REDIRECTION --> ", this.prev_state);
                     this.router.navigate([this.prev_state]);
                 } else {
-                    console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
+                    // console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
                     this.router.navigate(['home']);
                 }
             } else {
                 if (this.getState().data.logged && !this.vapaee.logged) {
-                    console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
+                    // console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
                     this.router.navigate(['home']);
                 }    
             }
         } else {
             if (this.getState().data.logged) {
-                console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
+                // console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
                 this.router.navigate(['loading']);
-                this.vapaee.whenReady.then(() => {
+                this.vapaee.afterReady.then(() => {
                     this.checkRedirect();
                 });                
             } else {
-                console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
+                // console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
             }            
         }
-    }
-
-    init (appcomp: AppComponent) {
-        this.appcomp = appcomp;
     }
 
     askForLogin() {

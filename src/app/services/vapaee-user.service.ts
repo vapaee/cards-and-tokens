@@ -13,7 +13,7 @@ export class VapaeeUserService {
     public user_name: string;
     public logged: boolean = false;
     public ready: boolean = false;
-    public whenReady: Promise<void> = null;
+    public afterReady: Promise<void> = null;
 
     constructor(private http: HttpClient, private cookieService: CookieService) {
         console.log('Hello VapaeeUserService Provider');
@@ -21,15 +21,19 @@ export class VapaeeUserService {
     }
 
     init() {
-        this.whenReady = new Promise((resolve, reject) => {
+        this.afterReady = new Promise((resolve, reject) => {
             this.vapaee_client_id = this.cookieService.get('vapaee_client_id');
             this.foreign_token = this.cookieService.get('foreign_token');
             this.cookieService.delete("foreign_token");
-            // setTimeout(() => {this.cookieService.delete("foreign_token");}, 1000);
+            // Solución temporal al problema del foreign_token -----
+            setTimeout(() =>  {this.cookieService.delete("foreign_token");}, 1000);
+            setInterval(() => {this.cookieService.delete("foreign_token");}, 10000);
+            // -----------------------------------------------------
             if (this.foreign_token) {
+                var current_url = btoa(document.location.origin + document.location.pathname);
                 console.log("this.foreign_token", this.foreign_token);
                 var URL = "http://accounts.vapaee.com/index.php?route=extension/module/oauth/endpoint/useforeign";
-                var url = URL + "&foreign_token="+this.foreign_token+"&client_id="+this.vapaee_client_id;
+                var url = URL + "&foreign_token="+this.foreign_token+"&client_id="+this.vapaee_client_id+"&redirect="+current_url;
                 this.http.get(url).subscribe(result => {
                     console.log('------------------');
                     console.log(result);
