@@ -29,16 +29,16 @@ export class CntService {
     getStructure() {
         return new Promise((resolve, reject) => {
             resolve({
-                comp:0,
+                comp:1,
                 data:{text:"1"},
                 children: [
-                    { comp: 1, data:{text:"1.1"}, },
+                    { comp: 2, data:{text:"1.1"}, },
                     {
-                        comp:0,
+                        comp:1,
                         data:{text:"1.2"},
                         children: [
-                            { comp: 1, data:{text:"1.2.1"}, },
-                            { comp: 1, data:{text:"1.2.2"}, }
+                            { comp: 2, data:{text:"1.2.1"}, },
+                            { comp: 2, data:{text:"1.2.2"}, }
                         ]
                     }
                 ]

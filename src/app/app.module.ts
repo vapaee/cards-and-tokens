@@ -23,6 +23,7 @@ import { EditorComponent } from './editor/editor.component';
 import { ComponentHost } from './deploy/comp/comp';
 import { TestComponent } from './deploy/comp/test/test.component';
 import { TestVideoComponent } from './deploy/comp/test-video/test-video.component';
+import { BaseComponent } from './deploy/comp/base/base.component';
 
 
 
@@ -65,9 +66,11 @@ const routes: Routes = [
     EditorComponent,
     ComponentHost,
     TestComponent,
-    TestVideoComponent
+    TestVideoComponent,
+    BaseComponent
   ],
   entryComponents: [
+    BaseComponent,
     TestComponent,
     TestVideoComponent
   ],
