@@ -52,7 +52,7 @@
 
       <!-- User Account -->
       <ul class="navbar-nav ml-auto">
-          <li [hidden]="!vapaee.logged" class="nav-item dropdown d-none d-lg-block" dropdown >
+          <li *ngIf="vapaee.logged" class="nav-item dropdown d-none d-lg-block" dropdown >
             <a dropdownToggle mdbWavesEffect [ngClass]="{active: app.stateStartsWith('profile')}" 
                type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
                 {{vapaee.user_name}}
@@ -67,18 +67,18 @@
                 </a>
             </div>
         </li>
-        <li class="nav-item d-lg-none d-md-block" [hidden]="!vapaee.logged">
+        <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged">
             <div class="divider dropdown-divider"></div>
-        </li>
-        <li class="nav-item" [hidden]="vapaee.logged">
+        </li>   
+        <li class="nav-item" *ngIf="!vapaee.logged">
             <a class="nav-link waves-light" (click)="app.askForLogin()" mdbWavesEffect><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
         </li>
-        <li class="nav-item d-lg-none d-md-block" [hidden]="!vapaee.logged">
+        <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged">
             <a class="nav-link waves-light" routerLink="/profile" mdbWavesEffect>
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile
             </a>            
         </li>
-        <li class="nav-item d-lg-none d-md-block" [hidden]="!vapaee.logged">
+        <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged">
             <a class="nav-link waves-light"
                 href="http://accounts.vapaee.com/index.php?route=account/logout&redirect=http://cardsandtokens.com/" mdbWavesEffect>
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
