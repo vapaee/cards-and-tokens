@@ -31,7 +31,7 @@ export class VapaeeUserService {
             // -----------------------------------------------------
             if (this.foreign_token) {
                 var current_url = btoa(document.location.origin + document.location.pathname);
-                console.log("this.foreign_token", this.foreign_token);
+                // console.log("this.foreign_token", this.foreign_token);
                 var URL = "http://accounts.vapaee.com/index.php?route=extension/module/oauth/endpoint/useforeign";
                 var url = URL + "&foreign_token="+this.foreign_token+"&client_id="+this.vapaee_client_id+"&redirect="+current_url;
                 this.http.get(url).subscribe(result => {

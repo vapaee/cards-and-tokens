@@ -29,19 +29,19 @@ export class CntService {
     getStructure() {
         return new Promise((resolve, reject) => {
             resolve({
-                comp:1,
-                data:{text:"1"},
-                children: [
-                    { comp: 2, data:{text:"1.1"}, },
-                    {
-                        comp:1,
-                        data:{text:"1.2"},
-                        children: [
-                            { comp: 2, data:{text:"1.2.1"}, },
-                            { comp: 2, data:{text:"1.2.2"}, }
-                        ]
-                    }
-                ]
+                comp:"root",
+                children: [{
+                    comp:"row-three",
+                    children: [
+                        {
+                            comp: "background",
+                            data: {"background-color": "blue"},
+                            children: [ { comp: "place-holder", data:{text:"header"} } ]
+                        },
+                        { comp: "place-holder", data:{text:"main"}, },
+                        { comp: "place-holder", data:{text:"footer"}, }
+                    ]
+                }]
             });
         });
     }

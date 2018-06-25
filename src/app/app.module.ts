@@ -12,67 +12,73 @@ import { CntService } from './services/cnt.service';
 import { ComponentService } from './deploy/comp/component.service';
 
 
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { CommingSoonComponent } from './comming-soon/comming-soon.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoadingComponent } from './loading/loading.component';
-import { DeployComponent } from './deploy/deploy.component';
-import { MainComponent } from './main/main.component';
-import { EditorComponent } from './editor/editor.component';
+import { HomePage } from './home/home.page';
+import { ProfilePage } from './profile/profile.page';
+import { CommingSoonPage } from './comming-soon/comming-soon.page';
+import { NotFoundPage } from './not-found/not-found.page';
+import { LoadingPage } from './loading/loading.page';
+import { DeployPage } from './deploy/deploy.page';
+import { RootPage } from './root/root.page';
+import { EditorPage } from './editor/editor.page';
+
+
 import { ComponentHost } from './deploy/comp/comp';
-import { TestComponent } from './deploy/comp/test/test.component';
-import { TestVideoComponent } from './deploy/comp/test-video/test-video.component';
-import { BaseComponent } from './deploy/comp/base/base.component';
+// import { BaseComponent } from './deploy/comp/base/base.component';
+import { RootComponent } from './deploy/comp/root/root.component';
+import { RowThreeComponent } from './deploy/comp/row-three/row-three.component';
+import { PlaceHolderComponent } from './deploy/comp/place-holder/place-holder.component';
+import { BackgroundComponent } from './deploy/comp/background/background.component';
 
 
 
 
 
 const routes: Routes = [
-  { path: 'deploy',    data: { state: "deploy" }, component: DeployComponent },
-  { path: 'loading',   data: { state: "loading" }, component: LoadingComponent },
-  { path: '',          data: { state: "main" }, component: MainComponent,
+  { path: 'deploy',    data: { state: "deploy" }, component: DeployPage },
+  { path: 'loading',   data: { state: "loading" }, component: LoadingPage },
+  { path: '',          data: { state: "root" }, component: RootPage,
     children: [
-        { path: 'home',      data: { state: "home" }, component: HomeComponent },
-        { path: 'profile',   data: { state: "profile", logged: true }, component: ProfileComponent },
-        { path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonComponent },
-        { path: 'editor',    data: { state: "editor", logged: true }, component: EditorComponent },
-        { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonComponent },
-        { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonComponent },
-        { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonComponent },
-        { path: 'games',     data: { state: "games", logged: true }, component: CommingSoonComponent },
+        { path: 'home',      data: { state: "home" }, component: HomePage },
+        { path: 'profile',   data: { state: "profile", logged: true }, component: ProfilePage },
+        { path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonPage },
+        { path: 'editor',    data: { state: "editor", logged: true }, component: EditorPage },
+        { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonPage },
+        { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonPage },
+        { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonPage },
+        { path: 'games',     data: { state: "games", logged: true }, component: CommingSoonPage },
         { path: '',
             redirectTo: '/home',
             pathMatch: 'full',
             data: { state:"redirect" }
         },
-        { path: '**',        data: { state: "404" }, component: PageNotFoundComponent }
+        { path: '**',        data: { state: "404" }, component: NotFoundPage }
     ]
   },
-  { path: '**',        data: { state: "404" }, component: PageNotFoundComponent }
+  { path: '**',        data: { state: "404" }, component: NotFoundPage }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    ProfileComponent,
-    PageNotFoundComponent,
-    CommingSoonComponent,
-    LoadingComponent,
-    DeployComponent,
-    MainComponent,
-    EditorComponent,
+    HomePage,
+    ProfilePage,
+    NotFoundPage,
+    CommingSoonPage,
+    LoadingPage,
+    DeployPage,
+    RootPage,
+    EditorPage,
     ComponentHost,
-    TestComponent,
-    TestVideoComponent,
-    BaseComponent
+    RootComponent,
+    RowThreeComponent,
+    PlaceHolderComponent,
+    BackgroundComponent
   ],
   entryComponents: [
-    BaseComponent,
-    TestComponent,
-    TestVideoComponent
+    RootComponent,
+    RowThreeComponent,
+    PlaceHolderComponent,
+    BackgroundComponent
   ],
   imports: [
     BrowserModule,
