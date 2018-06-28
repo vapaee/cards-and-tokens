@@ -25,4 +25,28 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
 
         };
     }
+
+    get getStyle(): any {
+        var style = {};
+        if (this.data) {
+            if (this.data.color) {
+                style["background-color"] = this.data.color;
+            }
+            if (this.data.image) {
+                if (this.data.image.url) {
+                    style["background-image"] = "url(" + this.data.image.url + ")";
+                }
+                if (this.data.image.position) {
+                    style["background-position"] = this.data.image.position;
+                }
+                if (this.data.image.repeat) {
+                    style["background-repeat"] = this.data.image.repeat;
+                }
+                if (this.data.image.size) {
+                    style["background-size"] = this.data.image.size;
+                }
+            }
+        }
+        return style;
+    }
 }

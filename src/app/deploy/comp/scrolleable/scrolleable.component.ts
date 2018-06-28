@@ -5,11 +5,11 @@ import { AppService } from '../../../services/app.service';
 import { CntService } from '../../../services/cnt.service';
 
 @Component({
-    selector: 'place-holder-comp',
-    templateUrl: './place-holder.component.html',
-    styleUrls: ['./place-holder.component.scss']
+    selector: 'scrolleable-comp',
+    templateUrl: './scrolleable.component.html',
+    styleUrls: ['./scrolleable.component.scss']
 })
-export class PlaceHolderComponent extends BaseComponent implements OnInit {
+export class ScrolleableComponent extends BaseComponent implements OnInit {
     
     constructor(
         public vapaee: VapaeeUserService,
@@ -24,13 +24,6 @@ export class PlaceHolderComponent extends BaseComponent implements OnInit {
         return {
 
         };
-    }
-
-    get getStyle(): any {
-        var style = {};
-        style["height"] = "50px";
-        style["background-color"] = "red";
-        return style;
     }
 
 }

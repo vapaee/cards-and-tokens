@@ -5,6 +5,7 @@ import { BaseComponent } from './base/base.component';
 import { RootComponent } from './root/root.component';
 import { RowThreeComponent } from './row-three/row-three.component';
 import { BackgroundComponent } from './background/background.component';
+import { ScrolleableComponent } from './scrolleable/scrolleable.component';
 
 
 interface ComponentMap {
@@ -23,6 +24,7 @@ export class ComponentService {
             "place-holder": PlaceHolderComponent,
             "row-three": RowThreeComponent,
             "background": BackgroundComponent,
+            "scrolleable": ScrolleableComponent
         };
     }
 

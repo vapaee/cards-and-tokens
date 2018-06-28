@@ -10,7 +10,7 @@ import { BaseComponent } from './comp/base/base.component';
 @Component({
     selector: 'app-deploy',
     templateUrl: './deploy.page.html',
-    styleUrls: ['./deploy.page.css']
+    styleUrls: ['./deploy.page.scss']
 })
 export class DeployPage implements OnInit {
     @ViewChild(ComponentHost) public main: ComponentHost;

@@ -35,14 +35,41 @@ export class CntService {
                     children: [
                         {
                             comp: "background",
-                            data: {"background-color": "blue"},
+                            data: {
+                                "image": {
+                                    "url": "/assets/prueba.png",
+                                    "position": "center", // "center" | "left" | "right" | "top" | "bottom"
+                                    "repeat": "no-repeat", // "round" | "repeat" | "no-repeat",
+                                    "size": "cover" // "contain" | "cover"
+                                }
+                            },
                             children: [ { comp: "place-holder", data:{text:"header"} } ]
                         },
-                        { comp: "place-holder", data:{text:"main"}, },
-                        { comp: "place-holder", data:{text:"footer"}, }
+                        {
+                            comp: "scrolleable",
+                            children: [ { comp: "place-holder", data: { text: "scrolleable", largetext: true, mediumtext: false }, } ]
+                        },
+                        {
+                            comp: "background",
+                            data: { "color": "darkgreen" },
+                            children: [ { comp: "place-holder", data:{text:"footer"} } ]
+                        }
                     ]
                 }]
             });
         });
     }
 }
+
+/*
+    "color": {
+        ""
+    },
+    "image": {
+        "url": "http://asdasdasd",
+        "position": "center" | "left" | "right" | "top" | "bottom"
+        "repeat": "round" | "repeat" | "no-repeat"
+        "size": "contain" | "cover"
+    },
+
+*/

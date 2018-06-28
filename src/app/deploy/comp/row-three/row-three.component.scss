@@ -1,20 +1,22 @@
+:host {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
 .header {
-    background-color: darkslategray;
+    // background-color: darkslategray;
     display: flex;
 }
 
 .main {
-    background-color:indigo;
+    // background-color:indigo;
     flex-grow: 1;
     display: flex;
 }
 
 .footer {
-    background-color: gray;
+    // background-color: gray;
     display: flex;
 }
 
-.row-three {
-    display: flex;
-    flex-direction: column;
-}

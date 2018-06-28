@@ -28,6 +28,7 @@ import { RootComponent } from './deploy/comp/root/root.component';
 import { RowThreeComponent } from './deploy/comp/row-three/row-three.component';
 import { PlaceHolderComponent } from './deploy/comp/place-holder/place-holder.component';
 import { BackgroundComponent } from './deploy/comp/background/background.component';
+import { ScrolleableComponent } from './deploy/comp/scrolleable/scrolleable.component';
 
 
 
@@ -72,13 +73,15 @@ const routes: Routes = [
     RootComponent,
     RowThreeComponent,
     PlaceHolderComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    ScrolleableComponent
   ],
   entryComponents: [
     RootComponent,
     RowThreeComponent,
     PlaceHolderComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    ScrolleableComponent
   ],
   imports: [
     BrowserModule,
