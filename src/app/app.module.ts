@@ -3,6 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -29,6 +30,8 @@ import { RowThreeComponent } from './deploy/comp/row-three/row-three.component';
 import { PlaceHolderComponent } from './deploy/comp/place-holder/place-holder.component';
 import { BackgroundComponent } from './deploy/comp/background/background.component';
 import { ScrolleableComponent } from './deploy/comp/scrolleable/scrolleable.component';
+import { VideoComponent } from './deploy/comp/video/video.component';
+import { MarkDownComponent } from './deploy/comp/markdown/markdown.component';
 
 
 
@@ -74,14 +77,18 @@ const routes: Routes = [
     RowThreeComponent,
     PlaceHolderComponent,
     BackgroundComponent,
-    ScrolleableComponent
+    ScrolleableComponent,
+    VideoComponent,
+    MarkDownComponent
   ],
   entryComponents: [
     RootComponent,
     RowThreeComponent,
     PlaceHolderComponent,
     BackgroundComponent,
-    ScrolleableComponent
+    ScrolleableComponent,
+    VideoComponent,
+    MarkDownComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +97,8 @@ const routes: Routes = [
       routes,
       { enableTracing: false } // <-- debugging purposes only
     ),
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    MarkdownModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [

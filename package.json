@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall" : "ng serve -o"
+    "postinstall": "ng serve -o"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +28,7 @@
     "hammerjs": "^2.0.8",
     "jquery": "^3.3.1",
     "ngx-cookie-service": "^1.0.10",
+    "ngx-markdown": "^6.1.0",
     "popper.js": "^1.14.3",
     "rxjs": "^6.2.1",
     "zone.js": "^0.8.26"

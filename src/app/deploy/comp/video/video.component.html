@@ -1,0 +1,15 @@
+<div class="flex-center flex-grow" (window:resize)="onResize($event)" [ngStyle]="getStyle" >
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe id="player"
+            frameborder="0"
+            allowfullscreen="1"
+            allow="autoplay; encrypted-media" title="YouTube video player"
+            [src]="url"
+            class="embed-responsive-item">
+        </iframe>
+    </div>
+        
+    <!--div class="embed-responsive embed-responsive-16by9">
+        <div id="player"></div>
+    </div-->
+</div>

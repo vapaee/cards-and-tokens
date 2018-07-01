@@ -15,17 +15,24 @@ export class BaseComponent implements OnInit {
     @ViewChildren(ComponentHost) hosts: QueryList<ComponentHost>;
     data:any = {};
     initResolve:(value?:void) => void;
+    loadedResolve:(value?:void) => void;
 
-    public afterReady: Promise<void> = null;
+    public waitInit: Promise<void> = null;
+    public waitLoaded: Promise<void> = null;
+    public waitReady: Promise<void> = null;
     constructor(
         public vapaee: VapaeeUserService,
         public app: AppService, 
         public cnt: CntService,
         private componentFactoryResolver: ComponentFactoryResolver
     ) {
-        this.afterReady = new Promise((resolve) => {
+        this.waitInit = new Promise((resolve) => {
             this.initResolve = resolve;
         });
+        this.waitLoaded = new Promise((resolve) => {
+            this.loadedResolve = resolve;
+        });
+        this.waitReady = this.waitLoaded.then(() => this.waitInit);
     }
 
     ngOnInit() {
@@ -35,7 +42,8 @@ export class BaseComponent implements OnInit {
     loadStructure(structure: DeployNode) {
         console.log("loadStructure()", structure);
         this.data = structure.data;
-        this.afterReady.then(() => {
+        this.loadedResolve();
+        this.waitReady.then(() => {
             console.assert(this.hosts.length >= structure.children.length, "ERROR: wrong structure children length. Expected ", this.hosts.length, "got ", structure.children.length);
             for (let i in structure.children) {
                 let child = structure.children[i];

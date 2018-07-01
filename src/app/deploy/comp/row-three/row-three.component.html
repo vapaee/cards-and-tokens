@@ -1,9 +1,9 @@
-<div class="header">
+<div class="header" [ngStyle]="getHeaderStyle">
     <ng-template comp-host></ng-template>
 </div>
-<div class="main">
+<div class="main" [ngStyle]="getMainStyle">
     <ng-template comp-host></ng-template>
 </div>
-<div class="footer">
+<div class="footer" [ngStyle]="getFooterStyle">
     <ng-template comp-host></ng-template>
 </div>

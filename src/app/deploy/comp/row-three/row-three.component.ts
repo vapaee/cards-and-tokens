@@ -25,4 +25,25 @@ export class RowThreeComponent extends BaseComponent implements OnInit {
 
         };
     }
+
+    get getHeaderStyle(): any {
+        if (this.data.header) {
+            return this.data.header;
+        }
+        return {};
+    }
+
+    get getMainStyle(): any {
+        if (this.data.main) {
+            return this.data.main;
+        }
+        return {};
+    }
+
+    get getFooterStyle(): any {
+        if (this.data.footer) {
+            return this.data.footer;
+        }
+        return {};
+    }
 }
