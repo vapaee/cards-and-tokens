@@ -12,8 +12,9 @@ import { DeployNode, ComponentHost } from "../comp";
 })
 */
 export class BaseComponent implements OnInit {
-    @ViewChildren(ComponentHost) hosts: QueryList<ComponentHost>;
+    @ViewChildren(ComponentHost) public hosts: QueryList<ComponentHost>;
     data:any = {};
+    children:any = [];
     initResolve:(value?:void) => void;
     loadedResolve:(value?:void) => void;
 
@@ -42,6 +43,7 @@ export class BaseComponent implements OnInit {
     loadStructure(structure: DeployNode) {
         console.log("loadStructure()", structure);
         this.data = structure.data;
+        this.children = structure.children;
         this.loadedResolve();
         this.waitReady.then(() => {
             console.assert(this.hosts.length >= structure.children.length, "ERROR: wrong structure children length. Expected ", this.hosts.length, "got ", structure.children.length);

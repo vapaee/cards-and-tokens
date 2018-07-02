@@ -3,20 +3,21 @@ import { BaseComponent } from '../base/base.component';
 import { VapaeeUserService } from '../../../services/vapaee-user.service';
 import { AppService } from '../../../services/app.service';
 import { CntService } from '../../../services/cnt.service';
+import { SectionService } from '../section/section.service';
 
 @Component({
-    selector: 'markdown-comp',
-    templateUrl: './markdown.component.html',
-    styleUrls: ['./markdown.component.scss']
+    selector: 'menu-comp',
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.scss']
 })
-export class MarkDownComponent extends BaseComponent implements OnInit {
-    // https://www.npmjs.com/package/ngx-markdown
+export class MenuComponent extends BaseComponent implements OnInit {
     
     constructor(
         public vapaee: VapaeeUserService,
         public app: AppService, 
         public cnt: CntService,
-        private cfResolver: ComponentFactoryResolver
+        private cfResolver: ComponentFactoryResolver,
+        private section: SectionService
     ) {
         super(vapaee, app, cnt, cfResolver);
 
@@ -25,7 +26,7 @@ export class MarkDownComponent extends BaseComponent implements OnInit {
 
     public init() {
         this.waitReady.then(() => {
-            console.log("MarkDownComponent data", this.data);
+            console.log("MenuComponent data", this.data);
         });
     }
 
@@ -33,6 +34,12 @@ export class MarkDownComponent extends BaseComponent implements OnInit {
         return {
 
         };
+    }
+
+    public onMenuEntry(entry:any) {
+        if (entry.section && entry.value) {
+            this.section.setSection(entry.section, entry.value);
+        }
     }
 
 }

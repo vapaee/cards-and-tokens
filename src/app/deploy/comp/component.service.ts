@@ -8,6 +8,8 @@ import { BackgroundComponent } from './background/background.component';
 import { ScrolleableComponent } from './scrolleable/scrolleable.component';
 import { VideoComponent } from './video/video.component';
 import { MarkDownComponent } from './markdown/markdown.component';
+import { MenuComponent } from './menu/menu.component';
+import { SectionComponent } from './section/section.component';
 
 
 
@@ -29,12 +31,14 @@ export class ComponentService {
             "background": BackgroundComponent,
             "scrolleable": ScrolleableComponent,
             "video": VideoComponent,
-            "markdown": MarkDownComponent
+            "markdown": MarkDownComponent,
+            "menu": MenuComponent,
+            "section": SectionComponent
         };
     }
 
     createDeployTree(struct:any) {
-        console.log("createDeployTree()");
+        console.log("createDeployTree()", [struct]);
         console.assert(typeof struct.comp != "undefined", "ERROR: missing structure.comp", [struct]);
         console.assert(typeof this.components[struct.comp] != "undefined", "ERROR: struct.comp? component not found", [struct]);
         let type: Type<BaseComponent> = this.components[struct.comp];

@@ -32,6 +32,8 @@ import { BackgroundComponent } from './deploy/comp/background/background.compone
 import { ScrolleableComponent } from './deploy/comp/scrolleable/scrolleable.component';
 import { VideoComponent } from './deploy/comp/video/video.component';
 import { MarkDownComponent } from './deploy/comp/markdown/markdown.component';
+import { SectionComponent } from './deploy/comp/section/section.component';
+import { MenuComponent } from './deploy/comp/menu/menu.component';
 
 
 
@@ -79,7 +81,9 @@ const routes: Routes = [
     BackgroundComponent,
     ScrolleableComponent,
     VideoComponent,
-    MarkDownComponent
+    MarkDownComponent,
+    SectionComponent,
+    MenuComponent
   ],
   entryComponents: [
     RootComponent,
@@ -88,7 +92,9 @@ const routes: Routes = [
     BackgroundComponent,
     ScrolleableComponent,
     VideoComponent,
-    MarkDownComponent
+    MarkDownComponent,
+    SectionComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

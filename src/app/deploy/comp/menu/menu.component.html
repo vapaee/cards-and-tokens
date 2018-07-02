@@ -1,0 +1,8 @@
+<span>
+    <a *ngFor="let entry of data.menu"
+        class="btn btn-info btn-sm my-0 waves-effect waves-light"
+        (click)="onMenuEntry(entry)"
+        >
+        {{entry.text}}
+    </a>
+</span>

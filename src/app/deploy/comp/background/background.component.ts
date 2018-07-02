@@ -32,7 +32,11 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
             if (this.data.color) {
                 style["background-color"] = this.data.color;
             }
+            if (this.data.fgcolor) {
+                style["color"] = this.data.fgcolor;
+            }
             if (this.data.image) {
+                
                 if (this.data.image.url) {
                     style["background-image"] = "url(" + this.data.image.url + ")";
                 }
