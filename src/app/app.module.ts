@@ -14,6 +14,7 @@ import { ComponentService } from './deploy/comp/component.service';
 
 
 import { HomePage } from './home/home.page';
+import { CardsPage } from './cards/cards.page';
 import { ProfilePage } from './profile/profile.page';
 import { CommingSoonPage } from './comming-soon/comming-soon.page';
 import { NotFoundPage } from './not-found/not-found.page';
@@ -34,19 +35,22 @@ import { VideoComponent } from './deploy/comp/video/video.component';
 import { MarkDownComponent } from './deploy/comp/markdown/markdown.component';
 import { SectionComponent } from './deploy/comp/section/section.component';
 import { MenuComponent } from './deploy/comp/menu/menu.component';
+import { FloatComponent } from './deploy/comp/float/float.component';
+
 
 
 
 
 
 const routes: Routes = [
-  { path: 'deploy',    data: { state: "deploy" }, component: DeployPage },
+  { path: 'deploy/:id',    data: { state: "deploy" }, component: DeployPage },
   { path: 'loading',   data: { state: "loading" }, component: LoadingPage },
   { path: '',          data: { state: "root" }, component: RootPage,
     children: [
         { path: 'home',      data: { state: "home" }, component: HomePage },
+        { path: 'cards',     data: { state: "cards",  logged: false }, component: CardsPage },
         { path: 'profile',   data: { state: "profile", logged: true }, component: ProfilePage },
-        { path: 'albums',    data: { state: "albums", logged: true }, component: CommingSoonPage },
+        { path: 'albums',    data: { state: "albums", logged: false }, component: CommingSoonPage },
         { path: 'editor',    data: { state: "editor", logged: true }, component: EditorPage },
         { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonPage },
         { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonPage },
@@ -67,6 +71,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomePage,
+    CardsPage,
     ProfilePage,
     NotFoundPage,
     CommingSoonPage,
@@ -83,7 +88,8 @@ const routes: Routes = [
     VideoComponent,
     MarkDownComponent,
     SectionComponent,
-    MenuComponent
+    MenuComponent,
+    FloatComponent
   ],
   entryComponents: [
     RootComponent,
@@ -94,7 +100,8 @@ const routes: Routes = [
     VideoComponent,
     MarkDownComponent,
     SectionComponent,
-    MenuComponent
+    MenuComponent,
+    FloatComponent
   ],
   imports: [
     BrowserModule,

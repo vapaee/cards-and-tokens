@@ -10,6 +10,7 @@ import { VideoComponent } from './video/video.component';
 import { MarkDownComponent } from './markdown/markdown.component';
 import { MenuComponent } from './menu/menu.component';
 import { SectionComponent } from './section/section.component';
+import { FloatComponent } from './float/float.component';
 
 
 
@@ -33,12 +34,19 @@ export class ComponentService {
             "video": VideoComponent,
             "markdown": MarkDownComponent,
             "menu": MenuComponent,
-            "section": SectionComponent
+            "section": SectionComponent,
+            "float": FloatComponent
         };
     }
 
-    createDeployTree(struct:any) {
-        console.log("createDeployTree()", [struct]);
+    createDeployTree(card:any){
+        console.log("createDeployTree()", [card]);
+        console.assert(typeof card.deploy != "undefined", "ERROR: missing card.deploy", [card]);
+        return this.deployTree(card.deploy);
+    }
+
+    private deployTree(struct:any) {
+        console.log("deployTree()", [struct]);
         console.assert(typeof struct.comp != "undefined", "ERROR: missing structure.comp", [struct]);
         console.assert(typeof this.components[struct.comp] != "undefined", "ERROR: struct.comp? component not found", [struct]);
         let type: Type<BaseComponent> = this.components[struct.comp];
@@ -47,7 +55,7 @@ export class ComponentService {
 
         let children: DeployNode[] = [];
         for (let i in depth) {
-            let child: DeployNode = this.createDeployTree(depth[i]);
+            let child: DeployNode = this.deployTree(depth[i]);
             children.push(child);
         }
         return new DeployNode(type, data, children);

@@ -1,3 +1,4 @@
+<!doctype html>
 <?php include '../config.php'; ?>
 <?php include '../api/src/includes/utils.php'; ?>
 <?php include '../api/src/includes/common.php'; ?>
@@ -7,7 +8,6 @@
 <?php insert_globals(); ?>
 <?php check_vapaee_user(); ?>
 
-<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -19,5 +19,5 @@
 </head>
 <body>
   <app-root></app-root>
-<script type="text/javascript" src="runtime.js"></script><script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="styles.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="main.js"></script></body>
+  <script type="text/javascript" src="runtime.js"></script><script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="styles.js"></script><script type="text/javascript" src="scripts.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="main.js"></script></body>
 </html>

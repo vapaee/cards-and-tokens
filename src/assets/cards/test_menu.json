@@ -1,0 +1,59 @@
+{
+    "deploy": {
+        "comp":"root",
+        "children": [{
+            "comp":"row-three",
+            "data": {
+                "header": { "min-height": "10vh" },
+                "footer": { "min-height": "6vh" }
+            },
+            "children": [
+                {
+                    "comp": "background",
+                    "data": { "color":"#2A247B", "fgcolor":"white"},
+                    "children": [
+                        {
+                            "comp": "menu",
+                            "data": {
+                                "menu": [
+                                    {
+                                        "text": "Section A",
+                                        "section": "main",
+                                        "value": "A"
+                                    },
+                                    {
+                                        "text": "Section B",
+                                        "section": "main",
+                                        "value": "B"
+                                    },
+                                    {
+                                        "text": "Section C",
+                                        "section": "main",
+                                        "value": "C"
+                                    }
+                                ]
+                            }
+                        }
+                    ]                    
+                },
+                {
+                    "comp": "section",
+                    "data": {
+                        "name": "main",
+                        "current": "B",
+                        "sections": ["A", "B", "C"]
+                    },
+                    "children": [
+                        { "comp": "place-holder", "data":{"text":"Section A"} },
+                        { "comp": "place-holder", "data":{"text":"Section B"} },
+                        { "comp": "place-holder", "data":{"text":"Section C"} }
+                    ]
+                },
+                {
+                    "comp": "background",
+                    "data": { "color": "darkblue" }
+                }
+            ]
+        }]
+    }
+}

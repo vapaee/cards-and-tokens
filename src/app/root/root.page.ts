@@ -3,7 +3,7 @@ import { VapaeeUserService } from "../services/vapaee-user.service";
 import { AppService } from "../services/app.service";
 
 @Component({
-    selector: 'app-main',
+    selector: 'root-page',
     templateUrl: './root.page.html',
     styleUrls: ['./root.page.css']
 })

@@ -23,10 +23,18 @@ export class AppService {
             if (event.constructor.name === "NavigationEnd") {
                 this.prev_state = this.state;
                 this.path = this.router.url;
-                this.state = this.route.root.firstChild.snapshot.data.state;
+                this.state = this.getDeepestChild(this.route.root).snapshot.data.state;
                 this.checkRedirect();
             }
         });
+    }
+
+    getDeepestChild(node:any):any {
+        if (node.firstChild) {
+            return this.getDeepestChild(node.firstChild);
+        } else {
+            return node;
+        }
     }
 
     init (appcomp: AppComponent) {
@@ -67,31 +75,31 @@ export class AppService {
     }
 
     private checkRedirect() {
-        // console.log("app.checkRedirect()....  State: ", this.prev_state, this.state, "ready:", this.vapaee.ready);
+        console.log("app.checkRedirect()....  State: ", this.prev_state, this.state, "ready:", this.vapaee.ready);
         if (this.vapaee.ready) {
             if (this.state === 'loading') {
-                if (this.vapaee.logged || !this.getState(this.prev_state).data.logged) {
-                    // console.log("app.checkRedirect() ta todo bien REDIRECTION --> ", this.prev_state);
+                if (this.vapaee.logged || !this.getStateData(this.prev_state).logged) {
+                    console.log("app.checkRedirect() ta todo bien REDIRECTION --> ", this.prev_state);
                     this.router.navigate([this.prev_state]);
                 } else {
-                    // console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
+                    console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
                     this.router.navigate(['home']);
                 }
             } else {
-                if (this.getState().data.logged && !this.vapaee.logged) {
-                    // console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
+                if (this.getStateData().logged && !this.vapaee.logged) {
+                    console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
                     this.router.navigate(['home']);
                 }    
             }
         } else {
-            if (this.getState().data.logged) {
-                // console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
+            if (this.getStateData().logged) {
+                console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
                 this.router.navigate(['loading']);
                 this.vapaee.afterReady.then(() => {
                     this.checkRedirect();
                 });                
             } else {
-                // console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
+                console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
             }            
         }
     }
@@ -141,9 +149,22 @@ export class AppService {
         }
     }
 
-    getState(name?:string) {
-        name = name || this.route.root.firstChild.snapshot.data.state;
-        return this.router.config.filter(e => e.data.state === name).pop();
+    getStateData(name?:string) {
+        name = name || this.getDeepestChild(this.route.root).snapshot.data.state;
+        var data = this.getRouteData(name, this.router.config);
+        return data;
+    }
+
+    getRouteData(name:string, obj:any[]) {
+        var found:any = null;
+        for (let i=0; !found && i<obj.length; i++) {
+            if (obj[i].data.state === name) {
+                found = obj[i].data;
+            } else if (obj[i].children) {
+                found = this.getRouteData(name, obj[i].children);
+            }
+        }
+        return found;
     }
     
 }

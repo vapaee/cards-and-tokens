@@ -3,9 +3,9 @@
 
   <!-- Navbar brand -->
   <logo>
-      <a class="navbar-brand" routerLink="/home">
-          <img src="/assets/cards-and-tokens.png" height="45px" alt="">
-      </a>
+        <a class="navbar-brand" routerLink="/home">
+            <img src="/assets/cards-and-tokens.png" height="45px" alt="">
+        </a>
   </logo>    
   
 
@@ -14,23 +14,26 @@
 
       <!-- Pages -->
       <ul class="navbar-nav mr-auto">
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('editor')}" >
-              <a class="nav-link waves-light" routerLink="/editor" mdbWavesEffect>Editor</a>
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('editor')}" *ngIf="vapaee.logged" >
+                <a class="nav-link waves-light" routerLink="/editor" mdbWavesEffect>Editor</a>
+          </li>
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('cards')}" >
+                <a class="nav-link waves-light" routerLink="/cards" mdbWavesEffect>Cards</a>
           </li>
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('albums')}" >
-              <a class="nav-link waves-light" routerLink="/albums" mdbWavesEffect>Albums</a>
+                <a class="nav-link waves-light" routerLink="/albums" mdbWavesEffect>Albums</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('inventory')}" >
-              <a class="nav-link waves-light" routerLink="/inventory" mdbWavesEffect>Inventory</a>
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('inventory')}" *ngIf="vapaee.logged">
+                <a class="nav-link waves-light" routerLink="/inventory" mdbWavesEffect>Inventory</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('mastery')}" >
-              <a class="nav-link waves-light" routerLink="/mastery" mdbWavesEffect>Mastery</a>
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('mastery')}" *ngIf="vapaee.logged">
+                <a class="nav-link waves-light" routerLink="/mastery" mdbWavesEffect>Mastery</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('games')}" >
-              <a class="nav-link waves-light" routerLink="/games" mdbWavesEffect>Games</a>
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('games')}" *ngIf="vapaee.logged">
+                <a class="nav-link waves-light" routerLink="/games" mdbWavesEffect>Games</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" >
-              <a class="nav-link waves-light" routerLink="/market" mdbWavesEffect>Market</a>
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.logged">
+                <a class="nav-link waves-light" routerLink="/market" mdbWavesEffect>Market</a>
           </li>
 
           <!-- Dropdown 

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Todo {
     title: string;
@@ -17,9 +19,11 @@ export abstract class Dependencia {
 export class CntService {
     public ready: boolean = false;
     public afterReady: Promise<void> = null;
+    public cards: any[];
 
-
-    constructor() { }
+    constructor(private http: HttpClient) {
+        this.cards = [];
+    }
 
     init(coso:Dependencia) {
         this.afterReady = new Promise((resolve, reject) => {
@@ -27,172 +31,42 @@ export class CntService {
         });
     }
 
-    getStructure() {
+    fetchCard(id:string) {
         return new Promise((resolve, reject) => {
             // resolve(this.test_scroll);
             // resolve(this.test_video);
             // resolve(this.test_md);
-            resolve(this.test_menu);
+            // resolve(this.test_menu);
+            if (id.substr(0,4) == "test") {
+                var file = "./assets/cards/" + id + ".json";
+                this.getJSON(file).then(data => {
+                    resolve(data);
+                }).catch(er => {
+                    console.error("ERROR: file not found: " + file);
+                });
+            } else if (id.substr(0,8) == "landing-") {
+                var file = "./assets/cards/landing/" + id.substr(8) + ".json";
+                this.getJSON(file).then(data => {
+                    resolve(data);
+                }).catch(er => {
+                    console.error("ERROR: file not found: " + file);
+                });
+            } else {
+                alert("No se encuentra el id: " + id);
+            }
         });
     }
 
-    public test_scroll = {
-        comp:"root",
-        children: [{
-            comp:"row-three",
-            data: {
-                "header": { "min-height": "10vh" },
-                "footer": { "min-height": "6vh" },
-            },
-            children: [
-                {
-                    comp: "background",
-                    data: {
-                        "image": {
-                            "url": "/assets/prueba.png",
-                            "position": "center", // "center" | "left" | "right" | "top" | "bottom"
-                            "repeat": "no-repeat", // "round" | "repeat" | "no-repeat",
-                            "size": "cover" // "contain" | "cover"
-                        }
-                    },
-                    children: [ { comp: "place-holder", data:{text:"header"} } ]
-                },
-                {
-                    comp: "scrolleable",
-                    children: [ { comp: "place-holder", data: { text: "scrolleable", largetext: true, mediumtext: false }, } ]
-                },
-                {
-                    comp: "background",
-                    data: { color: "darkgreen" },
-                    children: [ { comp: "place-holder", data:{text:"footer"} } ]
-                }
-            ]
-        }]
-    };
+    getAllCards() {
+        return this.http.get("http://api.cardsandtokens.com/card").toPromise().then(result => {
+            this.cards = <any[]>(<any>result).card;
+            return this.cards;
+        });
+    }
 
-    public test_video = {
-        comp:"root",
-        children: [{
-            comp:"row-three",
-            data: {
-                "header": { "min-height": "10vh" },
-                "footer": { "min-height": "6vh" },
-            },
-            children: [
-                {
-                    comp: "background",
-                    data: {
-                        color:"#2A247B",
-                        fgcolor:"white",
-                        image: {
-                            "url": "/assets/prueba.png",
-                            "position": "center", // "center" | "left" | "right" | "top" | "bottom"
-                            "repeat": "no-repeat", // "round" | "repeat" | "no-repeat",
-                            "size": "cover" // "contain" | "cover"
-                        }
-                    },
-                    children: [ { comp: "place-holder", data:{text:"header"} } ]
-                },
-                {
-                    comp: "video",
-                    data: {
-                        youtube: {
-                            videoId: "Y0MuVQV0W0w",
-                            autoplay: false
-                        }
-                    }
-                },
-                {
-                    comp: "background",
-                    data: { color: "darkgreen" },
-                    children: [ { comp: "place-holder", data:{text:"footer"} } ]
-                }
-            ]
-        }]
-    };
+    public getJSON(file) {
+        console.log("getJSON()", file);
+        return this.http.get(file).toPromise();
+    }
 
-    public test_md = {
-        comp:"root",
-        children: [{
-            comp:"row-three",
-            data: {
-                "header": { "min-height": "10vh" },
-                "footer": { "min-height": "6vh" },
-            },
-            children: [
-                {
-                    comp: "background",
-                    data: { color:"#2A247B", fgcolor:"white" }                    
-                },
-                {
-                    comp: "markdown",
-                    data: {
-                        markdown: "# Markdown\n```typescript\n   const myProp: string = 'value';\n```\n"
-                    }
-                },
-                {
-                    comp: "background",
-                    data: { color: "darkblue" }
-                }
-            ]
-        }]
-    };
-
-    public test_menu = {
-        comp:"root",
-        children: [{
-            comp:"row-three",
-            data: {
-                "header": { "min-height": "10vh" },
-                "footer": { "min-height": "6vh" },
-            },
-            children: [
-                {
-                    comp: "background",
-                    data: { color:"#2A247B", fgcolor:"white"},
-                    children: [
-                        {
-                            comp: "menu",
-                            data: {
-                                menu: [
-                                    {
-                                        text: "Section A",
-                                        section: "main",
-                                        value: "A"
-                                    },
-                                    {
-                                        text: "Section B",
-                                        section: "main",
-                                        value: "B"
-                                    },
-                                    {
-                                        text: "Section C",
-                                        section: "main",
-                                        value: "C"
-                                    }
-                                ]
-                            }
-                        }
-                    ]                    
-                },
-                {
-                    comp: "section",
-                    data: {
-                        name: "main",
-                        current: "B",
-                        sections: ["A", "B", "C"]
-                    },
-                    children: [
-                        { comp: "place-holder", data:{text:"Section A"} },
-                        { comp: "place-holder", data:{text:"Section B"} },
-                        { comp: "place-holder", data:{text:"Section C"} }
-                    ]
-                },
-                {
-                    comp: "background",
-                    data: { color: "darkblue" }
-                }
-            ]
-        }]
-    };       
 }

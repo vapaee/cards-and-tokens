@@ -1,17 +1,40 @@
 <?php
 
+
 // -----------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------
 // API: Cards & Tokens  --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------
 
-function putHeaders() {
-    header('Allow: POST, GET, OPTIONS, PUT, DELETE'); 
-    header('Access-Control-Allow-Origin: *');
-    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-    header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE'); 
-}
+$app->get("/", function() use ($app) {
+    return json_encode(array(
+        "API" => "Cards & tokens",
+        "version" => "0.1"
+    ));
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -----------------------------------------------------------------------------------------------
+// API: Cards & Tokens (DEPRECATED) --------------------------------------------------------------------------
+/*
 
 $app->get("/update_experience_points/{exp_id}", function($exp_id) use ($app) {
     $result = updateExperiencePoints($exp_id, null, null, $app);
@@ -97,7 +120,7 @@ function updateExperiencePoints($_experience, $_mastery, $_effects, $app) {
     ));
     
     
-    /*
+    / *
     
    
     - iterar sobre los attr del spec del mastery
@@ -121,7 +144,7 @@ function updateExperiencePoints($_experience, $_mastery, $_effects, $app) {
           - $points[$attr["namespace"]]['level'] = $lvl['lvl'];
 
 
-    */
+    * /
     
     return $experience;
 }
@@ -211,14 +234,14 @@ $app->get('/userdata', function() use ($app) {
 function subscribeApp($credentials, $app_id, $app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace.subscribeApp($app_id)");
-    /*
+    / *
     + primero preguntar si no hay un inventory con el owner en userid y app $app_id
     + si no hay entonces
       
       + crear un inventario con owner: userid, app:$app_id
       - traer todos los mastery
       - por cada mastery, crear un experience con todo en cero y owner: userid, app:$app_id
-    */
+    * 
     $user_id = $credentials["user"]["id"];
     $mas_select = array("app" => $app_id);
     $inv_select = array("owner" => $user_id, "app" => $app_id);
@@ -328,15 +351,17 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
     return $user;
 });
 
-
-
-
-
 // -----------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------
 // API: Cards & Tokens - Trade Market  -----------------------------------------------------------
 // -----------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------
-
+*/
+function putHeaders() {
+    header('Allow: POST, GET, OPTIONS, PUT, DELETE'); 
+    header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+    header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE'); 
+}
 
 putHeaders();
