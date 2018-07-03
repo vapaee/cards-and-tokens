@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { DataService } from './data.service';
 
 export interface Todo {
     title: string;
@@ -21,7 +22,7 @@ export class CntService {
     public afterReady: Promise<void> = null;
     public cards: any[];
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private data: DataService) {
         this.cards = [];
     }
 
@@ -58,10 +59,15 @@ export class CntService {
     }
 
     getAllCards() {
+        this.data.getAll("card").then(e => {
+            console.log("getAllCards() -------------> ", e);
+        });
+        /*
         return this.http.get("http://api.cardsandtokens.com/card").toPromise().then(result => {
             this.cards = <any[]>(<any>result).card;
             return this.cards;
         });
+        */
     }
 
     public getJSON(file) {
