@@ -17,4 +17,10 @@ export class CardsPage implements OnInit {
     ngOnInit() {
     }
 
+    deployCard(slug, e) {
+        console.log("deployCard()", slug, e);
+        var img:HTMLImageElement = e.target;
+        this.cnt.deployCard(slug, img);
+    }
+    
 }

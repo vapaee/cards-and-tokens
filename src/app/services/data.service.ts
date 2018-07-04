@@ -133,9 +133,9 @@ export class DataService {
                     console.error("ERROR: no sach method ", method);
             }
 
-            promise.then((e) => {
-                console.debug("------------------>" , path, e.data);
-                console.assert(typeof this.request[path].resolve == "function", JSON.stringify(this.request), path);
+            promise.then((data) => {
+                console.debug("------------------>" , path, data);
+                console.assert(typeof this.request[path].resolve == "function");
                 
                 var Data = this;
                 var _proccess = function (_table, _data) {
@@ -152,19 +152,19 @@ export class DataService {
                 }
 
                 if (omited_table) {
-                    var __data = {}; __data[omited_table] = e.data;
+                    var __data = {}; __data[omited_table] = data;
                     _proccess(omited_table, __data);
                 } else {
-                    for (var table in e.data) {
-                        _proccess(table, e.data);
+                    for (var table in data) {
+                        _proccess(table, data);
                     }
                 }
-                this.request[path].resolve(e.data);
-                delete this.request;
+                this.request[path].resolve(data);
+                delete this.request[path];
             }).catch((e) => {
                 console.error(e);
                 this.request[path].reject(e);
-                delete this.request;
+                delete this.request[path];
                  // ["defer:"+path].reject(e);
             });
         }
@@ -173,7 +173,7 @@ export class DataService {
     }
 
     request_promise (method, path, obj?, omited_table?) {
-        return new Promise((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             this.make_request(method, path, obj, omited_table).then(function (a) {
                 // console.debug("se resolvio" , method, path, obj, "-->", a);
                 resolve(a);
@@ -232,7 +232,7 @@ export class DataService {
         return this.request_promise('GET',url,null,table);
     }
 
-    select (table, conditions, params) {
+    select (table, conditions, params?) {
         // console.log("select()", [table, conditions, params]);
         var url = table;
         url += "?select="+encodeURIComponent(JSON.stringify(conditions));

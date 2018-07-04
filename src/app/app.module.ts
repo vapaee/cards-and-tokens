@@ -9,7 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { VapaeeUserService } from './services/vapaee-user.service';
 import { AppService } from './services/app.service';
-import { CntService } from './services/cnt.service';
+import { CntService, CardDeploy } from './services/cnt.service';
 import { ComponentService } from './deploy/comp/component.service';
 
 
@@ -36,6 +36,7 @@ import { MarkDownComponent } from './deploy/comp/markdown/markdown.component';
 import { SectionComponent } from './deploy/comp/section/section.component';
 import { MenuComponent } from './deploy/comp/menu/menu.component';
 import { FloatComponent } from './deploy/comp/float/float.component';
+import { DomService } from './services/dom.service';
 
 
 
@@ -89,7 +90,8 @@ const routes: Routes = [
     MarkDownComponent,
     SectionComponent,
     MenuComponent,
-    FloatComponent
+    FloatComponent,
+    CardDeploy
   ],
   entryComponents: [
     RootComponent,
@@ -101,7 +103,8 @@ const routes: Routes = [
     MarkDownComponent,
     SectionComponent,
     MenuComponent,
-    FloatComponent
+    FloatComponent,
+    CardDeploy
   ],
   imports: [
     BrowserModule,
@@ -120,7 +123,8 @@ const routes: Routes = [
     AppService,
     ComponentService,
     HttpClient,
-    CookieService
+    CookieService,
+    DomService
   ],
   bootstrap: [AppComponent]
 })

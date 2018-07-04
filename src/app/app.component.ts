@@ -13,7 +13,7 @@ export class AppComponent {
 
     constructor(public vapaee: VapaeeUserService, public app: AppService, public cnt: CntService) {
         this.app.init(this);
-        this.cnt.init(null);
+        this.cnt.init(this.app.device);
     }
 
     ngOnInit() {
