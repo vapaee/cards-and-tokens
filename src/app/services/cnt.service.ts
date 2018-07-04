@@ -95,21 +95,7 @@ export class CntService {
         this.waitReady.then(() => {
             this.fetchCard(slug).then(card => {
                 this.deploy = card;
-                this.deploy.style = {
-                    /*
-                    "top": (this.device.height*0.45) + "px",
-                    "left": (this.device.width*0.45) + "px",
-                    "bottom": (this.device.height*0.45) + "px",
-                    "right": (this.device.width*0.45) + "px",
-                    "position": "fixed",
-                    "display": "block",
-                    "opacity": "0",
-                    "background-color": "#131313",
-                    "transition-duration": "1s",
-                    "transition-property": "all",
-                    "transition-timing-function": "ease-in-out"
-                    */
-                };
+                this.deploy.style = {};
                 
                 this.deploy.closebtn = {};
                 this.deploy.closebtn.style = {
@@ -174,14 +160,14 @@ export class CntService {
 
 
                 this.timers[0] = setTimeout(() => {
-                    // 370 520
+                    alert("VA");
                     var W = 370;
                     var H = 520;
                     this.deploy.front.style.top = (this.device.height-H)*0.5 + "px";
                     this.deploy.front.style.left = (this.device.width-W)*0.5 + "px";
                     this.deploy.front.style.height = H + "px";
                     this.deploy.front.style.width = W + "px";
-                }, 10);
+                }, 50);
     
                 this.timers[1] = setTimeout(() => {
                     // ponemos visible detrás de la carta #helper el card visionarios bien chiquito.
@@ -235,7 +221,7 @@ export class CntService {
 @Component({
     selector: 'card-deploy',
     template: `
-    <div *ngIf="cnt.deploy" [ngStyle]="cnt.deploy.style">
+    <div *ngIf="cnt.deploy">
         <div class="body" [ngStyle]="cnt.deploy.body.style">
             <div class="contenedor embed-responsive" [ngStyle]="cnt.deploy.frame.style">
                 <iframe [src]="cnt.deploy.frame.src" class="embed-responsive-item"></iframe>
