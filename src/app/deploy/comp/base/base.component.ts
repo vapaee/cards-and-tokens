@@ -11,9 +11,15 @@ import { DeployNode, ComponentHost } from "../comp";
     styleUrls: ['./base.component.scss']
 })
 */
+
+export interface ComponentServiceI {
+    createDeployTree(struct:{comp:string,children?:any[],data?:any}):DeployNode;
+}
+
 export class BaseComponent implements OnInit {
     @ViewChildren(ComponentHost) public hosts: QueryList<ComponentHost>;
     data:any = {};
+    service:ComponentServiceI;
     children:any = [];
     initResolve:(value?:void) => void;
     loadedResolve:(value?:void) => void;
@@ -40,6 +46,10 @@ export class BaseComponent implements OnInit {
         this.initResolve();
     }
 
+    setComponentService(_service:ComponentServiceI) {
+        this.service = _service;
+    }
+
     loadStructure(structure: DeployNode) {
         console.log("loadStructure()", structure);
         this.data = structure.data;
@@ -52,8 +62,11 @@ export class BaseComponent implements OnInit {
                 let host = this.hosts.toArray()[i];
                 let componentFactory = this.componentFactoryResolver.resolveComponentFactory(child.component);
                 let componentRef = host.view.createComponent(componentFactory);
-                (<BaseComponent>componentRef.instance).loadStructure(child);
+                let instance: BaseComponent= <BaseComponent>componentRef.instance;
+                instance.setComponentService(this.service);
+                instance.loadStructure(child);
             }    
         });
     }
+
 }

@@ -9,34 +9,34 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-    selector: 'deploy-page',
-    templateUrl: './deploy.page.html',
-    styleUrls: ['./deploy.page.scss']
+    selector: 'deploy-card-page',
+    templateUrl: './deploy-card.page.html',
+    styleUrls: ['./deploy-card.page.scss']
 })
-export class DeployPage implements OnInit {
+export class DeployCardPage implements OnInit {
     @ViewChild(ComponentHost) public main: ComponentHost;
 
     constructor(
         public vapaee: VapaeeUserService,
         public app: AppService, 
         public cnt: CntService, 
-        public comp: ComponentService, 
-        private cfResolver: ComponentFactoryResolver,
+        public comp: ComponentService,
         private route: ActivatedRoute
     ) {
     }
 
     ngOnInit() {
 
+        var slug = this.route.snapshot.paramMap.get('slug');
 
-        var id = this.route.snapshot.paramMap.get('id');
-
-        this.cnt.fetchCard(id).then(card => {
-            let structure: DeployNode = this.comp.createDeployTree(card);
+        this.cnt.getCardBySlug(slug).then(card => {
+            this.comp.createAndDeployTree(card, this.main.view);
+            /*
             console.log("Deploying:", structure);
             let compFactory = this.cfResolver.resolveComponentFactory(structure.component);
             let compRef = this.main.view.createComponent(compFactory);
             (<BaseComponent>compRef.instance).loadStructure(structure);
+            */
         });
     }
 

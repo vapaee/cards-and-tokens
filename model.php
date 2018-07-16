@@ -53,9 +53,55 @@ $DATA = array (
         "card" => array(
             "slug" => array("type" => "varchar(150)"),
             "text" => array( "type" => "json" ),
-            "images" => array( "type" => "json" ),
+            "preview" => array( "type" => "json" ),
             "deploy" => array( "type" => "json", "detail" => true )
-        )
+        ),
+        // ------------------
+        "album" => array( // especificación
+            "publisher" => array( "type" => "publisher" ),
+            "slug" => array( "type" => "varchar(150)" ),
+            "creator" => array( "type" => "user" ),
+            "numbered" => array( "type" => "boolean" ),
+            "preview" => array( "type" => "json" ),
+            "deploy" => array( "type" => "json", "detail" => true )
+        ),        
+        "collection" => array( // instancia de album
+            "_extends" => "container",
+            "album" => array( "type" => "album" ),
+            "owner" => array( "type" => "user" )
+        ),        
+        // ------------------     
+        "container" => array( // instancia de album
+            "owner" => array( "type" => "user" ),
+            "capacity" => array( "type" => "user" ),
+            "structure" => array( "type" => "json" ),
+            "structure_def" => array( "type" => "json" ),
+        ),
+        "inventory" => array( //
+            "_extends" => "container",
+            // tuve q repetir el owner acá para poder consultar con el app y el owner a la vez
+            "owner" => array( "type" => "user" )
+        ),
+        "item" => array(
+            "owner" => array( "type" => "user" ),
+            "cols" => array( "type" => "int(8)" ),
+            "rows" => array( "type" => "int(8)" ),
+            "container" => array( "type" => "container" )
+        ),
+        "copy" => array(
+            "_extends" => "item",
+            "multiplicity" => array( "type" => "int(32)" ),
+            "collectible" => array("type" => "card")
+        ),
+        "deck" => array(
+            "_extends" => "container",
+            "prueba" => array( "type" => "varchar(128)" ),
+        ),
+        "envelop" => array(
+            "_extends" => "item",
+            "deck" => array( "type" => "deck" ),
+            "opened" => array( "type" => "boolean" ),
+        ),
     ),
     
     "calculated" => array(

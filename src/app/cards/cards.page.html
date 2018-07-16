@@ -1,6 +1,6 @@
 <div class="container margin-top-lg">
-    <div class="cnt-card cursor-pointer inline-block" *ngFor="let card of cnt.cards" (click)="deployCard(card, $event)">
-        <img [src]="card.images.thumbnail">
+    <div class="cnt-card cursor-pointer inline-block margin" *ngFor="let card of cnt.cards" (click)="deployCard(card, $event)">
+        <img width="140" height="197" [id]="card.slug" [src]="card.preview.images.thumbnail">
     </div>
     <!--hr>
     <pre>{{cnt.deploy|json}}</pre-->

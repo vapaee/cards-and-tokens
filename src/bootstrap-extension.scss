@@ -223,6 +223,9 @@ th.left-aligned, td.left-aligned {
 .position-absolute { position: absolute; }
 .position-fixed { position: fixed; }
 .inline-block { display: inline-block; }
+.display-inline-block { display: inline-block; }
+.display-block { display: block; }
+.display-flex { display: flex; }
 .vertical-align-top { vertical-align: top; }
 .vertical-align-middle { vertical-align: middle; }
 .vertical-align-baseline { vertical-align: baseline; }

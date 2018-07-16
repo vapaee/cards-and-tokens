@@ -36,7 +36,6 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
                 style["color"] = this.data.fgcolor;
             }
             if (this.data.image) {
-                
                 if (this.data.image.url) {
                     style["background-image"] = "url(" + this.data.image.url + ")";
                 }
@@ -49,7 +48,24 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
                 if (this.data.image.size) {
                     style["background-size"] = this.data.image.size;
                 }
+                if (this.data.image["blend-mode"]) {
+                    style["background-blend-mode"] = this.data.image["blend-mode"];
+                }
             }
+            if (this.data.gradient) {
+                var gradient = " -webkit-linear-gradient("
+                // top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.64) 100%)";
+                // top, left, -45deg
+                gradient += this.data.gradient.dir;
+                for (var i=0; i<this.data.gradient.points.length; i++) {
+                    var point = this.data.gradient.points[i];
+                    gradient += "," + point.color + " " + point.percent + "%";
+                }
+                gradient += ")";
+
+                style["background-image"] = style["background-image"] +
+                ", " + gradient;                
+            }            
         }
         return style;
     }

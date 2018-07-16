@@ -103,9 +103,10 @@ export class DataService {
     }    
 
     make_request (method, path, obj, omited_table) {
-            
+        console.log("Data.make_request("+method+", "+path+", "+omited_table+")");
         if (this.request[path]) {
-            // console.log("Data.make_request("+method+", "+path+", "+omited_table+") tengo promise");
+            console.log("Data.make_request("+method+", "+path+", "+omited_table+") tengo promise !!!!!!!!!!!!!!!");
+            
         } else {
             var res = null;
             var rej = null;
@@ -205,7 +206,7 @@ export class DataService {
         return this.getByPk(table, id, params);
     }
 
-    getByPk (table, id, params, use_cache?) {
+    getByPk (table, id, params?, use_cache?) {
         if (typeof id != "number") if (typeof parseInt(id) != "number") console.warn("WARNING: me pasaste un id que no es un número", table, id);
         var url = table+"/"+id;
         if (params) {

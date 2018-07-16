@@ -19,9 +19,11 @@ import { ProfilePage } from './profile/profile.page';
 import { CommingSoonPage } from './comming-soon/comming-soon.page';
 import { NotFoundPage } from './not-found/not-found.page';
 import { LoadingPage } from './loading/loading.page';
-import { DeployPage } from './deploy/deploy.page';
+import { DeployCardPage } from './deploy/deploy-card.page';
+import { DeployAlbumPage } from './deploy/deploy-album.page';
 import { RootPage } from './root/root.page';
 import { EditorPage } from './editor/editor.page';
+import { AlbumsPage } from './albums/albums.page';
 
 
 import { ComponentHost } from './deploy/comp/comp';
@@ -37,6 +39,7 @@ import { SectionComponent } from './deploy/comp/section/section.component';
 import { MenuComponent } from './deploy/comp/menu/menu.component';
 import { FloatComponent } from './deploy/comp/float/float.component';
 import { DomService } from './services/dom.service';
+import { AlbumComponent } from './deploy/comp/album/album.component';
 
 
 
@@ -44,19 +47,24 @@ import { DomService } from './services/dom.service';
 
 
 const routes: Routes = [
-  { path: 'deploy/:id',    data: { state: "deploy" }, component: DeployPage },
+  { path: 'embedded/card/:slug',    data: { state: "embedded-card" }, component: DeployCardPage },
+  { path: 'embedded/album/:slug',    data: { state: "embedded-album" }, component: DeployAlbumPage },
   { path: 'loading',   data: { state: "loading" }, component: LoadingPage },
   { path: '',          data: { state: "root" }, component: RootPage,
     children: [
         { path: 'home',      data: { state: "home" }, component: HomePage },
         { path: 'cards',     data: { state: "cards",  logged: false }, component: CardsPage },
         { path: 'profile',   data: { state: "profile", logged: true }, component: ProfilePage },
-        { path: 'albums',    data: { state: "albums", logged: false }, component: CommingSoonPage },
+        { path: 'albums',    data: { state: "albums", logged: false }, component: AlbumsPage },
         { path: 'editor',    data: { state: "editor", logged: true }, component: EditorPage },
         { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonPage },
         { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonPage },
         { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonPage },
         { path: 'games',     data: { state: "games", logged: true }, component: CommingSoonPage },
+        { path: 'deploy/card/:slug',
+            data: { state: "deploy-card",  logged: false }, component: CardsPage },
+        { path: 'deploy/album/:slug',
+            data: { state: "deploy-album",  logged: false }, component: AlbumsPage },
         { path: '',
             redirectTo: '/home',
             pathMatch: 'full',
@@ -77,7 +85,8 @@ const routes: Routes = [
     NotFoundPage,
     CommingSoonPage,
     LoadingPage,
-    DeployPage,
+    DeployCardPage,
+    DeployAlbumPage,
     RootPage,
     EditorPage,
     ComponentHost,
@@ -91,7 +100,9 @@ const routes: Routes = [
     SectionComponent,
     MenuComponent,
     FloatComponent,
-    CardDeploy
+    CardDeploy,
+    AlbumsPage,
+    AlbumComponent
   ],
   entryComponents: [
     RootComponent,
@@ -104,6 +115,7 @@ const routes: Routes = [
     SectionComponent,
     MenuComponent,
     FloatComponent,
+    AlbumComponent,
     CardDeploy
   ],
   imports: [
