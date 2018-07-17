@@ -5,10 +5,10 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable()
 export class VapaeeUserService {
 
-    foreign_token: string;
-    vapaee_client_id: string;
-    access_token: string;
-    refresh_token: string;
+    public foreign_token: string;
+    public vapaee_client_id: string;
+    public access_token: string;
+    public refresh_token: string;
     public user_id: Number;
     public user_name: string;
     public logged: boolean = false;
@@ -35,9 +35,9 @@ export class VapaeeUserService {
                 var URL = "http://accounts.vapaee.com/index.php?route=extension/module/oauth/endpoint/useforeign";
                 var url = URL + "&foreign_token="+this.foreign_token+"&client_id="+this.vapaee_client_id+"&redirect="+current_url;
                 this.http.get(url).subscribe(result => {
-                    console.log('------------------');
+                    console.log('--------- user ---------');
                     console.log(result);
-                    console.log('------------------');
+                    console.log('------------------------');
                     this.logged = result["logged"];
                     if (this.logged) {
                         this.access_token = result["access_token"];

@@ -1,6 +1,6 @@
 <div class="container margin-top-lg" *ngIf="!deploy">
     <div class="cnt-card cursor-pointer inline-block margin" *ngFor="let album of cnt.albums" [routerLink]="'/deploy/album/'+album.slug" mdbWavesEffect>
-        <img width="200" height="240" [id]="album.slug" [src]="album.preview.images.thumbnail">
+        <img width="200" height="240" [id]="album.slug" [src]="album.preview.images.thumbnail" class="hide-at-work">
     </div>
 </div>
 
@@ -9,6 +9,4 @@
         [src]="getAlbumUrl()"
         class="flex-grow no-border">
     </iframe>
-
-    <!--  -->
 </div>

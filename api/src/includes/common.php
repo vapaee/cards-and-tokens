@@ -59,9 +59,8 @@ function check_vapaee_user() {
 
     $parts = explode("/", $_SERVER["REQUEST_URI"]);
     $file = $parts[sizeof($parts)-1];
-    trace("$basename.check_vapaee_user() FILE NOT FOUND: " . $file);
     if (strpos($file, '.') !== false) {
-        // trace("$basename.check_vapaee_user() FILE NOT FOUND: " . $file);
+        trace("$basename.check_vapaee_user() FILE NOT FOUND: " . $file);
         header("HTTP/1.0 404 Not Found");
         die();
     }

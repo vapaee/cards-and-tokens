@@ -8,6 +8,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { VapaeeUserService } from './services/vapaee-user.service';
+import { UserdataService } from './services/userdata.service';
 import { AppService } from './services/app.service';
 import { CntService, CardDeploy } from './services/cnt.service';
 import { ComponentService } from './deploy/comp/component.service';
@@ -131,6 +132,7 @@ const routes: Routes = [
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
     VapaeeUserService,
+    UserdataService,
     CntService,
     AppService,
     ComponentService,

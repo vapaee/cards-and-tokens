@@ -18,3 +18,7 @@ body, html, app-root {
 .flex-grow {
     flex-grow: 1;
 }
+
+body.hide-at-work .hide-at-work {
+    opacity: 0;   
+}

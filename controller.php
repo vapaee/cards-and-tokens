@@ -21,6 +21,24 @@ $app->get("/", function() use ($app) {
 
 
 
+$app->get('/userdata', function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace GET '/userdata'");
+    putHeaders();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $access_token = $_GET["access_token"];
+        $result = verifyAccessToken($access_token, $app);
+        // trace("cnt./userdata -> verifyAccessToken devolvio: ", $result);
+        if ($result) {
+            $userdata = getUserdata($result, $app);
+            return json_encode($userdata);
+        } else {
+            return json_encode(autenticationError());
+        }
+    }
+    
+});
 
 
 

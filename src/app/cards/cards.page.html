@@ -1,6 +1,6 @@
 <div class="container margin-top-lg">
     <div class="cnt-card cursor-pointer inline-block margin" *ngFor="let card of cnt.cards" (click)="deployCard(card, $event)">
-        <img width="140" height="197" [id]="card.slug" [src]="card.preview.images.thumbnail">
+        <img width="140" height="197" [id]="card.slug" [src]="card.preview.images.thumbnail" class="hide-at-work">
     </div>
     <!--hr>
     <pre>{{cnt.deploy|json}}</pre-->
