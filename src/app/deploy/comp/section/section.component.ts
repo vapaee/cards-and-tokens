@@ -44,7 +44,7 @@ export class SectionComponent extends BaseComponent implements OnInit, SectionI 
         this.children = structure.children;
         console.assert(Array.isArray(this.data.sections), "ERROR: Section data.sections missing or is not an Array. Got ", typeof this.data.sections, this.data.sections);
         this.data.current = this.data.current || this.data.sections[0];
-        this.section.registerSection(this.data.name, this.data.current, this);
+        this.section.registerSection(this.data.name, this.data.current, this.data.sections, this);
         this.loadedResolve();
         this.section.setSection(this.data.name, this.data.current);
     }

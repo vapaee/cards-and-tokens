@@ -41,6 +41,7 @@ import { MenuComponent } from './deploy/comp/menu/menu.component';
 import { FloatComponent } from './deploy/comp/float/float.component';
 import { DomService } from './services/dom.service';
 import { AlbumComponent } from './deploy/comp/album/album.component';
+import { SlotComponent } from './deploy/comp/slot/slot.component';
 
 
 
@@ -103,7 +104,8 @@ const routes: Routes = [
     FloatComponent,
     CardDeploy,
     AlbumsPage,
-    AlbumComponent
+    AlbumComponent,
+    SlotComponent
   ],
   entryComponents: [
     RootComponent,
@@ -117,7 +119,8 @@ const routes: Routes = [
     MenuComponent,
     FloatComponent,
     AlbumComponent,
-    CardDeploy
+    CardDeploy,
+    SlotComponent
   ],
   imports: [
     BrowserModule,

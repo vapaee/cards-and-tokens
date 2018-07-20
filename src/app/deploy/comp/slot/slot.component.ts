@@ -4,20 +4,22 @@ import { VapaeeUserService } from '../../../services/vapaee-user.service';
 import { AppService } from '../../../services/app.service';
 import { CntService } from '../../../services/cnt.service';
 import { SectionService } from '../section/section.service';
+import { AlbumService } from '../album/album.service';
 
 @Component({
-    selector: 'menu-comp',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss']
+    selector: 'slot-comp',
+    templateUrl: './slot.component.html',
+    styleUrls: ['./slot.component.scss']
 })
-export class MenuComponent extends BaseComponent implements OnInit {
+export class SlotComponent extends BaseComponent implements OnInit {
     
     constructor(
         public vapaee: VapaeeUserService,
         public app: AppService, 
         public cnt: CntService,
         private cfResolver: ComponentFactoryResolver,
-        private section: SectionService
+        private section: SectionService,
+        private album: AlbumService
     ) {
         super(vapaee, app, cnt, cfResolver);
 
@@ -26,7 +28,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
 
     public init() {
         this.waitReady.then(() => {
-            console.log("MenuComponent data", this.data);
+            
         });
     }
 
@@ -37,17 +39,19 @@ export class MenuComponent extends BaseComponent implements OnInit {
     }
 
     public onMenuEntry(entry:any) {
-        if (entry.section && entry.value) {
-            this.section.setSection(entry.section, entry.value);
-        }
-        if (entry.section && entry.move) {
-            if (entry.move > 0) {
-                this.section.nextSection(entry.section);
-            } else {
-                this.section.prevSection(entry.section);
-            }
-            
-        }
+        
+        // this.album.HacerAlgo(data)
+
+        // si está en modo "view" simplemente despliega la carta que esté en ese slot
+        // si está en modo "fill" y tiene una carta, la regresa al inventario? startDragging?
+        
     }
 
 }
+
+
+/*
+  - hay que pensar si conviene registrar cada una de las cartas (al crearse la página, acordate que se crean y destruyen a demanda)
+  - 
+
+*/
