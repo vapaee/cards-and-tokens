@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular
 import { VapaeeUserService } from "../services/vapaee-user.service";
 import { AppService } from "../services/app.service";
 import { CntService } from "../services/cnt.service";
-import { DeployNode, ComponentHost} from "./comp/comp";
+import { ComponentHost} from "./comp/comp";
 import { ComponentService } from "./comp/component.service";
-import { BaseComponent } from './comp/base/base.component';
 import { ActivatedRoute } from '@angular/router';
+import { UserdataService } from '../services/userdata.service';
 
 
 @Component({
@@ -20,8 +20,8 @@ export class DeployAlbumPage implements OnInit {
         public vapaee: VapaeeUserService,
         public app: AppService, 
         public cnt: CntService, 
-        public comp: ComponentService, 
-        private cfResolver: ComponentFactoryResolver,
+        public comp: ComponentService,
+        public userdata: UserdataService,
         private route: ActivatedRoute
     ) {
     }
@@ -32,6 +32,16 @@ export class DeployAlbumPage implements OnInit {
 
         this.cnt.fetchAlbum(slug).then(album => {
             this.comp.createAndDeployTree(album, this.main.view);
+            
+
+            this.userdata.afterReady.then(() => {
+                /*
+                - primero no se bien de donde sacar el dato. Si de userdata o de cnt
+                - tengo que resolver una estructura que me diga en que slot hay una carta y cual
+                - tengo que usar el servicio AlbumService para que cargue la estructura con cartas
+                
+                */
+            });
         });
     }
 

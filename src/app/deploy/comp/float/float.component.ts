@@ -23,7 +23,10 @@ export class FloatComponent extends BaseComponent implements OnInit {
     }
 
     public init() {
-        this.waitReady.then(() => {
+        this.waitLoaded.then(() => {
+            if (this.data.style && !this.data.positions) {
+                this.data.positions = [this.data.style];
+            }
             console.log("FloatComponent data", this.data);
         });
     }
@@ -32,10 +35,6 @@ export class FloatComponent extends BaseComponent implements OnInit {
         return {
 
         };
-    }
-
-    get getStyle(): any {
-        return this.data.style
     }
 
 }
