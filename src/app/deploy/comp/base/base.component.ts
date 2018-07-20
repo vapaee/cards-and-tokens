@@ -56,10 +56,24 @@ export class BaseComponent implements OnInit {
         this.children = structure.children;
         this.loadedResolve();
         this.waitReady.then(() => {
-            console.assert(this.hosts.length >= structure.children.length, "ERROR: wrong structure children length. Expected ", this.hosts.length, "got ", structure.children.length);
+            console.assert(this.hosts.length >= structure.children.length || this.data.reusehost,
+                "ERROR: wrong structure children length. Expected ",
+                this.hosts.length,
+                "got ",
+                structure.children.length,
+                structure.children);
+
             for (let i in structure.children) {
                 let child = structure.children[i];
-                let host = this.hosts.toArray()[i];
+                let hostarray = this.hosts.toArray();
+                // ---------------------------
+                // para usar la capacidad de poner más de un hijo en el mismo host incluirlo en la data programáticamente así:
+                // "data": Object.assign({reusehost:true}, obj.data),
+                let host = hostarray[0];
+                if (!this.data.reusehost) {
+                    host = hostarray[i];
+                }
+                // ---------------------------
                 let componentFactory = this.componentFactoryResolver.resolveComponentFactory(child.component);
                 let componentRef = host.view.createComponent(componentFactory);
                 let instance: BaseComponent= <BaseComponent>componentRef.instance;

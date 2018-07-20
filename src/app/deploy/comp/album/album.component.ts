@@ -42,24 +42,57 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
         console.log("loadStructure()", structure);
         this.data = structure.data;
         this.children = [];
-        console.assert(Array.isArray(this.data.pages), "ERROR: Section data.pages missing or is not an Array. Got ", typeof this.data.pages, this.data.pages);
+        console.assert(Array.isArray(this.data.pages),
+            "ERROR: Section data.pages missing or is not an Array. Got ",
+            typeof this.data.pages,
+            this.data.pages);
         this.data.current = "page-0";
         this.data.name = "album";
         var pageslist = [];
-
+        var pages:number[] = [];
         for (var i in this.data.pages) {
             pageslist.push("page-" + i);
             var page = this.data.pages[i];
-            var child = this.service.createDeployTree({
-                "comp":"background", "data": page.background
-            });
+            pages.push(this.data.pages[i].slots.length);
+            var child = this.service.createDeployTree(this.createPageChild(page));
             this.children.push(child);
         }
 
-        this.albums.registerAlbum(this);
+        this.albums.registerAlbum(this, pages);
         this.section.registerSection(this.data.name, this.data.current, pageslist, this);
         this.loadedResolve();
         this.section.setSection(this.data.name, this.data.current);
+    }
+
+    createPageChild(page: {slots:any[], background:any}) {
+        let _children:any[] = [];
+        let _positions:any[] = [];
+        for (let i=0; i<page.slots.length; i++) {
+            let position = page.slots[i].position;
+            let _child = {
+                "comp": "slot",
+                "data": {
+                    "position": position,
+                    "index": i
+                }
+            }
+            _children.push(_child);
+            _positions.push(position);
+        }
+
+        let child = {
+            "comp":"background",
+            "data": page.background,
+            "children": [{
+                "comp": "float",
+                "data": {
+                    "positions": _positions
+                },
+                "children": _children
+            }]
+        }
+
+        return child;
     }
 
     // invocado por SectionService cuando alguien cambia la sección actual.

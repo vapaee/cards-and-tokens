@@ -12,6 +12,7 @@ import { MenuComponent } from './menu/menu.component';
 import { SectionComponent } from './section/section.component';
 import { FloatComponent } from './float/float.component';
 import { AlbumComponent } from './album/album.component';
+import { SlotComponent } from './slot/slot.component';
 
 
 
@@ -37,7 +38,8 @@ export class ComponentService implements ComponentServiceI {
             "menu": MenuComponent,
             "section": SectionComponent,
             "float": FloatComponent,
-            "album": AlbumComponent
+            "album": AlbumComponent,
+            "slot": SlotComponent
         };
     }
 
@@ -55,7 +57,7 @@ export class ComponentService implements ComponentServiceI {
     public createDeployTree(struct:{comp:string,children?:any[],data?:any}):DeployNode {
         console.log("createDeployTree()", [struct]);
         console.assert(typeof struct.comp != "undefined", "ERROR: missing structure.comp", [struct]);
-        console.assert(typeof this.components[struct.comp] != "undefined", "ERROR: struct.comp? component not found", [struct]);
+        console.assert(typeof this.components[struct.comp] != "undefined", "ERROR: struct.comp? component not found", [struct], "did you forgot to include in this.components?", this.components);
         let type: Type<BaseComponent> = this.components[struct.comp];
         let depth:any[] = struct.children || [];
         let data = struct.data || {};

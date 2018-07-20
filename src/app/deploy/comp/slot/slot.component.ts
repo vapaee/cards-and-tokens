@@ -6,6 +6,13 @@ import { CntService } from '../../../services/cnt.service';
 import { SectionService } from '../section/section.service';
 import { AlbumService } from '../album/album.service';
 
+
+
+export interface SlotI {
+    // API
+    // 
+}
+
 @Component({
     selector: 'slot-comp',
     templateUrl: './slot.component.html',
@@ -38,7 +45,8 @@ export class SlotComponent extends BaseComponent implements OnInit {
         };
     }
 
-    public onMenuEntry(entry:any) {
+    public onClick(e) {
+        console.log("SlotComponent.onClick()", [e]);
         
         // this.album.HacerAlgo(data)
 
