@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { SteemService } from './steem.service';
 
 @Injectable()
 export class VapaeeUserService {
@@ -15,12 +16,49 @@ export class VapaeeUserService {
     public ready: boolean = false;
     public afterReady: Promise<void> = null;
 
-    constructor(private http: HttpClient, private cookieService: CookieService) {
+    constructor(private http: HttpClient, private cookieService: CookieService, public steem: SteemService) {
         console.log('Hello VapaeeUserService Provider');
         this.init();
+
+        /*
+        console.log("*****************************");
+        console.log("*****************************");
+        var count = 0;
+        for (var i=0; i<50; i++) {
+            var price = 5000 - (i*10);
+            // console.log(price, count, i+1);
+            count += price;
+        }
+        console.log(count, i);
+        console.log("*****************************");
+        console.log("*****************************");
+        */
+
+
+    }
+
+    logout() {
+        this.steem.logout();
+        this.init();
+        setTimeout(() => {
+            document.location.reload();
+        }, 500);
     }
 
     init() {
+        this.logged = false;
+        this.user_name = "Guest";
+        this.ready = false;
+        this.afterReady = new Promise((resolve, reject) => {
+            this.steem.waitLogged.then(() => {
+                this.logged = true;
+                this.ready = true;
+                this.user_name = this.steem.user.profile.name;
+                resolve();
+            }, reject);    
+        });
+        
+        /*
         this.afterReady = new Promise((resolve, reject) => {
             this.vapaee_client_id = this.cookieService.get('vapaee_client_id');
             this.foreign_token = this.cookieService.get('foreign_token');
@@ -55,5 +93,6 @@ export class VapaeeUserService {
                 resolve();
             }    
         });
+        */
     }
 }

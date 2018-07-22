@@ -74,6 +74,10 @@ export class AppService {
         }        
     }
 
+    navigate(path) {
+        this.router.navigate([path]);
+    }
+
     private checkRedirect() {
         console.log("app.checkRedirect()....  State: ", this.prev_state, this.state, "ready:", this.vapaee.ready);
         if (this.vapaee.ready) {

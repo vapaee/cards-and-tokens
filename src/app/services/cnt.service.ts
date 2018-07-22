@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DataService } from './data.service';
 import { DomService } from './dom.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { UserdataService } from './userdata.service';
 
 export interface Todo {
     title: string;
@@ -26,15 +27,26 @@ export class CntService {
     public card: AnyMap;
     public albums: any[];
     public album: AnyMap;
+    public specs: any[];
+    public spec: AnyMap;
     public deploy: any;
     public device: Device;
 
-    constructor(private http: HttpClient, private data: DataService, private dom: DomService, public sanitizer: DomSanitizer) {
+    constructor(
+        private http: HttpClient, 
+        private data: DataService, 
+        private dom: DomService, 
+        public userdata: UserdataService,
+        public sanitizer: DomSanitizer
+    ) {
         this.cards = [];
         this.card = {};
         this.albums = [];
         this.album = {};
+        this.specs = [];
+        this.spec = {};
         this.ready = false;
+        this.getAllSpecs();
     }
 
     init(dev:Device) {
@@ -66,6 +78,7 @@ export class CntService {
                 this.data.select("card", {
                     slug:slug
                 }, {
+                    edition:true,
                     details:true
                 }).then(data => {
                     console.assert(Array.isArray(data.card), <string>data.card);
@@ -101,19 +114,67 @@ export class CntService {
             });
         });
     }
+    
+    getUserAlbumCollection(slug) {
+        return this.userdata.afterReady.then(() => {
+            if (this.userdata.logged) {
+                for (let i in this.userdata.data.album) {
+                    let album = this.userdata.data.album[i];
+                    if (album.slug == slug) {
+                        for (let i in this.userdata.data.collection) {
+                            let coll = this.userdata.data.collection[i];
+                            if (coll.album.id == album.id) {
+                                coll.album = album;
+                                return coll;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            return {};
+        });
+    }
+
+    getAllInstances(table, name, params?) {
+        return this.data.getAll(table, params).then(result => {
+            let names = name + "s";
+            this[names] = <any[]>result[table];
+            for (var i=0; i<this[names].length; i++) {
+                var obj = this[names][i];
+                this[name][obj.id] = obj;
+            }
+            return this[names];
+        });
+    }    
 
     getAllCards() {
-        return this.data.getAll("card").then(result => {
+        return this.getAllInstances("card", "card", {"edition":true});
+        /*return this.data.getAll("card", {"edition":true}).then(result => {
             this.cards = <any[]>result.card;
             for (var i=0; i<this.cards.length; i++) {
                 var card_i = this.cards[i];
                 this.card[card_i.id] = card_i;
             }
             return this.cards;
-        });
+        });*/
+    }
+
+    getAllSpecs() {
+        return this.getAllInstances("container_spec", "spec");
+        /*return this.data.getAll("container_spec").then(result => {
+            this.specs = <any[]>result.container_spec;
+            for (var i=0; i<this.specs.length; i++) {
+                var spec_i = this.specs[i];
+                this.spec[spec_i.id] = spec_i;
+            }
+            return this.specs;
+        });*/
     }
 
     getAllAlbums() {
+        return this.getAllInstances("album", "album");
+        /*
         return this.data.getAll("album").then(result => {
             this.albums = <any[]>result.album;
             for (var i=0; i<this.albums.length; i++) {
@@ -122,6 +183,7 @@ export class CntService {
             }
             return this.albums;
         });
+        */
     }
 
     getCardBySlug(slug) {
@@ -172,12 +234,11 @@ export class CntService {
         console.log("-------------------------------------");
         
         this.waitReady.then(() => {
+            var _deploy:any = {};
+            _deploy.style = {};
             
-            this.deploy = card;
-            this.deploy.style = {};
-            
-            this.deploy.closebtn = {};
-            this.deploy.closebtn.style = {
+            _deploy.closebtn = {};
+            _deploy.closebtn.style = {
                 "z-index": "9",
                 "top": "2px",
                 "right": "0px",
@@ -189,8 +250,8 @@ export class CntService {
                 "transition-timing-function": "ease-in-out"
             }
 
-            this.deploy.front = {};
-            this.deploy.front.style = {
+            _deploy.front = {};
+            _deploy.front.style = {
                 "z-index": "11",
                 "top": img.offsetTop + "px",
                 "left": img.offsetLeft + "px",
@@ -199,14 +260,14 @@ export class CntService {
                 "position": "fixed",
                 "display": "block",
                 "background-size": "contain",
-                "background-image": "url("+card.preview.images.fullsize+"), url("+card.preview.images.thumbnail+")",
+                "background-image": "url("+card.edition.preview.images.fullsize+"), url("+card.edition.preview.images.thumbnail+")",
                 "transition-duration": "1s",
                 "transition-property": "top left height width",
                 "transition-timing-function": "ease-in-out"
             };
 
-            this.deploy.body = {};
-            this.deploy.body.style = {
+            _deploy.body = {};
+            _deploy.body.style = {
                 "z-index": "8",
                 "top": (this.device.height*0.45) + "px",
                 "left": (this.device.width*0.45) + "px",
@@ -215,15 +276,15 @@ export class CntService {
                 "position": "fixed",
                 "display": "block",
                 "opacity": "0",
-                "background-color": card.preview.colors.bg,
+                "background-color": card.edition.preview.colors.bg,
                 "transition-duration": "1s",
                 "transition-property": "top left height width opacity",
                 "transition-timing-function": "ease-in-out"
             };
-            this.deploy.frame = {
+            _deploy.frame = {
                 src: null
             };
-            this.deploy.frame.style = {
+            _deploy.frame.style = {
                 "z-index": "10",
                 "top": "30px",
                 "left": "30px",
@@ -237,54 +298,58 @@ export class CntService {
                 "transition-timing-function": "ease-in-out"                    
             }
 
+            console.log("cnt.deploy: ", this.deploy);
+
             setTimeout(() => {
                 var W = 370;
                 var H = 520;
-                this.deploy.front.style.top = (this.device.height-H)*0.5 + "px";
-                this.deploy.front.style.left = (this.device.width-W)*0.5 + "px";
-                this.deploy.front.style.height = H + "px";
-                this.deploy.front.style.width = W + "px";
+                _deploy.front.style.top = (this.device.height-H)*0.5 + "px";
+                _deploy.front.style.left = (this.device.width-W)*0.5 + "px";
+                _deploy.front.style.height = H + "px";
+                _deploy.front.style.width = W + "px";
             }, 50);
             
             setTimeout(() => {
-                this.deploy.body.style.opacity = 1;
-                this.deploy.body.style.display = "block";
+                _deploy.body.style.opacity = 1;
+                _deploy.body.style.display = "block";
             }, 1000);
             setTimeout(() => {
-                this.deploy.body.style.left = "0px";
-                this.deploy.body.style.right = "0px";
+                _deploy.body.style.left = "0px";
+                _deploy.body.style.right = "0px";
             }, 1020);
             
             setTimeout(() => {
-                this.deploy.body.style.top = "0px";
-                this.deploy.body.style.bottom = "0px";
+                _deploy.body.style.top = "0px";
+                _deploy.body.style.bottom = "0px";
                 
                 var W = 370*0.5;
                 var H = 520*0.5;
 
-                this.deploy.front.style.top = (this.device.height-H-10) + "px";
-                this.deploy.front.style.left = (this.device.width-W-10) + "px";
-                this.deploy.front.style.height = H + "px";
-                this.deploy.front.style.width = W + "px";
+                _deploy.front.style.top = (this.device.height-H-10) + "px";
+                _deploy.front.style.left = (this.device.width-W-10) + "px";
+                _deploy.front.style.height = H + "px";
+                _deploy.front.style.width = W + "px";
             }, 2000);
 
             setTimeout(() => {
                 var src = window.location.origin + "/embedded/card/" + card.slug;
                 var safeUrl:SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(src);
-                this.deploy.frame.src = safeUrl;
-                // console.log("---->", this.deploy.frame.src);
-                this.deploy.frame.style.opacity = 1;
-                this.deploy.closebtn.style.opacity = 1;
+                _deploy.frame.src = safeUrl;
+                // console.log("---->", _deploy.frame.src);
+                _deploy.frame.style.opacity = 1;
+                _deploy.closebtn.style.opacity = 1;
                 // createStatsHeader(carta.attr("id"));
             }, 3000);
             
-            this.deploy.prevhref = window.location.href;
+            _deploy.prevhref = window.location.href;
             window.history.pushState({}, "", window.location.origin + "/deploy/card/" + card.slug);
+            this.deploy = _deploy;
         });
 
     }
 
     deployAlbum(card, img:HTMLImageElement) {
+        alert("WHAT?????");
         console.log("------------ deployCard -------------");
         console.log("card: ", card);
         console.log("-------------------------------------");
@@ -317,7 +382,7 @@ export class CntService {
                 "position": "fixed",
                 "display": "block",
                 "background-size": "contain",
-                "background-image": "url("+card.preview.images.fullsize+"), url("+card.preview.images.thumbnail+")",
+                "background-image": "url("+card.edition.preview.images.fullsize+"), url("+card.edition.preview.images.thumbnail+")",
                 "transition-duration": "1s",
                 "transition-property": "top left height width",
                 "transition-timing-function": "ease-in-out"
@@ -333,7 +398,7 @@ export class CntService {
                 "position": "fixed",
                 "display": "block",
                 "opacity": "0",
-                "background-color": card.preview.colors.bg,
+                "background-color": card.edition.preview.colors.bg,
                 "transition-duration": "1s",
                 "transition-property": "top left height width opacity",
                 "transition-timing-function": "ease-in-out"

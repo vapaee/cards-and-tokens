@@ -1,19 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MarkDownComponent } from './markdown.component';
 
-describe('MarkDownComponent', () => {
-  let component: MarkDownComponent;
-  let fixture: ComponentFixture<MarkDownComponent>;
+import { SteemConnectPage } from './steem-connect.page';
+
+describe('SteemConnectPage', () => {
+  let component: SteemConnectPage;
+  let fixture: ComponentFixture<SteemConnectPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MarkDownComponent ]
+      declarations: [ SteemConnectPage ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MarkDownComponent);
+    fixture = TestBed.createComponent(SteemConnectPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

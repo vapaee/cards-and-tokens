@@ -34,11 +34,16 @@ $DATA = array (
             "expires" => array( "type" => "timestamp" ),
             "scope" => array( "type" => "varchar(80)" )
         ),
+        "oauth_steem" => array(
+            "access_token" => array( "type" => "varchar(500)" ),
+            "account" => array( "type" => "varchar(128)" ),
+            "user" => array( "type" => "user" ),
+            "expires" => array( "type" => "timestamp" )
+        ),        
         // -------------------------
         // -------------------------
         // -------------------------
         "publisher" => array(
-            "namespace" => array( "type" => "varchar(128)" ),
             "name" => array( "type" => "varchar(150)" ),
             "publisher_id" => array( "type" => "id", "calculated" => true ),
             "img" => array( "type" => "json" ),
@@ -50,11 +55,31 @@ $DATA = array (
             "owner" => array( "type" => "user" )
         ),
         // ------------------
+        "collectible" => array(
+            "publisher" => array( "type" => "publisher" ),
+            "creator" => array( "type" => "user" ),
+            "edition" => array( "type" => "edition" ), // apunta a la última edición (en la mayoría de los casos, a la única que hay)
+            "deployable" => array( "type" => "boolean" ), // card | sticker 
+            "type" => array( "type" => "varchar(10)" )  // collection | numered | ads | consumible | aura | item
+        ),        
+        "edition" => array(
+            "collectible" => array( "type" => "collectible" ),
+            "creator" => array( "type" => "user" ),
+            "url" => array( "type" => "varchar(250)" ),
+            "preview" => array( "type" => "json" ),
+            "deploy" => array( "type" => "json", "detail" => true ),
+            "released" => array( "type" => "boolean" ),
+            "released_time" => array( "type" => "timestamp" )
+        ),
+        // ------------------
+        "sticker" => array(
+            "_extends" => "collectible",
+            "text" => array( "type" => "json" ),
+        ),
         "card" => array(
+            "_extends" => "collectible",
             "slug" => array("type" => "varchar(150)"),
             "text" => array( "type" => "json" ),
-            "preview" => array( "type" => "json" ),
-            "deploy" => array( "type" => "json", "detail" => true )
         ),
         // ------------------
         "album" => array( // especificación
@@ -73,14 +98,19 @@ $DATA = array (
         // ------------------     
         "container" => array( // instancia de album
             "owner" => array( "type" => "user" ),
-            "capacity" => array( "type" => "user" ),
+            "capacity" => array( "type" => "int(8)" ),
             "structure" => array( "type" => "json" ),
-            "structure_def" => array( "type" => "json" ),
+            "spec" => array( "type" => "container_spec" )
+        ),
+        "container_spec" => array( // instancia de album
+            "name" => array( "type" => "varchar(150)" ),
+            "structure_def" => array( "type" => "json" )
         ),
         "inventory" => array( //
             "_extends" => "container",
             // tuve q repetir el owner acá para poder consultar con el app y el owner a la vez
-            "owner" => array( "type" => "user" )
+            "owner" => array( "type" => "user" ),
+            "app" => array( "type" => "app" ),
         ),
         "item" => array(
             "owner" => array( "type" => "user" ),
@@ -105,10 +135,10 @@ $DATA = array (
     ),
     
     "calculated" => array(
-        /*"publisher" => function ($e, $id, $op, $app) {
+        "publisher" => function ($e, $id, $op, $app) {
             $e["publisher_id"] = $id;
             return $e;
-        },*/
+        }
     )
 );
 

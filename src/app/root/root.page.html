@@ -65,9 +65,13 @@
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile
                 </a>
                 <a class="nav-link waves-light"
-                    href="http://accounts.vapaee.com/index.php?route=account/logout&redirect=http://cardsandtokens.com/" mdbWavesEffect>
+                    (click)="vapaee.logout()" mdbWavesEffect>
                     <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
                 </a>
+                <!--a class="nav-link waves-light"
+                    href="http://accounts.vapaee.com/index.php?route=account/logout&redirect=http://cardsandtokens.com/" mdbWavesEffect>
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                </a-->
             </div>
         </li>
         <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged">
@@ -83,9 +87,13 @@
         </li>
         <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged">
             <a class="nav-link waves-light"
+                (click)="vapaee.logout()" mdbWavesEffect>
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+            </a>
+            <!--a class="nav-link waves-light"
                 href="http://accounts.vapaee.com/index.php?route=account/logout&redirect=http://cardsandtokens.com/" mdbWavesEffect>
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-            </a>           
+            </a-->         
         </li>
       </ul>
       <!-- User Account -->

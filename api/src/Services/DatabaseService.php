@@ -73,10 +73,12 @@ class DatabaseService {
         $current_class = $table;
         $current = $obj;
         
+        $attribs = $this->get_table_attribs($table);
+        // trace("----- antes  ", $attribs  );
         // trace("tiene _super? ", $current);
         while (isset($current["_super"])) {
-            $attr = $this->get_table_attribs($current_class);
-            $super_class = $attr["_extends"];
+            $attributes = $this->get_table_attribs($current_class);
+            $super_class = $attributes["_extends"];
             $obj[$super_class."_id"] = $current["_super"]["id"];
             
             $current = $current["_super"];
@@ -85,18 +87,30 @@ class DatabaseService {
                 if ($attr == "id") continue;
                 $obj[$attr] = $val;
             }
+
+            if (array_key_exists("_extends", $attributes)) {
+                $super_attribs = $this->get_table_attribs($attributes["_extends"]);
+                foreach ($super_attribs as $attr => $val) {
+                    if ($attr == "id") continue;
+                    $attribs[$attr] = $val;
+                    // trace("attribs  $attr ", $attribs  );
+                }                
+            }
         }
         unset($obj["_super"]);
         // trace("quedo asi: ", $obj);        
         
         
-        $attribs = $this->get_table_attribs($table);
-         
+        
+        // trace("----- luego  ", $attribs  );
         foreach ($attribs as $att_name => $spec) {
             if ($this->isNotASpec($att_name)) continue;
             $type = $spec["type"];
+            
             foreach ($this->DATA["model"] as $class_name => $model) {
+                
                 if ($type == $class_name) {
+                    
                     // acá estoy frente a un atributo del objeto que es una referencia a otro objeto cuyo current_value es {id:1} 
                     // trace('$att_name', $att_name, '$obj', $obj);
                     $current_value = $obj[$att_name];
@@ -105,16 +119,23 @@ class DatabaseService {
                         $current_value = array("id" => intval($current_value));
                     }
                     if ($current_value != null) {
+                        // trace("----------> ", $this->app["request"]->query->get('complete'));                                 
                         $ref_id = $current_value;
                         if (is_array($current_value) && isset($current_value["id"])) {
                             $ref_id = $current_value["id"];
                         }
 // trace("complete($table) $att_name:", $ref_id);
+
+                        $_details = $this->app["request"]->query->get('details');
+                        $_op = array("secure" => true, "no-detail" => !$_details);
                         if ($this->app["request"]->query->get('complete') || $this->app["request"]->query->get($att_name)) {
                             if ($this->app["request"]->query->get('deep')) {
                                 $current_value = $this->API_get_id($type, $ref_id, array("secure" => true));
                             } else {
-                                $current_value = $this->getByPk($type, $ref_id, array("secure" => true));
+
+trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
+
+                                $current_value = $this->getByPk($type, $ref_id, $_op);
                             }
                         }
                     }
@@ -353,7 +374,7 @@ class DatabaseService {
         
         if (is_numeric($id)) {
             $result = $this->getByPk($table, $id, $op);
-            trace('$result = $this->getByPk($table, $id, $op);', $result);
+            // trace('$result = $this->getByPk($table, $id, $op);', $result);
             if (!$result) return null;
             // trace("getByPk($table, $id) result: ", $result);
             $result = $this->complete($result, $op, $table);

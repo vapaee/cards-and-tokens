@@ -2,6 +2,7 @@ import { Component, ViewChild, HostListener } from '@angular/core';
 import { VapaeeUserService } from "./services/vapaee-user.service";
 import { AppService } from "./services/app.service";
 import { CntService } from "./services/cnt.service";
+import { SteemService } from './services/steem.service';
 
 @Component({
     selector: 'app-root',
@@ -11,9 +12,15 @@ import { CntService } from "./services/cnt.service";
 export class AppComponent {
     @ViewChild('loginModal') public loginModal;
 
-    constructor(public vapaee: VapaeeUserService, public app: AppService, public cnt: CntService) {
+    constructor(
+        public vapaee: VapaeeUserService, 
+        public app: AppService, 
+        public cnt: CntService,
+        public steem: SteemService
+    ) {        
         this.app.init(this);
         this.cnt.init(this.app.device);
+        this.steem.init(this);
     }
 
     ngOnInit() {

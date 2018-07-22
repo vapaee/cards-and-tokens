@@ -12,7 +12,7 @@ import { UserdataService } from './services/userdata.service';
 import { AppService } from './services/app.service';
 import { CntService, CardDeploy } from './services/cnt.service';
 import { ComponentService } from './deploy/comp/component.service';
-
+import { SteemService } from './services/steem.service';
 
 import { HomePage } from './home/home.page';
 import { CardsPage } from './cards/cards.page';
@@ -42,9 +42,7 @@ import { FloatComponent } from './deploy/comp/float/float.component';
 import { DomService } from './services/dom.service';
 import { AlbumComponent } from './deploy/comp/album/album.component';
 import { SlotComponent } from './deploy/comp/slot/slot.component';
-
-
-
+import { SteemConnectPage } from './steem-connect/steem-connect.page';
 
 
 
@@ -52,13 +50,14 @@ const routes: Routes = [
   { path: 'embedded/card/:slug',    data: { state: "embedded-card" }, component: DeployCardPage },
   { path: 'embedded/album/:slug',    data: { state: "embedded-album" }, component: DeployAlbumPage },
   { path: 'loading',   data: { state: "loading" }, component: LoadingPage },
+  { path: 'steemconnect',   data: { state: "steemconnect" }, component: SteemConnectPage },
   { path: '',          data: { state: "root" }, component: RootPage,
     children: [
         { path: 'home',      data: { state: "home" }, component: HomePage },
         { path: 'cards',     data: { state: "cards",  logged: false }, component: CardsPage },
         { path: 'profile',   data: { state: "profile", logged: true }, component: ProfilePage },
         { path: 'albums',    data: { state: "albums", logged: false }, component: AlbumsPage },
-        { path: 'editor',    data: { state: "editor", logged: true }, component: EditorPage },
+        { path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonPage /*EditorPage*/ },
         { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonPage },
         { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonPage },
         { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonPage },
@@ -105,7 +104,8 @@ const routes: Routes = [
     CardDeploy,
     AlbumsPage,
     AlbumComponent,
-    SlotComponent
+    SlotComponent,
+    SteemConnectPage
   ],
   entryComponents: [
     RootComponent,
@@ -139,6 +139,7 @@ const routes: Routes = [
     CntService,
     AppService,
     ComponentService,
+    SteemService,
     HttpClient,
     CookieService,
     DomService

@@ -193,10 +193,12 @@ export class DataService {
         }
     }
 
-
-
-    getAll (table) {
-        return this.request_promise('GET', table);
+    getAll (table, params?) {
+        var url = table;
+        if (params) {
+            url = this.addParamsToUrl(url, params);
+        }
+        return this.request_promise('GET', url);
     }
     
     reload (table, id, params) {
@@ -206,15 +208,20 @@ export class DataService {
         return this.getByPk(table, id, params);
     }
 
+    addParamsToUrl(url, params) {
+        var first = true;
+        for (var i in params) {
+            url += (first?"?":"&") + i + "=" +encodeURIComponent(JSON.stringify(params[i]));
+            first = false;
+        }
+        return url;
+    }
+
     getByPk (table, id, params?, use_cache?) {
         if (typeof id != "number") if (typeof parseInt(id) != "number") console.warn("WARNING: me pasaste un id que no es un número", table, id);
         var url = table+"/"+id;
         if (params) {
-            var first = true;
-            for (var i in params) {
-                url += (first?"?":"&") + i + "=" +encodeURIComponent(JSON.stringify(params[i]));
-                first = false;
-            }
+            url = this.addParamsToUrl(url, params);
         }
         if (use_cache) {
             switch (typeof use_cache) {

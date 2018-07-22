@@ -64,8 +64,8 @@ function check_vapaee_user() {
         header("HTTP/1.0 404 Not Found");
         die();
     }
-
-    if (!isset($_COOKIE["foreign_token"])) {
+    
+    if (!isset($_COOKIE["foreign_token"]) || isset($_GET["ignore_foreign"])) {
        // $URL = "http://accounts.vapaee.com/index.php?route=oauth/endpoint/createforeign";
         $URL = "http://accounts.vapaee.com/index.php?route=extension/module/oauth/endpoint/createforeign";
         $foreign_token = md5(time());
@@ -80,7 +80,7 @@ function check_vapaee_user() {
         echo "   window.location.href='$url';\n";
         echo "</script>\n";
         echo "</head><body></body></html>\n";
-        trace("$basename.check_vapaee_user() --> //accounts.vapaee.com (foreign_token:$foreign_token)");
+        trace("$basename.check_vapaee_user() ***** $foreign_token *****");
         die();
     } else {
         echo "<script>\n";
@@ -192,9 +192,12 @@ function setUserId ($id) {
 function getUser($vapaee_id, $app) {
     global $config; $basename = $config['basename'];
     // trace("$basename.getUser($vapaee_id)");
-    $find = array( "vapaee_id" => "$vapaee_id" );    
-    $result = $app["db"]->select("user", $find, array());
-    trace("$basename.getUser($vapaee_id)  select user :", $result);
+    $result = array();
+    if ($vapaee_id > 0) {
+        $find = array( "vapaee_id" => "$vapaee_id" );
+        $result = $app["db"]->select("user", $find, array());
+        trace("$basename.getUser($vapaee_id)  select user :", $result);
+    }
     if (sizeof($result) == 1){
         $user = $result[0];
         setUserId($user["id"]);
@@ -219,7 +222,7 @@ function setUser($vapaee_id, $name, $app) {
 
     $result = $app["db"]->http_post("user", $user);
     
-    return getUser($vapaee_id, $app);
+    return $app["db"]->select("user", array( "id" => $result["id"] ), array());
 }
 
 // http://stackoverflow.com/a/5216199/2274525

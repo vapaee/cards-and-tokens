@@ -28,7 +28,7 @@ export class AlbumsPage implements OnInit {
             if (slug) {
                 this.cnt.getAlbumBySlug(slug).then(album => {
                     this.waitInit.then(() => {
-                        var src = '/embedded/album/' + album.slug;
+                        var src = '/embedded/album/' + album.slug + "?ignore_foreign=true";
                         this.url = this.sanitizer.bypassSecurityTrustResourceUrl(src);
                         console.log(this.url, src);
                         this.deploy = album;

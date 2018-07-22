@@ -30,7 +30,7 @@ export class DeployCardPage implements OnInit {
         var slug = this.route.snapshot.paramMap.get('slug');
 
         this.cnt.getCardBySlug(slug).then(card => {
-            this.comp.createAndDeployTree(card, this.main.view);
+            this.comp.createAndDeployTree(card.edition, this.main.view);
             /*
             console.log("Deploying:", structure);
             let compFactory = this.cfResolver.resolveComponentFactory(structure.component);

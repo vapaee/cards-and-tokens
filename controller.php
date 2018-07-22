@@ -19,7 +19,121 @@ $app->get("/", function() use ($app) {
 
 
 
+function getUserdata($credentials, $app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace.getUserdata()", $credentials);
+    $user_id = $credentials["user"]["id"];
+    $op = array("unbox"=>true, "mapping"=>"id", "no-detail" => true, "secure" => true);
+    
+    $user = $app["db"]->http_get_id("user", $user_id);
+        
+    $select_owner = array("owner" => $user_id);
+    $select_creator = array("creator" => $user_id);
+    
+    $user["data"] = array();
+    // definido por el usuario
+    $user["data"]["app"] = $app["db"]->http_get("app", $select_creator, $op);
+    $user["data"]["collectible"] = $app["db"]->http_get("collectible", $select_creator, $op); // cartas y stikers, tanto las creadas x el user como las que colecciona
+    $user["data"]["album"] = $app["db"]->http_get("album", $select_creator, $op);
+    // $user["data"]["mastery"] = $app["db"]->http_get("mastery", $select_creator, $op);
+    // $user["data"]["tokenspec"] = $app["db"]->http_get("tokenspec", $select_creator, $op);
+    // estado del usuario en diferentes aspecots
+    // $user["data"]["experience"] = $app["db"]->http_get("experience", $select_owner, $op); // lista de piramide de tokens para una mastery
+    // $user["data"]["aurafx"] = $app["db"]->http_get("aurafx", $select_owner, $op); // lista de aura activas que alteran algún atributo de laguna mastery
+    $user["data"]["inventory"] = $app["db"]->http_get("inventory", $select_owner, $op); // contenido de cada inventario
+    $user["data"]["collection"] = $app["db"]->http_get("collection", $select_owner, $op); // estado actual de cada album que el usuario está colecfcionando
+    // $user["data"]["effect"] = $app["db"]->http_get("effect", $select_owner, $op); // la lista de todos los effects q modifican la experiencia de algúna maestría
+    // profile
+    $user["data"]["profile"] = $app["db"]->http_get("profile", $select_owner, $op);
+    // $user["data"]["aura"] = $app["db"]->http_get("aura", $select_creator, $op);
+    // items
+    // $user["data"]["token"] = $app["db"]->http_get("token", $select_owner, $op);
+    $user["data"]["copy"] = $app["db"]->http_get("copy", $select_owner, $op);
+    // $user["data"]["tokencase"] = $app["db"]->http_get("tokencase", $select_owner, $op);
+    $user["data"]["envelop"] = $app["db"]->http_get("envelop", $select_owner, $op);
+    // $user["data"]["box"] = $app["db"]->http_get("box", $select_owner, $op);
+    // market
+    // $user["data"]["currency"] = $app["db"]->http_get("currency", $select_creator, $op);
+    // $user["data"]["wallet"] = $app["db"]->http_get("wallet", $select_owner, $op);
+    
+    
+    // hasta acá tenemos las sólo las apps que fueron creadas por el usuario
+    // faltan las que el usuario está subscrito
+    foreach ($user["data"]["inventory"] as $i => $inventory) {
+        $app_id = $inventory["app"]["id"];
+        $inv_id = $inventory["id"];
+        $found = false;
+        foreach ($user["data"]["app"] as $a => $app) {
+            if ($app["id"] == $app_id) {
+                // si el usuario está subscrito a su propia aplicación lo marcamos como tal
+                $user["data"]["app"][$a]["subscribed"] = true;
+                $user["data"]["app"][$a]["inventory"] = array("id" => $inv_id);
+                $found = true;
+                break;
+            }
+        }
+        
+        if (!$found) {
+            // si el usuario no es el creador de esta app, le traemos la app y la marcamos como subscribed = true
+            $user["data"]["app"]["id-$app_id"] = $this->app["db"]->http_get_id("app", $app_id, array("unbox" => true, "no-detail" => true));
+            if ($user["data"]["app"]["id-$app_id"]) {
+                $user["data"]["app"]["id-$app_id"]["subscribed"] = true; 
+                $user["data"]["app"]["id-$app_id"]["inventory"] = array("id" => $inv_id);
+            } else {
+                trace("ERROR: App not found in database with id $app_id (referenced from inventory $inv_id)");
+            }
+        }
+    }
 
+    
+    // hasta acá tenemos las sólo los álbums que fueron creadas por el usuario
+    // faltan las que el usuario está coleccionando
+    foreach ($user["data"]["collection"] as $i => $collection) {
+        $album_id = $collection["album"]["id"];
+        $coll_id = $collection["id"];
+        $found = false;
+        foreach ($user["data"]["album"] as $a => $album) {
+            if ($album["id"] == $album_id) {
+                // si el usuario está subscrito a su propio album lo marcamos como tal
+                $user["data"]["album"][$a]["subscribed"] = true;
+                $user["data"]["album"][$a]["collection"] = array("id" => $coll_id);
+                $found = true;
+                break;
+            }
+        }
+        
+        if (!$found) {
+            // si el usuario no es el creador de este álbum, le traemos el álbum y la marcamos como subscribed = true
+            $user["data"]["album"]["id-$album_id"] = $this->app["db"]->http_get_id("album", $album_id, array("unbox" => true, "no-detail" => true));
+            if ($user["data"]["album"]["id-$album_id"]) {
+                $user["data"]["album"]["id-$album_id"]["subscribed"] = true; 
+                $user["data"]["album"]["id-$album_id"]["collection"] = array("id" => $coll_id);
+            } else {
+                trace("ERROR: Album not found in database with id $album_id (referenced from cellection $coll_id)");
+            }
+        }
+    }
+
+    
+
+    return $user;
+}
+
+$app["db"]->on("post:user", function ($user, $op, $app) {
+    
+    $profile = array(
+        "name" => $user["name"],
+        "img" => json_encode(array("pic" => "http://via.placeholder.com/200x200")),
+        "owner" => $user["id"]
+    );
+    if (isset($user["pic"])) $profile["pic"] = $user["pic"];
+
+    $profile = $app["db"]->http_post("profile", $profile, array("unbox" => true));
+    $app["db"]->http_put("user", $user["id"], array(
+        "profile" => $profile["id"]
+    ));
+    return $user;
+});
 
 $app->get('/userdata', function() use ($app) {
     global $config; $namespace = $config['namespace'];
@@ -36,19 +150,57 @@ $app->get('/userdata', function() use ($app) {
         } else {
             return json_encode(autenticationError());
         }
-    }
-    
+    }    
 });
 
+// STEEM ----------------
+
+function verifySteemAccessToken($access_token, $account, $name, $app) {
+    // $credentials["user"]["id"]
+    $credentials = null;
+    $op = array("unbox"=>true, "mapping"=>"id", "no-detail" => true, "secure" => true);
+    $oauth_steem = $app["db"]->http_get("oauth_steem", array("account" => $account), $op);
+    trace("verifySteemAccessToken()", $oauth_steem);
+    if ($oauth_steem) {
+        $user = $app["db"]->http_get_id("user", $oauth_steem["user"]["id"], $op);
+        $app["db"]->http_put("oauth_steem", $oauth_steem["id"], array(
+            "access_token" => $access_token
+        ));
+    } else {
+        $user = $result = $app["db"]->http_post("user", array("name" => $name));
+
+        $app["db"]->http_post("oauth_steem", array(
+            "user" => $user["id"], 
+            "access_token" => $access_token, 
+            "account" => $account
+        ), $op);
+    }
+    return array(
+        "user" => $user
+    );
+}
 
 
 
-
-
-
-
-
-
+$app->get('/steem/user', function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace GET '/userdata'");
+    putHeaders();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $access_token = $_GET["access_token"];
+        $name = $_GET["name"];
+        $account = $_GET["account"];
+        $result = verifySteemAccessToken($access_token, $account, $name, $app);
+        // trace("cnt./userdata -> verifyAccessToken devolvio: ", $result);
+        if ($result) {
+            $userdata = getUserdata($result, $app);
+            return json_encode($userdata);
+        } else {
+            return json_encode(autenticationError());
+        }
+    }    
+});
 
 // -----------------------------------------------------------------------------------------------
 // API: Cards & Tokens (DEPRECATED) --------------------------------------------------------------------------

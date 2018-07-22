@@ -6,7 +6,7 @@
 <?php insert_open_graph(); ?>
 <?php insert_cookie_api(); ?>
 <?php insert_globals(); ?>
-<?php check_vapaee_user(); ?>
+<!--?php check_vapaee_user(); ?-->
 
 <html lang="en">
 <head>
@@ -23,7 +23,14 @@
     }
   </style>
 </head>
-<body class="hide-at-work">
+<body class="hide-at-work--">
   <app-root></app-root>
-  <script type="text/javascript" src="runtime.js"></script><script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="styles.js"></script><script type="text/javascript" src="scripts.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="main.js"></script></body>
+  <!--script type="text/javascript" src="assets/sc2.min.js"></script-->
+  <script type="text/javascript" src="runtime.js"></script>
+  <script type="text/javascript" src="polyfills.js"></script>
+  <script type="text/javascript" src="styles.js"></script>
+  <script type="text/javascript" src="scripts.js"></script>
+  <script type="text/javascript" src="vendor.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+</body>
 </html>
