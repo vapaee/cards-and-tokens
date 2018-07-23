@@ -29,7 +29,8 @@ export class UserdataService {
                 // var url = API_url+"userdata?access_token="+this.vapaee.access_token;
                 var url = API_url+"steem/user?access_token="+this.cookie.get("steem.access_token");
                 url +="&name="+encodeURIComponent(this.vapaee.user_name);
-                url +="&account="+encodeURIComponent(this.cookie.get("steem.access_token"));
+                url +="&avatar="+encodeURIComponent(this.cookie.get("steem.avatar"))
+                url +="&account="+encodeURIComponent(this.cookie.get("steem.account"));
                 this.http.get<any>(url).subscribe(result => {
                     console.log('-------- userdata ----------');
                     console.log(result);

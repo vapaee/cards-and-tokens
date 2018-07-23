@@ -39,7 +39,7 @@ export class SectionComponent extends BaseComponent implements OnInit, SectionI 
     }
 
     loadStructure(structure: DeployNode) {
-        console.log("loadStructure()", structure);
+        // console.log("loadStructure()", structure);
         this.data = structure.data;
         this.children = structure.children;
         console.assert(Array.isArray(this.data.sections), "ERROR: Section data.sections missing or is not an Array. Got ", typeof this.data.sections, this.data.sections);

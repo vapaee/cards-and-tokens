@@ -150,40 +150,14 @@ export class CntService {
 
     getAllCards() {
         return this.getAllInstances("card", "card", {"edition":true});
-        /*return this.data.getAll("card", {"edition":true}).then(result => {
-            this.cards = <any[]>result.card;
-            for (var i=0; i<this.cards.length; i++) {
-                var card_i = this.cards[i];
-                this.card[card_i.id] = card_i;
-            }
-            return this.cards;
-        });*/
     }
 
     getAllSpecs() {
         return this.getAllInstances("container_spec", "spec");
-        /*return this.data.getAll("container_spec").then(result => {
-            this.specs = <any[]>result.container_spec;
-            for (var i=0; i<this.specs.length; i++) {
-                var spec_i = this.specs[i];
-                this.spec[spec_i.id] = spec_i;
-            }
-            return this.specs;
-        });*/
     }
 
     getAllAlbums() {
         return this.getAllInstances("album", "album");
-        /*
-        return this.data.getAll("album").then(result => {
-            this.albums = <any[]>result.album;
-            for (var i=0; i<this.albums.length; i++) {
-                var album_i = this.albums[i];
-                this.album[album_i.id] = album_i;
-            }
-            return this.albums;
-        });
-        */
     }
 
     getCardBySlug(slug) {

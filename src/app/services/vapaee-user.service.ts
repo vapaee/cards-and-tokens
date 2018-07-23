@@ -19,7 +19,6 @@ export class VapaeeUserService {
     constructor(private http: HttpClient, private cookieService: CookieService, public steem: SteemService) {
         console.log('Hello VapaeeUserService Provider');
         this.init();
-
         /*
         console.log("*****************************");
         console.log("*****************************");
@@ -33,8 +32,6 @@ export class VapaeeUserService {
         console.log("*****************************");
         console.log("*****************************");
         */
-
-
     }
 
     logout() {
@@ -55,7 +52,7 @@ export class VapaeeUserService {
                 this.ready = true;
                 this.user_name = this.steem.user.profile.name;
                 resolve();
-            }, reject);    
+            }, reject);
         });
         
         /*

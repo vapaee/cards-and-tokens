@@ -39,7 +39,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
     }
     
     loadStructure(structure: DeployNode) {
-        console.log("loadStructure()", structure);
+        // console.log("loadStructure()", structure);
         this.data = structure.data;
         this.children = [];
         console.assert(Array.isArray(this.data.pages),

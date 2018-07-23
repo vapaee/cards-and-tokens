@@ -32,6 +32,8 @@ function getUserdata($credentials, $app) {
     
     $user["data"] = array();
     // definido por el usuario
+    $user["profile"] = $app["db"]->http_get_id("profile", $user["profile"]["id"], array("unbox"=>true, "secure" => true));
+
     $user["data"]["app"] = $app["db"]->http_get("app", $select_creator, $op);
     $user["data"]["collectible"] = $app["db"]->http_get("collectible", $select_creator, $op); // cartas y stikers, tanto las creadas x el user como las que colecciona
     $user["data"]["album"] = $app["db"]->http_get("album", $select_creator, $op);
@@ -113,9 +115,7 @@ function getUserdata($credentials, $app) {
             }
         }
     }
-
     
-
     return $user;
 }
 
@@ -123,10 +123,11 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
     
     $profile = array(
         "name" => $user["name"],
-        "img" => json_encode(array("pic" => "http://via.placeholder.com/200x200")),
+        "img" => json_encode(array("avatar" => "http://via.placeholder.com/200x200")),
         "owner" => $user["id"]
     );
-    if (isset($user["pic"])) $profile["pic"] = $user["pic"];
+    
+    if (isset($_GET["avatar"])) $profile["img"] = json_encode(array("avatar" => $_GET["avatar"]));
 
     $profile = $app["db"]->http_post("profile", $profile, array("unbox" => true));
     $app["db"]->http_put("user", $user["id"], array(
@@ -154,20 +155,24 @@ $app->get('/userdata', function() use ($app) {
 });
 
 // STEEM ----------------
-
 function verifySteemAccessToken($access_token, $account, $name, $app) {
     // $credentials["user"]["id"]
     $credentials = null;
-    $op = array("unbox"=>true, "mapping"=>"id", "no-detail" => true, "secure" => true);
+    $op = array("unbox"=>true, "secure" => true);
     $oauth_steem = $app["db"]->http_get("oauth_steem", array("account" => $account), $op);
-    trace("verifySteemAccessToken()", $oauth_steem);
+    trace("verifySteemAccessToken()", $access_token, $account, $name);
     if ($oauth_steem) {
+        if(is_array($oauth_steem)) {
+            $oauth_steem = $oauth_steem[0];
+        }
+        // trace("verifySteemAccessToken()   ENCONTRE!  ", $oauth_steem);
         $user = $app["db"]->http_get_id("user", $oauth_steem["user"]["id"], $op);
         $app["db"]->http_put("oauth_steem", $oauth_steem["id"], array(
             "access_token" => $access_token
         ));
     } else {
-        $user = $result = $app["db"]->http_post("user", array("name" => $name));
+        // trace("verifySteemAccessToken()   NO ENCONTRE!   ");
+        $user = $app["db"]->http_post("user", array("name" => $name), array("unbox" => true, "secure" => true));
 
         $app["db"]->http_post("oauth_steem", array(
             "user" => $user["id"], 
@@ -175,6 +180,7 @@ function verifySteemAccessToken($access_token, $account, $name, $app) {
             "account" => $account
         ), $op);
     }
+    // trace("verifySteemAccessToken() return ", array("user" => $user));
     return array(
         "user" => $user
     );
@@ -184,7 +190,7 @@ function verifySteemAccessToken($access_token, $account, $name, $app) {
 
 $app->get('/steem/user', function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace GET '/userdata'");
+    trace("$namespace GET '/steem/user'");
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {

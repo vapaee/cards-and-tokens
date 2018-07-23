@@ -55,7 +55,7 @@ const routes: Routes = [
     children: [
         { path: 'home',      data: { state: "home" }, component: HomePage },
         { path: 'cards',     data: { state: "cards",  logged: false }, component: CardsPage },
-        { path: 'profile',   data: { state: "profile", logged: true }, component: ProfilePage },
+        { path: 'profile',   data: { state: "profile", logged: false }, component: ProfilePage },
         { path: 'albums',    data: { state: "albums", logged: false }, component: AlbumsPage },
         { path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonPage /*EditorPage*/ },
         { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonPage },

@@ -21,22 +21,23 @@ export class SteemConnectPage implements OnInit {
         let params = new URL(window.location.href).searchParams;
         let access_token = params.get('access_token');
         let expires_in = params.get('expires_in');
-        let username = params.get('username');
+        let account = params.get('username');
 
         this.steem.setCredentials({
             accessToken: access_token,
             expiresIn: expires_in,
-            username: username
+            account: account
         });
 
         this.steem.waitLogged.then(() => {
-            console.log(">>>>>>>>>>>", [this.steem.user, this.steem.metadata]);
+            console.log(">>>>>>>>>>>", [this.steem.user]);
             this.app.navigate("profile");
             this.timeout = false;
             clearInterval(this.redirecting);
         });
 
         this.steem.waitTimeout.then(() => {
+            alert("TIME OUT");
             this.timeout = true;
             this.redirecting = window.setTimeout(() => {
                 this.app.navigate("home");

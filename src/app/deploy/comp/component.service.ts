@@ -55,7 +55,7 @@ export class ComponentService implements ComponentServiceI {
     }
 
     public createDeployTree(struct:{comp:string,children?:any[],data?:any}):DeployNode {
-        console.log("createDeployTree()", struct.comp, [struct]);
+        // console.log("createDeployTree()", struct.comp, [struct]);
         console.assert(typeof struct.comp != "undefined", "ERROR: missing structure.comp", [struct]);
         console.assert(typeof this.components[struct.comp] != "undefined", "ERROR: struct.comp? component not found", [struct], "did you forgot to include in this.components?", this.components);
         let type: Type<BaseComponent> = this.components[struct.comp];

@@ -28,22 +28,17 @@ export class DeployAlbumPage implements OnInit {
     ngOnInit() {
 
         var slug = this.route.snapshot.paramMap.get('slug');
-        console.log("*********************************************");
-        console.log("slug:",slug);
-        console.log("*********************************************");
-
         this.cnt.fetchAlbum(slug).then(album => {
             this.comp.createAndDeployTree(album, this.main.view);
             
             this.cnt.getUserAlbumCollection(slug).then(collection => {
-                console.log("this.cnt.getUserAlbumCollection() AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", collection);
+                console.log("--------------------------");
+                console.log([collection]);
                 /*
                 - primero no se bien de donde sacar el dato. Si de userdata o de cnt
                 - tengo que resolver una estructura que me diga en que slot hay una carta y cual
-                - tengo que usar el servicio AlbumService para que cargue la estructura con cartas
-                
+                - tengo que usar el servicio AlbumService para que cargue la estructura con carta
                 */
-
             })
         });
     }

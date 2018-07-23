@@ -18,7 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
 export interface SteemCredentials {
     accessToken: string,
     expiresIn?: string,
-    username?: string
+    account?: string
 }
 
 
@@ -67,18 +67,10 @@ export class SteemService {
         if (this.cookie.get("steem.access_token")) {
             this.setCredentials({
                 accessToken: this.cookie.get("steem.access_token"),
-                username: this.cookie.get("steem.username")
+                account: this.cookie.get("steem.account")
             });
         }
         
-
-        /*
-        api.me(function (err, result) {
-            console.log('/me', err, result);
-        });
-        */
-
-
         // consultas 
         /*
         steem.api.getAccounts(['viterbo', 'darrenclaxton'], function(err, result) {
@@ -89,32 +81,30 @@ export class SteemService {
     }
 
     setCredentials(credentials: SteemCredentials) {
-        var self = this;
         this.waitReady.then(() => {
-            console.log("-------------------------------------------");
-            console.log("SteemService.setCredentials()", credentials);
-            console.log("-------------------------------------------");
             this.timeout = window.setTimeout(() => {
                 this.timeoutResolve();
             }, 10000);
             this.api.setAccessToken(credentials.accessToken);
-            this.api.me(function (err, result) {
-                console.log("**********************************************");
-                console.log("this.api.me", result);
-                console.log("**********************************************");
+            this.api.me((err, result) => {
                 if (err) {
                     console.log("this.api.me ERROR:", err);
-                    self.loggedReject(err);
-                    self.logged = false;
+                    this.loggedReject(err);
+                    this.logged = false;
                 } else {
-                    self.logged = true;
-                    self.user = result.account;
-                    self.user.profile = JSON.parse(self.user.json_metadata).profile;
-                    self.user.profile.avatar = "https://steemitimages.com/u/" + self.user.name + "/avatar";
-                    self.cookie.set("steem.access_token", credentials.accessToken);
-                    self.cookie.set("steem.username", credentials.username);
-                    console.log("FIN !!!!",[self]);
-                    self.loggedResolve();
+                    this.logged = true;
+                    this.user = result.account;
+                    this.user.profile = JSON.parse(this.user.json_metadata).profile;
+                    this.user.profile.avatar = "https://steemitimages.com/u/" + this.user.name + "/avatar";
+                    this.cookie.set("steem.access_token", credentials.accessToken);
+                    this.cookie.set("steem.account", credentials.account);
+                    this.cookie.set("steem.avatar", this.user.profile.avatar);
+                    console.log("*************** Steem Service ****************");
+                    console.log([this]);
+                    console.log("**********************************************");
+                    window.clearTimeout(this.timeout);
+                    this.timeout = 0;
+                    this.loggedResolve();
                 }
             });
         });
@@ -123,7 +113,8 @@ export class SteemService {
 
     logout() {
         this.cookie.delete("steem.access_token");
-        this.cookie.delete("steem.username");
+        this.cookie.delete("steem.account");
+        this.cookie.delete("steem.avatar");
         this.user = null;
         this.waitLogged = new Promise((resolve, reject) => {
             this.loggedResolve = resolve;

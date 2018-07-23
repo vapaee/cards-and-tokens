@@ -4,12 +4,12 @@
         <h3 class="card-header success-color white-text">
             <img src="/assets/steemit-white.svg" style="height: 40px;">
         </h3>
-        <div class="card-body" [hidden]="steem.logged">
+        <div class="card-body" *ngIf="!steem.logged">
             <h4 class="card-title">Not connected</h4>
             <p class="card-text">Connect to your Steem account by using Steem-Connect.</p>
-            <a class="btn btn-success">Connect</a>
+            <a class="btn btn-success" (click)="app.askForLogin()">Connect</a>
         </div>
-        <div class="card-body" [hidden]="!steem.logged">
+        <div class="card-body" *ngIf="steem.logged">
             <h4 class="card-title">
                 <img [src]="steem.user.profile.avatar" style="height:32px;">
                 {{steem.user.profile.name}}

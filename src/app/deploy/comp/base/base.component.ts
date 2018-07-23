@@ -51,7 +51,7 @@ export class BaseComponent implements OnInit {
     }
 
     loadStructure(structure: DeployNode) {
-        console.log("loadStructure()", structure);
+        // console.log("loadStructure()", structure);
         this.data = structure.data;
         this.children = structure.children;
         this.loadedResolve();
