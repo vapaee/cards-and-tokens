@@ -12,6 +12,9 @@ import { CookieService } from 'ngx-cookie-service';
 // codigo fuente 
 // https://github.com/steemit/steemconnect-sdk
 
+// DEMO
+// https://steemit.github.io/example-steemconnect-angular/
+
 export interface SteemCredentials {
     accessToken: string,
     expiresIn?: string,
@@ -24,12 +27,16 @@ export interface SteemCredentials {
     providedIn: 'root'
 })
 export class SteemService {
+    logged:boolean;
+    timeout: number;
     url:string;
     api:any;
     user:any;
     metadata:any;
     public waitLogged: Promise<void> = null;
+    public waitTimeout: Promise<void> = null;
     public waitReady: Promise<void> = null;
+    timeoutResolve:(value?:void) => void;
     loggedResolve:(value?:void) => void;
     loggedReject:(value?:void) => void;
 
@@ -38,6 +45,9 @@ export class SteemService {
             this.loggedResolve = resolve;
             this.loggedReject = reject;
         });
+        this.waitTimeout = new Promise((resolve) => {
+            this.timeoutResolve = resolve;
+        });        
         this.waitReady = new Promise((resolve) => {
             var api = sc2.Initialize({
                 baseURL: 'https://steemconnect.com',
@@ -84,6 +94,9 @@ export class SteemService {
             console.log("-------------------------------------------");
             console.log("SteemService.setCredentials()", credentials);
             console.log("-------------------------------------------");
+            this.timeout = window.setTimeout(() => {
+                this.timeoutResolve();
+            }, 10000);
             this.api.setAccessToken(credentials.accessToken);
             this.api.me(function (err, result) {
                 console.log("**********************************************");
@@ -92,9 +105,12 @@ export class SteemService {
                 if (err) {
                     console.log("this.api.me ERROR:", err);
                     self.loggedReject(err);
+                    self.logged = false;
                 } else {
+                    self.logged = true;
                     self.user = result.account;
                     self.user.profile = JSON.parse(self.user.json_metadata).profile;
+                    self.user.profile.avatar = "https://steemitimages.com/u/" + self.user.name + "/avatar";
                     self.cookie.set("steem.access_token", credentials.accessToken);
                     self.cookie.set("steem.username", credentials.username);
                     console.log("FIN !!!!",[self]);

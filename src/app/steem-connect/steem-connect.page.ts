@@ -9,7 +9,8 @@ import { SteemService } from '../services/steem.service';
     styleUrls: ['./steem-connect.page.css']
 })
 export class SteemConnectPage implements OnInit {
-
+    timeout: boolean;
+    redirecting: number;
     constructor(public vapaee: VapaeeUserService, public app: AppService, public steem: SteemService) {
 
     }
@@ -26,11 +27,20 @@ export class SteemConnectPage implements OnInit {
             accessToken: access_token,
             expiresIn: expires_in,
             username: username
-        })
+        });
 
         this.steem.waitLogged.then(() => {
             console.log(">>>>>>>>>>>", [this.steem.user, this.steem.metadata]);
             this.app.navigate("profile");
+            this.timeout = false;
+            clearInterval(this.redirecting);
+        });
+
+        this.steem.waitTimeout.then(() => {
+            this.timeout = true;
+            this.redirecting = window.setTimeout(() => {
+                this.app.navigate("home");
+            }, 2000);
         });
     }
 

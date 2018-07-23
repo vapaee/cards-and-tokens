@@ -1,17 +1,36 @@
-<!--Panel-->
-<div class="card">
-  <div class="card-header deep-orange lighten-1 white-text">
-    {{vapaee.user_name}}
-  </div>
-  <div class="card-body">
-      <h4 class="card-title">Profile</h4>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      
-      <!--a class="btn btn-deep-orange waves-light"
+<div class="container margin-top-xl">
+    <h1>Profiles</h1>
+    <div class="card">
+        <h3 class="card-header success-color white-text">
+            <img src="/assets/steemit-white.svg" style="height: 40px;">
+        </h3>
+        <div class="card-body" [hidden]="steem.logged">
+            <h4 class="card-title">Not connected</h4>
+            <p class="card-text">Connect to your Steem account by using Steem-Connect.</p>
+            <a class="btn btn-success">Connect</a>
+        </div>
+        <div class="card-body" [hidden]="!steem.logged">
+            <h4 class="card-title">
+                <img [src]="steem.user.profile.avatar" style="height:32px;">
+                {{steem.user.profile.name}}
+            </h4>
+            <p class="card-text">connected</p>
+            <a class="btn btn-success" (click)="vapaee.logout()">Disconnect</a>
+        </div>
+    </div>
+    <div class="card margin-top-xl">
+        <h3 class="card-header primary-color white-text">
+            <img src="/assets/eos-white.png" style="height: 40px;">
+        </h3>
+        <div class="card-body">
+            <h4 class="card-title">Comming Soon</h4>
+            <p class="card-text">You will be able to connect to yor EOS account by using Scatter.</p>
+            <a class="btn btn-primary disabled">Connect</a>
+        </div>
+    </div>
+</div>
+
+
+<!--a class="btn btn-deep-orange waves-light"
          href="http://accounts.vapaee.com/index.php?route=account/logout&redirect=http://cardsandtokens.com/" mdbWavesEffect>Logout</a-->
       
-      <a class="btn btn-deep-orange waves-light"
-         (click)="vapaee.logout()" mdbWavesEffect>Logout</a>
-  </div>
-</div>
-<!--/.Panel-->
