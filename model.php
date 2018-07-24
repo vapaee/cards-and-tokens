@@ -68,6 +68,7 @@ $DATA = array (
             "url" => array( "type" => "varchar(250)" ),
             "preview" => array( "type" => "json" ),
             "deploy" => array( "type" => "json", "detail" => true ),
+            "copies" => array( "type" => "int(10)" ),
             "released" => array( "type" => "boolean" ),
             "released_time" => array( "type" => "timestamp" )
         ),
@@ -87,6 +88,7 @@ $DATA = array (
             "slug" => array( "type" => "varchar(150)" ),
             "creator" => array( "type" => "user" ),
             "numbered" => array( "type" => "boolean" ),
+            "capacity" => array( "type" => "int(8)" ),
             "preview" => array( "type" => "json" ),
             "deploy" => array( "type" => "json", "detail" => true )
         ),        

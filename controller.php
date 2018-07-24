@@ -37,6 +37,7 @@ function getUserdata($credentials, $app) {
     $user["data"]["app"] = $app["db"]->http_get("app", $select_creator, $op);
     $user["data"]["collectible"] = $app["db"]->http_get("collectible", $select_creator, $op); // cartas y stikers, tanto las creadas x el user como las que colecciona
     $user["data"]["album"] = $app["db"]->http_get("album", $select_creator, $op);
+    $user["data"]["card"] = $app["db"]->http_get("card", $select_creator, $op);
     // $user["data"]["mastery"] = $app["db"]->http_get("mastery", $select_creator, $op);
     // $user["data"]["tokenspec"] = $app["db"]->http_get("tokenspec", $select_creator, $op);
     // estado del usuario en diferentes aspecots
@@ -65,8 +66,8 @@ function getUserdata($credentials, $app) {
         $app_id = $inventory["app"]["id"];
         $inv_id = $inventory["id"];
         $found = false;
-        foreach ($user["data"]["app"] as $a => $app) {
-            if ($app["id"] == $app_id) {
+        foreach ($user["data"]["app"] as $a => $_app) {
+            if ($_app["id"] == $app_id) {
                 // si el usuario está subscrito a su propia aplicación lo marcamos como tal
                 $user["data"]["app"][$a]["subscribed"] = true;
                 $user["data"]["app"][$a]["inventory"] = array("id" => $inv_id);
@@ -77,7 +78,7 @@ function getUserdata($credentials, $app) {
         
         if (!$found) {
             // si el usuario no es el creador de esta app, le traemos la app y la marcamos como subscribed = true
-            $user["data"]["app"]["id-$app_id"] = $this->app["db"]->http_get_id("app", $app_id, array("unbox" => true, "no-detail" => true));
+            $user["data"]["app"]["id-$app_id"] = $app["db"]->http_get_id("app", $app_id, array("unbox" => true, "no-detail" => true));
             if ($user["data"]["app"]["id-$app_id"]) {
                 $user["data"]["app"]["id-$app_id"]["subscribed"] = true; 
                 $user["data"]["app"]["id-$app_id"]["inventory"] = array("id" => $inv_id);
@@ -116,11 +117,37 @@ function getUserdata($credentials, $app) {
         }
     }
     
+    
+    // hasta acá tenemos las cartas que fueron creadas por el usuario
+    // faltan las que el usuario compró
+    foreach ($user["data"]["copy"] as $i => $copy) {
+        $card_id = $copy["collectible"]["id"];
+        $copy_id = $copy["id"];
+        $found = false;
+        foreach ($user["data"]["card"] as $a => $album) {
+            if ($album["id"] == $card_id) {
+                // si el usuario está subscrito a su propio album lo marcamos como tal
+                $user["data"]["card"][$a]["subscribed"] = true;
+                $user["data"]["card"][$a]["copy"] = array("id" => $copy_id);
+                $found = true;
+                break;
+            }
+        }
+        
+        if (!$found) {
+            // si el usuario no es el creador de esta card, le traemos la card y la agregamos
+            $user["data"]["card"]["id-$card_id"] = $this->app["db"]->http_get_id("card", $card_id, array("unbox" => true, "no-detail" => true));
+        }
+    }
+    
+
+
     return $user;
 }
 
 $app["db"]->on("post:user", function ($user, $op, $app) {
     
+    // El usuario debe tener al menos un perfil
     $profile = array(
         "name" => $user["name"],
         "img" => json_encode(array("avatar" => "http://via.placeholder.com/200x200")),
@@ -128,11 +155,56 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
     );
     
     if (isset($_GET["avatar"])) $profile["img"] = json_encode(array("avatar" => $_GET["avatar"]));
-
-    $profile = $app["db"]->http_post("profile", $profile, array("unbox" => true));
+    $unbox = array("unbox" => true);
+    $profile = $app["db"]->http_post("profile", $profile, $unbox);
     $app["db"]->http_put("user", $user["id"], array(
         "profile" => $profile["id"]
     ));
+
+    // Construyo un Inventario
+    $inventory = array(
+        "capacity" => 8,
+        "structure" => array(),
+        "spec" => 2,
+        "owner" => $user["id"]
+        // , "app" => 1
+    );
+    $inventory = $app["db"]->http_post("inventory", $inventory, $unbox);
+
+
+
+
+    // Esto es de prueba:-----------
+    $collection = array(
+        "album" => 1,
+        "owner" => $user["id"],
+        "spec" => 1, // album
+        "structure" => array(),
+        "capacity" => 9
+    );
+    $collection = $app["db"]->http_post("collection", $collection, $unbox);
+
+    $copy = array(
+        "collectible" => 1,
+        "owner" => $user["id"],
+        "cols" => 3, // CAPAZ QUE AMERITA CREAR UN ITEM_SPEC para poner estas cosas que se repiten
+        "rows" => 4, // IDEM anterior
+        "multiplicity" => 1,
+        "container" => $inventory["id"]
+    );
+    $copy = $app["db"]->http_post("copy", $copy);
+
+    $copy = array(
+        "collectible" => 2,
+        "owner" => $user["id"],
+        "cols" => 3, // CAPAZ QUE AMERITA CREAR UN ITEM_SPEC para poner estas cosas que se repiten
+        "rows" => 4, // IDEM anterior
+        "multiplicity" => 1,
+        "container" => $collection["id"]
+    );
+    $copy = $app["db"]->http_post("copy", $copy);
+
+
     return $user;
 });
 

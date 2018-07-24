@@ -30,14 +30,12 @@ export class SteemConnectPage implements OnInit {
         });
 
         this.steem.waitLogged.then(() => {
-            console.log(">>>>>>>>>>>", [this.steem.user]);
             this.app.navigate("profile");
             this.timeout = false;
             clearInterval(this.redirecting);
         });
 
         this.steem.waitTimeout.then(() => {
-            alert("TIME OUT");
             this.timeout = true;
             this.redirecting = window.setTimeout(() => {
                 this.app.navigate("home");

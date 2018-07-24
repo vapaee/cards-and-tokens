@@ -96,8 +96,9 @@ export class SteemService {
                     this.user = result.account;
                     this.user.profile = JSON.parse(this.user.json_metadata).profile;
                     this.user.profile.avatar = "https://steemitimages.com/u/" + this.user.name + "/avatar";
+                    this.user.profile.name = this.user.profile.name || this.user.name;
                     this.cookie.set("steem.access_token", credentials.accessToken);
-                    this.cookie.set("steem.account", credentials.account);
+                    this.cookie.set("steem.account", this.user.name);
                     this.cookie.set("steem.avatar", this.user.profile.avatar);
                     console.log("*************** Steem Service ****************");
                     console.log([this]);
