@@ -268,8 +268,10 @@ export class CntService {
     
     deployCard(card, img:HTMLImageElement) {
         console.log("------------ deployCard -------------");
-        console.log("card: ", card);
+        console.log("card: ", card, img);
         console.log("-------------------------------------");
+        var rect:ClientRect = img.getBoundingClientRect();
+        // console.log(rect.top, rect.right, rect.bottom, rect.left);
         
         this.waitReady.then(() => {
             var _deploy:any = {};
@@ -291,10 +293,10 @@ export class CntService {
             _deploy.front = {};
             _deploy.front.style = {
                 "z-index": "11",
-                "top": img.offsetTop + "px",
-                "left": img.offsetLeft + "px",
-                "height": img.offsetHeight + "px",
-                "width": img.offsetWidth + "px",
+                "top": rect.top + "px",
+                "left": rect.left + "px",
+                "height": rect.height + "px",
+                "width": rect.width + "px",
                 "position": "fixed",
                 "display": "block",
                 "background-size": "contain",

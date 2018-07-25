@@ -58,7 +58,6 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
             pages.push(this.data.pages[i].slots.length);
             var child = this.service.createDeployTree(this.createPageChild(page));
             this.children.push(child);
-            this.capacity++;
         }
 
         this.albums.registerAlbum(this, pages);
@@ -68,10 +67,13 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
     }
 
     createPageChild(page: {slots:any[], background:any}) {
+        console.log("createPageChild()", page);
         let _children:any[] = [];
         let _positions:any[] = [];
         let _slot:number = 0;
         for (let i=0; i<page.slots.length; i++) {
+            this.capacity++;
+            console.log("this.capacity", this.capacity);
             let position = page.slots[i].position;
             let _child = {
                 "comp": "slot",

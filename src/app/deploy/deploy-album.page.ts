@@ -34,11 +34,7 @@ export class DeployAlbumPage implements OnInit {
             this.comp.createAndDeployTree(album, this.main.view);
             
             this.cnt.getUserAlbumCollection(slug).then(collection => {
-                console.log("--------------------------");
-                console.log(collection.structure);
                 this.album.setCollection(collection.structure);
-
-
                 /*
                 - primero no se bien de donde sacar el dato. Si de userdata o de cnt
                 - tengo que resolver una estructura que me diga en que slot hay una carta y cual
