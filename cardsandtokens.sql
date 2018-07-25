@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-07-2018 a las 18:48:16
+-- Tiempo de generación: 25-07-2018 a las 02:33:09
 -- Versión del servidor: 5.7.22-0ubuntu0.16.04.1
--- Versión de PHP: 7.1.16-1+ubuntu16.04.1+deb.sury.org+1
+-- Versión de PHP: 7.1.18-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -125,6 +125,13 @@ CREATE TABLE `collection` (
   `_super` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `collection`
+--
+
+INSERT INTO `collection` (`id`, `album`, `owner`, `_super`) VALUES
+(1, 1, 1, '{"id":2,"owner":{"id":1},"capacity":9,"structure":{"s2":2},"spec":{"id":1}}');
+
 -- --------------------------------------------------------
 
 --
@@ -140,6 +147,14 @@ CREATE TABLE `container` (
   `_sub_id` int(32) DEFAULT '0',
   `_sub_table` varchar(40) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `container`
+--
+
+INSERT INTO `container` (`id`, `owner`, `capacity`, `structure`, `spec`, `_sub_id`, `_sub_table`) VALUES
+(1, 1, 8, '{"b0":{"x0":{"y0":1}}}', 2, 1, 'inventory'),
+(2, 1, 9, '{"s2":2}', 1, 1, 'collection');
 
 -- --------------------------------------------------------
 
@@ -172,8 +187,17 @@ CREATE TABLE `copy` (
   `id` int(11) NOT NULL,
   `multiplicity` int(32) DEFAULT '0',
   `collectible` int(32) DEFAULT '0',
+  `edition` int(32) NOT NULL,
   `_super` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `copy`
+--
+
+INSERT INTO `copy` (`id`, `multiplicity`, `collectible`, `edition`, `_super`) VALUES
+(1, 1, 1, 1, '{"id":1,"owner":{"id":1},"spec":{"id":1},"container":{"id":1}}'),
+(2, 1, 2, 2, '{"id":2,"owner":{"id":1},"spec":{"id":1},"container":{"id":2}}');
 
 -- --------------------------------------------------------
 
@@ -241,6 +265,13 @@ CREATE TABLE `inventory` (
   `_super` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `inventory`
+--
+
+INSERT INTO `inventory` (`id`, `owner`, `app`, `_super`) VALUES
+(1, 1, 0, '{"id":1,"owner":{"id":1},"capacity":8,"structure":{"b0":{"x0":{"y0":1}}},"spec":{"id":2}}');
+
 -- --------------------------------------------------------
 
 --
@@ -248,14 +279,42 @@ CREATE TABLE `inventory` (
 --
 
 CREATE TABLE `item` (
-  `id` int(11) NOT NULL,
+  `id` int(32) NOT NULL,
   `owner` int(32) DEFAULT '0',
-  `cols` int(8) DEFAULT '0',
-  `rows` int(8) DEFAULT '0',
+  `spec` int(32) DEFAULT '0',
   `container` int(32) DEFAULT '0',
   `_sub_id` int(32) DEFAULT '0',
   `_sub_table` varchar(40) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `item`
+--
+
+INSERT INTO `item` (`id`, `owner`, `spec`, `container`, `_sub_id`, `_sub_table`) VALUES
+(1, 1, 1, 1, 1, 'copy'),
+(2, 1, 1, 2, 2, 'copy');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `item_spec`
+--
+
+CREATE TABLE `item_spec` (
+  `id` int(32) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `img` text NOT NULL,
+  `cols` int(8) NOT NULL,
+  `rows` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `item_spec`
+--
+
+INSERT INTO `item_spec` (`id`, `name`, `img`, `cols`, `rows`) VALUES
+(1, 'card', '', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -287,6 +346,13 @@ CREATE TABLE `oauth_steem` (
   `expires` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `oauth_steem`
+--
+
+INSERT INTO `oauth_steem` (`id`, `access_token`, `account`, `user`, `expires`) VALUES
+(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMyNDkyMTY0LCJleHAiOjE1MzMwOTY5NjR9.u0GkFS8keH1qG3U2OsG0bjeyAWi6yLUrHAgYOVFg_eI', 'viterbo', 1, '2018-07-25 04:00:36');
+
 -- --------------------------------------------------------
 
 --
@@ -299,6 +365,13 @@ CREATE TABLE `profile` (
   `owner` int(32) DEFAULT '0',
   `_super` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `profile`
+--
+
+INSERT INTO `profile` (`id`, `name`, `owner`, `_super`) VALUES
+(1, 'Viterbo RodrÃ­guez', 1, '{"id":1,"name":"Viterbo Rodr\\u00edguez","img":{"avatar":"https:\\/\\/steemitimages.com\\/u\\/viterbo\\/avatar"},"owner":{"id":1},"publisher_id":1}');
 
 -- --------------------------------------------------------
 
@@ -314,6 +387,13 @@ CREATE TABLE `publisher` (
   `_sub_id` int(32) DEFAULT '0',
   `_sub_table` varchar(40) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `publisher`
+--
+
+INSERT INTO `publisher` (`id`, `name`, `img`, `owner`, `_sub_id`, `_sub_table`) VALUES
+(1, 'Viterbo RodrÃ­guez', '{"avatar":"https:\\/\\/steemitimages.com\\/u\\/viterbo\\/avatar"}', 1, 1, 'profile');
 
 -- --------------------------------------------------------
 
@@ -340,6 +420,13 @@ CREATE TABLE `user` (
   `profile` int(32) DEFAULT '0',
   `cache` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id`, `vapaee_id`, `name`, `profile`, `cache`) VALUES
+(1, 0, 'Viterbo RodrÃ­guez', 1, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -424,6 +511,12 @@ ALTER TABLE `item`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `item_spec`
+--
+ALTER TABLE `item_spec`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `oauth_cache`
 --
 ALTER TABLE `oauth_cache`
@@ -487,12 +580,12 @@ ALTER TABLE `collectible`
 -- AUTO_INCREMENT de la tabla `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `container`
 --
 ALTER TABLE `container`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `container_spec`
 --
@@ -502,7 +595,7 @@ ALTER TABLE `container_spec`
 -- AUTO_INCREMENT de la tabla `copy`
 --
 ALTER TABLE `copy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `deck`
 --
@@ -522,12 +615,17 @@ ALTER TABLE `envelop`
 -- AUTO_INCREMENT de la tabla `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `item_spec`
+--
+ALTER TABLE `item_spec`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `oauth_cache`
 --
@@ -537,17 +635,17 @@ ALTER TABLE `oauth_cache`
 -- AUTO_INCREMENT de la tabla `oauth_steem`
 --
 ALTER TABLE `oauth_steem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `publisher`
 --
 ALTER TABLE `publisher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `sticker`
 --
@@ -557,7 +655,7 @@ ALTER TABLE `sticker`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

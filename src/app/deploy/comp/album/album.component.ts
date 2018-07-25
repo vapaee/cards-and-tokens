@@ -21,6 +21,7 @@ export interface AlbumI {
 })
 export class AlbumComponent extends BaseComponent implements OnInit, SectionI, AlbumI {
 
+    capacity: number;
     constructor(
         public vapaee: VapaeeUserService,
         public app: AppService, 
@@ -30,6 +31,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
         private albums: AlbumService
     ) {
         super(vapaee, app, cnt, cfResolver);
+        this.capacity = 0;
     }
 
     public static config(): any {
@@ -56,6 +58,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
             pages.push(this.data.pages[i].slots.length);
             var child = this.service.createDeployTree(this.createPageChild(page));
             this.children.push(child);
+            this.capacity++;
         }
 
         this.albums.registerAlbum(this, pages);
@@ -67,13 +70,15 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
     createPageChild(page: {slots:any[], background:any}) {
         let _children:any[] = [];
         let _positions:any[] = [];
+        let _slot:number = 0;
         for (let i=0; i<page.slots.length; i++) {
             let position = page.slots[i].position;
             let _child = {
                 "comp": "slot",
                 "data": {
                     "position": position,
-                    "index": i
+                    "index": i,
+                    "slot": this.capacity
                 }
             }
             _children.push(_child);
@@ -97,12 +102,14 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
 
     // invocado por SectionService cuando alguien cambia la sección actual.
     public setSection(current: string) {
+        console.log("AlbumComponent.setSection()", current);
         this.waitReady.then(() => {
             var num = parseInt(current.substr(5));
+            this.albums.setCurrentPage(num);
             console.log("parseInt(current.substr(5))", current.substr(5), num);
             let child = this.children[num];
             let host = this.hosts.toArray()[0];
-            console.error("Hay que generar una animación (movimiento horizontal + fadeout) 2s y luego recién sacar la página");
+            // console.error("Hay que generar una animación (movimiento horizontal + fadeout) 2s y luego recién sacar la página");
             while (host.view.length > 0) {
                 host.view.remove(host.view.length-1);
             }

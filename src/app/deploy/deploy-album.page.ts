@@ -6,6 +6,7 @@ import { ComponentHost} from "./comp/comp";
 import { ComponentService } from "./comp/component.service";
 import { ActivatedRoute } from '@angular/router';
 import { UserdataService } from '../services/userdata.service';
+import { AlbumService } from './comp/album/album.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class DeployAlbumPage implements OnInit {
         public app: AppService, 
         public cnt: CntService, 
         public comp: ComponentService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private album: AlbumService
     ) {
     }
 
@@ -33,7 +35,10 @@ export class DeployAlbumPage implements OnInit {
             
             this.cnt.getUserAlbumCollection(slug).then(collection => {
                 console.log("--------------------------");
-                console.log([collection]);
+                console.log(collection.structure);
+                this.album.setCollection(collection.structure);
+
+
                 /*
                 - primero no se bien de donde sacar el dato. Si de userdata o de cnt
                 - tengo que resolver una estructura que me diga en que slot hay una carta y cual

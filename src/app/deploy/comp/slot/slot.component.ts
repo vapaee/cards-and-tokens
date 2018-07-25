@@ -35,7 +35,7 @@ export class SlotComponent extends BaseComponent implements OnInit {
 
     public init() {
         this.waitReady.then(() => {
-            
+            this.album.registerSlot(this, this.data.index, this.data.slot);
         });
     }
 

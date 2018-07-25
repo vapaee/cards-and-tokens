@@ -88,7 +88,6 @@ $DATA = array (
             "slug" => array( "type" => "varchar(150)" ),
             "creator" => array( "type" => "user" ),
             "numbered" => array( "type" => "boolean" ),
-            "capacity" => array( "type" => "int(8)" ),
             "preview" => array( "type" => "json" ),
             "deploy" => array( "type" => "json", "detail" => true )
         ),        
@@ -116,14 +115,20 @@ $DATA = array (
         ),
         "item" => array(
             "owner" => array( "type" => "user" ),
-            "cols" => array( "type" => "int(8)" ),
-            "rows" => array( "type" => "int(8)" ),
+            "spec" => array( "type" => "item_spec"),
             "container" => array( "type" => "container" )
+        ),
+        "item_spec" => array(
+            "name" => array( "type" => "varchar(150)" ),
+            "img" => array( "type" => "json" ),
+            "cols" => array( "type" => "int(8)" ),
+            "rows" => array( "type" => "int(8)" )
         ),
         "copy" => array(
             "_extends" => "item",
             "multiplicity" => array( "type" => "int(32)" ),
-            "collectible" => array("type" => "card")
+            "collectible" => array("type" => "collectible"),
+            "edition" => array("type" => "edition")
         ),
         "deck" => array(
             "_extends" => "container",

@@ -35,9 +35,9 @@ function getUserdata($credentials, $app) {
     $user["profile"] = $app["db"]->http_get_id("profile", $user["profile"]["id"], array("unbox"=>true, "secure" => true));
 
     $user["data"]["app"] = $app["db"]->http_get("app", $select_creator, $op);
-    $user["data"]["collectible"] = $app["db"]->http_get("collectible", $select_creator, $op); // cartas y stikers, tanto las creadas x el user como las que colecciona
     $user["data"]["album"] = $app["db"]->http_get("album", $select_creator, $op);
     $user["data"]["card"] = $app["db"]->http_get("card", $select_creator, $op);
+    $user["data"]["edition"] = $app["db"]->http_get("edition", $select_creator, $op);
     // $user["data"]["mastery"] = $app["db"]->http_get("mastery", $select_creator, $op);
     // $user["data"]["tokenspec"] = $app["db"]->http_get("tokenspec", $select_creator, $op);
     // estado del usuario en diferentes aspecots
@@ -164,7 +164,7 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
     // Construyo un Inventario
     $inventory = array(
         "capacity" => 8,
-        "structure" => array(),
+        "structure" => array( "b0" => array("x0" => array("y0" => 1))),
         "spec" => 2,
         "owner" => $user["id"]
         // , "app" => 1
@@ -179,28 +179,28 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
         "album" => 1,
         "owner" => $user["id"],
         "spec" => 1, // album
-        "structure" => array(),
+        "structure" => array("s2" => 2),
         "capacity" => 9
     );
     $collection = $app["db"]->http_post("collection", $collection, $unbox);
 
     $copy = array(
         "collectible" => 1,
+        "edition" => 1,
         "owner" => $user["id"],
-        "cols" => 3, // CAPAZ QUE AMERITA CREAR UN ITEM_SPEC para poner estas cosas que se repiten
-        "rows" => 4, // IDEM anterior
         "multiplicity" => 1,
-        "container" => $inventory["id"]
+        "spec" => 1, // "card"
+        "container" => $inventory["container_id"]
     );
     $copy = $app["db"]->http_post("copy", $copy);
 
     $copy = array(
         "collectible" => 2,
+        "edition" => 2,
         "owner" => $user["id"],
-        "cols" => 3, // CAPAZ QUE AMERITA CREAR UN ITEM_SPEC para poner estas cosas que se repiten
-        "rows" => 4, // IDEM anterior
         "multiplicity" => 1,
-        "container" => $collection["id"]
+        "spec" => 1, // "card"
+        "container" => $collection["container_id"]
     );
     $copy = $app["db"]->http_post("copy", $copy);
 

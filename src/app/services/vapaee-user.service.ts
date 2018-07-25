@@ -36,9 +36,8 @@ export class VapaeeUserService {
 
     logout() {
         this.steem.logout();
-        // this.init();
         setTimeout(() => {
-            // document.location.reload();
+            document.location.reload();
         }, 500);
     }
 

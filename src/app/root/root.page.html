@@ -78,8 +78,7 @@
             <div class="divider dropdown-divider"></div>
         </li>   
         <li class="nav-item" *ngIf="!vapaee.logged">
-            <!-- (click)="app.askForLogin()" -->
-            <a class="nav-link waves-light" routerLink="/profile" mdbWavesEffect>
+            <a class="nav-link waves-light" (click)="app.askForLogin()" mdbWavesEffect>
                 <i class="fa fa-sign-in" aria-hidden="true"></i> Login
             </a>
         </li>

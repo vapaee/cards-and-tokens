@@ -23,6 +23,7 @@ interface AnyMap {
 export class CntService {
     public ready: boolean = false;
     public waitReady: Promise<void> = null;
+    public waitData: Promise<void> = null;
     public cards: any[];
     public card: AnyMap;
     public albums: any[];
@@ -56,11 +57,74 @@ export class CntService {
                 this.dom.appendComponentToBody(CardDeploy);
                 this.ready = true;
                 resolve();
-            });    
+            });
+            this.waitData = new Promise((resolve, reject) => {
+                this.userdata.afterReady.then(() => {
+                    this.proccessData();
+                    resolve();
+                }, reject);
+            });
         }
         return this.waitReady;
     }
 
+    // las siguientes funciones sirven para traer datos del usuario
+    proccessData() {
+        console.log('-------- userdata ----------');
+        console.log(this.userdata.data);
+        console.log('----------------------------');
+
+        // Containers
+        this.userdata.data.container = <any>{};
+        for (var i in this.userdata.data.collection) {
+            var col = this.userdata.data.collection[i];
+            this.userdata.data.container["id-"+col.container_id] = col;
+        }
+        for (var i in this.userdata.data.inventory) {
+            var inv = this.userdata.data.inventory[i];
+            this.userdata.data.container["id-"+inv.container_id] = inv;
+        }
+
+        // Items
+        this.userdata.data.item = <any>{};
+        for (var i in this.userdata.data.copy) {
+            var col = this.userdata.data.copy[i];
+            this.userdata.data.item["id-"+col.item_id] = col;
+        }
+
+        // Collectibles
+        this.userdata.data.collectible = <any>{};
+        for (var i in this.userdata.data.card) {
+            var card = this.userdata.data.card[i];
+            this.userdata.data.collectible["id-"+card.collectible_id] = card;
+        }
+
+        // Cards & editions
+        for (var i in this.userdata.data.edition) {
+            var edition = this.userdata.data.edition[i];
+            var collectible = this.userdata.data.collectible["id-"+edition.collectible.id]
+            collectible.edition = collectible.edition || {};
+            collectible.edition["id-"+edition.id] = edition;
+        }
+
+        
+    }
+
+    getCopyById(id:number) {
+        return new Promise<any>((resolve, reject) => {
+            var copy = this.userdata.data.copy["id-"+id];
+            var collectible = this.userdata.data.collectible["id-"+copy.collectible.id];
+            var edition = this.userdata.data.edition["id-"+copy.edition.id];
+            
+            resolve(Object.assign({}, copy, {
+                collectible: collectible,
+                edition: edition
+            }));
+        });
+    }
+
+
+    // Las siguientes funciones sirven para traer datos para deployar cartas y álbumes (sin datos del usuario)
     fetchCard(slug:string) {
         return new Promise<any>((resolve, reject) => {
             // resolve(this.test_scroll);
