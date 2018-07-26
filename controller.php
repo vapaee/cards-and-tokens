@@ -258,8 +258,6 @@ function verifySteemAccessToken($access_token, $account, $name, $app) {
     );
 }
 
-
-
 $app->get('/steem/user', function() use ($app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace GET '/steem/user'");
@@ -279,6 +277,24 @@ $app->get('/steem/user', function() use ($app) {
         }
     }    
 });
+
+
+$app->get('/proxy/image', function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace GET '/proxy/image'");
+    // https://gist.github.com/xxnoobmanxx/89329fa61997b3775487b0c155cda41f
+    $url = isset($_GET['url']) ? $_GET['url'] : null;
+    if (!$url) {
+        die('Please, inform URL');
+    }
+    $imgInfo = getimagesize( $url );
+    if (stripos($imgInfo['mime'], 'image/') === false) {
+        die('Invalid image file');
+    }
+    header("Content-type: ".$imgInfo['mime']);
+    readfile( $url );
+});
+
 
 // -----------------------------------------------------------------------------------------------
 // API: Cards & Tokens (DEPRECATED) --------------------------------------------------------------------------

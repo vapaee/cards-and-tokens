@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DeployCardPage implements OnInit {
     @ViewChild(ComponentHost) public main: ComponentHost;
+    loading: boolean;
 
     constructor(
         public vapaee: VapaeeUserService,
@@ -23,21 +24,35 @@ export class DeployCardPage implements OnInit {
         public comp: ComponentService,
         private route: ActivatedRoute
     ) {
+        this.loading = true;
     }
 
     ngOnInit() {
 
         var slug = this.route.snapshot.paramMap.get('slug');
-
+        console.log("-- ETAPA 1 -- this.cnt.getCardBySlug()");
         this.cnt.getCardBySlug(slug).then(card => {
-            this.comp.createAndDeployTree(card.edition, this.main.view);
-            /*
-            console.log("Deploying:", structure);
-            let compFactory = this.cfResolver.resolveComponentFactory(structure.component);
-            let compRef = this.main.view.createComponent(compFactory);
-            (<BaseComponent>compRef.instance).loadStructure(structure);
-            */
+            console.log("-- ETAPA 2 -- this.preloadCard()");
+            this.preloadCard(card).then(() => {
+                console.log("-- ETAPA 3 -- this.comp.createAndDeployTree");
+                this.comp.createAndDeployTree(card.edition, this.main.view);
+            });
         });
+    }
+
+    preloadCard(card:any) {
+        return this.comp.preload(card.edition.preload).then(() => {
+            this.loading = false;
+        });
+    }
+
+    getLoadingClass() {
+        var classes:any = {"deploy-card":true};
+        if (this.loading) {
+            classes.loading = true;
+        } else {
+        }
+        return classes;
     }
 
 }

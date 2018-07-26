@@ -1,4 +1,9 @@
 :host {
     display: flex;
     flex-grow: 1;
+    .animated {
+        -webkit-animation-delay: 1.2s;
+        -moz-animation-delay: 1.2s;
+        animation-delay: 1.2s;
+    }
 }

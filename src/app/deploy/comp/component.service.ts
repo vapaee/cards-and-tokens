@@ -13,6 +13,7 @@ import { SectionComponent } from './section/section.component';
 import { FloatComponent } from './float/float.component';
 import { AlbumComponent } from './album/album.component';
 import { SlotComponent } from './slot/slot.component';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -26,7 +27,7 @@ interface ComponentMap {
 export class ComponentService implements ComponentServiceI {
     components: ComponentMap;
 
-    constructor(private cfResolver: ComponentFactoryResolver) {
+    constructor(private cfResolver: ComponentFactoryResolver, private http: HttpClient) {
         this.components = {
             "root": RootComponent,
             "place-holder": PlaceHolderComponent,
@@ -74,5 +75,19 @@ export class ComponentService implements ComponentServiceI {
         return {
 
         }
+    }
+
+    public preload(list) {
+        var promises = [];
+        for (var i in list) {
+            promises.push(this.http.get<any>(list[i]).toPromise().then(response => {
+                let urlCreator = window.URL;
+                var src = urlCreator.createObjectURL(response.blob());
+                return src;
+            }, err => {
+                console.error("ERROR: ", err);
+            }));
+        }
+        return Promise.all(promises);
     }
 }

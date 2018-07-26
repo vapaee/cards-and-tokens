@@ -1,4 +1,5 @@
 <div (click)="onClick($event)" class="placeholder">
     <div *ngIf="!copy" class="slot-number">{{this.data.slot}}</div>
-    <img #img *ngIf="copy" width="140" height="197" [id]="copy.collectible.slug" [src]="copy.edition.preview.images.thumbnail" class="hide-at-work">
+    <img #img *ngIf="copy" width="140" height="197" [id]="copy.collectible.slug" [src]="copy.edition.preview.images.thumbnail"
+        class="hide-at-work cursor-pointer">
 </div>

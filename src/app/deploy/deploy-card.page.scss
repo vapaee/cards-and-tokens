@@ -1,5 +1,6 @@
-:host {
+:host, .deploy-card {
     height: 100vh;
     display: flex;
     overflow: hidden;
+    flex-grow: 1;
 }

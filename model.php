@@ -66,6 +66,7 @@ $DATA = array (
             "collectible" => array( "type" => "collectible" ),
             "creator" => array( "type" => "user" ),
             "url" => array( "type" => "varchar(250)" ),
+            "preload" => array( "type" => "json" ),
             "preview" => array( "type" => "json" ),
             "deploy" => array( "type" => "json", "detail" => true ),
             "copies" => array( "type" => "int(10)" ),

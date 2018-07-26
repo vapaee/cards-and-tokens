@@ -102,11 +102,13 @@ export class CntService {
         // Cards & editions
         for (var i in this.userdata.data.edition) {
             var edition = this.userdata.data.edition[i];
-            var collectible = this.userdata.data.collectible["id-"+edition.collectible.id]
-            collectible.edition = collectible.edition || {};
-            collectible.edition["id-"+edition.id] = edition;
+            var collectible = this.userdata.data.collectible["id-"+edition.collectible.id];
+            if (collectible.edition.id == edition.id) {
+                collectible.edition = edition;
+            }
+            collectible.editions = collectible.editions || {};
+            collectible.editions["id-"+edition.id] = edition;
         }
-
         
     }
 

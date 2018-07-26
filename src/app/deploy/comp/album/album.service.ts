@@ -79,7 +79,6 @@ export class AlbumService {
         if (this.album.slots[_slotid].copy) {
             ctrl.loadCopy(this.album.slots[_slotid].copy);
         }
-
     }
 
     public unregisterSlot(slot: SlotI, page:number, index:number) {
