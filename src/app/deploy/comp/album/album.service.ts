@@ -32,10 +32,10 @@ export class AlbumService {
     // Que tal si lo llamamos AlbumNavService??????
 
     album: Album;
-    current: number;
+    currentPage: number;
     constructor(private cnt: CntService) {
         this.album = null;
-        this.current = -1;
+        this.currentPage = -1;
     }
 
     public registerAlbum(album: AlbumI, pages:number[]) {
@@ -71,11 +71,11 @@ export class AlbumService {
 
     public registerSlot(ctrl: SlotI, index:number, slot: number) {
         console.log("AlbumService.registerSlot()", arguments);
-        console.assert(this.album.pages.length > this.current && this.current >= 0, arguments.toString());
-        console.assert(this.album.pages[this.current].slots.length > index && index >= 0, arguments.toString());
+        console.assert(this.album.pages.length > this.currentPage && this.currentPage >= 0, arguments.toString());
+        console.assert(this.album.pages[this.currentPage].slots.length > index && index >= 0, arguments.toString());
         let _slotid = "s"+slot;
         this.album.slots[_slotid].ctrl = ctrl;
-        this.album.pages[this.current].slots[index] = this.album.slots["s"+slot];
+        this.album.pages[this.currentPage].slots[index] = this.album.slots["s"+slot];
         if (this.album.slots[_slotid].copy) {
             ctrl.loadCopy(this.album.slots[_slotid].copy);
         }
@@ -115,6 +115,6 @@ export class AlbumService {
     }
 
     public setCurrentPage(page:number) {
-        this.current = page;
+        this.currentPage = page;
     }
 }

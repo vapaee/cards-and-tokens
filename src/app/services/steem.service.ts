@@ -94,12 +94,13 @@ export class SteemService {
                 } else {
                     this.logged = true;
                     this.user = result.account;
-                    this.user.profile = JSON.parse(this.user.json_metadata).profile;
+                    this.user.profile = (JSON.parse(this.user.json_metadata) || {}).profile || {};
                     this.user.profile.avatar = "https://steemitimages.com/u/" + this.user.name + "/avatar";
                     this.user.profile.name = this.user.profile.name || this.user.name;
-                    this.cookie.set("steem.access_token", credentials.accessToken);
-                    this.cookie.set("steem.account", this.user.name);
-                    this.cookie.set("steem.avatar", this.user.profile.avatar);
+                    var expire = new Date(2040, 1, 1);
+                    this.cookie.set("steem.access_token", credentials.accessToken,expire,"/");
+                    this.cookie.set("steem.account", this.user.name,expire,"/");
+                    this.cookie.set("steem.avatar", this.user.profile.avatar,expire,"/");
                     console.log("*************** Steem Service ****************");
                     console.log([this]);
                     console.log("**********************************************");

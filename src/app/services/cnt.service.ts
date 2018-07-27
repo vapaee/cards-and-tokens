@@ -108,8 +108,7 @@ export class CntService {
             }
             collectible.editions = collectible.editions || {};
             collectible.editions["id-"+edition.id] = edition;
-        }
-        
+        }       
     }
 
     getCopyById(id:number) {
@@ -278,7 +277,7 @@ export class CntService {
         this.waitReady.then(() => {
             var _deploy:any = {};
             _deploy.style = {};
-            
+            _deploy.preload = card.edition.preload;
             _deploy.closebtn = {};
             _deploy.closebtn.style = {
                 "z-index": "9",
@@ -339,9 +338,7 @@ export class CntService {
                 "transition-property": "opacity",
                 "transition-timing-function": "ease-in-out"                    
             }
-
-            console.log("cnt.deploy: ", this.deploy);
-
+            
             setTimeout(() => {
                 var W = 370;
                 var H = 520;
@@ -392,122 +389,7 @@ export class CntService {
 
     deployAlbum(card, img:HTMLImageElement) {
         alert("WHAT?????");
-        console.log("------------ deployCard -------------");
-        console.log("card: ", card);
-        console.log("-------------------------------------");
-        
-        this.waitReady.then(() => {
-            
-            this.deploy = card;
-            this.deploy.style = {};
-            
-            this.deploy.closebtn = {};
-            this.deploy.closebtn.style = {
-                "z-index": "9",
-                "top": "2px",
-                "right": "0px",
-                "position": "fixed",
-                "display": "block",
-                "opacity": "0",
-                "transition-duration": "1s",
-                "transition-property": "opacity",
-                "transition-timing-function": "ease-in-out"
-            }
-
-            this.deploy.front = {};
-            this.deploy.front.style = {
-                "z-index": "11",
-                "top": img.offsetTop + "px",
-                "left": img.offsetLeft + "px",
-                "height": img.offsetHeight + "px",
-                "width": img.offsetWidth + "px",
-                "position": "fixed",
-                "display": "block",
-                "background-size": "contain",
-                "background-image": "url("+card.edition.preview.images.fullsize+"), url("+card.edition.preview.images.thumbnail+")",
-                "transition-duration": "1s",
-                "transition-property": "top left height width",
-                "transition-timing-function": "ease-in-out"
-            };
-
-            this.deploy.body = {};
-            this.deploy.body.style = {
-                "z-index": "8",
-                "top": (this.device.height*0.45) + "px",
-                "left": (this.device.width*0.45) + "px",
-                "bottom": (this.device.height*0.45) + "px",
-                "right": (this.device.width*0.45) + "px",
-                "position": "fixed",
-                "display": "block",
-                "opacity": "0",
-                "background-color": card.edition.preview.colors.bg,
-                "transition-duration": "1s",
-                "transition-property": "top left height width opacity",
-                "transition-timing-function": "ease-in-out"
-            };
-            this.deploy.frame = {
-                src: null
-            };
-            this.deploy.frame.style = {
-                "z-index": "10",
-                "top": "30px",
-                "left": "30px",
-                "bottom": "30px",
-                "right": "30px",
-                "width": "auto",
-                "position": "absolute",
-                "opacity":0,
-                "transition-duration": "1s",
-                "transition-property": "opacity",
-                "transition-timing-function": "ease-in-out"                    
-            }
-
-            setTimeout(() => {
-                var W = 370;
-                var H = 520;
-                this.deploy.front.style.top = (this.device.height-H)*0.5 + "px";
-                this.deploy.front.style.left = (this.device.width-W)*0.5 + "px";
-                this.deploy.front.style.height = H + "px";
-                this.deploy.front.style.width = W + "px";
-            }, 50);
-            
-            setTimeout(() => {
-                this.deploy.body.style.opacity = 1;
-                this.deploy.body.style.display = "block";
-            }, 1000);
-            setTimeout(() => {
-                this.deploy.body.style.left = "0px";
-                this.deploy.body.style.right = "0px";
-            }, 1020);
-            
-            setTimeout(() => {
-                this.deploy.body.style.top = "0px";
-                this.deploy.body.style.bottom = "0px";
-                
-                var W = 370*0.5;
-                var H = 520*0.5;
-
-                this.deploy.front.style.top = (this.device.height-H-10) + "px";
-                this.deploy.front.style.left = (this.device.width-W-10) + "px";
-                this.deploy.front.style.height = H + "px";
-                this.deploy.front.style.width = W + "px";
-            }, 2000);
-
-            setTimeout(() => {
-                var src = window.location.origin + "/embedded/card/" + card.slug;
-                var safeUrl:SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(src);
-                this.deploy.frame.src = safeUrl;
-                // console.log("---->", this.deploy.frame.src);
-                this.deploy.frame.style.opacity = 1;
-                this.deploy.closebtn.style.opacity = 1;
-                // createStatsHeader(carta.attr("id"));
-            }, 3000);
-            
-            this.deploy.prevhref = window.location.href;
-            window.history.pushState({}, "", window.location.origin + "/deploy/card/" + card.slug);
-        });
-
-    }    
+    }
 
     closeCard() {
         window.history.pushState({}, "", this.deploy.prevhref);
@@ -532,8 +414,11 @@ export class CntService {
         <card-front [ngStyle]="cnt.deploy.front.style">
             
         </card-front>
+        <div style="position: absolute; top:0;left:0; pointer-events:none; opacity: 0">
+            <img *ngFor="let src of cnt.deploy.preload" [src]="src">
+        </div>
     </div>`
-  })
+})
 export class CardDeploy {
     constructor(public cnt:CntService) {
 

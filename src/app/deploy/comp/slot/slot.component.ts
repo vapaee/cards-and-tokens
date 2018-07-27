@@ -65,10 +65,3 @@ export class SlotComponent extends BaseComponent implements OnInit {
     }
 
 }
-
-
-/*
-  - hay que pensar si conviene registrar cada una de las cartas (al crearse la página, acordate que se crean y destruyen a demanda)
-  - 
-
-*/
