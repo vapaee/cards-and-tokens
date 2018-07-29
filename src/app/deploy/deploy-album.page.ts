@@ -5,7 +5,6 @@ import { CntService } from "../services/cnt.service";
 import { ComponentHost} from "./comp/comp";
 import { ComponentService } from "./comp/component.service";
 import { ActivatedRoute } from '@angular/router';
-import { UserdataService } from '../services/userdata.service';
 import { AlbumService } from './comp/album/album.service';
 
 

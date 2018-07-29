@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./bootstrap-extension.scss";
 
-body, html, app-root {
+body, html {
     height: 100vh;
     background-color: black;
     color: white;
@@ -21,6 +21,15 @@ body, html, app-root {
     flex-grow: 1;
 }
 
-body.hide-at-work .hide-at-work {
-    opacity: 0;   
+body.hide-at-work {
+    .hide-at-work {
+        opacity: 0;   
+    }
+
+    .opaque-at-work, .opaque-at-work * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+    }
 }
+

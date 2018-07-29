@@ -13,7 +13,7 @@ import { SectionComponent } from './section/section.component';
 import { FloatComponent } from './float/float.component';
 import { AlbumComponent } from './album/album.component';
 import { SlotComponent } from './slot/slot.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 
@@ -77,16 +77,24 @@ export class ComponentService implements ComponentServiceI {
         }
     }
 
-    public preload(list) {
+    public preload(list)     {
         var promises = [];
+    
+        
         for (var i in list) {
-            promises.push(this.http.get<any>(list[i]).toPromise().then(response => {
-                let urlCreator = window.URL;
-                var src = urlCreator.createObjectURL(response.blob());
-                return src;
-            }, err => {
-                console.error("ERROR: ", err);
-            }));
+            let headers = new HttpHeaders();
+            
+            headers = headers.set('content-type', 'blob');
+            promises.push(
+                this.http.get<any>(
+                    list[i],
+                    <any>{headers: headers, responseType:'blob'}
+                ).toPromise().then(response => {
+                    console.log("response", response);
+                }, err => {
+                    console.error("ERROR: ", err);
+                })
+            );
         }
         return Promise.all(promises);
     }

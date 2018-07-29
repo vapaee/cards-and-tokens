@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { VapaeeUserService } from "../services/vapaee-user.service";
-import { AppService } from "../services/app.service";
+import { VapaeeUserService } from "../../services/vapaee-user.service";
+import { AppService } from "../../services/app.service";
 
 @Component({
     selector: 'home-page',

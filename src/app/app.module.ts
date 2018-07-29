@@ -14,17 +14,16 @@ import { CntService, CardDeploy } from './services/cnt.service';
 import { ComponentService } from './deploy/comp/component.service';
 import { SteemService } from './services/steem.service';
 
-import { HomePage } from './home/home.page';
-import { CardsPage } from './cards/cards.page';
-import { ProfilePage } from './profile/profile.page';
-import { CommingSoonPage } from './comming-soon/comming-soon.page';
-import { NotFoundPage } from './not-found/not-found.page';
-import { LoadingPage } from './loading/loading.page';
+import { HomePage } from './pages//home/home.page';
+import { CardsPage } from './pages//cards/cards.page';
+import { ProfilePage } from './pages//profile/profile.page';
+import { CommingSoonPage } from './pages//comming-soon/comming-soon.page';
+import { NotFoundPage } from './pages//not-found/not-found.page';
+import { LoadingPage } from './pages//loading/loading.page';
 import { DeployCardPage } from './deploy/deploy-card.page';
 import { DeployAlbumPage } from './deploy/deploy-album.page';
-import { RootPage } from './root/root.page';
-import { EditorPage } from './editor/editor.page';
-import { AlbumsPage } from './albums/albums.page';
+import { EditorPage } from './pages//editor/editor.page';
+import { AlbumsPage } from './pages//albums/albums.page';
 
 
 import { ComponentHost } from './deploy/comp/comp';
@@ -42,39 +41,34 @@ import { FloatComponent } from './deploy/comp/float/float.component';
 import { DomService } from './services/dom.service';
 import { AlbumComponent } from './deploy/comp/album/album.component';
 import { SlotComponent } from './deploy/comp/slot/slot.component';
-import { SteemConnectPage } from './steem-connect/steem-connect.page';
+import { SteemConnectPage } from './pages/steem-connect/steem-connect.page';
 
 
 
 const routes: Routes = [
-  { path: 'embedded/card/:slug',    data: { state: "embedded-card" }, component: DeployCardPage },
-  { path: 'embedded/album/:slug',    data: { state: "embedded-album" }, component: DeployAlbumPage },
-  { path: 'loading',   data: { state: "loading" }, component: LoadingPage },
-  { path: 'steemconnect',   data: { state: "steemconnect" }, component: SteemConnectPage },
-  { path: '',          data: { state: "root" }, component: RootPage,
-    children: [
-        { path: 'home',      data: { state: "home" }, component: HomePage },
-        { path: 'cards',     data: { state: "cards",  logged: false }, component: CardsPage },
-        { path: 'profile',   data: { state: "profile", logged: false }, component: ProfilePage },
-        { path: 'albums',    data: { state: "albums", logged: false }, component: AlbumsPage },
-        { path: 'editor',    data: { state: "editor", logged: true }, component: CommingSoonPage /*EditorPage*/ },
-        { path: 'inventory', data: { state: "inventory", logged: true }, component: CommingSoonPage },
-        { path: 'mastery',   data: { state: "mastery", logged: true }, component: CommingSoonPage },
-        { path: 'market',    data: { state: "market", logged: true }, component: CommingSoonPage },
-        { path: 'games',     data: { state: "games", logged: true }, component: CommingSoonPage },
-        { path: 'deploy/card/:slug',
-            data: { state: "deploy-card",  logged: false }, component: CardsPage },
-        { path: 'deploy/album/:slug',
-            data: { state: "deploy-album",  logged: false }, component: AlbumsPage },
-        { path: '',
-            redirectTo: '/home',
-            pathMatch: 'full',
-            data: { state:"redirect" }
-        },
-        { path: '**',        data: { state: "404" }, component: NotFoundPage }
-    ]
+  { path: 'embedded/card/:slug',  data: { state: "embedded-card", embedded: true }, component: DeployCardPage },
+  { path: 'embedded/album/:slug', data: { state: "embedded-album", embedded: true }, component: DeployAlbumPage },
+  { path: 'loading',              data: { state: "loading" }, component: LoadingPage },
+  { path: 'steemconnect',         data: { state: "steemconnect" }, component: SteemConnectPage },
+  { path: 'home',                 data: { state: "home" }, component: HomePage },
+  { path: 'cards',                data: { state: "cards",  logged: false }, component: CardsPage },
+  { path: 'profile',              data: { state: "profile", logged: false }, component: ProfilePage },
+  { path: 'albums',               data: { state: "albums", logged: false }, component: AlbumsPage },
+  { path: 'editor',               data: { state: "editor", logged: true }, component: CommingSoonPage /*EditorPage*/ },
+  { path: 'inventory',            data: { state: "inventory", logged: true }, component: CommingSoonPage },
+  { path: 'mastery',              data: { state: "mastery", logged: true }, component: CommingSoonPage },
+  { path: 'market',               data: { state: "market", logged: true }, component: CommingSoonPage },
+  { path: 'games',                data: { state: "games", logged: true }, component: CommingSoonPage },
+  { path: 'deploy/card/:slug',
+      data: { state: "deploy-card",  logged: false }, component: CardsPage },
+  { path: 'deploy/album/:slug',
+      data: { state: "deploy-album",  logged: false }, component: AlbumsPage },
+  { path: '',
+      redirectTo: '/home',
+      pathMatch: 'full',
+      data: { state:"redirect" }
   },
-  { path: '**',        data: { state: "404" }, component: NotFoundPage }
+  { path: '**',                   data: { state: "404" }, component: NotFoundPage }
 ];
 
 @NgModule({
@@ -88,7 +82,6 @@ const routes: Routes = [
     LoadingPage,
     DeployCardPage,
     DeployAlbumPage,
-    RootPage,
     EditorPage,
     ComponentHost,
     RootComponent,

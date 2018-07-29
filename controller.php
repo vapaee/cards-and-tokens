@@ -168,7 +168,7 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
 
 
 
-    // Esto es de prueba:-----------
+    // Esto es de prueba (ini)-----------
     $copy = array(
         "collectible" => 1,
         "edition" => 1,
@@ -200,6 +200,7 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
         "capacity" => 8
     );
     $collection = $app["db"]->http_post("collection", $collection, $unbox);
+    // Esto es de prueba (fin)-----------
 
     return $user;
 });
