@@ -4,22 +4,17 @@ import { VapaeeUserService } from '../../../services/vapaee-user.service';
 import { AppService } from '../../../services/app.service';
 import { CntService } from '../../../services/cnt.service';
 import { SectionService } from '../section/section.service';
-import { AlbumService } from '../album/album.service';
+import { ContainerService } from '../../../services/container.service';
+import { SlotI } from '../../../services/datatypes.service';
 
 
-
-export interface SlotI {
-    loadCopy(copy:any);
-    // API
-    // 
-}
 
 @Component({
     selector: 'slot-comp',
     templateUrl: './slot.component.html',
     styleUrls: ['./slot.component.scss']
 })
-export class SlotComponent extends BaseComponent implements OnInit {
+export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     @ViewChild('img') img:ElementRef;
     copy: any;
     constructor(
@@ -27,8 +22,7 @@ export class SlotComponent extends BaseComponent implements OnInit {
         public app: AppService, 
         public cnt: CntService,
         private cfResolver: ComponentFactoryResolver,
-        private section: SectionService,
-        private album: AlbumService
+        private container: ContainerService
     ) {
         super(vapaee, app, cnt, cfResolver);
 
@@ -37,7 +31,7 @@ export class SlotComponent extends BaseComponent implements OnInit {
 
     public init() {
         this.waitReady.then(() => {
-            this.album.registerSlot(this, this.data.index, this.data.slot);
+            this.container.registerSlot(this.data.container, this, this.data.index, this.data.slot);
         });
     }
 
@@ -52,12 +46,19 @@ export class SlotComponent extends BaseComponent implements OnInit {
         console.log("SlotComponent.loadCopy()", [copy]);
         this.copy = copy;
         this.copy.collectible.edition = copy.edition;
+        this.copy.style = {
+            "display": "block",
+            "width": "140px",
+            "height": "197px",
+            "background-size": "contain",
+            "background-image": "url("+copy.edition.preview.images.fullsize+"), url("+copy.edition.preview.images.thumbnail+")"
+        }
     }
 
     public onClick(e) {
         console.log("SlotComponent.onClick()", [e]);
         this.cnt.deployCard(this.copy.collectible, this.img.nativeElement);
-        // this.album.HacerAlgo(data)
+        // this.container.HacerAlgo(data)
 
         // si está en modo "view" simplemente despliega la carta que esté en ese slot
         // si está en modo "fill" y tiene una carta, la regresa al inventario? startDragging?

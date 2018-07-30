@@ -2,14 +2,16 @@
     width: 160px;
     height: 217px;
     padding: 10px;
-    background-color: white;
+    background-color: rgba($color: #fff, $alpha: 0.4);
     display: block;
+    border-radius: 10px;
 }
 
 .placeholder {
     border: 1px solid gray;
     width: 140px;
     height: 197px;
+    border-radius: 10px;
 }
 
 .slot-number {

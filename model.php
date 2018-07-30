@@ -16,7 +16,6 @@ $DATA = array (
             "client_id" => array( "type" => "varchar(80)" ),
             "client_secret" => array( "type" => "varchar(80)", "private" => true ),
             "redirect_uri" => array( "type" => "varchar(400)" ),
-            // "name" => array( "type" => "varchar(150)" ),
             "url" => array( "type" => "varchar(400)" ),
             "brief" => array( "type" => "text" ),
             "created_at" => array( "type" => "timestamp" ),
@@ -45,6 +44,7 @@ $DATA = array (
         // -------------------------
         "publisher" => array(
             "name" => array( "type" => "varchar(150)" ),
+            "slug" => array( "type" => "varchar(150)" ),
             "publisher_id" => array( "type" => "id", "calculated" => true ),
             "img" => array( "type" => "json" ),
             "owner" => array( "type" => "user" )
@@ -89,6 +89,7 @@ $DATA = array (
             "slug" => array( "type" => "varchar(150)" ),
             "creator" => array( "type" => "user" ),
             "numbered" => array( "type" => "boolean" ),
+            "preload" => array( "type" => "json" ),
             "preview" => array( "type" => "json" ),
             "deploy" => array( "type" => "json", "detail" => true )
         ),        

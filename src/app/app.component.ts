@@ -4,6 +4,7 @@ import { AppService } from "./services/app.service";
 import { CntService } from "./services/cnt.service";
 import { SteemService } from './services/steem.service';
 import { UserdataService } from './services/userdata.service';
+import { DragAndDropService } from './services/drag-and-drop.service';
 
 @Component({
     selector: 'app-root',
@@ -18,11 +19,13 @@ export class AppComponent {
         public user: UserdataService,
         public app: AppService, 
         public cnt: CntService,
-        public steem: SteemService
+        public steem: SteemService,
+        public dnd: DragAndDropService
     ) {        
         this.app.init(this);
         this.cnt.init(this.app.device);
         this.steem.init(this);
+        this.dnd.init();
     }
 
     ngOnInit() {

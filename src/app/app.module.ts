@@ -5,6 +5,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 
+import { DraggableDirective } from './directives/drag-and-drop.directive';
+import { DroppableDirective } from './directives/drag-and-drop.directive';
+
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { VapaeeUserService } from './services/vapaee-user.service';
@@ -13,17 +16,21 @@ import { AppService } from './services/app.service';
 import { CntService, CardDeploy } from './services/cnt.service';
 import { ComponentService } from './deploy/comp/component.service';
 import { SteemService } from './services/steem.service';
+import { ContainerService } from './services/container.service';
+import { DragAndDropService, CardDragging } from './services/drag-and-drop.service';
 
-import { HomePage } from './pages//home/home.page';
-import { CardsPage } from './pages//cards/cards.page';
-import { ProfilePage } from './pages//profile/profile.page';
-import { CommingSoonPage } from './pages//comming-soon/comming-soon.page';
-import { NotFoundPage } from './pages//not-found/not-found.page';
-import { LoadingPage } from './pages//loading/loading.page';
+import { HomePage } from './pages/home/home.page';
+import { CardsPage } from './pages/cards/cards.page';
+import { ProfilePage } from './pages/profile/profile.page';
+import { CommingSoonPage } from './pages/comming-soon/comming-soon.page';
+import { NotFoundPage } from './pages/not-found/not-found.page';
+import { LoadingPage } from './pages/loading/loading.page';
 import { DeployCardPage } from './deploy/deploy-card.page';
 import { DeployAlbumPage } from './deploy/deploy-album.page';
-import { EditorPage } from './pages//editor/editor.page';
-import { AlbumsPage } from './pages//albums/albums.page';
+import { EditorPage } from './pages/editor/editor.page';
+import { AlbumsPage } from './pages/albums/albums.page';
+import { SteemConnectPage } from './pages/steem-connect/steem-connect.page';
+import { InventoryPage } from './pages/inventory/inventory.page';
 
 
 import { ComponentHost } from './deploy/comp/comp';
@@ -41,7 +48,8 @@ import { FloatComponent } from './deploy/comp/float/float.component';
 import { DomService } from './services/dom.service';
 import { AlbumComponent } from './deploy/comp/album/album.component';
 import { SlotComponent } from './deploy/comp/slot/slot.component';
-import { SteemConnectPage } from './pages/steem-connect/steem-connect.page';
+import { InventoryComponent } from './deploy/comp/inventory/inventory.component';
+
 
 
 
@@ -55,7 +63,7 @@ const routes: Routes = [
   { path: 'profile',              data: { state: "profile", logged: false }, component: ProfilePage },
   { path: 'albums',               data: { state: "albums", logged: false }, component: AlbumsPage },
   { path: 'editor',               data: { state: "editor", logged: true }, component: CommingSoonPage /*EditorPage*/ },
-  { path: 'inventory',            data: { state: "inventory", logged: true }, component: CommingSoonPage },
+  { path: 'inventory',            data: { state: "inventory", logged: true }, component: InventoryPage },
   { path: 'mastery',              data: { state: "mastery", logged: true }, component: CommingSoonPage },
   { path: 'market',               data: { state: "market", logged: true }, component: CommingSoonPage },
   { path: 'games',                data: { state: "games", logged: true }, component: CommingSoonPage },
@@ -74,6 +82,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    DraggableDirective,
+    DroppableDirective,
     HomePage,
     CardsPage,
     ProfilePage,
@@ -95,10 +105,13 @@ const routes: Routes = [
     MenuComponent,
     FloatComponent,
     CardDeploy,
+    CardDragging,
     AlbumsPage,
     AlbumComponent,
     SlotComponent,
-    SteemConnectPage
+    InventoryComponent,
+    SteemConnectPage,
+    InventoryPage
   ],
   entryComponents: [
     RootComponent,
@@ -113,7 +126,9 @@ const routes: Routes = [
     FloatComponent,
     AlbumComponent,
     CardDeploy,
-    SlotComponent
+    CardDragging,
+    SlotComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,
@@ -131,11 +146,13 @@ const routes: Routes = [
     UserdataService,
     CntService,
     AppService,
+    ContainerService,
     ComponentService,
     SteemService,
     HttpClient,
     CookieService,
-    DomService
+    DomService,
+    DragAndDropService
   ],
   bootstrap: [AppComponent]
 })

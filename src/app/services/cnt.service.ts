@@ -32,6 +32,7 @@ export class CntService {
     public spec: AnyMap;
     public deploy: any;
     public device: Device;
+    public user = {inventory:<any>{}};
 
     constructor(
         private http: HttpClient, 
@@ -76,19 +77,19 @@ export class CntService {
 
         // Containers
         this.userdata.data.container = <any>{};
-        for (var i in this.userdata.data.collection) {
-            var col = this.userdata.data.collection[i];
+        for (let i in this.userdata.data.collection) {
+            let col = this.userdata.data.collection[i];
             this.userdata.data.container["id-"+col.container_id] = col;
         }
-        for (var i in this.userdata.data.inventory) {
-            var inv = this.userdata.data.inventory[i];
+        for (let i in this.userdata.data.inventory) {
+            let inv = this.userdata.data.inventory[i];
             this.userdata.data.container["id-"+inv.container_id] = inv;
         }
 
         // Items
         this.userdata.data.item = <any>{};
-        for (var i in this.userdata.data.copy) {
-            var col = this.userdata.data.copy[i];
+        for (let i in this.userdata.data.copy) {
+            let col = this.userdata.data.copy[i];
             this.userdata.data.item["id-"+col.item_id] = col;
         }
 
@@ -98,17 +99,43 @@ export class CntService {
             var card = this.userdata.data.card[i];
             this.userdata.data.collectible["id-"+card.collectible_id] = card;
         }
-
+/*
+        // Publishers
+        this.userdata.data.collectible = <any>{};
+        for (let i in this.userdata.data.publisher) {
+            let publisher = this.userdata.data.publisher[i];
+            this.userdata.data.collectible["id-"+card.collectible_id] = card;
+        }         
+*/
         // Cards & editions
-        for (var i in this.userdata.data.edition) {
-            var edition = this.userdata.data.edition[i];
-            var collectible = this.userdata.data.collectible["id-"+edition.collectible.id];
+        for (let i in this.userdata.data.edition) {
+            let edition = this.userdata.data.edition[i];
+            let collectible = this.userdata.data.collectible["id-"+edition.collectible.id];
             if (collectible.edition.id == edition.id) {
                 collectible.edition = edition;
             }
             collectible.editions = collectible.editions || {};
             collectible.editions["id-"+edition.id] = edition;
-        }       
+        }
+
+        // put Inventory service in global variable user.inventory
+        for (let i in this.userdata.data.inventory) {
+            let inventory = this.userdata.data.inventory[i];
+            let app = this.userdata.data.app["id-"+inventory.app.id];
+            inventory.app = app;
+            this.user.inventory = inventory;
+        }
+
+
+        for (var i in this.userdata.data.copy) {
+            let copy = this.userdata.data.copy[i];
+            let collectible = this.userdata.data.collectible["id-"+copy.collectible.id];
+            let edition = this.userdata.data.edition["id-"+copy.edition.id];
+            copy.collectible = collectible;
+            copy.edition = edition;
+        }
+       
+
     }
 
     getCopyById(id:number) {
@@ -200,6 +227,22 @@ export class CntService {
             return {};
         });
     }
+    
+    getUserInventory(slug) {
+        return this.userdata.afterReady.then(() => {
+            if (this.userdata.logged) {
+                for (let i in this.userdata.data.inventory) {
+                    let inventory = this.userdata.data.inventory[i];
+                    if (inventory.app.slug == slug) {
+                        return inventory;
+                    }
+                }
+            }
+            return {};
+        });
+    }
+        
+    
 
     getAllInstances(table, name, params?) {
         return this.data.getAll(table, params).then(result => {
@@ -241,6 +284,16 @@ export class CntService {
             });    
         }
     }
+
+    getCopyCollectible(id) {
+        if (this.userdata.data.item["id-"+id]) {
+            console.log("getCopyCollectible cacheado ", this.userdata.data.item["id-"+id]);
+            return Promise.resolve(this.userdata.data.item["id-"+id].collectible);
+        } else {
+            return Promise.reject("ERROR: no implementado");
+        }
+    }        
+    
 
     getAlbumBySlug(slug) {
         if (this.album[slug]) {
@@ -398,7 +451,6 @@ export class CntService {
 
 }
 
-
 @Component({
     selector: 'card-deploy',
     template: `
@@ -414,7 +466,7 @@ export class CntService {
         <card-front [ngStyle]="cnt.deploy.front.style">
             
         </card-front>
-        <div style="position: absolute; top:0;left:0; pointer-events:none; opacity: 0">
+        <div style="position: absolute; top:-3000px;left:-3000px; pointer-events:none; opacity: 0">
             <img *ngFor="let src of cnt.deploy.preload" [src]="src">
         </div>
     </div>`

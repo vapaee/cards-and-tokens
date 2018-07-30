@@ -6,29 +6,24 @@ import { CntService } from '../../../services/cnt.service';
 import { SectionService } from '../section/section.service';
 import { DeployNode } from '../comp';
 import { SectionI } from '../section/section.component';
-import { AlbumService } from './album.service';
-
-
-export interface AlbumI {
-    // API
-    // 
-}
+import { ContainerService } from '../../../services/container.service';
+import { ContainerCtrl } from '../../../services/datatypes.service';
 
 @Component({
     selector: 'album-comp',
     templateUrl: './album.component.html',
     styleUrls: ['./album.component.scss']
 })
-export class AlbumComponent extends BaseComponent implements OnInit, SectionI, AlbumI {
+export class AlbumComponent extends BaseComponent implements OnInit, SectionI, ContainerCtrl {
 
     capacity: number;
     constructor(
         public vapaee: VapaeeUserService,
         public app: AppService, 
         public cnt: CntService,
-        private cfResolver: ComponentFactoryResolver,
-        private section: SectionService,
-        private albums: AlbumService
+        protected cfResolver: ComponentFactoryResolver,
+        protected section: SectionService,
+        protected containers: ContainerService
     ) {
         super(vapaee, app, cnt, cfResolver);
         this.capacity = 0;
@@ -39,9 +34,9 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
 
         };
     }
-    
-    loadStructure(structure: DeployNode) {
-        // console.log("loadStructure()", structure);
+
+    protected prepareData(structure: DeployNode) {
+        console.log("AlbumComponent.prepareData()", structure);
         this.data = structure.data;
         this.children = [];
         console.assert(Array.isArray(this.data.pages),
@@ -49,7 +44,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
             typeof this.data.pages,
             this.data.pages);
         this.data.current = "page-0";
-        this.data.name = "album";
+        this.data.name = this.data.name || "album";
         var pageslist = [];
         var pages:number[] = [];
         for (var i in this.data.pages) {
@@ -59,14 +54,23 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
             var child = this.service.createDeployTree(this.createPageChild(page));
             this.children.push(child);
         }
+        return {pages:pages, pageslist:pageslist};
+    }
 
-        this.albums.registerAlbum(this, pages);
+    protected registerAndLoad(pages:number[], pageslist: any[]) {
+        this.containers.registerContainer(this.data.name, this, pages);
         this.section.registerSection(this.data.name, this.data.current, pageslist, this);
         this.loadedResolve();
         this.section.setSection(this.data.name, this.data.current);
     }
+    
+    loadStructure(structure: DeployNode) {
+        // console.log("loadStructure()", structure);
+        var data = this.prepareData(structure);
+        this.registerAndLoad(data.pages, data.pageslist);
+    }
 
-    createPageChild(page: {slots:any[], background:any}) {
+    createPageChild(page: {slots:any[], background:any}): {comp: string, data?: any, children?: any[]} {
         console.log("createPageChild()", page);
         let _children:any[] = [];
         let _positions:any[] = [];
@@ -80,7 +84,8 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
                 "data": {
                     "position": position,
                     "index": i,
-                    "slot": this.capacity
+                    "slot": this.capacity,
+                    "container": this.data.name
                 }
             }
             _children.push(_child);
@@ -107,7 +112,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
         console.log("AlbumComponent.setSection()", current);
         this.waitReady.then(() => {
             var num = parseInt(current.substr(5));
-            this.albums.setCurrentPage(num);
+            this.containers.setCurrentPage(this.data.name, num);
             console.log("parseInt(current.substr(5))", current.substr(5), num);
             let child = this.children[num];
             let host = this.hosts.toArray()[0];
@@ -120,5 +125,6 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, A
             let componentRef = host.view.createComponent(componentFactory);
             (<BaseComponent>componentRef.instance).loadStructure(child);
         });
-    }    
+    }
+    
 }

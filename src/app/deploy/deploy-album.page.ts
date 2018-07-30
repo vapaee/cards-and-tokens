@@ -5,7 +5,7 @@ import { CntService } from "../services/cnt.service";
 import { ComponentHost} from "./comp/comp";
 import { ComponentService } from "./comp/component.service";
 import { ActivatedRoute } from '@angular/router';
-import { AlbumService } from './comp/album/album.service';
+import { ContainerService } from '../services/container.service';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class DeployAlbumPage implements OnInit {
         public cnt: CntService, 
         public comp: ComponentService,
         private route: ActivatedRoute,
-        private album: AlbumService
+        private containers: ContainerService
     ) {
     }
 
@@ -33,13 +33,12 @@ export class DeployAlbumPage implements OnInit {
             this.comp.createAndDeployTree(album, this.main.view);
             
             this.cnt.getUserAlbumCollection(slug).then(collection => {
-                this.album.setCollection(collection.structure);
-                /*
-                - primero no se bien de donde sacar el dato. Si de userdata o de cnt
-                - tengo que resolver una estructura que me diga en que slot hay una carta y cual
-                - tengo que usar el servicio AlbumService para que cargue la estructura con carta
-                */
-            })
+                this.containers.setContent(slug, collection.structure);
+            });
+
+            this.cnt.getUserInventory("cards-and-tokens").then(collection => {
+                this.containers.setContent("cards-and-tokens", collection.structure);
+            });
         });
     }
 

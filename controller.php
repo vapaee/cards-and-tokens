@@ -142,8 +142,10 @@ function getUserdata($credentials, $app) {
 $app["db"]->on("post:user", function ($user, $op, $app) {
     
     // El usuario debe tener al menos un perfil
+    $random = md5(time());
     $profile = array(
         "name" => $user["name"],
+        "slug" => "ctn" . substr($random, 0, 29),
         "img" => json_encode(array("avatar" => "http://via.placeholder.com/200x200")),
         "owner" => $user["id"]
     );
