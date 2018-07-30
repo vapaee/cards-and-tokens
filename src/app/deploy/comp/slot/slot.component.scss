@@ -1,10 +1,15 @@
 :host {
     width: 160px;
     height: 217px;
-    padding: 10px;
-    background-color: rgba($color: #fff, $alpha: 0.4);
     display: block;
-    border-radius: 10px;
+    .slot-container {
+        padding: 10px;
+        background-color: rgba($color: #fff, $alpha: 0.4);
+        border-radius: 10px;
+        &.accepting-drop {
+            background-color: green;
+        }
+    }
 }
 
 .placeholder {
@@ -19,3 +24,4 @@
     top: 15px;
     left: 15px;
 }
+

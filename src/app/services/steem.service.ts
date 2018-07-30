@@ -91,6 +91,9 @@ export class SteemService {
                     console.log("this.api.me ERROR:", err);
                     this.loggedReject(err);
                     this.logged = false;
+                    setTimeout(() => {
+                        this.logout();
+                    }, 1000);
                 } else {
                     this.logged = true;
                     this.user = result.account;

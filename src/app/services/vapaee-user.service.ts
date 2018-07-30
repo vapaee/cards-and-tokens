@@ -51,7 +51,10 @@ export class VapaeeUserService {
                 this.ready = true;
                 this.user_name = this.steem.user.profile.name;
                 resolve();
-            }, reject);
+            }, (err) => {
+                this.ready = true;
+                reject();
+            });
         });
         
         /*

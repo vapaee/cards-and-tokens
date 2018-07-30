@@ -2,13 +2,20 @@ import { Injectable } from '@angular/core';
 import { CntService } from './cnt.service';
 import { SlotI, Container, ContainerCtrl, Page, SlotMap } from './datatypes.service';
 
+interface SwapInfo {
+    ctrl: SlotI,
+    index:number,
+    slot:number,
+    container:string,
+    copy:any
+}
 
 @Injectable({
     providedIn: 'root'
 })
 export class ContainerService {
-    // Que tal si lo llamamos AlbumNavService??????
-
+    slotFrom: SwapInfo;
+    slotTo: SwapInfo;
     containers: {[key:string] : Container};
     constructor(private cnt: CntService) {
         this.containers = {};
@@ -95,6 +102,43 @@ export class ContainerService {
     public setCurrentPage(container:string, page:number) {
         this.containers[container].current = page;
         console.assert(this.containers[container].pages.length > this.containers[container].current && this.containers[container].current >= 0, Array.prototype.map.call(arguments, e => e));
+    }
+
+    // dragging -----------------
+    public setSwapFrom(container: string, ctrl: SlotI, index:number, slot: number, copy:any) {
+        this.slotFrom = {
+            ctrl: ctrl,
+            index:index,
+            slot:slot,
+            container:container,
+            copy:copy
+        }
+    }
+
+    public setSwapTo(container: string, ctrl: SlotI, index:number, slot: number, copy:any) {
+        this.slotTo = {
+            ctrl: ctrl,
+            index:index,
+            slot:slot,
+            container:container,
+            copy:copy
+        }
+    }
+
+    public makeSwap() {
+        console.assert(!!this.slotFrom);
+        console.assert(!!this.slotFrom.ctrl);
+        console.assert(!!this.slotFrom.copy);
+        console.assert(!!this.slotTo);
+        console.assert(!!this.slotTo.ctrl);
+        
+        this.slotTo.ctrl.loadCopy(this.slotFrom.copy);
+        this.slotFrom.ctrl.loadCopy(this.slotTo.copy);
+        this.slotFrom = null;
+        this.slotTo = null;
+
+        console.log("ContainerService.makeSwap() DEBE PLASMAR EL CAMBIO EN LA BASE");
+        // console.log("this.slotFrom:", [this.slotFrom], "this.slotTo:", [this.slotTo]);
     }
 
 

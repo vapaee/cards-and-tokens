@@ -17,6 +17,7 @@ import { SlotI } from '../../../services/datatypes.service';
 export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     @ViewChild('img') img:ElementRef;
     copy: any;
+    acceptingDrop: boolean;
     constructor(
         public vapaee: VapaeeUserService,
         public app: AppService, 
@@ -30,6 +31,7 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     }
 
     public init() {
+        this.acceptingDrop = false;
         this.waitReady.then(() => {
             this.container.registerSlot(this.data.container, this, this.data.index, this.data.slot);
         });
@@ -41,17 +43,41 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
         };
     }
 
+    public startDragging() {
+        this.container.setSwapFrom(this.data.container, this, this.data.index, this.data.slot, this.copy);
+    }
+
+    public draggingOver(copy: any) {
+        if (this.copy && this.copy.id == copy.id) return;
+        if (!this.acceptingDrop) {
+            this.acceptingDrop = true;
+            this.container.setSwapTo(this.data.container, this, this.data.index, this.data.slot, this.copy);
+        }
+        // console.log("SlotComponent.draggingOver()", [copy]);
+    }
+
+    public dragLeave() {
+        this.acceptingDrop = false;
+        // console.log("SlotComponent.dragLeave()");
+    }
+
+    public drop() {
+        this.container.makeSwap();
+    }
+
 
     public loadCopy(copy:any) {
         console.log("SlotComponent.loadCopy()", [copy]);
         this.copy = copy;
-        this.copy.collectible.edition = copy.edition;
-        this.copy.style = {
-            "display": "block",
-            "width": "140px",
-            "height": "197px",
-            "background-size": "contain",
-            "background-image": "url("+copy.edition.preview.images.fullsize+"), url("+copy.edition.preview.images.thumbnail+")"
+        if (this.copy) {
+            this.copy.collectible.edition = copy.edition;
+            this.copy.style = {
+                "display": "block",
+                "width": "140px",
+                "height": "197px",
+                "background-size": "contain",
+                "background-image": "url("+copy.edition.preview.images.fullsize+"), url("+copy.edition.preview.images.thumbnail+")"
+            }    
         }
     }
 
@@ -62,7 +88,6 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
 
         // si está en modo "view" simplemente despliega la carta que esté en ese slot
         // si está en modo "fill" y tiene una carta, la regresa al inventario? startDragging?
-        
     }
 
 }

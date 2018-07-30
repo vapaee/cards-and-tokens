@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 26-07-2018 a las 02:35:23
+-- Tiempo de generación: 30-07-2018 a las 16:58:51
 -- Versión del servidor: 5.7.22-0ubuntu0.16.04.1
--- Versión de PHP: 7.1.18-1+ubuntu16.04.1+deb.sury.org+1
+-- Versión de PHP: 7.1.16-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -41,7 +41,7 @@ CREATE TABLE `album` (
 --
 
 INSERT INTO `album` (`id`, `publisher`, `slug`, `creator`, `numbered`, `preview`, `deploy`) VALUES
-(1, 1, 'openmic-100-weeks', 1, 0, '{\n    "images": {\n        "opengraph": "./assets/albums/openmic/preview-opengraph.png",\n        "fullsize": "./assets/albums/openmic/preview-fullsize.png",\n        "thumbnail": "./assets/albums/openmic/preview-thumbnail.png"\n    },\n    "colors": {\n        "bg": "#898F41"\n    }\n}', '{\n    "comp": "root",\n    "children": [\n        {\n            "comp": "row-three",\n            "data": {\n                "header": {\n                    "min-height": "10vh"\n                },\n                "footer": {\n                    "min-height": "6vh"\n                }\n            },\n            "children": [\n                {\n                    "comp": "background",\n                    "data": {\n                        "color": "white",\n                        "fgcolor": "white"\n                    },\n                    "children": [\n                        {\n                            "comp": "menu",\n                            "data": {\n                                "menu": [\n                                    { "text": "<<", "section": "album", "move": -1 },\n                                    { "text": "Page 1", "section": "album", "value": "page-0"},\n                                    { "text": "Page 2", "section": "album", "value": "page-1"},\n                                    { "text": "Page 3", "section": "album", "value": "page-2" },\n                                    { "text": ">>", "section": "album", "move": 1 }\n                                ]\n                            }\n                        }\n                    ]\n                },\n                {\n                    "comp": "album",\n                    "data": {\n                        "pages": [\n                            {\n                                "background": {\n                                    "color": "white"\n                                },\n                                "slots": [\n                                    { "position": { "top": "10%", "left": "20%" } },\n                                    { "position": { "top": "20%", "left": "40%" } },\n                                    { "position": { "top": "30%", "left": "60%" } }\n                                ]\n                            },\n                            {\n                                "background": {\n                                    "color": "white"\n                                },\n                                "slots": [\n                                    { "position": { "top": "10%", "right": "20%" } },\n                                    { "position": { "top": "20%", "right": "40%" } },\n                                    { "position": { "top": "30%", "right": "60%" } }\n                                ]\n                            },\n                            {\n                                "background": {\n                                    "color": "white"\n                                },\n                                "slots": [\n                                    { "position": { "bottom": "10%", "left": "20%" } },\n                                    { "position": { "bottom": "20%", "left": "40%" } },\n                                    { "position": { "bottom": "30%", "left": "60%" } }\n                                ]\n                            }\n                        ]\n                    }\n                },\n                {\n                    "comp": "background",\n                    "data": {\n                        "color": "white"\n                    }\n                }\n            ]\n        }\n    ]\n}');
+(1, 1, 'openmic-100-weeks', 1, 0, '{\n    "images": {\n        "opengraph": "./assets/albums/openmic/preview-opengraph.png",\n        "fullsize": "./assets/albums/openmic/preview-fullsize.png",\n        "thumbnail": "./assets/albums/openmic/preview-thumbnail.png"\n    },\n    "colors": {\n        "bg": "#898F41"\n    }\n}', '{\n    "comp": "root",\n    "children": [\n        {\n            "comp": "row-three",\n            "data": {\n                "header": {\n                    "min-height": "10vh"\n                },\n                "footer": {\n                    "min-height": "6vh"\n                }\n            },\n            "children": [\n                {\n                    "comp": "background",\n                    "data": {\n                        "color": "white",\n                        "fgcolor": "white"\n                    },\n                    "children": [\n                        {\n                            "comp": "menu",\n                            "data": {\n                                "menu": [\n                                    { "text": "<<", "section": "openmic-100-weeks", "move": -1 },\n                                    { "text": "Page 1", "section": "openmic-100-weeks", "value": "page-0"},\n                                    { "text": "Page 2", "section": "openmic-100-weeks", "value": "page-1"},\n                                    { "text": "Page 3", "section": "openmic-100-weeks", "value": "page-2" },\n                                    { "text": ">>", "section": "openmic-100-weeks", "move": 1 }\n                                ]\n                            }\n                        }\n                    ]\n                },\n                {\n                    "comp": "album",\n                    "data": {\n                        "name": "openmic-100-weeks",\n                        "pages": [\n                            {\n                                "background": {\n                                    "color": "white"\n                                },\n                                "slots": [\n                                    { "position": { "top": "10%", "left": "20%" } },\n                                    { "position": { "top": "20%", "left": "40%" } },\n                                    { "position": { "top": "30%", "left": "60%" } }\n                                ]\n                            },\n                            {\n                                "background": {\n                                    "color": "white"\n                                },\n                                "slots": [\n                                    { "position": { "top": "10%", "right": "20%" } },\n                                    { "position": { "top": "20%", "right": "40%" } },\n                                    { "position": { "top": "30%", "right": "60%" } }\n                                ]\n                            },\n                            {\n                                "background": {\n                                    "color": "white"\n                                },\n                                "slots": [\n                                    { "position": { "bottom": "10%", "left": "20%" } },\n                                    { "position": { "bottom": "20%", "left": "40%" } },\n                                    { "position": { "bottom": "30%", "left": "60%" } }\n                                ]\n                            }\n                        ]\n                    }\n                },\n                {\n                    "comp": "background",\n                    "data": {\n                        "color": "white"\n                    },\n                    "children": [\n                        {\n                            "comp": "float",\n                            "data": {\n                                "style": {\n                                    "width": "100%",\n                                    "height": "240px",\n                                    "bottom": "20px",\n                                    "left": "0px"\n                                }\n                            },\n                            "children": [{\n                                "comp": "inventory",\n                                "data": {\n                                    "rows":1\n                                }\n                            }]\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}');
 
 -- --------------------------------------------------------
 
@@ -67,7 +67,7 @@ CREATE TABLE `app` (
 --
 
 INSERT INTO `app` (`id`, `creator`, `client_id`, `client_secret`, `redirect_uri`, `url`, `brief`, `created_at`, `inventory`, `_super`) VALUES
-(1, 1, 'f47ebe1ab2f388e549df8570833e18fa', 'a16b39ee4b1df37f5daed29a2918b56e80d7156ac2581fc66c', 'http://cardsandtokens.com', 'http://cardsandtokens.com', 'A place where you can create, trade and collect cards of any topic made by the users themselves.', '2018-07-25 14:56:57', '[]', '{"id":1,"name":"Cards & Tokens","img":{"avatar":"http://cardsandtokens.com/assets/cards-and-tokens.png"},"owner":{"id":1},"publisher_id":2}');
+(1, 1, 'f47ebe1ab2f388e549df8570833e18fa', 'a16b39ee4b1df37f5daed29a2918b56e80d7156ac2581fc66c', 'http://cardsandtokens.com', 'http://cardsandtokens.com', 'A place where you can create, trade and collect cards of any topic made by the users themselves.', '2018-07-25 14:56:57', '[]', '{"id":1,"slug":"cards-and-tokens","name":"Cards & Tokens","img":{"avatar":"http://cardsandtokens.com/assets/cards-and-tokens.png"},"owner":{"id":1},"publisher_id":2}');
 
 -- --------------------------------------------------------
 
@@ -137,7 +137,8 @@ CREATE TABLE `collection` (
 --
 
 INSERT INTO `collection` (`id`, `album`, `owner`, `_super`) VALUES
-(1, 1, 1, '{"id":2,"owner":{"id":1},"capacity":9,"structure":{"s2":2, "s4":4, "s6":3},"spec":{"id":1}}');
+(1, 1, 1, '{"id":2,"owner":{"id":1},"capacity":9,"structure":{"s2":2, "s4":4, "s6":3},"spec":{"id":1}}'),
+(2, 1, 12, '{"id":4,"owner":{"id":12},"capacity":8,"structure":{"s3":6},"spec":{"id":1}}');
 
 -- --------------------------------------------------------
 
@@ -160,8 +161,10 @@ CREATE TABLE `container` (
 --
 
 INSERT INTO `container` (`id`, `owner`, `capacity`, `structure`, `spec`, `_sub_id`, `_sub_table`) VALUES
-(1, 1, 8, '{"b0":{"x0":{"y0":1}}}', 2, 1, 'inventory'),
-(2, 1, 9, '{"s2":2, "s4":4, "s6":3}', 1, 1, 'collection');
+(1, 1, 8, '{"s1":1}', 2, 1, 'inventory'),
+(2, 1, 9, '{"s2":2, "s4":4, "s6":3}', 1, 1, 'collection'),
+(3, 12, 8, '{"s1":5}', 2, 2, 'inventory'),
+(4, 12, 8, '{"s3":6}', 1, 2, 'collection');
 
 -- --------------------------------------------------------
 
@@ -206,7 +209,9 @@ INSERT INTO `copy` (`id`, `multiplicity`, `collectible`, `edition`, `_super`) VA
 (1, 1, 1, 1, '{"id":1,"owner":{"id":1},"spec":{"id":1},"container":{"id":1}}'),
 (2, 1, 2, 2, '{"id":2,"owner":{"id":1},"spec":{"id":1},"container":{"id":2}}'),
 (3, 1, 3, 3, '{"id":3,"owner":{"id":1},"spec":{"id":1},"container":{"id":2}}'),
-(4, 1, 4, 4, '{"id":4,"owner":{"id":1},"spec":{"id":1},"container":{"id":2}}');
+(4, 1, 4, 4, '{"id":4,"owner":{"id":1},"spec":{"id":1},"container":{"id":2}}'),
+(5, 1, 1, 1, '{"id":5,"owner":{"id":12},"spec":{"id":1},"container":{"id":3}}'),
+(6, 1, 2, 2, '{"id":6,"owner":{"id":12},"spec":{"id":1},"container":null}');
 
 -- --------------------------------------------------------
 
@@ -280,7 +285,8 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `owner`, `app`, `_super`) VALUES
-(1, 1, 0, '{"id":1,"owner":{"id":1},"capacity":8,"structure":{"b0":{"x0":{"y0":1}}},"spec":{"id":2}}');
+(1, 1, 1, '{"id":1,"owner":{"id":1},"capacity":8,"structure":{"s1":1},"spec":{"id":2}}'),
+(2, 12, 1, '{"id":3,"owner":{"id":12},"capacity":8,"structure":{"s1":5},"spec":{"id":2}}');
 
 -- --------------------------------------------------------
 
@@ -305,7 +311,9 @@ INSERT INTO `item` (`id`, `owner`, `spec`, `container`, `_sub_id`, `_sub_table`)
 (1, 1, 1, 1, 1, 'copy'),
 (2, 1, 1, 2, 2, 'copy'),
 (3, 1, 1, 2, 3, 'copy'),
-(4, 1, 1, 2, 4, 'copy');
+(4, 1, 1, 2, 4, 'copy'),
+(5, 12, 1, 3, 5, 'copy'),
+(6, 12, 1, 0, 6, 'copy');
 
 -- --------------------------------------------------------
 
@@ -363,7 +371,8 @@ CREATE TABLE `oauth_steem` (
 --
 
 INSERT INTO `oauth_steem` (`id`, `access_token`, `account`, `user`, `expires`) VALUES
-(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMyNTc2ODQ3LCJleHAiOjE1MzMxODE2NDd9.nTGXGyv0lKHeynvxt4CiHmsBr61l5fDuSIwbBDOs7-8', 'viterbo', 1, '2018-07-25 14:12:21');
+(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMyOTczMzE1LCJleHAiOjE1MzM1NzgxMTV9.nhXPBiUedGsrX1WqnkJD2Bu54BVLHc_6zzzBo7TmsPA', 'viterbo', 1, '2018-07-25 14:12:21'),
+(2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoiZ2NhbHZldGUiLCJzY29wZSI6WyJsb2dpbiIsIm9mZmxpbmUiLCJ2b3RlIiwiY29tbWVudCIsImRlbGV0ZV9jb21tZW50IiwiY29tbWVudF9vcHRpb25zIl0sImlhdCI6MTUzMjYyOTMzOCwiZXhwIjoxNTMzMjM0MTM4fQ.vOAEQPA3uQ4RpAEPfWGRweaAkXVuqCF-GwIqVVZDsDI', 'gcalvete', 12, '2018-07-30 18:02:15');
 
 -- --------------------------------------------------------
 
@@ -383,7 +392,8 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `name`, `owner`, `_super`) VALUES
-(1, 'Viterbo RodrÃ­guez', 1, '{"id":1,"name":"Viterbo Rodr\\u00edguez","img":{"avatar":"https:\\/\\/steemitimages.com\\/u\\/viterbo\\/avatar"},"owner":{"id":1},"publisher_id":1}');
+(1, 'Viterbo RodrÃ­guez', 1, '{"id":1,"slug":"cntn128v3n89","name":"Viterbo Rodr\\u00edguez","img":{"avatar":"https:\\/\\/steemitimages.com\\/u\\/viterbo\\/avatar"},"owner":{"id":1},"publisher_id":1}'),
+(12, 'gcalvete', 12, '{"id":3,"name":"gcalvete","slug":"ctnb89594bec9dded511ffa40e719ea9","img":{"avatar":"https:\\/\\/steemitimages.com\\/u\\/gcalvete\\/avatar"},"owner":{"id":12},"publisher_id":3}');
 
 -- --------------------------------------------------------
 
@@ -394,6 +404,7 @@ INSERT INTO `profile` (`id`, `name`, `owner`, `_super`) VALUES
 CREATE TABLE `publisher` (
   `id` int(11) NOT NULL,
   `name` varchar(150) DEFAULT '',
+  `slug` varchar(150) NOT NULL,
   `img` text,
   `owner` int(32) DEFAULT '0',
   `_sub_id` int(32) DEFAULT '0',
@@ -404,9 +415,10 @@ CREATE TABLE `publisher` (
 -- Volcado de datos para la tabla `publisher`
 --
 
-INSERT INTO `publisher` (`id`, `name`, `img`, `owner`, `_sub_id`, `_sub_table`) VALUES
-(1, 'Viterbo RodrÃ­guez', '{"avatar":"https:\\/\\/steemitimages.com\\/u\\/viterbo\\/avatar"}', 1, 1, 'profile'),
-(2, 'Cards & Tokens', '{"avatar":"http://cardsandtokens.com/assets/cards-and-tokens.png"}', 1, 1, 'app');
+INSERT INTO `publisher` (`id`, `name`, `slug`, `img`, `owner`, `_sub_id`, `_sub_table`) VALUES
+(1, 'Viterbo RodrÃ­guez', 'cntn128v3n89', '{"avatar":"https:\\/\\/steemitimages.com\\/u\\/viterbo\\/avatar"}', 1, 1, 'profile'),
+(2, 'Cards & Tokens', 'cards-and-tokens', '{"avatar":"http://cardsandtokens.com/assets/cards-and-tokens.png"}', 1, 1, 'app'),
+(3, 'gcalvete', 'ctnb89594bec9dded511ffa40e719ea9', '{"avatar":"https:\\/\\/steemitimages.com\\/u\\/gcalvete\\/avatar"}', 12, 12, 'profile');
 
 -- --------------------------------------------------------
 
@@ -439,7 +451,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `vapaee_id`, `name`, `profile`, `cache`) VALUES
-(1, 0, 'Viterbo RodrÃ­guez', 1, NULL);
+(1, 0, 'Viterbo RodrÃ­guez', 1, NULL),
+(12, 0, 'gcalvete', 12, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -551,7 +564,8 @@ ALTER TABLE `profile`
 -- Indices de la tabla `publisher`
 --
 ALTER TABLE `publisher`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`);
 
 --
 -- Indices de la tabla `sticker`
@@ -593,12 +607,12 @@ ALTER TABLE `collectible`
 -- AUTO_INCREMENT de la tabla `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `container`
 --
 ALTER TABLE `container`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `container_spec`
 --
@@ -608,7 +622,7 @@ ALTER TABLE `container_spec`
 -- AUTO_INCREMENT de la tabla `copy`
 --
 ALTER TABLE `copy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `deck`
 --
@@ -628,12 +642,12 @@ ALTER TABLE `envelop`
 -- AUTO_INCREMENT de la tabla `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `item_spec`
 --
@@ -648,17 +662,17 @@ ALTER TABLE `oauth_cache`
 -- AUTO_INCREMENT de la tabla `oauth_steem`
 --
 ALTER TABLE `oauth_steem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `publisher`
 --
 ALTER TABLE `publisher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `sticker`
 --
@@ -668,7 +682,7 @@ ALTER TABLE `sticker`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

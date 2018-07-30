@@ -285,6 +285,7 @@ export class CntService {
         }
     }
 
+    /*
     getCopyCollectible(id) {
         if (this.userdata.data.item["id-"+id]) {
             console.log("getCopyCollectible cacheado ", this.userdata.data.item["id-"+id]);
@@ -293,7 +294,7 @@ export class CntService {
             return Promise.reject("ERROR: no implementado");
         }
     }        
-    
+    */
 
     getAlbumBySlug(slug) {
         if (this.album[slug]) {

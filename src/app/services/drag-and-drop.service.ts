@@ -16,14 +16,15 @@ export class DragAndDropService {
         });        
     }
 
-    startDragging(event, collectible, div:HTMLDivElement) {
+    startDragging(event, copy, div:HTMLDivElement) {
         console.log("------------ startDragging -------------");
-        console.log(event, collectible, div);
+        console.log(event, copy, div);
         console.log("-------------------------------------");
         var rect:ClientRect = div.getBoundingClientRect();
         // console.log(rect.top, rect.right, rect.bottom, rect.left);
         var _dragging = <any>{};
-
+        _dragging.copy = copy;
+        _dragging.target = div;
         _dragging.front = <any>{};
         _dragging.front.init = {
             x: event.clientX,
@@ -45,7 +46,7 @@ export class DragAndDropService {
             "display": "block",
             "pointer-events": "none",
             "background-size": "contain",
-            "background-image": "url("+collectible.edition.preview.images.fullsize+"), url("+collectible.edition.preview.images.thumbnail+")"
+            "background-image": "url("+copy.edition.preview.images.fullsize+"), url("+copy.edition.preview.images.thumbnail+")"
         }
         this.dragging = _dragging;
         console.log([this.dragging]);
@@ -58,6 +59,10 @@ export class DragAndDropService {
             this.dragging.front.style.left = (e.clientX + this.dragging.front.init.offset.x + 3) + "px";
         }
         // console.log("drag()",[e]);
+    }
+
+    getDraggingObject() {
+        return this.dragging;
     }
 
     stopDragging(e) {
