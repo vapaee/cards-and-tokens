@@ -5,6 +5,7 @@ import { DataService } from './data.service';
 import { DomService } from './dom.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { UserdataService } from './userdata.service';
+import { BgBoxService } from './bg-box.service';
 
 export interface Todo {
     title: string;
@@ -39,7 +40,9 @@ export class CntService {
         private data: DataService, 
         private dom: DomService, 
         public userdata: UserdataService,
-        public sanitizer: DomSanitizer
+        public sanitizer: DomSanitizer,
+        public box: BgBoxService
+
     ) {
         this.cards = [];
         this.card = {};
@@ -69,7 +72,8 @@ export class CntService {
         return this.waitReady;
     }
 
-    // las siguientes funciones sirven para traer datos del usuario
+    // ------------------------------------------------------------------------------------------
+    // las siguientes funciones sirven para traer datos del usuario -----------------------------
     proccessData() {
         console.log('-------- userdata ----------');
         console.log(this.userdata.data);
@@ -99,14 +103,7 @@ export class CntService {
             var card = this.userdata.data.card[i];
             this.userdata.data.collectible["id-"+card.collectible_id] = card;
         }
-/*
-        // Publishers
-        this.userdata.data.collectible = <any>{};
-        for (let i in this.userdata.data.publisher) {
-            let publisher = this.userdata.data.publisher[i];
-            this.userdata.data.collectible["id-"+card.collectible_id] = card;
-        }         
-*/
+
         // Cards & editions
         for (let i in this.userdata.data.edition) {
             let edition = this.userdata.data.edition[i];
@@ -126,7 +123,6 @@ export class CntService {
             this.user.inventory = inventory;
         }
 
-
         for (var i in this.userdata.data.copy) {
             let copy = this.userdata.data.copy[i];
             let collectible = this.userdata.data.collectible["id-"+copy.collectible.id];
@@ -139,19 +135,18 @@ export class CntService {
     }
 
     getCopyById(id:number) {
-        return new Promise<any>((resolve, reject) => {
-            var copy = this.userdata.data.copy["id-"+id];
+        return this.box.getCopyById(id).then(copy => {
             var collectible = this.userdata.data.collectible["id-"+copy.collectible.id];
             var edition = this.userdata.data.edition["id-"+copy.edition.id];
-            
-            resolve(Object.assign({}, copy, {
+            return Object.assign({}, copy, {
                 collectible: collectible,
                 edition: edition
-            }));
+            });
         });
     }
+    // ------------------------------------------------------------------------------------------
 
-
+    // ------------------------------------------------------------------------------------------
     // Las siguientes funciones sirven para traer datos para deployar cartas y álbumes (sin datos del usuario)
     fetchCard(slug:string) {
         return new Promise<any>((resolve, reject) => {
@@ -241,8 +236,6 @@ export class CntService {
             return {};
         });
     }
-        
-    
 
     getAllInstances(table, name, params?) {
         return this.data.getAll(table, params).then(result => {
@@ -285,17 +278,6 @@ export class CntService {
         }
     }
 
-    /*
-    getCopyCollectible(id) {
-        if (this.userdata.data.item["id-"+id]) {
-            console.log("getCopyCollectible cacheado ", this.userdata.data.item["id-"+id]);
-            return Promise.resolve(this.userdata.data.item["id-"+id].collectible);
-        } else {
-            return Promise.reject("ERROR: no implementado");
-        }
-    }        
-    */
-
     getAlbumBySlug(slug) {
         if (this.album[slug]) {
             console.log("getAlbumBySlug cacheado ", this.album[slug]);
@@ -313,13 +295,10 @@ export class CntService {
         }
     }
 
-    
-
     public getJSON(file) {
         console.log("getJSON()", file);
         return this.http.get(file).toPromise();
     }
-
     
     deployCard(card, img:HTMLImageElement) {
         console.log("------------ deployCard -------------");
@@ -449,6 +428,7 @@ export class CntService {
         window.history.pushState({}, "", this.deploy.prevhref);
         this.deploy = null;
     }
+    // ------------------------------------------------------------------------------------------
 
 }
 

@@ -14,6 +14,7 @@ import { VapaeeUserService } from './services/vapaee-user.service';
 import { UserdataService } from './services/userdata.service';
 import { AppService } from './services/app.service';
 import { CntService, CardDeploy } from './services/cnt.service';
+import { BgBoxService } from './services/bg-box.service';
 import { ComponentService } from './deploy/comp/component.service';
 import { SteemService } from './services/steem.service';
 import { ContainerService } from './services/container.service';
@@ -145,6 +146,7 @@ const routes: Routes = [
     VapaeeUserService,
     UserdataService,
     CntService,
+    BgBoxService,
     AppService,
     ContainerService,
     ComponentService,
