@@ -99,13 +99,20 @@ $DATA = array (
             "owner" => array( "type" => "user" )
         ),        
         // ------------------     
-        "container" => array( // instancia de album
+        "container" => array(
             "owner" => array( "type" => "user" ),
             "capacity" => array( "type" => "int(8)" ),
+            "empty" => array( "type" => "int(8)" ),
             "structure" => array( "type" => "json" ),
             "spec" => array( "type" => "container_spec" )
         ),
-        "container_spec" => array( // instancia de album
+        "slot" => array(
+            "owner" => array( "type" => "user" ),
+            "item" => array( "type" => "item" ),
+            "container" => array( "type" => "container" ),
+            "index" => array( "type" => "int(8)" )
+        ),
+        "container_spec" => array(
             "name" => array( "type" => "varchar(150)" ),
             "structure_def" => array( "type" => "json" )
         ),
@@ -148,7 +155,16 @@ $DATA = array (
             $e["publisher_id"] = $id;
             return $e;
         }
+    ),
+
+    "populate" => array(
+        "init" => function ($app) {
+            
+            
+            
+        }
     )
+
 );
 
 

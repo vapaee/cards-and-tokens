@@ -1332,6 +1332,34 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         }
         return $this->DATA["model"];
     }
+
+    public function reset() {
+        $tables = $this->app["db"]->list_tables();
+        if (!is_array($tables)) return $tables;
+        
+        foreach ($tables as $table) {
+            $result = $this->app["db"]->drop_table($table);
+            if (!is_array($result)) return $result;
+        }
+        
+        $model = $this->app["db"]->get_model();
+        
+        foreach ($model as $table => $attribs) {
+            $result = $this->app["db"]->create_table($table);
+            if (!is_array($result)) return $result;
+        }
+        
+        $this->app["db"]->reset();
+
+        if (isset($this->DATA["populate"])) {
+            if (isset($this->DATA["populate"]["init"])) {
+                $func = $this->DATA["populate"]["init"];
+                $func($this->app);
+            }
+        }
+    
+        return $this->app["db"]->list_tables();     
+    }
      
     public function list_tables() {
         $this->aux_connect();
@@ -1404,6 +1432,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
             case "select":  return "_select";
             case "count":  return "_count";
             case "order":  return "_order";
+            case "index":  return "_index";
         }
         return $attr;
     }

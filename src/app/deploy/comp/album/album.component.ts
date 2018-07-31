@@ -75,8 +75,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         let _children:any[] = [];
         let _positions:any[] = [];
         let _slot:number = 0;
-        for (let i=0; i<page.slots.length; i++) {
-            this.capacity++;
+        for (let i=0; i<page.slots.length; i++, this.capacity++) {
             console.log("this.capacity", this.capacity);
             let position = page.slots[i].position;
             let _child = {

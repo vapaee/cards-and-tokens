@@ -29,23 +29,8 @@ $ctrl->get('/create/{tablename}', function($tablename) use ($app) {
 });
 
 $ctrl->get('/reset', function() use ($app) {
+    $app["db"]->reset();
     $tables = $app["db"]->list_tables();
-    if (!is_array($tables)) return $tables;
-    
-    foreach ($tables as $table) {
-        $result = $app["db"]->drop_table($table);
-        if (!is_array($result)) return $result;
-    }
-    
-    $model = $app["db"]->get_model();
-    
-    foreach ($model as $table => $attribs) {
-        $result = $app["db"]->create_table($table);
-        if (!is_array($result)) return $result;
-    }
-    
-    $tables = $app["db"]->list_tables();
-    
     return json_encode(array("reset"=>"successful", "tables" => $tables));
 });
 

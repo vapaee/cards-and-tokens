@@ -50,6 +50,7 @@ export interface Inventory {
 */
 
 export interface Container {
+    id?:number,
     ctrl:ContainerCtrl,
     pages:Page[],
     slots:SlotMap,

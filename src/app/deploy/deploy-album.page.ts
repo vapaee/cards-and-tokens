@@ -33,11 +33,11 @@ export class DeployAlbumPage implements OnInit {
             this.comp.createAndDeployTree(album, this.main.view);
             
             this.cnt.getUserAlbumCollection(slug).then(collection => {
-                this.containers.setContent(slug, collection.structure);
+                this.containers.setContent(slug, collection.container_id, collection.slots);
             });
 
-            this.cnt.getUserInventory("cards-and-tokens").then(collection => {
-                this.containers.setContent("cards-and-tokens", collection.structure);
+            this.cnt.getUserInventory("cards-and-tokens").then(inventory => {
+                this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
             });
         });
     }

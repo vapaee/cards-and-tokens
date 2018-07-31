@@ -45,6 +45,7 @@ function getUserdata($credentials, $app) {
     // $user["data"]["aurafx"] = $app["db"]->http_get("aurafx", $select_owner, $op); // lista de aura activas que alteran algún atributo de laguna mastery
     $user["data"]["inventory"] = $app["db"]->http_get("inventory", $select_owner, $op); // contenido de cada inventario
     $user["data"]["collection"] = $app["db"]->http_get("collection", $select_owner, $op); // estado actual de cada album que el usuario está colecfcionando
+    $user["data"]["slot"] = $app["db"]->http_get("slot", $select_owner, $op);
     // $user["data"]["effect"] = $app["db"]->http_get("effect", $select_owner, $op); // la lista de todos los effects q modifican la experiencia de algúna maestría
     // profile
     $user["data"]["profile"] = $app["db"]->http_get("profile", $select_owner, $op);
@@ -207,6 +208,9 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
     return $user;
 });
 
+
+
+
 $app->get('/userdata', function() use ($app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace GET '/userdata'");
@@ -224,6 +228,56 @@ $app->get('/userdata', function() use ($app) {
         }
     }    
 });
+
+
+
+$app->post('/swap/slots', function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace GET '/userdata'");
+    putHeaders();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+        $content = $app["request"]->getContent();
+        $content = json_decode($content);
+        $from = null;
+        $to = null;
+
+        $op = array("unbox"=>true);
+        $select_to   = array("container" => $content->to, "index" => $content->toi);
+        $select_from = array("container" => $content->from, "index" => $content->fromi);
+
+        $slot_to   = $app["db"]->http_get("slot", $select_to, $op);
+        $slot_from = $app["db"]->http_get("slot", $select_from, $op);
+
+        trace('$slot_from', $slot_from);
+        trace('$slot_to', $slot_to);
+
+        if (is_array($slot_to) && sizeof($slot_to) == 1) {
+            $slot_to = $slot_to[0];
+            $to = $app["db"]->http_put("slot", $slot_to["id"], array(
+                "container" => $content->from,
+                "index" => $content->fromi
+            ));
+        }
+        
+        if (is_array($slot_from) && sizeof($slot_from) == 1) {
+            $slot_from = $slot_from[0];
+            $from = $app["db"]->http_put("slot", $slot_from["id"], array(
+                "container" => $content->to,
+                "index" => $content->toi
+            ));
+        }
+        
+        return json_encode(array(
+            "to" => $to, "from" => $from
+        ));
+    }    
+});
+
+
+
+
 
 // STEEM ----------------
 function verifySteemAccessToken($access_token, $account, $name, $app) {

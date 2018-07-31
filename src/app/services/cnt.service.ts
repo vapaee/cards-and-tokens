@@ -131,7 +131,21 @@ export class CntService {
             copy.edition = edition;
         }
        
+        for (var i in this.userdata.data.slot) {
+            let slot = this.userdata.data.slot[i];
+            let container = this.userdata.data.container["id-"+slot.container.id];
+            let item = this.userdata.data.item["id-"+slot.item.id];
+            slot.container = container;
+            slot.item = item;
+            slot.container.slots = slot.container.slots || [];
+            slot.container.slots[slot.index] = slot;
+            console.assert(slot.container.slots.length > slot.index, slot.container.slots);
+        }
 
+        //----- SLAG
+
+
+         
     }
 
     getCopyById(id:number) {
@@ -142,6 +156,29 @@ export class CntService {
                 collectible: collectible,
                 edition: edition
             });
+        });
+    }
+
+    swapSlots(from:number, fromi:number, to:number, toi: number) {
+        return this.http.post("//api.cardsandtokens.com/swap/slots",{
+            from:from, fromi:fromi, to:to, toi:toi
+        }).toPromise().then((r) => {
+            var slot_to = this.userdata.data.container["id-"+to].slots[toi];
+            var slot_from = this.userdata.data.container["id-"+from].slots[fromi];
+
+            var item_from = slot_from ? slot_from.item : null;
+            var item_to = slot_to ? slot_to.item : null;
+
+            if (slot_from) {
+                slot_from.container = this.userdata.data.container["id-"+to];
+                slot_from.index = toi;
+                slot_from.item = item_to;
+            }
+            if (slot_to) {
+                slot_to.container = this.userdata.data.container["id-"+from];
+                slot_to.index = fromi;
+                slot_to.item = item_from;
+            }
         });
     }
     // ------------------------------------------------------------------------------------------

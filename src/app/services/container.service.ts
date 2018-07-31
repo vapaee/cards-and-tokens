@@ -22,7 +22,7 @@ export class ContainerService {
     }
 
     public registerContainer(name: string, container: ContainerCtrl, pages:number[]) {
-        let _slot = 1;
+        let _slot = 0;
         let _pages:Page[] = [];
         let _slots:SlotMap = {};
         for (let i=0; i<pages.length; i++) {
@@ -33,14 +33,14 @@ export class ContainerService {
             let _capacity:number = pages[i];
             for (var j=0; j<_capacity; j++, _slot++) {
 
-                _slots["s"+_slot] = {
+                _slots["slot-"+_slot] = {
                     ctrl:null,
                     index:j,
                     page:i,
                     slot:_slot,
                     copy: null
                 };
-                _page.slots.push(_slots["s"+_slot]);
+                _page.slots.push(_slots["slot-"+_slot]);
             }
             _pages.push(_page);
         }
@@ -57,7 +57,7 @@ export class ContainerService {
         console.log("AlbumService.registerSlot()", arguments);
         console.assert(this.containers[container].pages.length > this.containers[container].current && this.containers[container].current >= 0, Array.prototype.map.call(arguments, e => e));
         console.assert(this.containers[container].pages[this.containers[container].current].slots.length > index && index >= 0, Array.prototype.map.call(arguments, e => e));
-        let _slotid = "s"+slot;
+        let _slotid = "slot-"+slot;
         this.containers[container].slots[_slotid].ctrl = ctrl;
         this.containers[container].pages[this.containers[container].current].slots[index] = this.containers[container].slots["s"+slot];
         if (this.containers[container].slots[_slotid].copy) {
@@ -72,12 +72,13 @@ export class ContainerService {
         this.containers[container].pages[page].slots[index].ctrl = null;
     }
 
-    public setContent(container:string, structure:any) {
-        console.log("ContainerService.setContent()", container, structure, this.containers);
+    public setContent(container:string, container_id:number, slots:any[]) {
+        console.log("ContainerService.setContent()", container, slots, this.containers);
         console.assert(!!this.containers[container], Array.prototype.map.call(arguments, e => e));
+        this.containers[container].id = container_id;
         var list = [];
-        for (var slot in structure) {
-            var promise = this.loadSlotCopy(container, slot, structure[slot]);
+        for (var slot in slots) {
+            var promise = this.loadSlotCopy(container, slots[slot]);
             list.push(promise);
         }
         
@@ -91,11 +92,11 @@ export class ContainerService {
         });
     }
 
-    private loadSlotCopy(container, slot, id) {
-        // console.log("AlbumService.loadSlotCopy()", slot, id)
-        this.cnt.getCopyById(id).then((copy => {
-            // console.log("copy", copy);
-            this.containers[container].slots[slot].copy = copy;
+    private loadSlotCopy(container, slot) {
+        console.log("AlbumService.loadSlotCopy()", [container, slot]);
+        
+        this.cnt.getCopyById(slot.item.id).then((copy => {
+            this.containers[container].slots["slot-"+slot.index].copy = copy;
         }));
     }
 
@@ -134,11 +135,16 @@ export class ContainerService {
         
         this.slotTo.ctrl.loadCopy(this.slotFrom.copy);
         this.slotFrom.ctrl.loadCopy(this.slotTo.copy);
-        this.slotFrom = null;
-        this.slotTo = null;
-
-        console.log("ContainerService.makeSwap() DEBE PLASMAR EL CAMBIO EN LA BASE");
-        // console.log("this.slotFrom:", [this.slotFrom], "this.slotTo:", [this.slotTo]);
+        var from = this.containers[this.slotFrom.container].id;
+        var to = this.containers[this.slotTo.container].id;
+        this.cnt.swapSlots(from, this.slotFrom.index, to, this.slotTo.index).then(() => {
+            var copy_from = this.containers[this.slotFrom.container].slots["slot-"+this.slotFrom.index].copy;
+            var copy_to = this.containers[this.slotTo.container].slots["slot-"+this.slotTo.index].copy;
+            this.containers[this.slotFrom.container].slots["slot-"+this.slotFrom.index].copy = copy_to;
+            this.containers[this.slotTo.container].slots["slot-"+this.slotTo.index].copy = copy_from;
+            this.slotFrom = null;
+            this.slotTo = null;
+        });
     }
 
 
