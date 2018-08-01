@@ -33,7 +33,7 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     public init() {
         this.acceptingDrop = false;
         this.waitReady.then(() => {
-            this.container.registerSlot(this.data.container, this, this.data.index, this.data.slot);
+            this.container.registerSlot(this.data.container, this, this.data.index);
         });
     }
 
@@ -44,14 +44,14 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     }
 
     public startDragging() {
-        this.container.setSwapFrom(this.data.container, this, this.data.index, this.data.slot, this.copy);
+        this.container.setSwapFrom(this.data.container, this, this.data.index, this.copy);
     }
 
     public draggingOver(copy: any) {
         if (this.copy && this.copy.id == copy.id) return;
         if (!this.acceptingDrop) {
             this.acceptingDrop = true;
-            this.container.setSwapTo(this.data.container, this, this.data.index, this.data.slot, this.copy);
+            this.container.setSwapTo(this.data.container, this, this.data.index, this.copy);
         }
         // console.log("SlotComponent.draggingOver()", [copy]);
     }

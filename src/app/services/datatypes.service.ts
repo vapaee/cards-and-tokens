@@ -52,7 +52,7 @@ export interface Inventory {
 export interface Container {
     id?:number,
     ctrl:ContainerCtrl,
-    pages:Page[],
+    // pages:Page[],
     slots:SlotMap,
     current:number
 }

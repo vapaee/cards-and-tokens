@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-07-2018 a las 20:31:10
--- Versión del servidor: 5.7.22-0ubuntu0.16.04.1
+-- Tiempo de generación: 01-08-2018 a las 01:24:52
+-- Versión del servidor: 5.7.23-0ubuntu0.16.04.1
 -- Versión de PHP: 7.1.18-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -138,7 +138,7 @@ CREATE TABLE `collection` (
 --
 
 INSERT INTO `collection` (`id`, `album`, `owner`, `_super`) VALUES
-(1, 1, 1, '{"id":2,"owner":{"id":1},"capacity":9,"structure":{"s2":4, "s4":2, "s6":3},"spec":{"id":1}}');
+(1, 1, 1, '{"id":2,"owner":{"id":1},"capacity":9,"empty":7,"structure":{"s2":4, "s4":2, "s6":3},"spec":{"id":1}}');
 
 -- --------------------------------------------------------
 
@@ -150,6 +150,7 @@ CREATE TABLE `container` (
   `id` int(11) NOT NULL,
   `owner` int(32) DEFAULT '0',
   `capacity` int(8) DEFAULT '0',
+  `empty` int(8) NOT NULL,
   `structure` text,
   `spec` int(32) DEFAULT '0',
   `_sub_id` int(32) DEFAULT '0',
@@ -160,9 +161,9 @@ CREATE TABLE `container` (
 -- Volcado de datos para la tabla `container`
 --
 
-INSERT INTO `container` (`id`, `owner`, `capacity`, `structure`, `spec`, `_sub_id`, `_sub_table`) VALUES
-(1, 1, 8, '{"s1":1}', 2, 1, 'inventory'),
-(2, 1, 9, '{"s2":4, "s4":2, "s6":3}', 1, 1, 'collection');
+INSERT INTO `container` (`id`, `owner`, `capacity`, `empty`, `structure`, `spec`, `_sub_id`, `_sub_table`) VALUES
+(1, 1, 8, 7, '{"s1":1}', 2, 1, 'inventory'),
+(2, 1, 9, 7, '{"s2":4, "s4":2, "s6":3}', 1, 1, 'collection');
 
 -- --------------------------------------------------------
 
@@ -281,7 +282,7 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `owner`, `app`, `_super`) VALUES
-(1, 1, 1, '{"id":1,"owner":{"id":1},"capacity":8,"structure":{"s1":1},"spec":{"id":2}}');
+(1, 1, 1, '{"id":1,"owner":{"id":1},"capacity":8,"empty":7,"structure":{"s1":1},"spec":{"id":2}}');
 
 -- --------------------------------------------------------
 
@@ -409,6 +410,30 @@ CREATE TABLE `publisher` (
 INSERT INTO `publisher` (`id`, `name`, `slug`, `img`, `owner`, `_sub_id`, `_sub_table`) VALUES
 (1, 'Viterbo RodrÃ­guez', 'cnt1cw95323b49', '{"avatar":"https:\\/\\/steemitimages.com\\/u\\/viterbo\\/avatar"}', 1, 1, 'profile'),
 (2, 'Cards & Tokens', 'cards-and-tokens', '{"avatar":"http://cardsandtokens.com/assets/cards-and-tokens.png"}', 1, 1, 'app');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `slot`
+--
+
+CREATE TABLE `slot` (
+  `id` int(32) NOT NULL,
+  `owner` int(32) NOT NULL,
+  `item` int(32) NOT NULL,
+  `container` int(32) NOT NULL,
+  `_index` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `slot`
+--
+
+INSERT INTO `slot` (`id`, `owner`, `item`, `container`, `_index`) VALUES
+(1, 1, 1, 1, 1),
+(2, 1, 4, 2, 1),
+(3, 1, 2, 2, 3),
+(4, 1, 3, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -555,6 +580,12 @@ ALTER TABLE `profile`
 ALTER TABLE `publisher`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug`);
+
+--
+-- Indices de la tabla `slot`
+--
+ALTER TABLE `slot`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `sticker`

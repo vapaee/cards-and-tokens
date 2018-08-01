@@ -5,7 +5,6 @@ import { SlotI, Container, ContainerCtrl, Page, SlotMap } from './datatypes.serv
 interface SwapInfo {
     ctrl: SlotI,
     index:number,
-    slot:number,
     container:string,
     copy:any
 }
@@ -47,29 +46,21 @@ export class ContainerService {
 
         this.containers[name] = {
             ctrl: container,
-            pages: _pages,
+            // pages: _pages,
             slots: _slots,
             current: -1
         }
     }
 
-    public registerSlot(container: string, ctrl: SlotI, index:number, slot: number) {
+    public registerSlot(container: string, ctrl: SlotI, index:number) {
         console.log("AlbumService.registerSlot()", arguments);
-        console.assert(this.containers[container].pages.length > this.containers[container].current && this.containers[container].current >= 0, Array.prototype.map.call(arguments, e => e));
-        console.assert(this.containers[container].pages[this.containers[container].current].slots.length > index && index >= 0, Array.prototype.map.call(arguments, e => e));
-        let _slotid = "slot-"+slot;
+        //console.assert(this.containers[container].pages.length > this.containers[container].current && this.containers[container].current >= 0, Array.prototype.map.call(arguments, e => e));
+        //console.assert(this.containers[container].pages[this.containers[container].current].slots.length > index && index >= 0, Array.prototype.map.call(arguments, e => e));
+        let _slotid = "slot-"+index;
         this.containers[container].slots[_slotid].ctrl = ctrl;
-        this.containers[container].pages[this.containers[container].current].slots[index] = this.containers[container].slots["s"+slot];
         if (this.containers[container].slots[_slotid].copy) {
             ctrl.loadCopy(this.containers[container].slots[_slotid].copy);
         }
-    }
-
-    public unregisterSlot(container: string, slot: SlotI, page:number, index:number) {
-        console.assert(this.containers[container].pages.length > page && page > 0, Array.prototype.map.call(arguments, e => e));
-        console.assert(this.containers[container].pages[page].slots.length > index && index > 0, Array.prototype.map.call(arguments, e => e));        
-        console.assert(this.containers[container].pages[page].slots[index].ctrl == slot, this.containers[container].pages[page].slots[index].ctrl.toString(), slot.toString());
-        this.containers[container].pages[page].slots[index].ctrl = null;
     }
 
     public setContent(container:string, container_id:number, slots:any[]) {
@@ -83,8 +74,9 @@ export class ContainerService {
         }
         
         Promise.all(list).then(() => {
+            console.log("ContainerService.setContent()", container, "Promise.all...");
             for (var i in this.containers[container].slots) {
-                console.log("-", i, this.containers[container].slots[i]);
+                console.log("ContainerService.setContent()", container, "-", i, this.containers[container].slots[i]);
                 if (this.containers[container].slots[i].copy && this.containers[container].slots[i].ctrl) {
                     this.containers[container].slots[i].ctrl.loadCopy(this.containers[container].slots[i].copy);
                 }
@@ -92,35 +84,36 @@ export class ContainerService {
         });
     }
 
+    public print() {
+        console.log(this.containers);
+    }
+
     private loadSlotCopy(container, slot) {
-        console.log("AlbumService.loadSlotCopy()", [container, slot]);
+        console.log("ContainerService.loadSlotCopy()", [container, slot]);
         
-        this.cnt.getCopyById(slot.item.id).then((copy => {
-            this.containers[container].slots["slot-"+slot.index].copy = copy;
+        return this.cnt.getCopyById(slot.item.id).then((copy => {
+            return this.containers[container].slots["slot-"+slot.index].copy = copy;
         }));
     }
 
     public setCurrentPage(container:string, page:number) {
         this.containers[container].current = page;
-        console.assert(this.containers[container].pages.length > this.containers[container].current && this.containers[container].current >= 0, Array.prototype.map.call(arguments, e => e));
     }
 
     // dragging -----------------
-    public setSwapFrom(container: string, ctrl: SlotI, index:number, slot: number, copy:any) {
+    public setSwapFrom(container: string, ctrl: SlotI, index:number, copy:any) {
         this.slotFrom = {
             ctrl: ctrl,
             index:index,
-            slot:slot,
             container:container,
             copy:copy
         }
     }
 
-    public setSwapTo(container: string, ctrl: SlotI, index:number, slot: number, copy:any) {
+    public setSwapTo(container: string, ctrl: SlotI, index:number, copy:any) {
         this.slotTo = {
             ctrl: ctrl,
             index:index,
-            slot:slot,
             container:container,
             copy:copy
         }

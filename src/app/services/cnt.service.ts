@@ -89,6 +89,10 @@ export class CntService {
             let inv = this.userdata.data.inventory[i];
             this.userdata.data.container["id-"+inv.container_id] = inv;
         }
+        for (let i in this.userdata.data.container) {
+            let inv = this.userdata.data.container[i];
+            inv.slots = <any[]>[];
+        }
 
         // Items
         this.userdata.data.item = <any>{};

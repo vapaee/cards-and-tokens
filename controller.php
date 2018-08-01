@@ -233,7 +233,7 @@ $app->get('/userdata', function() use ($app) {
 
 $app->post('/swap/slots', function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace GET '/userdata'");
+    trace("$namespace GET '/swap/slots'");
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

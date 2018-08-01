@@ -27,7 +27,7 @@ export class FloatComponent extends BaseComponent implements OnInit {
             if (this.data.style && !this.data.positions) {
                 this.data.positions = [this.data.style];
             }
-            console.log("FloatComponent data", this.data);
+            // console.log("FloatComponent data", this.data);
         });
     }
 

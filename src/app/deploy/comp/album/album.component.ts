@@ -82,8 +82,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
                 "comp": "slot",
                 "data": {
                     "position": position,
-                    "index": i,
-                    "slot": this.capacity,
+                    "index": this.capacity,
                     "container": this.data.name
                 }
             }

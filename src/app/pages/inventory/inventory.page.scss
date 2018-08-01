@@ -1,0 +1,9 @@
+:host {
+    display: flex;
+    height: calc(100% - 71px);
+    .btn {
+        bottom: 150px;
+        left: 20px;
+        position: absolute;
+    }
+}

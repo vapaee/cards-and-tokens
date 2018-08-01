@@ -2,4 +2,9 @@
     height: 100vh;
     display: flex;
     overflow: hidden;
+    .btn {
+        top: 150px;
+        left: 20px;
+        position: absolute;
+    }
 }
