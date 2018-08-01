@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-08-2018 a las 01:24:52
+-- Tiempo de generación: 01-08-2018 a las 12:06:30
 -- Versión del servidor: 5.7.23-0ubuntu0.16.04.1
 -- Versión de PHP: 7.1.18-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -430,8 +430,8 @@ CREATE TABLE `slot` (
 --
 
 INSERT INTO `slot` (`id`, `owner`, `item`, `container`, `_index`) VALUES
-(1, 1, 1, 1, 1),
-(2, 1, 4, 2, 1),
+(1, 1, 1, 1, 0),
+(2, 1, 4, 2, 0),
 (3, 1, 2, 2, 3),
 (4, 1, 3, 2, 5);
 

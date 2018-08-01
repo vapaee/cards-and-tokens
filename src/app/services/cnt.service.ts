@@ -54,6 +54,10 @@ export class CntService {
         this.getAllSpecs();
     }
 
+    print(){
+        console.log(this.userdata.data);
+    }
+
     init(dev:Device) {
         this.device = dev;
         if (!this.ready) {
@@ -164,24 +168,25 @@ export class CntService {
     }
 
     swapSlots(from:number, fromi:number, to:number, toi: number) {
+        console.log("CntService.swapSlots() from(" + from + "," + fromi + ") to  to(" + to + "," + toi + ")");
         return this.http.post("//api.cardsandtokens.com/swap/slots",{
             from:from, fromi:fromi, to:to, toi:toi
         }).toPromise().then((r) => {
             var slot_to = this.userdata.data.container["id-"+to].slots[toi];
             var slot_from = this.userdata.data.container["id-"+from].slots[fromi];
-
-            var item_from = slot_from ? slot_from.item : null;
-            var item_to = slot_to ? slot_to.item : null;
+            delete this.userdata.data.container["id-"+to].slots[toi];
+            delete this.userdata.data.container["id-"+from].slots[fromi];
 
             if (slot_from) {
                 slot_from.container = this.userdata.data.container["id-"+to];
                 slot_from.index = toi;
-                slot_from.item = item_to;
+                slot_from.container.slots[slot_from.index] = slot_from;
             }
+
             if (slot_to) {
                 slot_to.container = this.userdata.data.container["id-"+from];
                 slot_to.index = fromi;
-                slot_to.item = item_from;
+                slot_to.container.slots[slot_to.index] = slot_to;
             }
         });
     }
