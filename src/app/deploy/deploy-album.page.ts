@@ -20,8 +20,8 @@ export class DeployAlbumPage implements OnInit {
         public vapaee: VapaeeUserService,
         public app: AppService, 
         public cnt: CntService, 
-        public comp: ComponentService,
         private route: ActivatedRoute,
+        public comp: ComponentService,
         private containers: ContainerService
     ) {
     }

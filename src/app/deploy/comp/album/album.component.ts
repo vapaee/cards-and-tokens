@@ -68,6 +68,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         // console.log("loadStructure()", structure);
         var data = this.prepareData(structure);
         this.registerAndLoad(data.pages, data.pageslist);
+        return Promise.resolve(<any[]>[]);
     }
 
     createPageChild(page: {slots:any[], background:any}): {comp: string, data?: any, children?: any[]} {

@@ -55,14 +55,14 @@ export class BaseComponent implements OnInit {
         this.data = structure.data;
         this.children = structure.children;
         this.loadedResolve();
-        this.waitReady.then(() => {
+        return this.waitReady.then(() => {
             console.assert(this.hosts.length >= structure.children.length || this.data.reusehost,
                 "ERROR: wrong structure children length. Expected ",
                 this.hosts.length,
                 "got ",
                 structure.children.length,
                 structure.children);
-
+            var promises = [];
             for (let i in structure.children) {
                 let child = structure.children[i];
                 let hostarray = this.hosts.toArray();
@@ -78,8 +78,10 @@ export class BaseComponent implements OnInit {
                 let componentRef = host.view.createComponent(componentFactory);
                 let instance: BaseComponent= <BaseComponent>componentRef.instance;
                 instance.setComponentService(this.service);
-                instance.loadStructure(child);
-            }    
+                promises.push(instance.loadStructure(child));
+            }
+
+            return Promise.all(promises);
         });
     }
 

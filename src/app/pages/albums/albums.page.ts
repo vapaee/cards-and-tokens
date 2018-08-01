@@ -4,6 +4,9 @@ import { AppService } from "../../services/app.service";
 import { CntService } from '../../services/cnt.service';
 import { ActivatedRoute } from '@angular/router';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { ComponentService } from '../../deploy/comp/component.service';
+import { ContainerService } from '../../services/container.service';
+import { ComponentHost } from '../../deploy/comp/comp';
 
 @Component({
     selector: 'albums-page',
@@ -11,6 +14,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
     styleUrls: ['./albums.page.scss']
 })
 export class AlbumsPage implements OnInit {
+    @ViewChild(ComponentHost) public main: ComponentHost;
     initResolve:(value?:void) => void;
     public waitInit: Promise<void> = null;
     public deploy: any = null;
@@ -21,17 +25,16 @@ export class AlbumsPage implements OnInit {
         public app: AppService,
         private cnt: CntService,
         private route: ActivatedRoute,
-        public sanitizer: DomSanitizer
+        public sanitizer: DomSanitizer,
+        public comp: ComponentService,
+        private containers: ContainerService
     ) {
         this.cnt.getAllAlbums().then(e => {
             var slug = this.route.snapshot.paramMap.get('slug');
             if (slug) {
                 this.cnt.getAlbumBySlug(slug).then(album => {
                     this.waitInit.then(() => {
-                        var src = '/embedded/album/' + album.slug + "?ignore_foreign=true";
-                        this.url = this.sanitizer.bypassSecurityTrustResourceUrl(src);
-                        console.log(this.url, src);
-                        this.deploy = album;
+                        this.deployAlbum(album);
                     });
                 });    
             }
@@ -46,9 +49,26 @@ export class AlbumsPage implements OnInit {
         this.initResolve();
     }
 
-    deployAlbum(album, e) {
-        var img:HTMLImageElement = e.target;
-        this.cnt.deployAlbum(album, img);
+    deployAlbum(album) {
+        console.log("AlbumsPage.deployAlbum()", [album]);
+        var src = '/embedded/album/' + album.slug + "?ignore_foreign=true";
+        this.url = this.sanitizer.bypassSecurityTrustResourceUrl(src);
+        
+        this.deploy = album;
+
+        console.log("ini -----------------");
+        this.comp.createAndDeployTree(album, this.main.view).then(() => {
+            console.log("fin -----------------");
+
+            this.cnt.getUserAlbumCollection(album.slug).then(collection => {
+                this.containers.setContent(album.slug, collection.container_id, collection.slots);
+            });
+            
+            this.cnt.getUserInventory("cards-and-tokens").then(inventory => {
+                this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
+            });
+    
+        });
     }
 
     getAlbumUrl() {

@@ -54,7 +54,7 @@ export class ComponentService implements ComponentServiceI {
         let compRef = view.createComponent(compFactory);
         let instance: BaseComponent = (<BaseComponent>compRef.instance);
         instance.setComponentService(this);
-        instance.loadStructure(structure);
+        return instance.loadStructure(structure);
     }
 
     public createDeployTree(struct:{comp:string,children?:any[],data?:any}):DeployNode {

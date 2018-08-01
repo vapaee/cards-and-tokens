@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-08-2018 a las 12:06:30
+-- Tiempo de generación: 01-08-2018 a las 17:29:22
 -- Versión del servidor: 5.7.23-0ubuntu0.16.04.1
--- Versión de PHP: 7.1.18-1+ubuntu16.04.1+deb.sury.org+1
+-- Versión de PHP: 7.1.16-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -365,7 +365,7 @@ CREATE TABLE `oauth_steem` (
 --
 
 INSERT INTO `oauth_steem` (`id`, `access_token`, `account`, `user`, `expires`) VALUES
-(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMyODY3NDEyLCJleHAiOjE1MzM0NzIyMTJ9.jZJzQgz72tmiAAc-AbHQvEpJ12gy_37v27OmYnamXLM', 'viterbo', 1, '2018-07-25 14:12:21');
+(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMzMTQyMjg3LCJleHAiOjE1MzM3NDcwODd9.0dVhounbDymPGHKEW97kBB_PpDYB_j2y7V5-vbgD27g', 'viterbo', 1, '2018-07-25 14:12:21');
 
 -- --------------------------------------------------------
 
@@ -432,8 +432,8 @@ CREATE TABLE `slot` (
 INSERT INTO `slot` (`id`, `owner`, `item`, `container`, `_index`) VALUES
 (1, 1, 1, 1, 0),
 (2, 1, 4, 2, 0),
-(3, 1, 2, 2, 3),
-(4, 1, 3, 2, 5);
+(3, 1, 2, 2, 5),
+(4, 1, 3, 2, 8);
 
 -- --------------------------------------------------------
 

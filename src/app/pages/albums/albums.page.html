@@ -4,9 +4,14 @@
     </div>
 </div>
 
-<div class="display-flex flex-grow" *ngIf="deploy">
+<!--div class="display-flex flex-grow" *ngIf="deploy">
     <iframe id="album"
         [src]="getAlbumUrl()"
         class="flex-grow no-border">
     </iframe>
+</div-->
+
+
+<div class="display-flex flex-grow" [hidden]="!deploy">
+    <ng-template comp-host></ng-template>
 </div>

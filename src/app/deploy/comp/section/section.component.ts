@@ -47,6 +47,7 @@ export class SectionComponent extends BaseComponent implements OnInit, SectionI 
         this.section.registerSection(this.data.name, this.data.current, this.data.sections, this);
         this.loadedResolve();
         this.section.setSection(this.data.name, this.data.current);
+        return Promise.resolve(<any[]>[]);
     }
 
     public setSection(current: string) {

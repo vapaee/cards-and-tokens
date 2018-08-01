@@ -290,13 +290,13 @@ function verifySteemAccessToken($access_token, $account, $name, $app) {
         if(is_array($oauth_steem)) {
             $oauth_steem = $oauth_steem[0];
         }
-        // trace("verifySteemAccessToken()   ENCONTRE!  ", $oauth_steem);
+        trace("verifySteemAccessToken()   ENCONTRE!  ", $oauth_steem);
         $user = $app["db"]->http_get_id("user", $oauth_steem["user"]["id"], $op);
         $app["db"]->http_put("oauth_steem", $oauth_steem["id"], array(
             "access_token" => $access_token
         ));
     } else {
-        // trace("verifySteemAccessToken()   NO ENCONTRE!   ");
+        trace("verifySteemAccessToken()   NO ENCONTRE!   ");
         $user = $app["db"]->http_post("user", array("name" => $name), array("unbox" => true, "secure" => true));
 
         $app["db"]->http_post("oauth_steem", array(
@@ -305,7 +305,7 @@ function verifySteemAccessToken($access_token, $account, $name, $app) {
             "account" => $account
         ), $op);
     }
-    // trace("verifySteemAccessToken() return ", array("user" => $user));
+    trace("verifySteemAccessToken() return ", array("user" => $user));
     return array(
         "user" => $user
     );

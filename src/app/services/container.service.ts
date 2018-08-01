@@ -21,6 +21,7 @@ export class ContainerService {
     }
 
     public registerContainer(name: string, container: ContainerCtrl, pages:number[]) {
+        console.log("AlbumService.registerContainer()", arguments);
         let _slot = 0;
         let _pages:Page[] = [];
         let _slots:SlotMap = {};
