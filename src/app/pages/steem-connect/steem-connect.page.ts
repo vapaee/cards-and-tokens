@@ -35,7 +35,9 @@ export class SteemConnectPage implements OnInit {
             clearInterval(this.redirecting);
         });
 
+        console.log("SteemConnectPage.ngOnInit() this.steem.waitTimeout.then(() => ....");
         this.steem.waitTimeout.then(() => {
+            console.log("SteemConnectPage.ngOnInit() recibí un time out");
             this.timeout = true;
             this.redirecting = window.setTimeout(() => {
                 this.app.navigate("home");

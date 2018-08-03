@@ -67,4 +67,11 @@ export class InventoryPage implements OnInit {
         
     }
 
+    getDailyPrice() {
+        this.cnt.getDailyPrize().then(inventory => {
+            console.log("InventoryPage.getDailyPrice() me llegó inventory: ", inventory);
+            this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
+        });
+    }
+
 }

@@ -33,6 +33,7 @@ export class SteemService {
     api:any;
     user:any;
     metadata:any;
+    public access_token: string;
     public waitLogged: Promise<void> = null;
     public waitTimeout: Promise<void> = null;
     public waitReady: Promise<void> = null;
@@ -60,6 +61,9 @@ export class SteemService {
             this.api = api;
             resolve();
         });
+        this.waitLogged.catch(e => {
+            console.log("STEEMCONNECT ERROR: ", e);
+        });
     }
 
     init(app) {
@@ -83,6 +87,7 @@ export class SteemService {
     setCredentials(credentials: SteemCredentials) {
         this.waitReady.then(() => {
             this.timeout = window.setTimeout(() => {
+                console.log("TIME OUT: this.timeoutResolve();");
                 this.timeoutResolve();
             }, 10000);
             this.api.setAccessToken(credentials.accessToken);
@@ -104,6 +109,7 @@ export class SteemService {
                     this.cookie.set("steem.access_token", credentials.accessToken,expire,"/");
                     this.cookie.set("steem.account", this.user.name,expire,"/");
                     this.cookie.set("steem.avatar", this.user.profile.avatar,expire,"/");
+                    this.access_token = credentials.accessToken;
                     console.log("*************** Steem Service ****************");
                     console.log([this]);
                     console.log("**********************************************");

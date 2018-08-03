@@ -149,14 +149,14 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
         "slug" => "ctn" . substr($random, 0, 29),
         "img" => json_encode(array("avatar" => "http://via.placeholder.com/200x200")),
         "owner" => $user["id"]
-        hay poner el dailyprize con un día de atrazo así ya queda disponible al toque
     );
     
     if (isset($_GET["avatar"])) $profile["img"] = json_encode(array("avatar" => $_GET["avatar"]));
     $unbox = array("unbox" => true);
     $profile = $app["db"]->http_post("profile", $profile, $unbox);
     $app["db"]->http_put("user", $user["id"], array(
-        "profile" => $profile["id"]
+        "profile" => $profile["id"],
+        "dailyprize" => "2000-01-01 00:00:00"
     ));
 
     // Construyo un Inventario
@@ -168,6 +168,28 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
         "app" => 1 // Cards & tokens app
     );
     $inventory = $app["db"]->http_post("inventory", $inventory, $unbox);
+
+
+    // Esto no va a ser así definitivamente. Sólo para este prototipo. ------------
+    $collection = array(
+        "album" => 1,
+        "owner" => $user["id"],
+        "spec" => 1, // album
+        "capacity" => 9,
+        "empty" => 9
+    );
+    $collection = $app["db"]->http_post("collection", $collection, $unbox);
+    // ----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -235,17 +257,98 @@ $app->get('/userdata', function() use ($app) {
 $app->get('/dailyprize', function() use ($app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace GET 'dailyprize'");
+
     
-    
+    $op = array("secure" => true, "unbox" => true);
     $access_token = $_GET["access_token"];
+    trace($access_token);
     $result = verifySteemAccessToken($access_token, $app);
     $user_id = $result["user"]["id"];
-    $user = $app["db"]->http_get_id("user", $user_id);
+    $user = $app["db"]->http_get_id("user", $user_id, $op);
 
-    hay que jijarse en el dailyprize
+    // ---------------------------------------------------------------------
+    // checking if has past at least one day -------------------------------
+    $lastprize = date_create($user["dailyprize"]);
+    $hoy = date_create(date("Y-m-d H:i:s"));
+    $interval = date_diff($hoy, $lastprize);
+    $days = $interval->format("%a");
+    if ($days == 0) {
+        $h = $interval->format("%h");
+        $m = $interval->format("%i");
+        $s = $interval->format("%s");
+        $remaining = 24 * 60 * 60 - $h * 60 * 60 - $m * 60 - $s;
+        return '{"error":"less than a day", "countdown":"'.$remaining.'","h":"'.$h.'","m":"'.$m.'","s":"'.$s.'"}';
+    }
+
+    // ---------------------------------------------------------------------
+    // checking if there's space in the inventory --------------------------
+    $inventory = $app["db"]->http_get("inventory", array("owner" => $user_id), $op);
+    $inventory = $inventory[0];
+
+    if ($inventory["empty"] == 0) {
+        return '{"error":"inventory is full"}';
+    }
+
+    $container_id = $inventory["container_id"];
+    $slots = $app["db"]->http_get("slot", array("container" => $container_id), $op);
+    $candidates = [];
+    // we turn on all candidates slots
+    for ($i=0; $i<$inventory["capacity"]; $i++) {
+        array_push($candidates, true);
+    }
+    // then we turn off slots actually used
+    foreach ($slots as $key => $slot) {
+        $candidates[ $slot["index"] ] = false;
+    }
+
+    // we took first empty slot
+    $slot_index = -1;
+    for ($i=0; $i<$inventory["capacity"]; $i++) {
+        if ($candidates[$i]) {
+            $slot_index = $i;
+            break;
+        }
+    }
+
+
+    // ---------------------------------------------------------------------
+    // we create the new slot and the item
+    $collectibles = $app["db"]->http_get("card", null, $op);
+    $coll_index = rand(0, sizeof($collectibles)-1);
+    $card = $collectibles[$coll_index];
+    $edition = $app["db"]->http_get_id("edition", $card["edition"]["id"], $op);
+
+    $copy = array(
+        "collectible" => $card["collectible_id"],
+        "edition" => $card["edition"]["id"],
+        "owner" => $user["id"],
+        "multiplicity" => 1,
+        "spec" => 1, // "card"
+        "container" => $inventory["container_id"]
+    );
+    $copy = $app["db"]->http_post("copy", $copy, $op);
+
+    $slot = array(
+        "owner" => $user["id"],
+        "item" => $copy["item_id"],
+        "container" => $inventory["container_id"],
+        "index" => $slot_index,
+    );
+    $slot = $app["db"]->http_post("slot", $slot, $op);
+
+    $to = $app["db"]->http_put("inventory", $inventory["id"], array(
+        "empty" => $inventory["empty"] - 1
+    ));
     
-
-
+    trace('$slot', $slot);
+    trace('$copy', $copy);
+    return json_encode(array(
+        "slot" => $slot,
+        "copy" => $copy,
+        "card" => $card,
+        "edition" => $edition,
+        "success" => true
+    ));
 });
 
 

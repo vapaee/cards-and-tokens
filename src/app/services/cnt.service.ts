@@ -190,6 +190,34 @@ export class CntService {
             }
         });
     }
+
+    getDailyPrize() {
+        return new Promise<any>((resolve, reject) => {
+            console.log("CntService.getDailyPrize()");
+            var url = "http://api.cardsandtokens.com/dailyprize?access_token="+this.userdata.access_token;
+            this.http.get<any>(url).toPromise().then((r) => {
+                if (r.error) {
+                    alert(r.error);
+                    reject(r.error);
+                    return;
+                }
+                
+                this.userdata.data.slot["id-"+r.slot.id] = r.slot;
+                this.userdata.data.copy["id-"+r.copy.id] = r.copy;
+                this.userdata.data.card["id-"+r.card.id] = r.card;
+                this.userdata.data.edition["id-"+r.edition.id] = r.edition;
+                this.proccessData();
+    
+                this.getUserInventory("cards-and-tokens").then(inventory => {
+                    resolve(inventory);
+                });
+                
+            }, reject);
+        });
+    }
+    //http://api.cardsandtokens.com/dailyprize?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMzMjczODMyLCJleHAiOjE1MzM4Nzg2MzJ9.7oVE9obJJNb_g2WrWqn_xDOAfP7zRx7PNTPdR64juQg
+
+
     // ------------------------------------------------------------------------------------------
 
     // ------------------------------------------------------------------------------------------
