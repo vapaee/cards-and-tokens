@@ -109,6 +109,7 @@ export class SteemService {
                     this.cookie.set("steem.access_token", credentials.accessToken,expire,"/");
                     this.cookie.set("steem.account", this.user.name,expire,"/");
                     this.cookie.set("steem.avatar", this.user.profile.avatar,expire,"/");
+                    this.cookie.set("access_token", credentials.accessToken,expire,"/");
                     this.access_token = credentials.accessToken;
                     console.log("*************** Steem Service ****************");
                     console.log([this]);
@@ -126,6 +127,7 @@ export class SteemService {
         this.cookie.delete("steem.access_token");
         this.cookie.delete("steem.account");
         this.cookie.delete("steem.avatar");
+        this.cookie.delete("access_token");
         this.user = null;
         this.waitLogged = new Promise((resolve, reject) => {
             this.loggedResolve = resolve;

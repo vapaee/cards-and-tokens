@@ -360,7 +360,10 @@ $app->post('/swap/slots', function() use ($app) {
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
+        $credentials = verifySteemAccessToken($app);
+        if (!isset($credentials)) {
+            return json_encode(array("error" => "user not logged"));
+        }
         $content = $app["request"]->getContent();
         $content = json_decode($content);
         $from = null;
@@ -376,6 +379,15 @@ $app->post('/swap/slots', function() use ($app) {
         trace('$slot_from', $slot_from);
         trace('$slot_to', $slot_to);
 
+        if (
+            (isset($slot_to) && $slot_to["user"]["id"] != $credentials["user"]["id"]) ||
+            (isset($slot_from) && $slot_from["user"]["id"] != $credentials["user"]["id"])
+        ) {
+            return json_encode(array("error" => "user logged is not the owner of the slots"));
+        }
+
+
+
         if (is_array($slot_to) && sizeof($slot_to) == 1) {
             $slot_to = $slot_to[0];
             $to = $app["db"]->http_put("slot", $slot_to["id"], array(
@@ -390,6 +402,17 @@ $app->post('/swap/slots', function() use ($app) {
                 "container" => $content->to,
                 "index" => $content->toi
             ));
+            if (!isset($slot_to)) {
+                $container_from = $app["db"]->http_get_id("container", $from, $op);
+                $container_to   = $app["db"]->http_get_id("container", $to, $op);
+                $container_from = $app["db"]->http_put("container", $container_from["id"], array(
+                    "empty" => $container_from["empty"]+1
+                ));
+                $container_to = $app["db"]->http_put("container", $container_to["id"], array(
+                    "empty" => $container_to["empty"]-1
+                ));
+            }
+
         }
         
         return json_encode(array(
@@ -403,12 +426,17 @@ $app->post('/swap/slots', function() use ($app) {
 
 
 // STEEM ----------------
-function verifySteemAccessToken($access_token, $app) {
+function verifySteemAccessToken($app) {
+    if (!isset($_COOKIE["access_token"])) {
+        trace("ERROR: no access_token found in cookies", $_COOKIE);
+        return null;
+    }
+    $access_token = $_COOKIE["access_token"];
+
     // $credentials["user"]["id"]
     $credentials = null;
     $op = array("unbox"=>true, "secure" => true);
     $oauth_steem = $app["db"]->http_get("oauth_steem", array("access_token" => $access_token), $op);
-    // trace("verifySteemAccessToken()", $access_token, $oauth_steem["account"], $oauth_steem["name"]);
     trace("verifySteemAccessToken()", $access_token, $oauth_steem);
     if ($oauth_steem) {
         if(is_array($oauth_steem)) {
@@ -416,11 +444,6 @@ function verifySteemAccessToken($access_token, $app) {
         }
         trace("verifySteemAccessToken()   ENCONTRE!  ", $oauth_steem);
         $user = $app["db"]->http_get_id("user", $oauth_steem["user"]["id"], $op);
-        /*
-        $app["db"]->http_put("oauth_steem", $oauth_steem["id"], array(
-            "access_token" => $access_token
-        ));
-        */
     } else {
         trace("verifySteemAccessToken()   NO ENCONTRE!  CHEKAMOS EL TOKEN EN STEEM... ");
 
@@ -449,6 +472,7 @@ function verifySteemAccessToken($access_token, $app) {
         if (!isset($steemuser)) {
             trace(" -------------- ERROR ------------");
             trace($result);
+            return null;
         }
         $profile = array("name" => $steemuser["name"]);
         if (isset($steemuser["account"]) && isset($steemuser["account"]["json_metadata"])) {
@@ -500,8 +524,7 @@ $app->get('/steem/user', function() use ($app) {
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $access_token = $_GET["access_token"];
-        $result = verifySteemAccessToken($access_token, $app);
+        $result = verifySteemAccessToken($app);
         // trace("cnt./userdata -> verifyAccessToken devolvio: ", $result);
         if ($result) {
             $userdata = getUserdata($result, $app);
