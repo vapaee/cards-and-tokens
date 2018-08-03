@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ElementRef } from '@angular/core';
 import { VapaeeUserService } from '../../../services/vapaee-user.service';
 import { AppService } from '../../../services/app.service';
 import { CntService } from '../../../services/cnt.service';
@@ -25,7 +25,8 @@ export class InventoryComponent extends AlbumComponent implements OnInit, Sectio
         public cnt: CntService,
         protected cfResolver: ComponentFactoryResolver,
         protected section: SectionService,
-        protected albums: ContainerService
+        protected albums: ContainerService,
+        private element: ElementRef
     ) {
         super(vapaee, app, cnt, cfResolver, section, albums);
     }
@@ -47,24 +48,33 @@ export class InventoryComponent extends AlbumComponent implements OnInit, Sectio
 
         // Tnego que parametrizar el ancho de las cartas
         var cardWidth = 160; // 140px más margen de ambos lados de 10px
+        var cardHeight = 217; // 197px más margen de ambos lados de 10px
 
         // Tuve que hardcodear esten número acá que corresponde al ancho de 90% del padre de éste nodo
-        var firstMargin = this.app.device.width * 0.05; // 5%
-        var parentWidth = this.app.device.width * 0.9;
-        var cols = Math.floor(parentWidth / 160);
-        var margin = (parentWidth - (cols*cardWidth)) / (cols+1);
+        var firstMargin = this.element.nativeElement.parentNode.offsetWidth * 0.05; // 5%
+        var parentWidth = this.element.nativeElement.parentNode.offsetWidth * 0.9;
 
-        this.data.cols = cols;
+
+        var cols = Math.floor(parentWidth / 160);
+        
+        this.data.cols = this.data.cols || cols;
         this.data.name = "cards-and-tokens";
         this.data.capacity = this.data.capacity || this.data.cols * this.data.rows;
         var remaining = this.data.capacity;
+        var background = {"color": "rgba(0,0,0,0.5)"};
+        let page = {background:background, slots:[]};
+        var margin = (parentWidth - (this.data.cols*cardWidth)) / (this.data.cols+1);
+
         for (let r=0; r<this.data.rows; r++) {
-            let page = {background:{"color": "rgba(0,0,0,0.5)"}, slots:[]};
             for (let s=0; s<this.data.cols && 0<remaining; s++, remaining--) {
-                page.slots.push({ "position": { "top": "10px", "left": (firstMargin+margin*(s+1)+cardWidth*s) + "px" } });
+                page.slots.push({ "position": {
+                    "top": (10*(r+1)+cardHeight*r) + "px",
+                    "left": (firstMargin+margin*(s+1)+cardWidth*s) + "px" }
+                });
             }
-            this.data.pages.push(page);
         }
+
+        this.data.pages.push(page);
         console.log("InventoryComponent.prepareData()", this.data);
 
         // -----------------------------------------------

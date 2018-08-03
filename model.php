@@ -8,7 +8,7 @@ $DATA = array (
             "vapaee_id" => array( "type" => "int(32)" ),
             "name" => array( "type" => "varchar(150)" ),
             "profile" => array( "type" => "profile" ),
-            "cache" => array("type" => "json")
+            "dailyprize" => array( "type" => "timestamp" )
         ),
         "app" => array(
             "_extends" => "publisher",
@@ -103,7 +103,6 @@ $DATA = array (
             "owner" => array( "type" => "user" ),
             "capacity" => array( "type" => "int(8)" ),
             "empty" => array( "type" => "int(8)" ),
-            "structure" => array( "type" => "json" ),
             "spec" => array( "type" => "container_spec" )
         ),
         "slot" => array(

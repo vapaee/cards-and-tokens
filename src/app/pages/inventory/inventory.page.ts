@@ -49,13 +49,15 @@ export class InventoryPage implements OnInit {
             deploy: {
                 "comp": "inventory",
                 "data": {
-                    "rows": 1
+                    "rows": 2,
+                    "cols": 4
                 }
             }
         }
     }
 
     ngOnInit() {
+        
         this.comp.createAndDeployTree(this.inventory, this.main.view);
         
         this.cnt.getUserInventory("cards-and-tokens").then(inventory => {
