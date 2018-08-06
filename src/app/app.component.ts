@@ -32,12 +32,6 @@ export class AppComponent {
         this.app.onWindowsResize();
     }
 
-    isEmbedded() {
-        var state = this.app.getStateData();
-        return state ? state.embedded : false;
-    }
-
-
     @HostListener('window:resize')
     onWindowsResize() {
         this.app.onWindowsResize();
