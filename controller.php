@@ -235,7 +235,7 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
 
 
 
-
+/*
 $app->get('/userdata', function() use ($app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace GET 'userdata'");
@@ -253,6 +253,7 @@ $app->get('/userdata', function() use ($app) {
         }
     }    
 });
+*/
 
 $app->get('/dailyprize', function() use ($app) {
     global $config; $namespace = $config['namespace'];
@@ -260,9 +261,7 @@ $app->get('/dailyprize', function() use ($app) {
 
     
     $op = array("secure" => true, "unbox" => true);
-    $access_token = $_GET["access_token"];
-    trace($access_token);
-    $result = verifySteemAccessToken($access_token, $app);
+    $result = verifySteemAccessToken($app);
     $user_id = $result["user"]["id"];
     $user = $app["db"]->http_get_id("user", $user_id, $op);
 
@@ -310,6 +309,8 @@ $app->get('/dailyprize', function() use ($app) {
         }
     }
 
+    // trace('$slot_index', $slot_index, '$candidates: ', $candidates);
+
 
     // ---------------------------------------------------------------------
     // we create the new slot and the item
@@ -340,8 +341,10 @@ $app->get('/dailyprize', function() use ($app) {
         "empty" => $inventory["empty"] - 1
     ));
     
-    trace('$slot', $slot);
-    trace('$copy', $copy);
+    $app["db"]->http_put("user", $user["id"], array(
+        "dailyprize" => "CURRENT_TIMESTAMP"
+    ));
+
     return json_encode(array(
         "slot" => $slot,
         "copy" => $copy,
@@ -376,41 +379,52 @@ $app->post('/swap/slots', function() use ($app) {
         $slot_to   = $app["db"]->http_get("slot", $select_to, $op);
         $slot_from = $app["db"]->http_get("slot", $select_from, $op);
 
-        trace('$slot_from', $slot_from);
-        trace('$slot_to', $slot_to);
+        trace('$slot_from', $slot_from, isset($slot_from));
+        trace('$slot_to', $slot_to, isset($slot_to));
 
         if (
-            (isset($slot_to) && $slot_to["user"]["id"] != $credentials["user"]["id"]) ||
-            (isset($slot_from) && $slot_from["user"]["id"] != $credentials["user"]["id"])
+            ($slot_to && $slot_to[0]["owner"]["id"] != $credentials["user"]["id"]) ||
+            ($slot_from && $slot_from[0]["owner"]["id"] != $credentials["user"]["id"])
         ) {
+            trace("ERROR: ");
+            trace('$credentials', $credentials);
+            trace('(isset($slot_to) && $slot_to[0]["owner"]["id"] != $credentials["user"]["id"])', (isset($slot_to) && $slot_to[0]["owner"]["id"] != $credentials["user"]["id"]));
+            trace('(isset($slot_from) && $slot_from[0]["owner"]["id"] != $credentials["user"]["id"])', (isset($slot_from) && $slot_from[0]["owner"]["id"] != $credentials["user"]["id"]));
+
+            trace('$slot_to[0]', $slot_to[0]);
+            trace('$slot_to[0]["owner"]', $slot_to[0]["owner"]);
+            trace('$slot_to[0]["owner"]["id"]', $slot_to[0]["owner"]["id"]);
+
             return json_encode(array("error" => "user logged is not the owner of the slots"));
         }
 
-
-
         if (is_array($slot_to) && sizeof($slot_to) == 1) {
             $slot_to = $slot_to[0];
-            $to = $app["db"]->http_put("slot", $slot_to["id"], array(
+            $from = $app["db"]->http_put("slot", $slot_to["id"], array(
                 "container" => $content->from,
                 "index" => $content->fromi
             ));
+            $from = $from["slot"];
         }
         
         if (is_array($slot_from) && sizeof($slot_from) == 1) {
             $slot_from = $slot_from[0];
-            $from = $app["db"]->http_put("slot", $slot_from["id"], array(
+            $to = $app["db"]->http_put("slot", $slot_from["id"], array(
                 "container" => $content->to,
                 "index" => $content->toi
             ));
-            if (!isset($slot_to)) {
-                $container_from = $app["db"]->http_get_id("container", $from, $op);
-                $container_to   = $app["db"]->http_get_id("container", $to, $op);
-                $container_from = $app["db"]->http_put("container", $container_from["id"], array(
-                    "empty" => $container_from["empty"]+1
-                ));
-                $container_to = $app["db"]->http_put("container", $container_to["id"], array(
-                    "empty" => $container_to["empty"]-1
-                ));
+            $to = $to["slot"];
+            if (!$slot_to) {
+                if ($content->from != $content->to) {
+                    $container_from = $app["db"]->http_get_id("container", $content->from, $op);
+                    $container_to   = $app["db"]->http_get_id("container", $content->to, $op);
+                    $container_from = $app["db"]->http_put("container", $container_from["container_id"], array(
+                        "empty" => $container_from["empty"]+1
+                    ));
+                    $container_to = $app["db"]->http_put("container", $container_to["container_id"], array(
+                        "empty" => $container_to["empty"]-1
+                    ));    
+                }
             }
 
         }
@@ -427,25 +441,34 @@ $app->post('/swap/slots', function() use ($app) {
 
 // STEEM ----------------
 function verifySteemAccessToken($app) {
-    if (!isset($_COOKIE["access_token"])) {
-        trace("ERROR: no access_token found in cookies", $_COOKIE);
+    global $config; $namespace = $config['namespace'];
+    if (!isset($_COOKIE["access_token"]) && !isset($_GET["access_token"])) {
+        trace("ERROR: no access_token found in cookies", $_COOKIE, "or GET params", $_GET);
         return null;
     }
-    $access_token = $_COOKIE["access_token"];
+    if (isset($_COOKIE["access_token"])) {
+        $access_token = $_COOKIE["access_token"];    
+    }
+    if (isset($_GET["access_token"])) {
+        $access_token = $_GET["access_token"];    
+    }
+
+    // $one_year = 360 * 24 * 60 * 60;
+    // setcookie("access_token", $access_token, time()+$one_year);
 
     // $credentials["user"]["id"]
     $credentials = null;
     $op = array("unbox"=>true, "secure" => true);
     $oauth_steem = $app["db"]->http_get("oauth_steem", array("access_token" => $access_token), $op);
-    trace("verifySteemAccessToken()", $access_token, $oauth_steem);
+    trace("$namespace.verifySteemAccessToken()", $access_token, $oauth_steem);
     if ($oauth_steem) {
         if(is_array($oauth_steem)) {
             $oauth_steem = $oauth_steem[0];
         }
-        trace("verifySteemAccessToken()   ENCONTRE!  ", $oauth_steem);
+        trace("$namespace.verifySteemAccessToken()   ENCONTRE!  ", $oauth_steem);
         $user = $app["db"]->http_get_id("user", $oauth_steem["user"]["id"], $op);
     } else {
-        trace("verifySteemAccessToken()   NO ENCONTRE!  CHEKAMOS EL TOKEN EN STEEM... ");
+        trace("$namespace.verifySteemAccessToken()   NO ENCONTRE!  CHEKAMOS EL TOKEN EN STEEM... ");
 
         $opts = array(
             "ssl" => array(
@@ -512,7 +535,7 @@ function verifySteemAccessToken($app) {
             "account" => $account
         ), $op);
     }
-    trace("verifySteemAccessToken() return ", array("user" => $user));
+    trace("$namespace.verifySteemAccessToken() return ", array("user" => $user));
     return array(
         "user" => $user
     );

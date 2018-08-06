@@ -32,6 +32,7 @@ import { EditorPage } from './pages/editor/editor.page';
 import { AlbumsPage } from './pages/albums/albums.page';
 import { SteemConnectPage } from './pages/steem-connect/steem-connect.page';
 import { InventoryPage } from './pages/inventory/inventory.page';
+import { RootPage } from './pages/root/root.page';
 
 
 import { ComponentHost } from './deploy/comp/comp';
@@ -110,7 +111,8 @@ const routes: Routes = [
     SlotComponent,
     InventoryComponent,
     SteemConnectPage,
-    InventoryPage
+    InventoryPage,
+    RootPage
   ],
   entryComponents: [
     RootComponent,

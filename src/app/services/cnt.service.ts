@@ -169,24 +169,28 @@ export class CntService {
 
     swapSlots(from:number, fromi:number, to:number, toi: number) {
         console.log("CntService.swapSlots() from(" + from + "," + fromi + ") to  to(" + to + "," + toi + ")");
-        return this.http.post("//api.cardsandtokens.com/swap/slots",{
+        return this.http.post<any>("//api.cardsandtokens.com/swap/slots?access_token="+this.userdata.access_token,{
             from:from, fromi:fromi, to:to, toi:toi
         }).toPromise().then((r) => {
-            var slot_to = this.userdata.data.container["id-"+to].slots[toi];
-            var slot_from = this.userdata.data.container["id-"+from].slots[fromi];
-            delete this.userdata.data.container["id-"+to].slots[toi];
-            delete this.userdata.data.container["id-"+from].slots[fromi];
-
-            if (slot_from) {
-                slot_from.container = this.userdata.data.container["id-"+to];
-                slot_from.index = toi;
-                slot_from.container.slots[slot_from.index] = slot_from;
-            }
-
-            if (slot_to) {
-                slot_to.container = this.userdata.data.container["id-"+from];
-                slot_to.index = fromi;
-                slot_to.container.slots[slot_to.index] = slot_to;
+            if (r.error) {
+                console.error(r);
+            } else {
+                var slot_to = this.userdata.data.container["id-"+to].slots[toi];
+                var slot_from = this.userdata.data.container["id-"+from].slots[fromi];
+                delete this.userdata.data.container["id-"+to].slots[toi];
+                delete this.userdata.data.container["id-"+from].slots[fromi];
+    
+                if (slot_from) {
+                    slot_from.container = this.userdata.data.container["id-"+to];
+                    slot_from.index = toi;
+                    slot_from.container.slots[slot_from.index] = slot_from;
+                }
+    
+                if (slot_to) {
+                    slot_to.container = this.userdata.data.container["id-"+from];
+                    slot_to.index = fromi;
+                    slot_to.container.slots[slot_to.index] = slot_to;
+                }    
             }
         });
     }
