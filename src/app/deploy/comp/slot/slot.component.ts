@@ -47,6 +47,15 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
         this.container.setSwapFrom(this.data.container, this, this.data.index, this.copy);
     }
 
+    public acceptsDrop(copy: any) {
+        if (this.copy && this.copy.id == copy.id) return false;
+        if (!this.acceptingDrop) {
+            this.acceptingDrop = true;
+            return true
+        }
+        return false;
+    }
+
     public draggingOver(copy: any) {
         if (this.copy && this.copy.id == copy.id) return;
         if (!this.acceptingDrop) {

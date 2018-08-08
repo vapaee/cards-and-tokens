@@ -1,11 +1,16 @@
 import { Injectable, Component } from '@angular/core';
 import { DomService } from './dom.service';
+import { SlotComponent } from '../deploy/comp/slot/slot.component';
+import { CntService } from './cnt.service';
 
 @Injectable()
 export class DragAndDropService {
     public waitReady: Promise<void> = null;
     dragging:any;
-    constructor(private dom: DomService) {
+    fromComp: SlotComponent;
+    toComp: SlotComponent;
+
+    constructor(private dom: DomService, public cnt: CntService) {
         this.dragging = null;
     }
 
@@ -15,15 +20,30 @@ export class DragAndDropService {
             resolve();
         });        
     }
+    
+    dragLeave(to:SlotComponent) {
+        to.dragLeave();
+        this.toComp = null;
+    }
 
-    startDragging(event, copy, div:HTMLDivElement) {
+    draggingOver(to:SlotComponent) {
+        if (this.toComp == to) return;
+        if (to.acceptsDrop(this.dragging.copy)) {
+            this.toComp = to;
+            console.log("DragAndDropService.draggingOver()", [to]);
+        }
+    }
+
+    startDragging(event, slot: SlotComponent, div:HTMLDivElement) {
         console.log("------------ startDragging -------------");
-        console.log(event, copy, div);
+        console.log(event, slot, div);
         console.log("-------------------------------------");
+        this.fromComp = slot;
+        
         var rect:ClientRect = div.getBoundingClientRect();
         // console.log(rect.top, rect.right, rect.bottom, rect.left);
         var _dragging = <any>{};
-        _dragging.copy = copy;
+        _dragging.copy = slot.copy;
         _dragging.target = div;
         _dragging.front = <any>{};
         _dragging.front.init = {
@@ -46,7 +66,7 @@ export class DragAndDropService {
             "display": "block",
             "pointer-events": "none",
             "background-size": "contain",
-            "background-image": "url("+copy.edition.preview.images.fullsize+"), url("+copy.edition.preview.images.thumbnail+")"
+            "background-image": "url("+_dragging.copy.edition.preview.images.fullsize+"), url("+_dragging.copy.edition.preview.images.thumbnail+")"
         }
         this.dragging = _dragging;
         console.log([this.dragging]);
@@ -58,7 +78,6 @@ export class DragAndDropService {
             this.dragging.front.style.top = (e.clientY + this.dragging.front.init.offset.y + 0) + "px";
             this.dragging.front.style.left = (e.clientX + this.dragging.front.init.offset.x + 3) + "px";
         }
-        // console.log("drag()",[e]);
     }
 
     getDraggingObject() {
@@ -66,6 +85,21 @@ export class DragAndDropService {
     }
 
     stopDragging(e) {
+        var from = this.cnt.userdata.data.slug.container[this.fromComp.data.container].id;
+        var to = this.cnt.userdata.data.slug.container[this.toComp.data.container].id;
+
+        this.cnt.swapSlots(from, this.fromComp.data.index, to, this.toComp.data.index).then(() => {
+            /*
+            var copy_from = this.cnt.userdata.data.slug.container[this.fromComp.data.container].slots["slot-"+this.fromComp.data.index].copy;
+            var copy_to = this.cnt.userdata.data.slug.container[this.toComp.data.container].slots["slot-"+this.toComp.data.index].copy;
+            this.cnt.userdata.data.slug.container[this.fromComp.data.container].slots["slot-"+this.fromComp.data.index].copy = copy_to;
+            this.cnt.userdata.data.slug.container[this.toComp.data.container].slots["slot-"+this.toComp.data.index].copy = copy_from;
+            */
+            this.fromComp = null;
+            this.toComp = null;
+        });
+        
+        
         this.dragging = null;
         console.log("stopDragging()",[e]);
     }

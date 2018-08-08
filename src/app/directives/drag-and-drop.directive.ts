@@ -19,12 +19,14 @@ export class DraggableDirective implements OnInit {
     
     @HostListener('dragstart', ['$event']) onDragStart(e) {
         console.log("DraggableDirective.onDragStart()", [e]);
+        
         this.target = e.target;
         this.target.style.opacity = "0";
         e.dataTransfer.setDragImage(this.target,this.app.device.width,this.app.device.height);
         this.cnt.getCopyById(e.target.id.substr(5)).then(copy => {
-            this.dnd.startDragging(e, copy, e.target);
-            this.component.startDragging();
+            this.dnd.startDragging(e, this.component, e.target);
+            
+            // this.component.startDragging();
         });
     }
     
@@ -78,14 +80,15 @@ export class DroppableDirective implements OnInit {
     public invalidFlag: boolean;
 
     @HostListener('dragover', ['$event']) onDragOver(e) {
-        this.component.draggingOver(this.dnd.getDraggingObject().copy);
+        this.dnd.draggingOver(this.component);
+        // this.component.draggingOver(this.dnd.getDraggingObject().copy);
         // console.log("DroppableDirective.onDragOver()", [e]);
     }
     @HostListener('dragenter', ['$event']) handleDragEnter(e) {
         // console.log("DroppableDirective.handleDragEnter()", [e]);
     }
     @HostListener('dragleave', ['$event']) handleDragLeave(e) {
-        this.component.dragLeave();
+        this.dnd.dragLeave(this.component);
         // console.log("DroppableDirective.handleDragLeave()", [e]);
     }
     /*
