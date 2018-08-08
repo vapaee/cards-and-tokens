@@ -16,7 +16,7 @@ import { SlotI } from '../../../services/datatypes.service';
 })
 export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     @ViewChild('img') img:ElementRef;
-    copy: any;
+    // copy: any;
     acceptingDrop: boolean;
     constructor(
         public vapaee: VapaeeUserService,
@@ -33,7 +33,7 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     public init() {
         this.acceptingDrop = false;
         this.waitReady.then(() => {
-            this.container.registerSlot(this.data.container, this, this.data.index);
+            // this.container.registerSlot(this.data.container, this, this.data.index);
         });
     }
 
@@ -67,6 +67,7 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
 
 
     public loadCopy(copy:any) {
+        /*
         console.log("SlotComponent.loadCopy()", [copy]);
         this.copy = copy;
         if (this.copy) {
@@ -79,6 +80,7 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
                 "background-image": "url("+copy.edition.preview.images.fullsize+"), url("+copy.edition.preview.images.thumbnail+")"
             }    
         }
+        */
     }
 
     public onClick(e) {
@@ -88,6 +90,16 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
 
         // si está en modo "view" simplemente despliega la carta que esté en ese slot
         // si está en modo "fill" y tiene una carta, la regresa al inventario? startDragging?
+    }
+
+    get copy(): any {
+        // console.log("copy()", this.data.container, this.data.index);
+        if (!this.cnt.userdata.data) return null;
+        var contaienr = this.cnt.userdata.data.slug.container[this.data.container];
+        if (!contaienr) return null;
+        var slot = contaienr.slots[this.data.index];
+        if (!slot) return null;
+        return slot.item;
     }
 
 }

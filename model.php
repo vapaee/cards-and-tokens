@@ -118,6 +118,7 @@ $DATA = array (
         "inventory" => array( //
             "_extends" => "container",
             // tuve q repetir el owner acá para poder consultar con el app y el owner a la vez
+            "slug" => array( "type" => "varchar(150)", "calculated" => true),
             "owner" => array( "type" => "user" ),
             "app" => array( "type" => "app" ),
         ),

@@ -87,6 +87,8 @@ export class CntService {
         this.userdata.data.container = <any>{};
         for (let i in this.userdata.data.collection) {
             let col = this.userdata.data.collection[i];
+            let album = this.userdata.data.album["id-"+col.album.id];
+            col.album = album;
             this.userdata.data.container["id-"+col.container_id] = col;
         }
         for (let i in this.userdata.data.inventory) {
@@ -145,13 +147,33 @@ export class CntService {
             let item = this.userdata.data.item["id-"+slot.item.id];
             slot.container = container;
             slot.item = item;
-            slot.container.slots = slot.container.slots || [];
             slot.container.slots[slot.index] = slot;
             console.assert(slot.container.slots.length > slot.index, slot.container.slots);
         }
 
-        //----- SLAG
+        //----- slug
+        this.userdata.data.slug = <any>{};
+        this.userdata.data.slug.container = <any>{};
+        for (let i in this.userdata.data.collection) {
+            let coll = this.userdata.data.collection[i];
+            this.userdata.data.slug.container[coll.album.slug] = coll;
+        }
+        for (let i in this.userdata.data.inventory) {
+            let inv = this.userdata.data.inventory[i];
+            this.userdata.data.slug.container[inv.app.slug] = inv;
+        }
 
+        this.userdata.data.slug.collectible = <any>{};
+        for (let i in this.userdata.data.collectible) {
+            let coll = this.userdata.data.collectible[i];
+            this.userdata.data.slug.collectible[coll.slug] = coll;
+        }
+
+        this.userdata.data.slug.publisher = <any>{};
+        for (let i in this.userdata.data.publisher) {
+            let pub = this.userdata.data.publisher[i];
+            this.userdata.data.slug.publisher[pub.slug] = pub;
+        }
 
          
     }

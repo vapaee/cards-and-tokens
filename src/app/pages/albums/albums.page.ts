@@ -56,10 +56,8 @@ export class AlbumsPage implements OnInit {
         
         this.deploy = album;
 
-        console.log("ini -----------------");
         this.comp.createAndDeployTree(album, this.main.view).then(() => {
-            console.log("fin -----------------");
-
+            /*
             this.cnt.getUserAlbumCollection(album.slug).then(collection => {
                 this.containers.setContent(album.slug, collection.container_id, collection.slots);
             });
@@ -67,7 +65,7 @@ export class AlbumsPage implements OnInit {
             this.cnt.getUserInventory("cards-and-tokens").then(inventory => {
                 this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
             });
-    
+            */
         });
     }
 
