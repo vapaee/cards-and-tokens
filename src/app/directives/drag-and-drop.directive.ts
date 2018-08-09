@@ -37,7 +37,7 @@ export class DraggableDirective implements OnInit {
     @HostListener('dragend', ['$event']) onDragEnd(e) {
         console.log("DraggableDirective.onDragEnd()", [e]);
         this.target.style.opacity = "1";
-        this.component.drop();
+        // this.component.drop();
         this.dnd.stopDragging(e);
     }
     /*
@@ -87,9 +87,15 @@ export class DroppableDirective implements OnInit {
     @HostListener('dragenter', ['$event']) handleDragEnter(e) {
         // console.log("DroppableDirective.handleDragEnter()", [e]);
     }
+    /*
     @HostListener('dragleave', ['$event']) handleDragLeave(e) {
+        console.log("DroppableDirective.handleDragLeave()", [e]);
         this.dnd.dragLeave(this.component);
-        // console.log("DroppableDirective.handleDragLeave()", [e]);
+    }
+    */
+    @HostListener('mouseleave', ['$event']) handleMouseLeave(e) {
+        console.log("DroppableDirective.handleMouseLeave()");
+        this.dnd.dragLeave(this.component);
     }
     /*
     @HostListener('drop', ['$event']) handleDrop(e) {

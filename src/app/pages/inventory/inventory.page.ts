@@ -61,7 +61,7 @@ export class InventoryPage implements OnInit {
         this.comp.createAndDeployTree(this.inventory, this.main.view);
         
         this.cnt.getUserInventory("cards-and-tokens").then(inventory => {
-            this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
+            // this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
         });
         
         

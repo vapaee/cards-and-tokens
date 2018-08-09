@@ -66,8 +66,9 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     }
 
     public dragLeave() {
+
         this.acceptingDrop = false;
-        // console.log("SlotComponent.dragLeave()");
+        console.log("SlotComponent.dragLeave()");
     }
 
     public drop() {

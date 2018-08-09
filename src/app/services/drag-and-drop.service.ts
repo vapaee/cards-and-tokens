@@ -20,19 +20,6 @@ export class DragAndDropService {
             resolve();
         });        
     }
-    
-    dragLeave(to:SlotComponent) {
-        to.dragLeave();
-        this.toComp = null;
-    }
-
-    draggingOver(to:SlotComponent) {
-        if (this.toComp == to) return;
-        if (to.acceptsDrop(this.dragging.copy)) {
-            this.toComp = to;
-            console.log("DragAndDropService.draggingOver()", [to]);
-        }
-    }
 
     startDragging(event, slot: SlotComponent, div:HTMLDivElement) {
         console.log("------------ startDragging -------------");
@@ -84,10 +71,28 @@ export class DragAndDropService {
         return this.dragging;
     }
 
+    dragLeave(to:SlotComponent) {
+        console.log("DragAndDropService.dragLeave()",[this.dragging]);
+        if (!this.dragging) return;
+        to.dragLeave();
+        if (to == this.toComp) {
+            this.toComp = null;
+            console.log("DragAndDropService.dragLeave()",to.data);
+        }
+    }
+
+    draggingOver(to:SlotComponent) {
+        if (this.toComp == to) return;
+        if (to.acceptsDrop(this.dragging.copy)) {
+            this.toComp = to;
+            console.log("DragAndDropService.draggingOver()", [to.data]);
+        }
+    }
+
     stopDragging(e) {
         var from = this.cnt.userdata.data.slug.container[this.fromComp.data.container].id;
         var to = this.cnt.userdata.data.slug.container[this.toComp.data.container].id;
-
+console.log("DragAndDropService.stopDragging()", from, this.fromComp.data.index, to, this.toComp.data.index);
         this.cnt.swapSlots(from, this.fromComp.data.index, to, this.toComp.data.index).then(() => {
             /*
             var copy_from = this.cnt.userdata.data.slug.container[this.fromComp.data.container].slots["slot-"+this.fromComp.data.index].copy;
