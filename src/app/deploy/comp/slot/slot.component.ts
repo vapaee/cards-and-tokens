@@ -56,6 +56,7 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
 
     public onClick(e) {
         console.log("SlotComponent.onClick()", [e]);
+        if (!this.copy) return;
         this.cnt.deployCard(this.copy.collectible, this.img.nativeElement);
         // this.container.HacerAlgo(data)
 

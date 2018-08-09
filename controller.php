@@ -359,16 +359,19 @@ $app->get('/dailyprize', function() use ($app) {
 
 $app->post('/swap/slots', function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace GET 'swap slots'");
+    
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        usleep(rand(0,2000000));
+        $content = $app["request"]->getContent();
+        $content = json_decode($content);
+        trace("$namespace GET 'swap slots' from ($content->from,$content->fromi) to ($content->to,$content->toi)");
+
         $credentials = verifySteemAccessToken($app);
         if (!isset($credentials)) {
             return json_encode(array("error" => "user not logged"));
         }
-        $content = $app["request"]->getContent();
-        $content = json_decode($content);
         $from = null;
         $to = null;
 

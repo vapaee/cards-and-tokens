@@ -124,10 +124,11 @@ export class SteemService {
     }
 
     logout() {
-        this.cookie.delete("steem.access_token");
-        this.cookie.delete("steem.account");
-        this.cookie.delete("steem.avatar");
-        this.cookie.delete("access_token");
+        console.log("logout");
+        this.cookie.delete("steem.access_token","/");
+        this.cookie.delete("steem.account","/");
+        this.cookie.delete("steem.avatar","/");
+        this.cookie.delete("access_token","/");
         this.user = null;
         this.waitLogged = new Promise((resolve, reject) => {
             this.loggedResolve = resolve;

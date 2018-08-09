@@ -90,22 +90,12 @@ export class DragAndDropService {
     }
 
     stopDragging(e) {
-        var from = this.cnt.userdata.data.slug.container[this.fromComp.data.container].id;
-        var to = this.cnt.userdata.data.slug.container[this.toComp.data.container].id;
-console.log("DragAndDropService.stopDragging()", from, this.fromComp.data.index, to, this.toComp.data.index);
-        this.cnt.swapSlots(from, this.fromComp.data.index, to, this.toComp.data.index).then(() => {
-            /*
-            var copy_from = this.cnt.userdata.data.slug.container[this.fromComp.data.container].slots["slot-"+this.fromComp.data.index].copy;
-            var copy_to = this.cnt.userdata.data.slug.container[this.toComp.data.container].slots["slot-"+this.toComp.data.index].copy;
-            this.cnt.userdata.data.slug.container[this.fromComp.data.container].slots["slot-"+this.fromComp.data.index].copy = copy_to;
-            this.cnt.userdata.data.slug.container[this.toComp.data.container].slots["slot-"+this.toComp.data.index].copy = copy_from;
-            */
+        this.toComp.dragLeave();
+        this.dragging = null;
+        this.cnt.swapSlots(this.fromComp.data.container, this.fromComp.data.index, this.toComp.data.container, this.toComp.data.index).then(() => {
             this.fromComp = null;
             this.toComp = null;
         });
-        
-        
-        this.dragging = null;
         console.log("stopDragging()",[e]);
     }
 }

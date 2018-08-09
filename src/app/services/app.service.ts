@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { VapaeeUserService } from './vapaee-user.service';
+import { DomService } from './dom.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +15,9 @@ export class AppService {
     prev_state : string = "none";
     appcomp: AppComponent;
     device: {big?:boolean, small?:boolean, tiny?:boolean, portrait?:boolean, wide?:boolean, height?:number, width?: number} = {};
+    loading: boolean;
 
-    constructor(public vapaee: VapaeeUserService, router: Router, route: ActivatedRoute) {
+    constructor(public vapaee: VapaeeUserService, router: Router, route: ActivatedRoute, private dom: DomService) {
         this.router = router;
         this.route = route;
 
@@ -27,6 +29,7 @@ export class AppService {
                 this.checkRedirect();
             }
         });
+
     }
 
     getDeepestChild(node:any):any {
@@ -39,6 +42,7 @@ export class AppService {
 
     init (appcomp: AppComponent) {
         this.appcomp = appcomp;
+        this.dom.appendComponentToBody(LoadingOverall);
     }
 
     onWindowsResize() {
@@ -112,6 +116,9 @@ export class AppService {
         this.appcomp.loginModal.show();
     }
 
+    setLoading(turn:boolean = true) {
+        this.loading = turn;
+    }
 
     urlStartsWith (str: any) {
         if (typeof str == "number") str = "" + str;
@@ -171,4 +178,33 @@ export class AppService {
         return found;
     }
     
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@Component({
+    selector: 'loading-overall',
+    template: `
+    <div [hidden]="!app.loading" class="animated fadeIn" id="loading-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 10000; color: white;">
+        <div style="text-align: center; width: 100%; position: absolute; top: 40%; margin-top: -50px;">
+            <h1>Proccessing...</h1>
+        </div>
+    </div>`
+})
+export class LoadingOverall {
+    constructor(public app:AppService) {}
 }

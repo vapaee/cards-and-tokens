@@ -6,6 +6,7 @@ import { DomService } from './dom.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { UserdataService } from './userdata.service';
 import { BgBoxService } from './bg-box.service';
+import { AppService } from './app.service';
 
 export interface Todo {
     title: string;
@@ -41,7 +42,8 @@ export class CntService {
         private dom: DomService, 
         public userdata: UserdataService,
         public sanitizer: DomSanitizer,
-        public box: BgBoxService
+        public box: BgBoxService,
+        public app: AppService
 
     ) {
         this.cards = [];
@@ -189,31 +191,44 @@ export class CntService {
         });
     }
 
-    swapSlots(from:number, fromi:number, to:number, toi: number) {
-        console.log("CntService.swapSlots() from(" + from + "," + fromi + ") to  to(" + to + "," + toi + ")");
+    private swapLocaly(from:number, fromi:number, to:number, toi:number) {
+        var slot_to = this.userdata.data.container["id-"+to].slots[toi];
+        var slot_from = this.userdata.data.container["id-"+from].slots[fromi];
+        delete this.userdata.data.container["id-"+to].slots[toi];
+        delete this.userdata.data.container["id-"+from].slots[fromi];
+
+        if (slot_from) {
+            slot_from.container = this.userdata.data.container["id-"+to];
+            slot_from.index = toi;
+            slot_from.container.slots[slot_from.index] = slot_from;
+        }
+
+        if (slot_to) {
+            slot_to.container = this.userdata.data.container["id-"+from];
+            slot_to.index = fromi;
+            slot_to.container.slots[slot_to.index] = slot_to;
+        }
+    }
+
+    swapSlots(from_slug:string, fromi:number, to_slug:string, toi: number) {
+        var from = this.userdata.data.slug.container[from_slug].container_id;
+        var to = this.userdata.data.slug.container[to_slug].container_id;
+        console.log("CntService.swapSlots() from (" + from_slug + "," + fromi + ") to (" + to_slug + "," + toi + ")");
+        this.app.setLoading(true);
+
+        this.swapLocaly(from, fromi, to, toi);
+
         return this.http.post<any>("//api.cardsandtokens.com/swap/slots?access_token="+this.userdata.access_token,{
             from:from, fromi:fromi, to:to, toi:toi
         }).toPromise().then((r) => {
+            this.app.setLoading(false);
             if (r.error) {
                 console.error(r);
-            } else {
-                var slot_to = this.userdata.data.container["id-"+to].slots[toi];
-                var slot_from = this.userdata.data.container["id-"+from].slots[fromi];
-                delete this.userdata.data.container["id-"+to].slots[toi];
-                delete this.userdata.data.container["id-"+from].slots[fromi];
-    
-                if (slot_from) {
-                    slot_from.container = this.userdata.data.container["id-"+to];
-                    slot_from.index = toi;
-                    slot_from.container.slots[slot_from.index] = slot_from;
-                }
-    
-                if (slot_to) {
-                    slot_to.container = this.userdata.data.container["id-"+from];
-                    slot_to.index = fromi;
-                    slot_to.container.slots[slot_to.index] = slot_to;
-                }    
+                this.swapLocaly(to, toi, from, fromi);
             }
+        }).catch((e) => {
+            this.app.setLoading(false);
+            this.swapLocaly(to, toi, from, fromi);
         });
     }
 
