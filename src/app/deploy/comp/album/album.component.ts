@@ -6,7 +6,6 @@ import { CntService } from '../../../services/cnt.service';
 import { SectionService } from '../section/section.service';
 import { DeployNode } from '../comp';
 import { SectionI } from '../section/section.component';
-import { ContainerService } from '../../../services/container.service';
 import { ContainerCtrl } from '../../../services/datatypes.service';
 
 @Component({
@@ -22,8 +21,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         public app: AppService, 
         public cnt: CntService,
         protected cfResolver: ComponentFactoryResolver,
-        protected section: SectionService,
-        protected containers: ContainerService
+        protected section: SectionService
     ) {
         super(vapaee, app, cnt, cfResolver);
         this.capacity = 0;
@@ -58,7 +56,6 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
     }
 
     protected registerAndLoad(pages:number[], pageslist: any[]) {
-        this.containers.registerContainer(this.data.name, this, pages);
         this.section.registerSection(this.data.name, this.data.current, pageslist, this);
         this.loadedResolve();
         this.section.setSection(this.data.name, this.data.current);
@@ -111,7 +108,6 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         console.log("AlbumComponent.setSection()", current);
         this.waitReady.then(() => {
             var num = parseInt(current.substr(5));
-            this.containers.setCurrentPage(this.data.name, num);
             console.log("parseInt(current.substr(5))", current.substr(5), num);
             let child = this.children[num];
             let host = this.hosts.toArray()[0];

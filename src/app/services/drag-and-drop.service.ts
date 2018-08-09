@@ -72,7 +72,7 @@ export class DragAndDropService {
     }
 
     dragLeave(to:SlotComponent) {
-        console.log("DragAndDropService.dragLeave()",[this.dragging]);
+        // console.log("DragAndDropService.dragLeave()",[this.dragging]);
         if (!this.dragging) return;
         to.dragLeave();
         if (to == this.toComp) {

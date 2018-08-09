@@ -5,7 +5,6 @@ import { CntService } from '../../services/cnt.service';
 import { ActivatedRoute } from '@angular/router';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { ComponentService } from '../../deploy/comp/component.service';
-import { ContainerService } from '../../services/container.service';
 import { ComponentHost } from '../../deploy/comp/comp';
 
 @Component({
@@ -26,8 +25,7 @@ export class AlbumsPage implements OnInit {
         private cnt: CntService,
         private route: ActivatedRoute,
         public sanitizer: DomSanitizer,
-        public comp: ComponentService,
-        private containers: ContainerService
+        public comp: ComponentService
     ) {
         this.cnt.getAllAlbums().then(e => {
             var slug = this.route.snapshot.paramMap.get('slug');

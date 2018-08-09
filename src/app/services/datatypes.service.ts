@@ -14,7 +14,7 @@ export interface ContainerCtrl {
 }
 
 export interface SlotI {
-    loadCopy(copy:any);
+    // loadCopy(copy:any);
     // API
     // 
 }

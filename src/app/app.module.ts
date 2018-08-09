@@ -17,7 +17,6 @@ import { CntService, CardDeploy } from './services/cnt.service';
 import { BgBoxService } from './services/bg-box.service';
 import { ComponentService } from './deploy/comp/component.service';
 import { SteemService } from './services/steem.service';
-import { ContainerService } from './services/container.service';
 import { DragAndDropService, CardDragging } from './services/drag-and-drop.service';
 
 import { HomePage } from './pages/home/home.page';
@@ -147,7 +146,6 @@ const routes: Routes = [
     CntService,
     BgBoxService,
     AppService,
-    ContainerService,
     ComponentService,
     SteemService,
     HttpClient,

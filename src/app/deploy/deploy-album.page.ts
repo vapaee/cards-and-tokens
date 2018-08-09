@@ -5,7 +5,6 @@ import { CntService } from "../services/cnt.service";
 import { ComponentHost} from "./comp/comp";
 import { ComponentService } from "./comp/component.service";
 import { ActivatedRoute } from '@angular/router';
-import { ContainerService } from '../services/container.service';
 
 
 @Component({
@@ -21,8 +20,7 @@ export class DeployAlbumPage implements OnInit {
         public app: AppService, 
         public cnt: CntService, 
         private route: ActivatedRoute,
-        public comp: ComponentService,
-        private containers: ContainerService
+        public comp: ComponentService
     ) {
     }
 

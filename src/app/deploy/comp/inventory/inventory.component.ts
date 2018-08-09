@@ -7,7 +7,6 @@ import { DeployNode } from '../comp';
 import { SectionI } from '../section/section.component';
 import { AlbumComponent } from '../album/album.component';
 import { ContainerCtrl } from '../../../services/datatypes.service';
-import { ContainerService } from '../../../services/container.service';
 
 
 
@@ -25,10 +24,9 @@ export class InventoryComponent extends AlbumComponent implements OnInit, Sectio
         public cnt: CntService,
         protected cfResolver: ComponentFactoryResolver,
         protected section: SectionService,
-        protected albums: ContainerService,
         private element: ElementRef
     ) {
-        super(vapaee, app, cnt, cfResolver, section, albums);
+        super(vapaee, app, cnt, cfResolver, section);
     }
 
     public static config(): any {

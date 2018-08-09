@@ -4,7 +4,6 @@ import { AppService } from "../../services/app.service";
 import { CntService } from '../../services/cnt.service';
 import { ComponentHost } from '../../deploy/comp/comp';
 import { ComponentService } from '../../deploy/comp/component.service';
-import { ContainerService } from '../../services/container.service';
 
 @Component({
     selector: 'inventory-page',
@@ -20,8 +19,7 @@ export class InventoryPage implements OnInit {
         public vapaee: VapaeeUserService, 
         public app: AppService, 
         public comp: ComponentService, 
-        public cnt: CntService,
-        private containers: ContainerService
+        public cnt: CntService
     ) {
         this.inventory = {
             deploy: {
@@ -68,10 +66,7 @@ export class InventoryPage implements OnInit {
     }
 
     getDailyPrice() {
-        this.cnt.getDailyPrize().then(inventory => {
-            console.log("InventoryPage.getDailyPrice() me llegó inventory: ", inventory);
-            this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
-        });
+        this.cnt.getDailyPrize()
     }
 
 }

@@ -25,38 +25,18 @@ export class DraggableDirective implements OnInit {
         e.dataTransfer.setDragImage(this.target,this.app.device.width,this.app.device.height);
         this.cnt.getCopyById(e.target.id.substr(5)).then(copy => {
             this.dnd.startDragging(e, this.component, e.target);
-            
-            // this.component.startDragging();
         });
     }
     
     @HostListener('drag', ['$event']) onDrag(e) {
-        // console.log("DraggableDirective.onDrag()", [e]);
         this.dnd.drag(e);
     }
     @HostListener('dragend', ['$event']) onDragEnd(e) {
         console.log("DraggableDirective.onDragEnd()", [e]);
         this.target.style.opacity = "1";
-        // this.component.drop();
         this.dnd.stopDragging(e);
     }
-    /*
-    @HostListener('mouseover', ['$event']) onMouseOver(e) {
-        var self = this;
-        var handler = function(e) {
-            console.log("--- HANDLER ---", [e, this]);
-            var crt: HTMLElement = <HTMLElement>(this.cloneNode(true));
-            e.dataTransfer.setDragImage(crt, 300, 500);
-            e.target.removeEventListener("dragstart", handler, false);
-        }
-        if (!e.target.drag_handled) {
-            console.log("-- SET DRAGGABLE -- ", e.target);
-            e.target.addEventListener("dragstart", handler, false);
-            e.target.drag_handled = true;
-        }
-        
-    }
-    */
+
     ngOnInit(){
         console.log("DraggableDirective.initialized");
     }
@@ -87,24 +67,17 @@ export class DroppableDirective implements OnInit {
     @HostListener('dragenter', ['$event']) handleDragEnter(e) {
         // console.log("DroppableDirective.handleDragEnter()", [e]);
     }
-    /*
+    
     @HostListener('dragleave', ['$event']) handleDragLeave(e) {
-        console.log("DroppableDirective.handleDragLeave()", [e]);
+        if (e.clientX == 0 && e.clientY == 0) {
+            // En este caso el leave no es real. Sigue estando sobre el objeto pero por alguna razón ejecuta el 'dragleave' event
+            return;
+        }
+        // var rect:ClientRect = this.component.placeholder.nativeElement.getBoundingClientRect();
+        console.log("DroppableDirective.handleDragLeave()", e.clientX, e.clientY, [e.target]);
         this.dnd.dragLeave(this.component);
     }
-    */
-    @HostListener('mouseleave', ['$event']) handleMouseLeave(e) {
-        console.log("DroppableDirective.handleMouseLeave()");
-        this.dnd.dragLeave(this.component);
-    }
-    /*
-    @HostListener('drop', ['$event']) handleDrop(e) {
-        console.log("DroppableDirective.handleDrop()", [e]);
-        e.preventDefault();
-        this.component.drop(this.dnd.getDraggingObject().copy);
-    }
-    */
-
+    
     ngOnInit(){
         // console.log("DroppableDirective.initialized");
     }
