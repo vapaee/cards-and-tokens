@@ -145,8 +145,8 @@ export class CntService {
        
         for (var i in this.userdata.data.slot) {
             let slot = this.userdata.data.slot[i];
-            let container = this.userdata.data.container["id-"+slot.container.id];
-            let item = this.userdata.data.item["id-"+slot.item.id];
+            let container = this.userdata.data.container["id-"+slot.container.container_id];
+            let item = this.userdata.data.item["id-"+slot.item.item_id];
             slot.container = container;
             slot.item = item;
             slot.container.slots[slot.index] = slot;

@@ -1349,8 +1349,6 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
             if (!is_array($result)) return $result;
         }
         
-        $this->app["db"]->reset();
-
         if (isset($this->DATA["populate"])) {
             if (isset($this->DATA["populate"]["init"])) {
                 $func = $this->DATA["populate"]["init"];

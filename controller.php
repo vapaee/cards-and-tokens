@@ -140,6 +140,34 @@ function getUserdata($credentials, $app) {
     return $user;
 }
 
+$app->get('/prueba', function() use ($app) {
+    $unbox = array("unbox" => true);
+
+    // Construyo un Inventario
+    $inventory = array(
+        "capacity" => 8, // arbitrario, hay que definir bien la capacidad inicial
+        "empty" => 8,
+        "spec" => 2, // Specification for inventory
+        "owner" => 1,
+        "app" => 1 // Cards & tokens app
+    );
+    $inventory = $app["db"]->http_post("inventory", $inventory, $unbox);
+
+
+    // Esto no va a ser así definitivamente. Sólo para este prototipo. ------------
+    $collection = array(
+        "album" => 1,
+        "owner" => 1,
+        "spec" => 1, // album
+        "capacity" => 9,
+        "empty" => 9
+    );
+    $collection = $app["db"]->http_post("collection", $collection, $unbox);
+    // ----------------------------------------------------------------------------
+
+    return $app["db"]->http_get("container");
+});
+
 $app["db"]->on("post:user", function ($user, $op, $app) {
     
     // El usuario debe tener al menos un perfil
