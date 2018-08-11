@@ -285,7 +285,7 @@ $app->get('/userdata', function() use ($app) {
 
 $app->get('/dailyprize', function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace GET 'dailyprize'");
+    trace("$namespace GET 'dailyprize' --------------");
 
     
     $op = array("secure" => true, "unbox" => true);
@@ -394,7 +394,7 @@ $app->post('/swap/slots', function() use ($app) {
         usleep(rand(0,2000000));
         $content = $app["request"]->getContent();
         $content = json_decode($content);
-        trace("$namespace GET 'swap slots' from ($content->from,$content->fromi) to ($content->to,$content->toi)");
+        trace("$namespace GET 'swap slots' from ($content->from,$content->fromi) to ($content->to,$content->toi) ---------------------");
 
         $credentials = verifySteemAccessToken($app);
         if (!isset($credentials)) {
@@ -574,7 +574,7 @@ function verifySteemAccessToken($app) {
 
 $app->get('/steem/user', function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace GET '/steem/user'");
+    trace("$namespace GET '/steem/user' ---------------------");
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {

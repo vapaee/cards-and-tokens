@@ -91,11 +91,11 @@ export class CntService {
             let col = this.userdata.data.collection[i];
             let album = this.userdata.data.album["id-"+col.album.id];
             col.album = album;
-            this.userdata.data.container["id-"+col.container_id] = col;
+            this.userdata.data.container["id-"+col.id] = col;
         }
         for (let i in this.userdata.data.inventory) {
             let inv = this.userdata.data.inventory[i];
-            this.userdata.data.container["id-"+inv.container_id] = inv;
+            this.userdata.data.container["id-"+inv.id] = inv;
         }
         for (let i in this.userdata.data.container) {
             let inv = this.userdata.data.container[i];
@@ -106,14 +106,14 @@ export class CntService {
         this.userdata.data.item = <any>{};
         for (let i in this.userdata.data.copy) {
             let col = this.userdata.data.copy[i];
-            this.userdata.data.item["id-"+col.item_id] = col;
+            this.userdata.data.item["id-"+col.id] = col;
         }
 
         // Collectibles
         this.userdata.data.collectible = <any>{};
         for (var i in this.userdata.data.card) {
             var card = this.userdata.data.card[i];
-            this.userdata.data.collectible["id-"+card.collectible_id] = card;
+            this.userdata.data.collectible["id-"+card.id] = card;
         }
 
         // Cards & editions
@@ -145,8 +145,8 @@ export class CntService {
        
         for (var i in this.userdata.data.slot) {
             let slot = this.userdata.data.slot[i];
-            let container = this.userdata.data.container["id-"+slot.container.container_id];
-            let item = this.userdata.data.item["id-"+slot.item.item_id];
+            let container = this.userdata.data.container["id-"+slot.container.id];
+            let item = this.userdata.data.item["id-"+slot.item.id];
             slot.container = container;
             slot.item = item;
             slot.container.slots[slot.index] = slot;
@@ -211,8 +211,8 @@ export class CntService {
     }
 
     swapSlots(from_slug:string, fromi:number, to_slug:string, toi: number) {
-        var from = this.userdata.data.slug.container[from_slug].container_id;
-        var to = this.userdata.data.slug.container[to_slug].container_id;
+        var from = this.userdata.data.slug.container[from_slug].id;
+        var to = this.userdata.data.slug.container[to_slug].id;
         console.log("CntService.swapSlots() from (" + from_slug + "," + fromi + ") to (" + to_slug + "," + toi + ")");
         this.app.setLoading(true);
 

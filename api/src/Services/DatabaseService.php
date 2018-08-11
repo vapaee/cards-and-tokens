@@ -187,7 +187,6 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
                 }
                 
                 $_model[$table]["_super"] = array( "type" => "cache" );
-                $_model[$super_name]["_sub_id"] = array( "type" => "id" );
                 $_model[$super_name]["_sub_table"] = array( "type" => "varchar(40)" );
                 $_model[$super_name]["_subclasses"] = true;
             }
@@ -242,8 +241,6 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         
         if (array_key_exists("_extends", $attribs)) {
             $supperclass = $attribs["_extends"];
-            // $object["_sub_id"] = $result["id"];
-            $object["_sub_id"] = -777;
             $object["_sub_table"] = $table;
             
             $sup_result = $this->http_post($supperclass, $object, $op);
@@ -256,13 +253,8 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
                 $result["_super"] = $sup_result;
             }
             $result["id"] = $sup_result["id"];
-            unset($result["_super"]["_sub_id"]);
             unset($result["_super"]["_sub_table"]);
             // $result = $this->update($table, $result["id"], $_super, $op);
-        }
-
-        if (isset($result["_sub_id"]) && isset($result["id"])) {
-            $result["_sub_id"] = $result["id"]
         }
 
         $result = $this->create($table, $result, array("useid" => true));
@@ -318,7 +310,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
                 
                 foreach ($result as $entry) {
                     $_table = $entry["_sub_table"];
-                    $_id = $entry["_sub_id"];
+                    $_id = $entry["id"];
                     $op["unbox"] = true;
                     $_entry = $this->http_get_id($_table, $_id, $op);
                     
@@ -373,7 +365,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
             $result = $this->getByPk($table, $id, $op);
             if (!$result) return null;            
             
-            $result = $this->http_get_id($result["_sub_table"], $result["_sub_id"]);
+            $result = $this->http_get_id($result["_sub_table"], $result["id"]);
             
             $result = $this->complete($result, $op, $table);
             $result = $this->trigger("get:$table/id", $result, $op, $table);            
@@ -404,7 +396,6 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
             $result = $this->trigger("before-put:$table", $changes, $op, $table);
             if ($this->cancel) return $this->cancel;
             $result = $this->update($table, $target["id"], $result, $op);
-            unset($result["_sub_id"]);
             unset($result["_sub_table"]);
             $result = $this->trigger("put:$table", $result, $op, $table);
             $changes["_super"] = $result;
@@ -456,7 +447,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
                 } else {
                     $data = $this->getByPk($_table, $_id, $op);
                 }
-                $_id = $data["_sub_id"];
+                $_id = $data["id"];
                 $_table = $data["_sub_table"];
                 array_push($updates, array(
                     "id" => $_id,
