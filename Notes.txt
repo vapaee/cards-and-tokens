@@ -1,0 +1,38 @@
+
+Certificate from Let's Encrypt
+https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
+
+
+https://www.facebook.com/Zoinerk/videos/1969029813148206/
+
+-- TODO --
+- poner un countdown
+
+
+
+
+-- ARREGLOS & MEJORAS --
+- en el inventario del album se ven hasta 10 slots cuando debería ser un máximo de 8
+- cuando hacés drag and drop (en el album) y soltás fuera de un slot, se rompe todo
+- hacer que los slots tomen los datos de userdata en vez que y tratar de eliminar el container service
+- que el preload tenga dos secciones: {
+    "first": ["la lista actual de url de preload"],
+    "all": [
+      "la lista de todas las imágenes de todas las páginas",
+      "las debe cargar de forma oculta al visualizar el album",
+      "cosa de que al pasar de página ya estén medio cargadas"
+    ]
+
+
+
+
+
+----- Smart Contracts -----
+-- bg-box --
+- registra apps, item_spec, item, container_spec, container, slot
+  - slot: item, container, place (dice en que celda está el item)
+  - item_spec: describe el item, le da un nombre, descripción, imagen y quien la registró. Por ejemplo Copy o Envelop
+  - item: owner, creator, publisher, metadata?
+  - container_spec: describe el container (Idem item_spec). Por ejemplo Album o Inventory
+  - container: owner, 
+-- cnt --
