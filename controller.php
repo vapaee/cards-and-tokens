@@ -142,7 +142,7 @@ function getUserdata($credentials, $app) {
 
 $app->get('/prueba', function() use ($app) {
     $unbox = array("unbox" => true);
-
+    trace("----------- prueba ------------");
     // Construyo un Inventario
     $inventory = array(
         "capacity" => 8, // arbitrario, hay que definir bien la capacidad inicial
@@ -165,7 +165,7 @@ $app->get('/prueba', function() use ($app) {
     $collection = $app["db"]->http_post("collection", $collection, $unbox);
     // ----------------------------------------------------------------------------
 
-    return $app["db"]->http_get("container");
+    return json_encode($app["db"]->getAll("container",array()));
 });
 
 $app["db"]->on("post:user", function ($user, $op, $app) {

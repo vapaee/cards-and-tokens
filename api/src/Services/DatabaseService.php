@@ -226,7 +226,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
     // -------------------
     public function http_post($table, $object, $op = array()) {
         global $config; $namespace = $config['namespace'];
-        trace("$namespace.http_post($table, object)");
+        trace("$namespace.http_post($table, object)", $object);
         $this->aux_connect(); // requisito del format_json
         $op["skip_db"] = true;
 
@@ -235,10 +235,6 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         $result = $this->trigger("before-post:$table", $result, $op, $table);
         if ($this->cancel) return $this->cancel;
 
-        $result = $this->create($table, $result, $op);
-        $result = $this->trigger("post:$table", $result, $op, $table);
-        
-        
         $attribs = $this->DATA["model"][$table];
         if ($attribs["_subclasses"] && !is_array($attribs["_subclasses"])) {
             // no hayq eque hacer nada
@@ -246,22 +242,34 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         
         if (array_key_exists("_extends", $attribs)) {
             $supperclass = $attribs["_extends"];
-            $object["_sub_id"] = $result["id"];
+            // $object["_sub_id"] = $result["id"];
+            $object["_sub_id"] = -777;
             $object["_sub_table"] = $table;
             
             $sup_result = $this->http_post($supperclass, $object, $op);
+            trace($table, '$sup_result ----> ', $sup_result);
             // persistimos el estado del padre como el json _super
             if (isset($sup_result[$supperclass])) {
-                $_super = array("_super" => $sup_result[$supperclass]);
+                trace("ERROR: !!!! PORQUE SE DA ESTE CASO??? QUIERO SACAR ESTE IF A LA MIERDA !!! ($supperclass)");
+                trace('$sup_result', $sup_result);
             } else {
-                $_super = array("_super" => $sup_result);
+                $result["_super"] = $sup_result;
             }
-            unset($_super["_super"]["_sub_id"]);
-            unset($_super["_super"]["_sub_table"]);
-
-            $result = $this->update($table, $result["id"], $_super, $op);
-            
+            $result["id"] = $sup_result["id"];
+            unset($result["_super"]["_sub_id"]);
+            unset($result["_super"]["_sub_table"]);
+            // $result = $this->update($table, $result["id"], $_super, $op);
         }
+
+        if (isset($result["_sub_id"]) && isset($result["id"])) {
+            $result["_sub_id"] = $result["id"]
+        }
+
+        $result = $this->create($table, $result, array("useid" => true));
+        trace($table, '$result after create', $result);
+        $result = $this->trigger("post:$table", $result, $op, $table);           
+        trace($table, '$result after trigger', $result);
+
 
         if (isset($op["unbox"])) {
             return $result;
@@ -270,7 +278,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         }
     }
     
-    public function http_get($table, $select, $op) {
+    public function http_get($table, $select, $op = array()) {
         global $config; $namespace = $config['namespace'];
         
         if (is_string($select)) {
@@ -699,12 +707,10 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
          
         $result = array ( $table => array()  );
         while($row = $query->fetch_assoc()) {
-// trace('$row', $row);
             $obj = array();
             foreach ($attribs as $name => $spec) {
                 if ($this->isNotASpec($name)) continue;
                 $obj = $this->prepare_for_json($obj, $name, $row, $spec, $op);
-// trace('$obj', $obj);                
             }
             if (isset($op["mapping"])) {
                 $attr = $op["mapping"];
@@ -718,8 +724,6 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         if (array_key_exists("json", $op) && $op["json"]) {
             return json_encode($result);
         }
-        
-// trace("getAll($table) $sql -> ", $result[$table]);         
         return $result[$table];
     }
         
