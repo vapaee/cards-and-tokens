@@ -6,6 +6,19 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 -- TODO --
+- inventario nuevo
+  - album.component.ts:95 tiene hardcodeado el uso de float para poner los slots. Hay que poner una seunda opción que sea "inline"
+    - Usa un background en vez de un float y decidir cual usar según un parámetro en los datos
+  - el inventario de a página de inventario debe usar este nuevo modo inline
+    - verificar el que el inventario de album esté usadno el modo anteior (float)
+  - modo inline
+    - admite cantidad de filas y cant de columnas.
+  - grid component: es un nuevo componente para mostrar datos en una grilla
+    - display: flex o block
+    - recie una estructura de filas y columnas en cada fila y ubica los hijos en orden dentro de cada celda usando https://mdbootstrap.com/layout/layout-grid/
+  - background component más tuneable
+    - Habilitar la opciones de pading
+    - Habilitar display block
 - poner un countdown
 
 
