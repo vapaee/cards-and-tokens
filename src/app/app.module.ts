@@ -38,6 +38,7 @@ import { ComponentHost } from './deploy/comp/comp';
 // import { BaseComponent } from './deploy/comp/base/base.component';
 import { RootComponent } from './deploy/comp/root/root.component';
 import { RowThreeComponent } from './deploy/comp/row-three/row-three.component';
+import { GridComponent } from './deploy/comp/grid/grid.component';
 import { PlaceHolderComponent } from './deploy/comp/place-holder/place-holder.component';
 import { BackgroundComponent } from './deploy/comp/background/background.component';
 import { ScrolleableComponent } from './deploy/comp/scrolleable/scrolleable.component';
@@ -94,6 +95,7 @@ const routes: Routes = [
     ComponentHost,
     RootComponent,
     RowThreeComponent,
+    GridComponent,
     PlaceHolderComponent,
     BackgroundComponent,
     ScrolleableComponent,
@@ -116,6 +118,7 @@ const routes: Routes = [
   entryComponents: [
     RootComponent,
     RowThreeComponent,
+    GridComponent,
     PlaceHolderComponent,
     BackgroundComponent,
     ScrolleableComponent,

@@ -15,7 +15,7 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
     - admite cantidad de filas y cant de columnas.
   - grid component: es un nuevo componente para mostrar datos en una grilla
     - display: flex o block
-    - recie una estructura de filas y columnas en cada fila y ubica los hijos en orden dentro de cada celda.
+    - recive una estructura de filas y columnas en cada fila y ubica los hijos en orden dentro de cada celda.
       Usar https://mdbootstrap.com/layout/layout-grid/
   - background component más tuneable
     - Habilitar la opciones de pading

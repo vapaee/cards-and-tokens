@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular
 import { VapaeeUserService } from "../services/vapaee-user.service";
 import { AppService } from "../services/app.service";
 import { CntService } from "../services/cnt.service";
-import { DeployNode, ComponentHost} from "./comp/comp";
+import { ComponentHost} from "./comp/comp";
 import { ComponentService } from "./comp/component.service";
-import { BaseComponent } from './comp/base/base.component';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -30,17 +29,23 @@ export class DeployCardPage implements OnInit {
     ngOnInit() {
 
         var slug = this.route.snapshot.paramMap.get('slug');
-        console.log("-- ETAPA 1 -- this.cnt.getCardBySlug()");
+        // console.log("-- ETAPA 1 -- this.cnt.getCardBySlug()");
         this.cnt.getCardBySlug(slug).then(card => {
-            console.log("-- ETAPA 2 -- this.preloadCard()");
+            // console.log("-- ETAPA 2 -- this.preloadCard()");
             this.preloadCard(card).then(() => {
-                console.log("-- ETAPA 3 -- this.comp.createAndDeployTree");
+                // console.log("-- ETAPA 3 -- this.comp.createAndDeployTree");
                 this.comp.createAndDeployTree(card.edition, this.main.view);
             });
         });
     }
 
     preloadCard(card:any) {
+        if (!card.edition) {
+            console.log("--------- CARTA DE PRUEBA ----------"),
+            card.edition = {deploy: card.deploy};
+            this.loading = false;
+            return Promise.resolve();
+        }
         return this.comp.preload(card.edition.preload).then(() => {
             this.loading = false;
         });
