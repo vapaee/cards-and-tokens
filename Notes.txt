@@ -13,12 +13,12 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
     - verificar el que el inventario de album esté usadno el modo anteior (float)
   - modo inline
     - admite cantidad de filas y cant de columnas.
-  - grid component: es un nuevo componente para mostrar datos en una grilla
+  + grid component: es un nuevo componente para mostrar datos en una grilla
     - display: flex o block
-    - recive una estructura de filas y columnas en cada fila y ubica los hijos en orden dentro de cada celda.
+    + recive una estructura de filas y columnas en cada fila y ubica los hijos en orden dentro de cada celda.
       Usar https://mdbootstrap.com/layout/layout-grid/
   - background component más tuneable
-    - Habilitar la opciones de pading
+    - Habilitar la opciones de padding
     - Habilitar display block
 - poner un countdown
 - Resolver el puntaje que tiene un usuario en el álbum

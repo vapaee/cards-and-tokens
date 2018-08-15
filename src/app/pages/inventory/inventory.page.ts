@@ -23,28 +23,6 @@ export class InventoryPage implements OnInit {
     ) {
         this.inventory = {
             deploy: {
-                "comp": "float",
-                "data": {
-                    "style": {
-                        "width": "100%",
-                        "height": "240px",
-                        "bottom": "0px",
-                        "left": "0%"
-                    }
-                },
-                "children": [
-                    {
-                        "comp": "inventory",
-                        "data": {
-                            "rows": 1
-                        }
-                    }
-                ]
-            }
-        }
-
-        this.inventory = {
-            deploy: {
                 "comp": "inventory",
                 "data": {
                     "rows": 2,
