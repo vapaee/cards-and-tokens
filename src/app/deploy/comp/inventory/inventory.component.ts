@@ -39,10 +39,6 @@ export class InventoryComponent extends AlbumComponent implements OnInit, Sectio
         this.data = structure.data;
         this.data.pages = [];
         this.children = [];
-        console.assert(Array.isArray(this.data.pages),
-            "ERROR: Section data.pages missing or is not an Array. Got ",
-            typeof this.data.pages,
-            this.data.pages);
 
         // Tnego que parametrizar el ancho de las cartas
         var cardWidth = 160; // 140px más margen de ambos lados de 10px

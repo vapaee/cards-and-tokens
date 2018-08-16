@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, ComponentFactoryResolver, Input } from '@angular/core';
 import { VapaeeUserService } from "../../../services/vapaee-user.service";
 import { AppService } from "../../../services/app.service";
 import { CntService } from "../../../services/cnt.service";
@@ -18,7 +18,7 @@ export interface ComponentServiceI {
 
 export class BaseComponent implements OnInit {
     @ViewChildren(ComponentHost) public hosts: QueryList<ComponentHost>;
-    data:any = {};
+    @Input() data: any;
     service:ComponentServiceI;
     children:any = [];
     initResolve:(value?:void) => void;

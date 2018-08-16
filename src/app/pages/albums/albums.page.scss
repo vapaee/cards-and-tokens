@@ -2,3 +2,17 @@
     display: flex;
     height: calc(100% - 71px);
 }
+
+.inventory-box {
+    background: grey;
+    border: 10px inset darkcyan;
+    
+    .col {
+        text-align: center;
+        padding: 10px;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}

@@ -1,9 +1,17 @@
 <div class="container">
     <h1 class="hide-at-work">Inventory</h1>
-    <div style="height: 100%;">
-        <ng-template comp-host></ng-template>
+
+    <div class="inventory-box">
+        <div class="row" *ngFor="let row of slots">
+            <div class="col" *ngFor="let slot of row">
+                <slot-comp [data]="slot"></slot-comp>
+            </div>
+        </div>
     </div>
+
 </div>
+
+
 <a class="btn btn-1 btn-default btn-sm my-0 ml-3 waves-effect waves-light" (click)="containers.print()">
     Containers
 </a>

@@ -68,7 +68,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         return Promise.resolve(<any[]>[]);
     }
 
-    createPageChild(page: {slots:any[], background:any}): {comp: string, data?: any, children?: any[]} {
+    createPageChild(page: {slots:{position?:any}[], background:any}): {comp: string, data?: any, children?: any[]} {
         console.log("createPageChild()", page);
         let _children:any[] = [];
         let _positions:any[] = [];
@@ -87,20 +87,34 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
             _children.push(_child);
             _positions.push(position);
         }
+        let child = null;
 
-        let child = {
-            "comp":"background",
-            "data": page.background,
-            "children": [{
+        if (this.data.grid) {
+            child = {
+                "comp": "grid",
+                "data": {
+                    
+                },
+                "children": _children
+            }
+        } else {
+            child = {
                 "comp": "float",
                 "data": {
                     "positions": _positions
                 },
                 "children": _children
-            }]
+            }
         }
 
-        return child;
+        var pageChild = {
+            "comp":"background",
+            "data": page.background,
+            "children": [child]
+        };
+
+
+        return pageChild;
     }
 
     // invocado por SectionService cuando alguien cambia la sección actual.

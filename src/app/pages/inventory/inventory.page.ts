@@ -14,6 +14,7 @@ export class InventoryPage implements OnInit {
     @ViewChild(ComponentHost) public main: ComponentHost;
 
     inventory:any;
+    slots:any[];
 
     constructor(
         public vapaee: VapaeeUserService, 
@@ -21,26 +22,24 @@ export class InventoryPage implements OnInit {
         public comp: ComponentService, 
         public cnt: CntService
     ) {
-        this.inventory = {
-            deploy: {
-                "comp": "inventory",
-                "data": {
-                    "rows": 2,
-                    "cols": 4
-                }
-            }
-        }
+        
     }
 
     ngOnInit() {
-        
-        this.comp.createAndDeployTree(this.inventory, this.main.view);
-        
-        this.cnt.getUserInventory("cards-and-tokens").then(inventory => {
-            // this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
+        var inventory_name = "cards-and-tokens";
+        this.slots = [[],[]];
+        var cols = 4;
+        for (var r=0;r<this.slots.length; r++) {
+            for (var i=0;i<cols; i++) {
+                this.slots[r].push({
+                    "index": i+r*cols, "container": inventory_name
+                });
+            }
+        }
+        this.cnt.getUserInventory(inventory_name).then(inventory => {
+            // acá puedo consultar la capacidad total (por si en algún momento tiene más de 8)
+            // console.log(this.cnt.userdata.data.slug.container[inventory_name].capacity);
         });
-        
-        
     }
 
     getDailyPrice() {
