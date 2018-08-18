@@ -54,6 +54,9 @@ export class SlotComponent extends BaseComponent implements OnInit, OnChanges, S
     
     public acceptsDrop(copy: any) {
         if (this.copy && this.copy.id == copy.id) return false;
+        if (typeof this.data.drops != "undefined") {
+            return this.data.drops;
+        }
         if (!this.acceptingDrop) {
             this.acceptingDrop = true;
             return true
@@ -63,6 +66,13 @@ export class SlotComponent extends BaseComponent implements OnInit, OnChanges, S
 
     public dragLeave() {
         this.acceptingDrop = false;
+    }
+
+    public isDraggable(): boolean {
+        if (typeof this.data.draggable != "undefined") {
+            return this.data.draggable;
+        }
+        return true;
     }
 
     public onClick(e) {

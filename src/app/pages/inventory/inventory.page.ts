@@ -32,7 +32,7 @@ export class InventoryPage implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        this.dailycard = {backface:true, id:"dailycard"};
+        this.dailycard = {backface:true,draggable:false,drops:false, id:"dailycard"};
         var inventory_name = "cards-and-tokens";
         this.slots = [[],[]];
         var cols = 4;
@@ -112,7 +112,7 @@ export class InventoryPage implements OnInit, OnDestroy {
             clock.face.options.countdown = true;
             clock.face.options.autoStart = false;
             clock.face.options.autoPlay = false;
-            clock.face.value = clock.face.value - 3;
+            clock.face.value = clock.face.value - 4;
             clock.stop();
             clock.start();
             /*

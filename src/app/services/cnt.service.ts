@@ -183,6 +183,7 @@ export class CntService {
     }
 
     getCopyById(id:number) {
+        console.log("CntService.getCopyById()",id);
         return this.box.getCopyById(id).then(copy => {
             var collectible = this.userdata.data.collectible["id-"+copy.collectible.id];
             var edition = this.userdata.data.edition["id-"+copy.edition.id];

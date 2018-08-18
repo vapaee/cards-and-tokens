@@ -61,7 +61,7 @@ export class DragAndDropService {
     }
 
     drag(e) {
-        if (this.dragging) {
+        if (this.dragging && e.clientY != 0 && e.clientX != 0) {
             this.dragging.front.style.top = (e.clientY + this.dragging.front.init.offset.y + 0) + "px";
             this.dragging.front.style.left = (e.clientX + this.dragging.front.init.offset.x + 3) + "px";
         }
@@ -83,6 +83,7 @@ export class DragAndDropService {
 
     draggingOver(to:SlotComponent) {
         if (this.toComp == to) return;
+        if (!this.dragging) return;
         if (to.acceptsDrop(this.dragging.copy)) {
             this.toComp = to;
             console.log("DragAndDropService.draggingOver()", [to.data]);
@@ -90,12 +91,18 @@ export class DragAndDropService {
     }
 
     stopDragging(e) {
-        this.toComp.dragLeave();
-        this.dragging = null;
-        this.cnt.swapSlots(this.fromComp.data.container, this.fromComp.data.index, this.toComp.data.container, this.toComp.data.index).then(() => {
+        if (this.toComp) {
+            this.toComp.dragLeave();
+            this.dragging = null;
+            this.cnt.swapSlots(this.fromComp.data.container, this.fromComp.data.index, this.toComp.data.container, this.toComp.data.index).then(() => {
+                this.fromComp = null;
+                this.toComp = null;
+            });    
+        } else {
             this.fromComp = null;
             this.toComp = null;
-        });
+            this.dragging = null;
+        }
         console.log("stopDragging()",[e]);
     }
 }
