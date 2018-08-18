@@ -1,17 +1,51 @@
-<div class="container">
-    <h1 class="hide-at-work">Inventory</h1>
-
-    <div class="inventory-box">
-        <div class="row" *ngFor="let row of slots">
-            <div class="col" *ngFor="let slot of row">
-                <slot-comp [data]="slot"></slot-comp>
+<div class="container margin-bottom-lg">
+    
+    <div class="card margin-top-xl opaque-at-work inventory-box">
+        <h3 class="card-header primary-color white-text">
+            Inventory
+        </h3>
+        <div class="card-body">
+            <div class="row" *ngFor="let row of slots">
+                <div class="col" *ngFor="let slot of row">
+                    <slot-comp [data]="slot"></slot-comp>
+                </div>
             </div>
+            <div class="row daily-card-box">
+                <div class="col">
+                    <slot-comp [data]="dailycard" (click)="claimDailyPrize()"></slot-comp>
+                </div>
+                <div class="col-9">
+                    <div class="countdown-container flex-center flex-column flip-clock-wrapper color-white">
+                        <div class="count-down"></div>
+                        <div *ngIf="!dailycard.claimable">
+                            <h1>Free Daily Prize</h1>
+                        </div>
+                        <a class="btn btn-success btn-lg waves-effect waves-light" *ngIf="dailycard.claimable" (click)="claimDailyPrize()">
+                            Claim your daily price
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="row">
+                <div class="col">
+                    <div class="left-aligned bg-color-white color-black">
+                        <pre>{{dailycard|json}}</pre>
+                    </div>
+                </div>
+            </div>
+            -->
         </div>
     </div>
 
 </div>
 
 
+
+
+
+
+<!--
 <a class="btn btn-1 btn-default btn-sm my-0 ml-3 waves-effect waves-light" (click)="containers.print()">
     Containers
 </a>
@@ -21,3 +55,4 @@
 <a class="btn btn-3 btn-primary btn-sm my-0 ml-3 waves-effect waves-light" (click)="getDailyPrice()">
     Daily Prize
 </a>
+-->

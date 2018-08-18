@@ -1,6 +1,42 @@
 :host {
-    height: 100%;
     display: flex;
     flex-grow: 1;
-    flex-direction: column;
+    .inventory-container {
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        flex-grow: 1;
+        &.vertical {
+            flex-direction: column;
+            height: 100%;
+            // min-width: calc(18.2928572vw + 10px);
+        }
+        &.horizontal {
+            flex-direction: row;
+            width: 100%;
+            max-height: 150px;
+            height: 17vw;
+        }
+        .inventory-prev, .inventory-next {
+            flex-grow: 0;
+            padding:10px;
+        }
+        .inventory-slots {
+            flex-grow: 1;
+            position: relative;
+            .inventory-scroll {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                bottom: 0px;
+                right: 0px;
+                overflow: hidden;
+                white-space: nowrap;
+                .inventory-scroll-content {
+                    padding: 10px;
+                    display: inline-block;
+
+                }
+            }
+        }
+    }
 }

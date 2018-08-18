@@ -1,31 +1,38 @@
 :host {
-    width: 160px;
-    height: 217px;
+    width:100%;
+    max-width: 152px;
     display: inline-block;
     .slot-container {
-        padding: 10px;
-        background-color: rgba($color: #fff, $alpha: 0.4);
-        border-radius: 10px;
+        padding: 4%;
+        background-color: rgba($color: #999, $alpha: 0.4);
+        border-radius: 4%;
         &.accepting-drop {
-            background-color: green;
+            background-color: rgba($color: #eee, $alpha: 0.6);
+            
         }
     }
 }
 
 .placeholder {
-    border: 1px solid gray;
-    width: 140px;
-    height: 197px;
-    border-radius: 10px;
+    width: 100%;
+    max-width: 140px;
+    border-radius: 4%;
+    position: relative;
+    &.empty {
+        border: 1px solid gray;
+    }
 }
 
 .embed-responsive-card:before {
     padding-top: 140.714286%;
+    content: ' ';
 }
 
 .slot-number {
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 7px;
+    left: 9px;
+    font-weight: bold;
+    color: white;
 }
 

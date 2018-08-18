@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, Renderer2, ElementRef } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { VapaeeUserService } from '../../../services/vapaee-user.service';
 import { AppService } from '../../../services/app.service';
@@ -21,10 +21,21 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         public app: AppService, 
         public cnt: CntService,
         protected cfResolver: ComponentFactoryResolver,
-        protected section: SectionService
+        protected section: SectionService,
+        private renderer: Renderer2,
+        private elRef: ElementRef,
     ) {
         super(vapaee, app, cnt, cfResolver);
+        this.init();
+    }
+
+    public init() {
         this.capacity = 0;
+        this.waitReady.then(() => {
+            window.setTimeout(() => {
+                this.onResize();
+            }, 200);
+        });        
     }
 
     public static config(): any {
@@ -76,6 +87,8 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         for (let i=0; i<page.slots.length; i++, this.capacity++) {
             console.log("this.capacity", this.capacity);
             let position = page.slots[i].position;
+            position["width"] = "15%";
+            position["max-width"] = "140px";
             let _child = {
                 "comp": "slot",
                 "data": {
@@ -107,6 +120,8 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
             }
         }
 
+        page.background.float = true;
+
         var pageChild = {
             "comp":"background",
             "data": page.background,
@@ -133,7 +148,41 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
             let componentFactory = this.cfResolver.resolveComponentFactory(child.component);
             let componentRef = host.view.createComponent(componentFactory);
             (<BaseComponent>componentRef.instance).loadStructure(child);
+
+            var target = this.elRef.nativeElement.querySelector(".embed-responsive background-comp");
+            this.renderer.addClass(target, 'float');
         });
     }
+
+    getPadding() {
+        return 20;
+    }
+
+    timer:number = 0;
+    onResize(skip = false) {
+        console.log("AlbumComponent.onResize() ******************************");
+        var target = this.elRef.nativeElement.querySelector(".embed-responsive");
+        var ratio = 16/9;
+        var maxHeight = this.elRef.nativeElement.offsetHeight - 2 * this.getPadding();
+        var maxWidth = maxHeight * ratio;
+        this.renderer.setStyle(target, 'max-width', maxWidth + "px");
+        if (!skip) {
+            if (!this.timer) {
+                this.timer = 1;
+                window.setTimeout(() => {
+                    this.onResize(true);
+                }, 100);
+                window.setTimeout(() => {
+                    this.onResize(true);
+                    this.timer = 0;
+                }, 200);
+            }    
+        }
+    }
     
+    get getStyle(): any {
+        return {
+            "padding": this.data.padding || this.getPadding() + "px"
+        }
+    }
 }

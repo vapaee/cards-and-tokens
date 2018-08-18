@@ -1,1 +1,19 @@
-<ng-template comp-host></ng-template>
+<div class="inventory-container" [ngClass]="{'vertical':data.vertical, 'horizontal':!data.vertical}">
+    <div class="inventory-prev flex-center flex-column">
+        <a class="btn btn-default waves-effect waves-light" (click)="prev()">
+            prev
+        </a>
+    </div>
+    <div class="inventory-slots">
+        <div class="inventory-scroll">
+            <div class="inventory-scroll-content" [ngStyle]="slot.style" *ngFor="let slot of slots">
+                <slot-comp [data]="slot" (click)="claimDailyPrize()"></slot-comp>
+            </div>
+        </div>
+    </div>
+    <div class="inventory-next flex-center flex-column">
+        <a class="btn btn-default waves-effect waves-light" (click)="next()">
+            next
+        </a>
+    </div>
+</div>

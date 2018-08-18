@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ElementRef, ViewChild, OnChanges } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { VapaeeUserService } from '../../../services/vapaee-user.service';
 import { AppService } from '../../../services/app.service';
@@ -12,7 +12,7 @@ import { SlotI } from '../../../services/datatypes.service';
     templateUrl: './slot.component.html',
     styleUrls: ['./slot.component.scss']
 })
-export class SlotComponent extends BaseComponent implements OnInit, SlotI {
+export class SlotComponent extends BaseComponent implements OnInit, OnChanges, SlotI  {
     @ViewChild('img') img:ElementRef;
     @ViewChild('placeholder') placeholder:ElementRef;
     // copy: any;
@@ -40,6 +40,17 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
 
         };
     }
+
+    ngOnChanges() {
+        if (this.data.backface) {
+            console.log("SLOT BACKFACE", [this.data]);
+            if (this.data.backface === true) {
+                this.data.thumbnail = "/assets/jumbocard_dbbb-full.jpg";
+            } else if (typeof this.data.backface == "string") {
+                this.data.thumbnail = this.data.backface;
+            }
+        }
+    }
     
     public acceptsDrop(copy: any) {
         if (this.copy && this.copy.id == copy.id) return false;
@@ -57,6 +68,7 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
     public onClick(e) {
         console.log("SlotComponent.onClick()", [e]);
         if (!this.copy) return;
+        if (this.data.backface) return;
         this.cnt.deployCard(this.copy.collectible, this.img.nativeElement);
         // this.container.HacerAlgo(data)
 
@@ -66,6 +78,9 @@ export class SlotComponent extends BaseComponent implements OnInit, SlotI {
 
     get copy(): any {
         // console.log("copy()", this.data.container, this.data.index);
+        if (this.data.backface) {
+            return this.data;
+        }
         if (!this.cnt.userdata.data) return null;
         var contaienr = this.cnt.userdata.data.slug.container[this.data.container];
         if (!contaienr) return null;

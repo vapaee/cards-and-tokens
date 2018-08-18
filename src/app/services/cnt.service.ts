@@ -141,7 +141,9 @@ export class CntService {
             let edition = this.userdata.data.edition["id-"+copy.edition.id];
             copy.collectible = collectible;
             copy.edition = edition;
+            copy.thumbnail = copy.edition.preview.images.thumbnail;
         }
+
        
         for (var i in this.userdata.data.slot) {
             let slot = this.userdata.data.slot[i];
@@ -232,10 +234,10 @@ export class CntService {
         });
     }
 
-    getDailyPrize() {
+    claimDailyPrize() {
         return new Promise<any>((resolve, reject) => {
             console.log("CntService.getDailyPrize()");
-            var url = "http://api.cardsandtokens.com/dailyprize?access_token="+this.userdata.access_token;
+            var url = "http://api.cardsandtokens.com/dailyprize/claim?access_token="+this.userdata.access_token;
             this.http.get<any>(url).toPromise().then((r) => {
                 if (r.error) {
                     alert(r.error);
@@ -254,6 +256,24 @@ export class CntService {
                 });
                 
             }, reject);
+        });
+    }
+
+    getDailyPrizeCountdown() {
+        return new Promise<any>((resolve, reject) => {
+            this.userdata.afterReady.then(() => {
+                this.userdata.data.dayliprice = {};
+                console.log("CntService.getDailyPrize()");
+                var url = "http://api.cardsandtokens.com/dailyprize/countdown?access_token="+this.userdata.access_token;
+                this.http.get<any>(url).toPromise().then((r) => {
+                    if (r.sec == 0) {
+                        this.userdata.data.dayliprice.claimable = true;
+                    } else {
+                        this.userdata.data.dayliprice.remaining = r.sec;
+                    }
+                    resolve(r.sec);
+                }, reject);
+            });    
         });
     }
     //http://api.cardsandtokens.com/dailyprize?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMzMjczODMyLCJleHAiOjE1MzM4Nzg2MzJ9.7oVE9obJJNb_g2WrWqn_xDOAfP7zRx7PNTPdR64juQg

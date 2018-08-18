@@ -1,6 +1,8 @@
 :host {
-    display: flex;
     height: calc(100% - 71px);
+    overflow: auto;
+    display: block;
+
     .btn-1 {
         bottom: 150px;
         left: 20px;
@@ -17,16 +19,37 @@
         position: absolute;
     }    
     .inventory-box {
-        background: grey;
-        border: 10px inset darkcyan;
-        
-        .col {
-            text-align: center;
-            padding: 10px;
+        .card-body {
+            background: #212529;
+            // border: 5px inset #d0d0d0;
+            .col {
+                text-align: center;
+                padding: 10px;
+            }
+            .row {
+                margin-left: 0px;
+                margin-right: 0px;
+            }
         }
-        .row {
-            margin-left: 0px;
-            margin-right: 0px;
+    }
+
+    .daily-card-box {
+        .card-body {
+            background: #212529;
+            display: flex;
+            .card-container {
+                flex-grow: 0;
+                padding: 10px;
+            }
+            .countdown-container {
+                display: flex;
+                text-align: center;
+                align-self: center;
+                flex-grow: 1;
+                padding: 10px;
+            }    
         }
     }
 }
+
+

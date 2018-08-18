@@ -209,107 +209,49 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
     $collection = $app["db"]->http_post("collection", $collection, $unbox);
     // ----------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Esto es de prueba (ini)-----------
-    /*
-    $copy = array(
-        "collectible" => 1,
-        "edition" => 1,
-        "owner" => $user["id"],
-        "multiplicity" => 1,
-        "spec" => 1, // "card"
-        "container" => $inventory["container_id"]
-    );
-    $copy = $app["db"]->http_post("copy", $copy, $unbox);
-    $app["db"]->http_put("inventory", $inventory["id"], array(
-        "structure" => array("s1" => $copy["id"])
-    ));
-
-    $copy = array(
-        "collectible" => 2,
-        "edition" => 2,
-        "owner" => $user["id"],
-        "multiplicity" => 1,
-        "spec" => 1, // "card"
-        "container" => $collection["container_id"]
-    );
-    $copy = $app["db"]->http_post("copy", $copy, $unbox);
-
-    $collection = array(
-        "album" => 1,
-        "owner" => $user["id"],
-        "spec" => 1, // album
-        "structure" => array("s3" => $copy["id"]),
-        "capacity" => 8
-    );
-    $collection = $app["db"]->http_post("collection", $collection, $unbox);
-    */
-    // Esto es de prueba (fin)-----------
-
     return $user;
 });
 
-
-
-/*
-$app->get('/userdata', function() use ($app) {
-    global $config; $namespace = $config['namespace'];
-    trace("$namespace GET 'userdata'");
-    putHeaders();
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $access_token = $_GET["access_token"];
-        $result = verifyAccessToken($access_token, $app);
-        // trace("cnt./userdata -> verifyAccessToken devolvio: ", $result);
-        if ($result) {
-            $userdata = getUserdata($result, $app);
-            return json_encode($userdata);
-        } else {
-            return json_encode(autenticationError());
-        }
-    }    
-});
-*/
-
-$app->get('/dailyprize', function() use ($app) {
-    global $config; $namespace = $config['namespace'];
-    trace("$namespace GET 'dailyprize' --------------");
-
-    
-    $op = array("secure" => true, "unbox" => true);
+function getUserFromSteemAccessToken($app, $op = array("secure" => true, "unbox" => true)) {
     $result = verifySteemAccessToken($app);
     $user_id = $result["user"]["id"];
     $user = $app["db"]->http_get_id("user", $user_id, $op);
+    return $user;
+}
 
-    // ---------------------------------------------------------------------
-    // checking if has past at least one day -------------------------------
+function getDailyPriceRemainintTimeFromUser($user) {
     $lastprize = date_create($user["dailyprize"]);
     $hoy = date_create(date("Y-m-d H:i:s"));
     $interval = date_diff($hoy, $lastprize);
     $days = $interval->format("%a");
+    $remaining = 0;
     if ($days == 0) {
         $h = $interval->format("%h");
         $m = $interval->format("%i");
         $s = $interval->format("%s");
         $remaining = 24 * 60 * 60 - $h * 60 * 60 - $m * 60 - $s;
-        return '{"error":"less than a day", "countdown":"'.$remaining.'","h":"'.$h.'","m":"'.$m.'","s":"'.$s.'"}';
+    }
+    return array(
+        "days" => $days,
+        "sec" => $remaining,
+        "lastprize" => $lastprize
+    );
+}
+
+$app->get('/dailyprize/claim', function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace GET 'dailyprize' --------------");
+    $op = array("unbox"=>true);
+    $user = getUserFromSteemAccessToken($app, $op);
+    $remaining = getDailyPriceRemainintTimeFromUser($user);
+    if ($remaining["days"] == 0) {
+        $remaining["error"] = "less than a day";
+        return json_encode($remaining);
     }
 
     // ---------------------------------------------------------------------
     // checking if there's space in the inventory --------------------------
-    $inventory = $app["db"]->http_get("inventory", array("owner" => $user_id), $op);
+    $inventory = $app["db"]->http_get("inventory", array("owner" => $user["id"]), $op);
     $inventory = $inventory[0];
 
     if ($inventory["empty"] == 0) {
@@ -383,6 +325,17 @@ $app->get('/dailyprize', function() use ($app) {
 });
 
 
+
+$app->get('/dailyprize/countdown', function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace GET 'dailyprize.countdown' --------------");
+    
+    $op = array("unbox"=>true);
+    $user = getUserFromSteemAccessToken($app, $op);
+    $remaining = getDailyPriceRemainintTimeFromUser($user);
+    return json_encode($remaining);
+    
+});
 
 
 $app->post('/swap/slots', function() use ($app) {
