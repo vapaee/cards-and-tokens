@@ -29,25 +29,21 @@
             .row {
                 margin-left: 0px;
                 margin-right: 0px;
+                .countdown-container {
+                    display: flex;
+                    text-align: center;
+                    align-self: center;
+                    flex-grow: 1;
+                    padding: 10px;
+                    -webkit-animation-delay: 0.2s;
+                    -moz-animation-delay: 0.2s;
+                    animation-delay: 0.2s;
+                }
+                .card-container {
+                    flex-grow: 0;
+                    padding: 10px;
+                }
             }
-        }
-    }
-
-    .daily-card-box {
-        .card-body {
-            background: #212529;
-            display: flex;
-            .card-container {
-                flex-grow: 0;
-                padding: 10px;
-            }
-            .countdown-container {
-                display: flex;
-                text-align: center;
-                align-self: center;
-                flex-grow: 1;
-                padding: 10px;
-            }    
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { VapaeeUserService } from "../../services/vapaee-user.service";
 import { AppService } from "../../services/app.service";
 import { CntService } from '../../services/cnt.service';
@@ -13,8 +13,9 @@ declare var FlipClock:any;
     templateUrl: './inventory.page.html',
     styleUrls: ['./inventory.page.scss']
 })
-export class InventoryPage implements OnInit {
+export class InventoryPage implements OnInit, OnDestroy {
     @ViewChild(ComponentHost) public main: ComponentHost;
+    clock:any;
 
     inventory:any;
     slots:any[];
@@ -28,6 +29,7 @@ export class InventoryPage implements OnInit {
     ) {
         
     }
+
 
     ngOnInit() {
         this.dailycard = {backface:true, id:"dailycard"};
@@ -47,6 +49,10 @@ export class InventoryPage implements OnInit {
         });
         
         this.updateCountdown();
+    }
+
+    ngOnDestroy() {
+        this.destroyCountdown();
     }
 
     updateCountdown() {
@@ -71,6 +77,13 @@ export class InventoryPage implements OnInit {
         }
     }
 
+    destroyCountdown(){
+        if (this.clock) {
+            this.clock.stop();
+            this.clock = null;
+        }        
+    }
+
     createCountDownClock() {
         var self = this;
         // flipClock Count Down
@@ -89,30 +102,27 @@ export class InventoryPage implements OnInit {
             // weblog("flipClock Count Down Start");
             // http://flipclockjs.com/
             var clock = new FlipClock($('.count-down'), sec, {
-
-                // Create a minute counter
                 clockFace: 'HourlyCounterFace',
-                showSeconds: true,
-                countdown: sec > 0,
-
-                // The onStart callback
-                onStart: function() {
-                    console.log("onStart()");
-                },
-            
-                // The onStop callback
-                onStop: function() {
-                    console.log("onStop()");
-                },
-            
-                // The onReset callback
-                onReset: function() {
-                    console.log("onReset()");
-                }
+                countdown: true,
+                autoStart: false,
+                autoPlay: false,
+                showSeconds: true
             });
             
+            clock.face.options.countdown = true;
+            clock.face.options.autoStart = false;
+            clock.face.options.autoPlay = false;
+            clock.face.value = clock.face.value - 3;
+            clock.stop();
             clock.start();
+            /*
+            window.setTimeout(() => {
+                console.log(clock);
+                // clock.start();
+            }, 5000);
+            */
             // weblog("flipClock Count Down END", $('.count-down').html());
+            self.clock = clock;
         });        
     }
 
