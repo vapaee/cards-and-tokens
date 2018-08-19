@@ -5,7 +5,7 @@ import { AppService } from "../../services/app.service";
 @Component({
     selector: 'editor-page',
     templateUrl: './editor.page.html',
-    styleUrls: ['./editor.page.css']
+    styleUrls: ['./editor.page.scss']
 })
 export class EditorPage implements OnInit {
 

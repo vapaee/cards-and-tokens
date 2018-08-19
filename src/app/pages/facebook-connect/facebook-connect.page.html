@@ -1,0 +1,14 @@
+<div style="height: 80vh">
+    <div [hidden]="timeout" class="flex-center flex-column animated fadeIn">
+
+        <h1 class="mb-4">Connecting to Steem</h1>
+        <div class="text-muted" style="width: 50vw;">
+          <div class="progress primary-color-dark">
+              <div class="indeterminate"></div>
+          </div>
+        </div>
+    </div>
+    <div [hidden]="!timeout" class="flex-center flex-column animated fadeIn">
+        <h1 class="mb-4">Conection Time Out !!</h1>
+    </div>
+  </div>

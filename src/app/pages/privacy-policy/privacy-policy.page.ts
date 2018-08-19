@@ -3,15 +3,15 @@ import { VapaeeUserService } from "../../services/vapaee-user.service";
 import { AppService } from "../../services/app.service";
 
 @Component({
-  selector: 'loading-page',
-  templateUrl: './loading.page.html',
-  styleUrls: ['./loading.page.scss']
+  selector: 'privacy-policy-page',
+  templateUrl: './privacy-policy.page.html',
+  styleUrls: ['./privacy-policy.page.scss']
 })
-export class LoadingPage implements OnInit {
+export class PrivacyPolicyPage implements OnInit {
 
   constructor(public vapaee: VapaeeUserService, public app: AppService) {
   }
-
+  
   ngOnInit() {
   }
 

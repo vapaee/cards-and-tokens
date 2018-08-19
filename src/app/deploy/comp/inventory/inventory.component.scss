@@ -15,6 +15,9 @@
             width: 100%;
             max-height: 150px;
             height: 17vw;
+            .inventory-scroll-content {
+                transition-property: margin-left;
+            }
         }
         .inventory-prev, .inventory-next {
             flex-grow: 0;
@@ -32,9 +35,12 @@
                 overflow: hidden;
                 white-space: nowrap;
                 .inventory-scroll-content {
+                    transition-duration: 0.5s;
+                    transition-timing-function: ease-out;
+                }
+                .inventory-scroll-item {
                     padding: 10px;
                     display: inline-block;
-
                 }
             }
         }

@@ -1,0 +1,10 @@
+:host {
+    display: block;
+    height: 100%;
+
+    page-container {
+        display: block;
+        height: calc(100% - 71px);
+        overflow: auto;
+    }
+}

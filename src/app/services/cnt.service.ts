@@ -1,12 +1,17 @@
 import { Injectable, Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
 import { DataService } from './data.service';
 import { DomService } from './dom.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { UserdataService } from './userdata.service';
 import { BgBoxService } from './bg-box.service';
 import { AppService } from './app.service';
+
+
+
+declare var FB:any;
+declare var when_FB:any;
 
 export interface Todo {
     title: string;
@@ -35,6 +40,7 @@ export class CntService {
     public deploy: any;
     public device: Device;
     public user = {inventory:<any>{}};
+    public when_FB: Promise<any>;    
 
     constructor(
         private http: HttpClient, 
@@ -74,8 +80,27 @@ export class CntService {
                     resolve();
                 }, reject);
             });
+
+            this.when_FB = new Promise((resolve, reject)=>{          
+                when_FB.then(resolve, reject);
+            });
+
+            this.when_FB.then(() => {
+                this.updateFB();
+            }); 
         }
         return this.waitReady;
+    }
+
+    updateFB() {
+        console.log("CNT.updateFB()");
+        this.when_FB.then((FB) => {
+            console.assert(FB);
+            console.assert(FB.XFBML);
+            console.assert(FB.XFBML.parse);
+            console.log("CNT.updateFB() PARSE !!!!!!!!!!!!!");
+            FB.XFBML.parse();
+        });        
     }
 
     // ------------------------------------------------------------------------------------------
@@ -445,6 +470,7 @@ export class CntService {
         
         this.waitReady.then(() => {
             var _deploy:any = {};
+            _deploy.href = window.location.origin + "/deploy/card/" + card.slug;
             _deploy.style = {};
             _deploy.preload = card.edition.preload;
             _deploy.closebtn = {};
@@ -537,6 +563,8 @@ export class CntService {
                 _deploy.front.style.left = (this.device.width-W-10) + "px";
                 _deploy.front.style.height = H + "px";
                 _deploy.front.style.width = W + "px";
+
+                this.updateFB();
             }, 2000);
 
             setTimeout(() => {
@@ -547,10 +575,11 @@ export class CntService {
                 _deploy.frame.style.opacity = 1;
                 _deploy.closebtn.style.opacity = 1;
                 // createStatsHeader(carta.attr("id"));
+                _deploy.showlikes = true;
             }, 3000);
             
             _deploy.prevhref = window.location.href;
-            window.history.pushState({}, "", window.location.origin + "/deploy/card/" + card.slug);
+            window.history.pushState({}, "", _deploy.href);
             this.deploy = _deploy;
         });
 
@@ -566,12 +595,19 @@ export class CntService {
     }
     // ------------------------------------------------------------------------------------------
 
+
 }
 
 @Component({
     selector: 'card-deploy',
+    styles: [".stats_container {position: fixed; top: 1px; left: 30px; z-index: 100;}"],
     template: `
     <div *ngIf="cnt.deploy">
+        <div class="stats_container">
+            <div [hidden]="!cnt.deploy.showlikes" class="fb-like animated fadeIn"
+                [data-href]="cnt.deploy.href"
+                data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        </div>
         <div class="body" [ngStyle]="cnt.deploy.body.style">
             <div class="contenedor embed-responsive" [ngStyle]="cnt.deploy.frame.style">
                 <iframe [src]="cnt.deploy.frame.src" class="embed-responsive-item"></iframe>

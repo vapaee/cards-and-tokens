@@ -42,3 +42,4 @@ Thumbs.db
 # cards & tokens 
 api/vendor
 Notes.passwords.txt
+src/app/app.extras.js

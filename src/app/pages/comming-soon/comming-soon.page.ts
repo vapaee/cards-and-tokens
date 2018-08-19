@@ -5,7 +5,7 @@ import { AppService } from "../../services/app.service";
 @Component({
   selector: 'comming-soon-page',
   templateUrl: './comming-soon.page.html',
-  styleUrls: ['./comming-soon.page.css']
+  styleUrls: ['./comming-soon.page.scss']
 })
 export class CommingSoonPage implements OnInit {
 

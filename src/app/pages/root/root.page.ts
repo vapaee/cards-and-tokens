@@ -6,7 +6,7 @@ import { SteemService } from '../../services/steem.service';
 @Component({
     selector: 'root-page',
     templateUrl: './root.page.html',
-    styleUrls: ['./root.page.css']
+    styleUrls: ['./root.page.scss']
 })
 export class RootPage implements OnInit {
 

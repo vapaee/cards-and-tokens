@@ -36,7 +36,8 @@
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/chart.js/dist/Chart.js",
               "node_modules/hammerjs/hammer.min.js",
-              "node_modules/flipclock/dist/flipclock.js"
+              "node_modules/flipclock/dist/flipclock.js",
+              "src/app/app.extras.js"
             ]
           },
           "configurations": {

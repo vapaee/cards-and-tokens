@@ -1,17 +1,19 @@
-<div class="inventory-container" [ngClass]="{'vertical':data.vertical, 'horizontal':!data.vertical}">
-    <div class="inventory-prev flex-center flex-column">
+<div class="inventory-container" (window:resize)="onResize($event)" [ngClass]="{'vertical':data.vertical, 'horizontal':!data.vertical}">
+    <div class="inventory-prev flex-center flex-column" [hidden]="max==0">
         <a class="btn btn-default waves-effect waves-light" (click)="prev()">
             prev
         </a>
     </div>
     <div class="inventory-slots">
         <div class="inventory-scroll">
-            <div class="inventory-scroll-content" [ngStyle]="slot.style" *ngFor="let slot of slots">
-                <slot-comp [data]="slot" (click)="claimDailyPrize()"></slot-comp>
+            <div class="inventory-scroll-content" [ngStyle]="{'text-align': max==0 ? 'center' : 'left' }">
+                <div class="inventory-scroll-item" [ngStyle]="slot.style" *ngFor="let slot of slots">
+                    <slot-comp [data]="slot" (click)="claimDailyPrize()"></slot-comp>
+                </div>
             </div>
         </div>
     </div>
-    <div class="inventory-next flex-center flex-column">
+    <div class="inventory-next flex-center flex-column"  [hidden]="max==0">
         <a class="btn btn-default waves-effect waves-light" (click)="next()">
             next
         </a>
