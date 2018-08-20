@@ -33,7 +33,8 @@ http://accelerator.decenturion.com/?gclid=Cj0KCQjwquTbBRCSARIsADzW88whGqGfIakmCr
 
 
 
-
+AirDrop Tool
+https://github.com/EOSEssentials/EOSDrops
 
 
 -- TELOS --
