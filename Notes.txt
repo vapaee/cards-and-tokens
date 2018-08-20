@@ -28,7 +28,8 @@ lectura Steem api
 https://steemit.com/steemdev/@jfollas/write-a-steemit-web-app-part-8-retrieving-content-with-getstate
 
 
-
+Que es esto?
+http://accelerator.decenturion.com/?gclid=Cj0KCQjwquTbBRCSARIsADzW88whGqGfIakmCr0tgGZa6Q_9ruiWTljJ4eVNmCUJ4Tln1TJMIaqMBA0aArYqEALw_wcB
 
 
 
