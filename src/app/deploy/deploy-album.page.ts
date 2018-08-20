@@ -38,7 +38,9 @@ export class DeployAlbumPage implements OnInit {
                 this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
             });
             */
-        });
+        }, e => {
+            console.log("this.cnt.fetchAlbum(slug) no hay data");
+        }); 
     }
 
 }

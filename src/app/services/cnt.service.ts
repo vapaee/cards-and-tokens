@@ -80,13 +80,16 @@ export class CntService {
                     resolve();
                 }, reject);
             });
+            this.waitData.then(() => {}, e => {
+                console.log("CntService.waitDara rejected");
+            });
 
             this.when_FB = new Promise((resolve, reject)=>{          
                 when_FB.then(resolve, reject);
             });
 
             this.when_FB.then(() => {
-                this.updateFB();
+                // this.updateFB();
             }); 
         }
         return this.waitReady;
@@ -279,7 +282,7 @@ export class CntService {
     
                 this.getUserInventory("cards-and-tokens").then(inventory => {
                     resolve(inventory);
-                });
+                }, reject);
                 
             }, reject);
         });
@@ -299,7 +302,7 @@ export class CntService {
                     }
                     resolve(r.sec);
                 }, reject);
-            });    
+            }, reject);    
         });
     }
     //http://api.cardsandtokens.com/dailyprize?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMzMjczODMyLCJleHAiOjE1MzM4Nzg2MzJ9.7oVE9obJJNb_g2WrWqn_xDOAfP7zRx7PNTPdR64juQg
@@ -363,39 +366,21 @@ export class CntService {
         });
     }
     
-    getUserAlbumCollection(slug) {
-        return this.userdata.afterReady.then(() => {
-            if (this.userdata.logged) {
-                for (let i in this.userdata.data.album) {
-                    let album = this.userdata.data.album[i];
-                    if (album.slug == slug) {
-                        for (let i in this.userdata.data.collection) {
-                            let coll = this.userdata.data.collection[i];
-                            if (coll.album.id == album.id) {
-                                coll.album = album;
-                                return coll;
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-            return {};
-        });
-    }
     
     getUserInventory(slug) {
-        return this.userdata.afterReady.then(() => {
-            if (this.userdata.logged) {
-                for (let i in this.userdata.data.inventory) {
-                    let inventory = this.userdata.data.inventory[i];
-                    if (inventory.app.slug == slug) {
-                        return inventory;
+        return new Promise<any>((resolve) => {
+            this.userdata.afterReady.then(() => {
+                if (this.userdata.logged) {
+                    for (let i in this.userdata.data.inventory) {
+                        let inventory = this.userdata.data.inventory[i];
+                        if (inventory.app.slug == slug) {
+                            return resolve (inventory);
+                        }
                     }
                 }
-            }
-            return {};
-        });
+                return resolve({});
+            }, e => {});
+        });        
     }
 
     getAllInstances(table, name, params?) {
@@ -472,6 +457,7 @@ export class CntService {
             var _deploy:any = {};
             _deploy.href = window.location.origin + "/deploy/card/" + card.slug;
             _deploy.style = {};
+            _deploy.show = {};
             _deploy.preload = card.edition.preload;
             _deploy.closebtn = {};
             _deploy.closebtn.style = {
@@ -575,9 +561,13 @@ export class CntService {
                 _deploy.frame.style.opacity = 1;
                 _deploy.closebtn.style.opacity = 1;
                 // createStatsHeader(carta.attr("id"));
-                _deploy.showlikes = true;
+                _deploy.show.fblikes = false;
+                _deploy.show.steemvotes = true;
             }, 3000);
-            
+
+
+            _deploy.steem = card.steem;
+            _deploy.steem.votes = card.steem_votes;
             _deploy.prevhref = window.location.href;
             window.history.pushState({}, "", _deploy.href);
             this.deploy = _deploy;
@@ -590,7 +580,12 @@ export class CntService {
     }
 
     closeCard() {
-        window.history.pushState({}, "", this.deploy.prevhref);
+        console.log("this.deploy.prevhref", this.deploy.prevhref);
+        if (this.deploy.prevhref != this.deploy.href) {
+            window.history.pushState({}, "", this.deploy.prevhref);
+        } else {
+            this.app.onCardClose();
+        }        
         this.deploy = null;
     }
     // ------------------------------------------------------------------------------------------
@@ -600,15 +595,16 @@ export class CntService {
 
 @Component({
     selector: 'card-deploy',
-    styles: [".stats_container {position: fixed; top: 1px; left: 30px; z-index: 100;}"],
+    styles: [".stats_container {position: fixed; top: 3px; left: 30px; z-index: 9;}"],
     template: `
     <div *ngIf="cnt.deploy">
-        <div class="stats_container">
-            <div [hidden]="!cnt.deploy.showlikes" class="fb-like animated fadeIn"
-                [data-href]="cnt.deploy.href"
-                data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-        </div>
         <div class="body" [ngStyle]="cnt.deploy.body.style">
+            <div class="stats_container animated fadeIn">
+                <steem-upvote-button [hidden]="!cnt.deploy.show.steemvotes" [steemdata]="cnt.deploy.steem" [card]="cnt.deploy"></steem-upvote-button>
+                <div [hidden]="!cnt.deploy.show.fblikes" class="fb-like"
+                    [data-href]="cnt.deploy.href"
+                    data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+            </div>
             <div class="contenedor embed-responsive" [ngStyle]="cnt.deploy.frame.style">
                 <iframe [src]="cnt.deploy.frame.src" class="embed-responsive-item"></iframe>
             </div>

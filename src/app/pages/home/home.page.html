@@ -1,11 +1,14 @@
 <div style="height: 80vh">
     <div class="flex-center flex-column hide-at-work">
         <!--img class="img-fluid" src="/assets/cards-and-tokens-full.png"-->
+        
+        <button type="button" class="btn btn-primary relative waves-light" (click)="steem.vote()" mdbRippleRadius>vote</button>
+
         <h3>welcome to</h3>
         <h1>Cards & Tokens</h1>
         <br><br><br><br>
         <div class="animated fadeIn mb-4" [hidden]="vapaee.logged">
-            <button type="button" class="btn btn-primary relative waves-light" (click)="app.askForLogin()" mdbRippleRadius>Login</button>
+            <button type="button" class="btn btn-primary relative waves-light" (click)="steem.askForLogin()" mdbRippleRadius>Login</button>
         </div>
     </div>
 </div>

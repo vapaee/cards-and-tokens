@@ -256,13 +256,13 @@ export class DataService {
         return this.request_promise('POST',table, obj);
     }
 
-    update (table, obj) {
+    update (table:string, obj:any) {
         var path = table+"/"+obj.id;
         this["defer:"+path] = obj;
         return this.request_promise('PUT',path, obj);
     }
     
-    delete (table, id) {
+    delete (table:string, id:any) {
         if (typeof id == "object") {
             return this.request_promise('DELETE',table+"?select="+encodeURIComponent(JSON.stringify(id)));
         } else {

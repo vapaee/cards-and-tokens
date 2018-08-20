@@ -59,7 +59,9 @@ $DATA = array (
             "publisher" => array( "type" => "publisher" ),
             "creator" => array( "type" => "user" ),
             "edition" => array( "type" => "edition" ), // apunta a la última edición (en la mayoría de los casos, a la única que hay)
-            "deployable" => array( "type" => "boolean" ), // card | sticker 
+            "deployable" => array( "type" => "boolean" ), // card | sticker
+            "steem" => array( "type" => "json" ),
+            "steem_votes" => array( "type" => "int(32)" ),
             "type" => array( "type" => "varchar(10)" )  // collection | numered | ads | consumible | aura | item
         ),        
         "edition" => array(

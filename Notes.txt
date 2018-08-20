@@ -24,6 +24,13 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
     "all": ["la lista de", "todas las imágenes", "de todas las páginas"]
 
 
+lectura Steem api
+https://steemit.com/steemdev/@jfollas/write-a-steemit-web-app-part-8-retrieving-content-with-getstate
+
+
+
+
+
 
 
 

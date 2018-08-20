@@ -8,7 +8,7 @@
         <div class="inventory-scroll">
             <div class="inventory-scroll-content" [ngStyle]="{'text-align': max==0 ? 'center' : 'left' }">
                 <div class="inventory-scroll-item" [ngStyle]="slot.style" *ngFor="let slot of slots">
-                    <slot-comp [data]="slot" (click)="claimDailyPrize()"></slot-comp>
+                    <slot-comp [data]="slot"></slot-comp>
                 </div>
             </div>
         </div>

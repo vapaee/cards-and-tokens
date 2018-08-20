@@ -13,7 +13,6 @@ export class AppService {
     route : ActivatedRoute;
     state : string;
     prev_state : string = "none";
-    appcomp: AppComponent;
     device: {big?:boolean, small?:boolean, tiny?:boolean, portrait?:boolean, wide?:boolean, height?:number, width?: number} = {};
     loading: boolean;
 
@@ -41,7 +40,6 @@ export class AppService {
     }
 
     init (appcomp: AppComponent) {
-        this.appcomp = appcomp;
         this.dom.appendComponentToBody(LoadingOverall);
     }
 
@@ -103,18 +101,16 @@ export class AppService {
             if (this.getStateData().logged) {
                 console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
                 this.router.navigate(['loading']);
-                this.vapaee.afterReady.then(() => {
-                    this.checkRedirect();
-                });                
             } else {
                 console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
             }            
         }
     }
 
-    askForLogin() {
-        this.appcomp.loginModal.show();
+    onCardClose() {
+        this.router.navigate(['cards']);
     }
+
 
     setLoading(turn:boolean = true) {
         this.loading = turn;

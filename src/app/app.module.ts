@@ -16,7 +16,7 @@ import { AppService, LoadingOverall } from './services/app.service';
 import { CntService, CardDeploy } from './services/cnt.service';
 import { BgBoxService } from './services/bg-box.service';
 import { ComponentService } from './deploy/comp/component.service';
-import { SteemService } from './services/steem.service';
+import { SteemService, SteemUpvoteButtonComponent } from './services/steem.service';
 import { FacebookService } from './services/facebook.service';
 import { DragAndDropService, CardDragging } from './services/drag-and-drop.service';
 
@@ -38,6 +38,7 @@ import { RootPage } from './pages/root/root.page';
 
 
 import { ComponentHost } from './deploy/comp/comp';
+
 // import { BaseComponent } from './deploy/comp/base/base.component';
 import { RootComponent } from './deploy/comp/root/root.component';
 import { RowThreeComponent } from './deploy/comp/row-three/row-three.component';
@@ -105,6 +106,7 @@ const routes: Routes = [
     PlaceHolderComponent,
     BackgroundComponent,
     ScrolleableComponent,
+    SteemUpvoteButtonComponent,
     VideoComponent,
     MarkDownComponent,
     SectionComponent,

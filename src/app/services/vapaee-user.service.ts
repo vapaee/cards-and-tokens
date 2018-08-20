@@ -45,18 +45,31 @@ export class VapaeeUserService {
         this.logged = false;
         this.user_name = "Guest";
         this.ready = false;
+        /*
+        this.afterReady = this.steem.waitLogged;
+        this.afterReady.then(() => {}, () => {});
+        /*/
         this.afterReady = new Promise((resolve, reject) => {
+            console.log("Vapaee.user subscribe to steem.waitLogged");
             this.steem.waitLogged.then(() => {
                 this.logged = true;
                 this.ready = true;
                 this.user_name = this.steem.user.profile.name;
+                console.log("--- vapaee.user ---");
                 resolve();
             }, (err) => {
                 this.ready = true;
+                console.log("--- vapaee.user reject ---");
                 reject();
             });
         });
+
+        this.afterReady.then(() => {}, e => {
+            console.log("--- vapaee.user rejected ---");
+        });
         
+        //*/
+
         /*
         this.afterReady = new Promise((resolve, reject) => {
             this.vapaee_client_id = this.cookieService.get('vapaee_client_id');

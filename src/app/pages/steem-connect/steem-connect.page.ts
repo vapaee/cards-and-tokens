@@ -29,12 +29,13 @@ export class SteemConnectPage implements OnInit {
             account: account
         });
 
+        
         this.steem.waitLogged.then(() => {
             this.app.navigate("profile");
             this.timeout = false;
             clearInterval(this.redirecting);
         });
-
+        
         console.log("SteemConnectPage.ngOnInit() this.steem.waitTimeout.then(() => ....");
         this.steem.waitTimeout.then(() => {
             console.log("SteemConnectPage.ngOnInit() recibí un time out");

@@ -78,6 +78,8 @@ export class AlbumsPage implements OnInit {
                     "index": i, "container": inventory_name
                 });
             }            
+        }, e => {
+            console.log("this.cnt.getUserInventory() no hay data");
         });        
     }
 

@@ -16,36 +16,7 @@ export class FacebookConnectPage implements OnInit {
     }
 
     ngOnInit() {
-        /*
-
-        let params = new URL(window.location.href).searchParams;
-        let access_token = params.get('access_token');
-        let expires_in = params.get('expires_in');
-        let account = params.get('username');
-
         
-        this.facebook.setCredentials({
-            accessToken: access_token,
-            expiresIn: expires_in,
-            account: account
-        });
-
-        this.facebook.waitLogged.then(() => {
-            this.app.navigate("profile");
-            this.timeout = false;
-            clearInterval(this.redirecting);
-        });
-
-        console.log("FacebookConnectPage.ngOnInit() this.facebook.waitTimeout.then(() => ....");
-        this.facebook.waitTimeout.then(() => {
-            console.log("FacebookConnectPage.ngOnInit() recibí un time out");
-            this.timeout = true;
-            this.redirecting = window.setTimeout(() => {
-                this.app.navigate("home");
-            }, 2000);
-        });
-
-        */
     }
 
 }
