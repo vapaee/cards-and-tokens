@@ -33,7 +33,8 @@ http://accelerator.decenturion.com/?gclid=Cj0KCQjwquTbBRCSARIsADzW88whGqGfIakmCr
 
 
 
-AirDrop Tool
+AirDrop
+https://eosio.stackexchange.com/questions/1164/what-is-the-best-way-to-run-an-airdrop-on-eos
 https://github.com/EOSEssentials/EOSDrops
 
 
