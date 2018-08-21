@@ -7,8 +7,8 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 -- TODO --
 - Resolver el puntaje que tiene un usuario en el álbum
-  - ponerle un contador de likes a las cartas (igual que en la landing page)
-  - resolver de alguna forma de tener el dato de cantidad de likes en DB bastante actualizado x cada carta
+  + ponerle un contador de likes a las cartas (igual que en la landing page)
+  + resolver de alguna forma de tener el dato de cantidad de likes en DB bastante actualizado x cada carta
   - cada vez que se actualiza lan los likes en DB, recalcular el puntaje que tiene cada usuario con una copia
 - Album nuevo
   - Carátula (tapa de adelante) y tapa de atrás (ranking, crétitos, links de facebook, etc)

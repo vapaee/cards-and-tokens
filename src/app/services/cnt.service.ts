@@ -346,6 +346,21 @@ export class CntService {
         });
     }
 
+    updateCollectibleVotes(slug:string, votes:number) {
+        return new Promise<any>((resolve) => {
+            this.userdata.afterReady.then(() => {
+                this.userdata.data.dayliprice = {};
+                console.log("CntService.updateCollectibleVotes("+slug+","+votes+")");
+                var url = "http://api.cardsandtokens.com/update/collectible/votes?access_token="+this.userdata.access_token;
+                this.http.post<any>(url, {
+                    slug:slug, votes:votes
+                }).toPromise().then((r) => {
+                    resolve(r);
+                });
+            });
+        });
+    }
+
     fetchAlbum(slug:string) {
         return new Promise<any>((resolve, reject) => {
             this.data.select("album", {
@@ -458,6 +473,7 @@ export class CntService {
             _deploy.href = window.location.origin + "/deploy/card/" + card.slug;
             _deploy.style = {};
             _deploy.show = {};
+            _deploy.card = card;
             _deploy.preload = card.edition.preload;
             _deploy.closebtn = {};
             _deploy.closebtn.style = {
@@ -600,7 +616,7 @@ export class CntService {
     <div *ngIf="cnt.deploy">
         <div class="body" [ngStyle]="cnt.deploy.body.style">
             <div class="stats_container animated fadeIn">
-                <steem-upvote-button [hidden]="!cnt.deploy.show.steemvotes" [steemdata]="cnt.deploy.steem" [card]="cnt.deploy"></steem-upvote-button>
+                <steem-upvote-button [hidden]="!cnt.deploy.show.steemvotes" [steemdata]="cnt.deploy.steem" [card]="cnt.deploy.card"></steem-upvote-button>
                 <div [hidden]="!cnt.deploy.show.fblikes" class="fb-like"
                     [data-href]="cnt.deploy.href"
                     data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>

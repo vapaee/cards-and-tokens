@@ -238,6 +238,43 @@ function getDailyPriceRemainintTimeFromUser($user) {
     );
 }
 
+
+$app->post('/update/collectible/votes', function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    
+    putHeaders();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $content = $app["request"]->getContent();
+        $content = json_decode($content);
+        trace("$namespace GET 'update.collectible.votes' card: $content->slug votes:$content->votes ---------------------");
+        $op = array("unbox" => true);
+        // este select lo hago para conseguir el id de la carta
+        $card = $app["db"]->http_get("card", array("slug" => $content->slug), $op);
+        if (sizeof($card) == 1) {
+            $card = $card[0];
+    trace('$card', $card, '<--');
+            $collectible = $app["db"]->http_put("card", $card["id"], array(
+                "steem_votes" => $content->votes
+            ), $op);
+            if (array_key_exists("card", $collectible)) {
+                $collectible = $collectible["card"];
+            }
+    trace('$collectible', '-->', $collectible);
+            if ($collectible["steem_votes"] == $content->votes) {
+                return '{"success":true, "card":'.json_encode($collectible).'}';
+            }
+            
+        } else {
+
+        }
+        
+    } 
+
+    return '{"success":true}';
+
+});
+
 $app->get('/dailyprize/claim', function() use ($app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace GET 'dailyprize' --------------");
@@ -344,10 +381,9 @@ $app->post('/swap/slots', function() use ($app) {
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        usleep(rand(0,2000000));
         $content = $app["request"]->getContent();
         $content = json_decode($content);
-        trace("$namespace GET 'swap slots' from ($content->from,$content->fromi) to ($content->to,$content->toi) ---------------------");
+        trace("$namespace GET 'swap.slots' from ($content->from,$content->fromi) to ($content->to,$content->toi) ---------------------");
 
         $credentials = verifySteemAccessToken($app);
         if (!isset($credentials)) {
@@ -413,6 +449,9 @@ $app->post('/swap/slots', function() use ($app) {
 
         }
         
+        // simulando una demora en el servidor
+        usleep(rand(0,2000000));
+
         return json_encode(array(
             "to" => $to, "from" => $from
         ));
