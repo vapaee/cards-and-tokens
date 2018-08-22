@@ -98,8 +98,9 @@ $DATA = array (
         "collection" => array( // instancia de album
             "_extends" => "container",
             "album" => array( "type" => "album" ),
+            "points" => array( "type" => "int(32)" ),
             "owner" => array( "type" => "user" )
-        ),        
+        ),
         // ------------------     
         "container" => array(
             "owner" => array( "type" => "user" ),
@@ -110,6 +111,7 @@ $DATA = array (
         "slot" => array(
             "owner" => array( "type" => "user" ),
             "item" => array( "type" => "item" ),
+            "data" => array( "type" => "json" ),
             "container" => array( "type" => "container" ),
             "index" => array( "type" => "int(8)" )
         ),
@@ -127,7 +129,7 @@ $DATA = array (
         "item" => array(
             "owner" => array( "type" => "user" ),
             "spec" => array( "type" => "item_spec"),
-            "container" => array( "type" => "container" )
+            // "container" => array( "type" => "container" )
         ),
         "item_spec" => array(
             "name" => array( "type" => "varchar(150)" ),

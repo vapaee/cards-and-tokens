@@ -16,7 +16,15 @@ $app->get("/", function() use ($app) {
 
 
 
+$app->get("/update_collection", function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace GET 'update_collection' --------------");
 
+
+    $result = updateCollectionSteemPoints(2, $app);
+
+    return json_encode($result);
+});
 
 
 function getUserdata($credentials, $app) {
@@ -295,8 +303,8 @@ $app->get('/dailyprize/claim', function() use ($app) {
         return '{"error":"inventory is full"}';
     }
 
-    $container_id = $inventory["container_id"];
-    $slots = $app["db"]->http_get("slot", array("container" => $container_id), $op);
+    $id = $inventory["id"];
+    $slots = $app["db"]->http_get("slot", array("container" => $id), $op);
     $candidates = [];
     // we turn on all candidates slots
     for ($i=0; $i<$inventory["capacity"]; $i++) {
@@ -332,14 +340,15 @@ $app->get('/dailyprize/claim', function() use ($app) {
         "owner" => $user["id"],
         "multiplicity" => 1,
         "spec" => 1, // "card"
-        "container" => $inventory["container_id"]
+        "container" => $inventory["id"]
     );
     $copy = $app["db"]->http_post("copy", $copy, $op);
 
     $slot = array(
         "owner" => $user["id"],
         "item" => $copy["item_id"],
-        "container" => $inventory["container_id"],
+        "data" => array("collectible" => $card["id"]),
+        "container" => $inventory["id"],
         "index" => $slot_index,
     );
     $slot = $app["db"]->http_post("slot", $slot, $op);
@@ -438,10 +447,10 @@ $app->post('/swap/slots', function() use ($app) {
                 if ($content->from != $content->to) {
                     $container_from = $app["db"]->http_get_id("container", $content->from, $op);
                     $container_to   = $app["db"]->http_get_id("container", $content->to, $op);
-                    $container_from = $app["db"]->http_put("container", $container_from["container_id"], array(
+                    $container_from = $app["db"]->http_put("container", $container_from["id"], array(
                         "empty" => $container_from["empty"]+1
                     ));
-                    $container_to = $app["db"]->http_put("container", $container_to["container_id"], array(
+                    $container_to = $app["db"]->http_put("container", $container_to["id"], array(
                         "empty" => $container_to["empty"]-1
                     ));    
                 }
@@ -563,6 +572,54 @@ function verifySteemAccessToken($app) {
         "user" => $user
     );
 }
+
+function calculateSteemPoints($collection_id, $app) {
+    trace("calculateSteemPoints()", $collection_id);
+    $op = array("unbox" => true);
+    $total = 0;
+    $items = array();
+    $slots = $app["db"]->http_get("slot", array("container" => $collection_id), $op);
+    foreach ($slots as $i => $slot) {
+        $item = array( "item" => $slot["item"]["id"]);
+        $card_id = $slot["data"]["collectible"];
+        $card = $app["db"]->http_get_id("collectible", $card_id, $op);
+        $item["collectible"] = $card["id"];
+        $pts = $card["steem_votes"];
+        $total += $pts;
+        $item["steem_votes"] = $pts;
+        trace("calculateSteemPoints() - ", $item);
+        array_push($items, $item);
+    }
+
+    trace("calculateSteemPoints() ", $total, "<-");
+
+    return array(
+        "total" => $total,
+        "items" => $items
+    );
+}
+
+function updateCollectionSteemPoints($collection_id, $app) {
+    trace("updateCollectionSteemPoints()", $collection_id);
+    $op = array("unbox" => true);
+    $steemPoints = calculateSteemPoints($collection_id, $app);
+    $new_pts = $steemPoints["total"];
+    $collection = $app["db"]->http_get_id("collection", $collection_id, $op);
+    $old_pts = $collection["points"];
+    if ($old_pts != $new_pts) {
+        trace("updateCollectionSteemPoints() UPDATE !!!!", $old_pts, "-->", $new_pts);
+        $app["db"]->http_put("collection", $collection_id, array(
+            "points" => $new_pts
+        ));    
+    }
+
+    return array(
+        "succes" => true,
+        "points" => $new_pts,
+        "steem" => $steemPoints
+    );
+}
+
 
 $app->get('/steem/user', function() use ($app) {
     global $config; $namespace = $config['namespace'];

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 19-08-2018 a las 22:30:04
+-- Tiempo de generación: 21-08-2018 a las 20:43:38
 -- Versión del servidor: 5.7.23-0ubuntu0.16.04.1
--- Versión de PHP: 7.1.18-1+ubuntu16.04.1+deb.sury.org+1
+-- Versión de PHP: 7.1.16-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -88,10 +88,10 @@ CREATE TABLE `card` (
 --
 
 INSERT INTO `card` (`id`, `slug`, `text`, `_super`) VALUES
-(1, 'landing-drumpf', '{"title":"Last Week Tonight","subtitle":"Make Donald Drumpf Again"}', '{"id":1,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":1},"deployable":true,"type":"collection", "steem": {"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225817497z"}, "steem_votes":0}'),
-(2, 'openmic-w89-darrenclaxton-resolve', '{"title":"Steemit Open Mic-week 89","subtitle":"darrenclaxton - Resolve"}', '{"id":2,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":2},"deployable":true,"type":"collection", "steem": {"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225841288z"}, "steem_votes":0}'),
-(3, 'openmic-w91-juanhobos-atomos', '{"title":"Steemit Open Mic-week 91","subtitle":"juanhobos - Atomos"}', '{"id":3,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":3},"deployable":true,"type":"collection", "steem": {"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225916775z"}, "steem_votes":0}'),
-(4, 'openmic-w92-drewsmusic-on-my-mind', '{"title":"Steemit Open Mic-week 92","subtitle":"drewsmusic - On my mind"}', '{"id":4,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":4},"deployable":true,"type":"collection", "steem": {"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t230042963z"}, "steem_votes":0}');
+(1, 'landing-drumpf', '{"title":"Last Week Tonight","subtitle":"Make Donald Drumpf Again"}', '{"id":1,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":1},"deployable":true,"steem":{"author":"gcalvete","permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225817497z"},"steem_votes":1,"type":"collection"}'),
+(2, 'openmic-w89-darrenclaxton-resolve', '{"title":"Steemit Open Mic-week 89","subtitle":"darrenclaxton - Resolve"}', '{"id":2,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":2},"deployable":true,"steem":{"author":"gcalvete","permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225841288z"},"steem_votes":1,"type":"collection"}'),
+(3, 'openmic-w91-juanhobos-atomos', '{"title":"Steemit Open Mic-week 91","subtitle":"juanhobos - Atomos"}', '{"id":3,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":3},"deployable":true,"steem":{"author":"gcalvete","permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225916775z"},"steem_votes":2,"type":"collection"}'),
+(4, 'openmic-w92-drewsmusic-on-my-mind', '{"title":"Steemit Open Mic-week 92","subtitle":"drewsmusic - On my mind"}', '{"id":4,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":4},"deployable":true,"steem":{"author":"gcalvete","permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t230042963z"},"steem_votes":1,"type":"collection"}');
 
 -- --------------------------------------------------------
 
@@ -116,10 +116,10 @@ CREATE TABLE `collectible` (
 --
 
 INSERT INTO `collectible` (`id`, `publisher`, `creator`, `edition`, `deployable`, `steem`, `steem_votes`, `type`, `_sub_table`) VALUES
-(1, 1, 1, 1, 1, '{"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225817497z"}', 0, 'collection', 'card'),
-(2, 1, 1, 2, 1, '{"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225841288z"}', 0, 'collection', 'card'),
-(3, 1, 1, 3, 1, '{"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225916775z"}', 0, 'collection', 'card'),
-(4, 1, 1, 4, 1, '{"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t230042963z"}', 0, 'collection', 'card');
+(1, 1, 1, 1, 1, '{"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225817497z"}', 1, 'collection', 'card'),
+(2, 1, 1, 2, 1, '{"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225841288z"}', 1, 'collection', 'card'),
+(3, 1, 1, 3, 1, '{"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225916775z"}', 2, 'collection', 'card'),
+(4, 1, 1, 4, 1, '{"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t230042963z"}', 1, 'collection', 'card');
 
 -- --------------------------------------------------------
 
@@ -130,6 +130,7 @@ INSERT INTO `collectible` (`id`, `publisher`, `creator`, `edition`, `deployable`
 CREATE TABLE `collection` (
   `id` int(11) NOT NULL,
   `album` int(32) DEFAULT '0',
+  `points` int(32) NOT NULL,
   `owner` int(32) DEFAULT '0',
   `_super` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -261,7 +262,6 @@ CREATE TABLE `item` (
   `id` int(11) NOT NULL,
   `owner` int(32) DEFAULT '0',
   `spec` int(32) DEFAULT '0',
-  `container` int(32) DEFAULT '0',
   `_sub_table` varchar(40) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -361,6 +361,7 @@ CREATE TABLE `slot` (
   `id` int(11) NOT NULL,
   `owner` int(32) DEFAULT '0',
   `item` int(32) DEFAULT '0',
+  `data` text NOT NULL,
   `container` int(32) DEFAULT '0',
   `_index` int(8) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -614,7 +615,7 @@ ALTER TABLE `profile`
 -- AUTO_INCREMENT de la tabla `publisher`
 --
 ALTER TABLE `publisher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `slot`
 --

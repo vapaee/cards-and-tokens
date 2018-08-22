@@ -1,11 +1,4 @@
-import { Injectable, Component, Input, OnChanges } from '@angular/core';
-import * as steem from '@steemit/steem-js';
-import * as sc2 from 'sc2-sdk';
-import finallycomments from 'finallycomments'
-import { CookieService } from 'ngx-cookie-service';
-import { SteemJs, FinallyComments } from '../services/datatypes.service';
-import { AppComponent } from '../app.component';
-import { DataService } from '../services/data.service';
+import { Component, Input, OnChanges } from '@angular/core';
 import { CntService } from '../services/cnt.service';
 import { SteemService } from '../services/steem.service';
 
