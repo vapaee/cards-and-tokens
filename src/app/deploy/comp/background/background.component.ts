@@ -26,7 +26,23 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
         };
     }
 
-    get getStyle(): any {
+    get class(): any {
+        var _class = {};
+        if (this.data.fadein) {
+            _class["animated"] = true;
+            _class["fadeIn"] = true;
+        }
+        if (this.data.fadeinside) {
+            _class["animated"] = true;
+            _class["fadeinside"] = true;
+        }        
+        if (this.data.padding) {
+            _class["padding"] = true;
+        }
+        return _class;
+    }
+
+    get style(): any {
         var style = {};
         if (this.data) {
             if (this.data.color) {
@@ -63,9 +79,14 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
                 }
                 gradient += ")";
 
-                style["background-image"] = style["background-image"] +
-                ", " + gradient;                
-            }            
+                var bg_image = "";
+                if (style["background-image"]) {
+                    bg_image = ", " + style["background-image"];
+                }
+                style["background-image"] = gradient + bg_image;
+                
+                // console.log("style", style);
+            }
         }
         return style;
     }

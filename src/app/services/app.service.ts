@@ -28,7 +28,9 @@ export class AppService {
                 this.checkRedirect();
             }
         });
-
+        this.vapaee.afterReady.then(() => {
+            this.checkRedirect();
+        });
     }
 
     getDeepestChild(node:any):any {

@@ -6,13 +6,14 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 -- TODO --
-- Resolver el puntaje que tiene un usuario en el álbum
-  + ponerle un contador de likes a las cartas (igual que en la landing page)
-  + resolver de alguna forma de tener el dato de cantidad de likes en DB bastante actualizado x cada carta
-  - cada vez que se actualiza lan los likes en DB, recalcular el puntaje que tiene cada usuario con una copia
-- Album nuevo
-  - Carátula (tapa de adelante) y tapa de atrás (ranking, crétitos, links de facebook, etc)
-    
+- Album Header
+  - puntaje del usuario logueado
+    - posición del ranking
+  - página actual
+    - título
+    - numero
+  - nombre del album
+
 
 
 
@@ -41,3 +42,6 @@ https://github.com/EOSEssentials/EOSDrops
 -- TELOS --
 https://medium.com/@viter.rod/i-represent-a-small-development-team-with-which-im-planning-to-develop-an-entertainment-platform-23f16b1f3cd6
 https://www.youtube.com/watch?v=wNfH6-lxq1M&lc=UgxoDcivjOgeHzGAmEx4AaABAg
+
+
+Hola, luzcypher. Primero felicitaciones por la gran comunidad que haz logrado con open mic. Te cuento que además participar en el concurso soy soy ingeniero y lidero el equipo de desarrollo del proyecto Cards & Tokens. Te estoy contactando porque tengo una idea que puede interesarte. Por favor escríbeme por privado a https://www.facebook.com/messages/t/cardsandtokens o a viter punto rod en gmail y te contaré los detalles de la idea. Gracias, saludos !!

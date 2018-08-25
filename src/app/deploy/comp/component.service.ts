@@ -16,6 +16,7 @@ import { SlotComponent } from './slot/slot.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { InventoryComponent } from './inventory/inventory.component';
 import { GridComponent } from './grid/grid.component';
+import { LabelComponent } from './label/label.component';
 
 
 
@@ -44,7 +45,8 @@ export class ComponentService implements ComponentServiceI {
             "album": AlbumComponent,
             "inventory": InventoryComponent,
             "slot": SlotComponent,
-            "grid": GridComponent
+            "grid": GridComponent,
+            "label": LabelComponent
         };
     }
 

@@ -298,7 +298,7 @@ export class CntService {
                     if (r.sec == 0) {
                         this.userdata.data.dayliprice.claimable = true;
                     } else {
-                        this.userdata.data.dayliprice.remaining = r.sec;
+                        this.userdata.data.dayliprice.remaining = r.sec-1;
                     }
                     resolve(r.sec);
                 }, reject);

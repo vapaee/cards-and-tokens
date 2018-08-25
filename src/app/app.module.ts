@@ -56,6 +56,7 @@ import { DomService } from './services/dom.service';
 import { AlbumComponent } from './deploy/comp/album/album.component';
 import { SlotComponent } from './deploy/comp/slot/slot.component';
 import { InventoryComponent } from './deploy/comp/inventory/inventory.component';
+import { LabelComponent } from './deploy/comp/label/label.component';
 
 
 const routes: Routes = [
@@ -120,6 +121,7 @@ const routes: Routes = [
     AlbumComponent,
     SlotComponent,
     InventoryComponent,
+    LabelComponent,
     SteemConnectPage,
     FacebookConnectPage,
     InventoryPage,
@@ -142,7 +144,8 @@ const routes: Routes = [
     LoadingOverall,
     CardDragging,
     SlotComponent,
-    InventoryComponent
+    InventoryComponent,
+    LabelComponent
   ],
   imports: [
     BrowserModule,

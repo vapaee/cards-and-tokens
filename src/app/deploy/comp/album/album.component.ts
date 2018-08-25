@@ -7,6 +7,7 @@ import { SectionService } from '../section/section.service';
 import { DeployNode } from '../comp';
 import { SectionI } from '../section/section.component';
 import { ContainerCtrl } from '../../../services/datatypes.service';
+import { LabelService } from '../label/label.service';
 
 @Component({
     selector: 'album-comp',
@@ -24,6 +25,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         protected section: SectionService,
         private renderer: Renderer2,
         private elRef: ElementRef,
+        private labels: LabelService
     ) {
         super(vapaee, app, cnt, cfResolver);
         this.init();
@@ -59,17 +61,25 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         for (var i in this.data.pages) {
             pageslist.push("page-" + i);
             var page = this.data.pages[i];
+            this.data.pages[i].slots = this.data.pages[i].slots || [];
             pages.push(this.data.pages[i].slots.length);
             var child = this.service.createDeployTree(this.createPageChild(page));
             this.children.push(child);
         }
+
+        this.labels.setLabel("album-name", this.data.title);
+        this.labels.setLabel("album-ranking","Ranking: 123");
+        this.labels.setLabel("album-points","points: 21");
+
+        
         return {pages:pages, pageslist:pageslist};
     }
 
     protected registerAndLoad(pages:number[], pageslist: any[]) {
-        this.section.registerSection(this.data.name, this.data.current, pageslist, this);
+        this.section.registerSection(this.data.name, pageslist, this);
         this.loadedResolve();
         this.section.setSection(this.data.name, this.data.current);
+        delete this.data.current;
     }
     
     loadStructure(structure: DeployNode) {
@@ -133,25 +143,63 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
     }
 
     // invocado por SectionService cuando alguien cambia la sección actual.
+    current:any;
     public setSection(current: string) {
-        console.log("AlbumComponent.setSection()", current);
+        console.log("AlbumComponent.setSection()", current, this.data);
         this.waitReady.then(() => {
             var num = parseInt(current.substr(5));
             console.log("parseInt(current.substr(5))", current.substr(5), num);
             let child = this.children[num];
             let host = this.hosts.toArray()[0];
-            // console.error("Hay que generar una animación (movimiento horizontal + fadeout) 2s y luego recién sacar la página");
-            while (host.view.length > 0) {
-                host.view.remove(host.view.length-1);
+            if (host.view.length == 1) {
+                this.renderer.removeClass(this.current, 'animated');
+                this.getOutPage(this.current);
+                window.setTimeout(() => {
+                    if (host.view.length > 1) {
+                        host.view.remove(0);
+                    }
+                }, 1000);
             }
-            
+
             let componentFactory = this.cfResolver.resolveComponentFactory(child.component);
             let componentRef = host.view.createComponent(componentFactory);
             (<BaseComponent>componentRef.instance).loadStructure(child);
+        
+            // tomamos el componente background-comp y le seteamos la clase float para que quede con position absolute
+            this.current = this.elRef.nativeElement.querySelector(".embed-responsive background-comp:not(.float)");
+            this.getInPage(this.current);
+            this.renderer.addClass(this.current, 'float');
+            
+            var num = parseInt(current.split("-")[1]);
+            
+            this.labels.setLabel("album-page-title",this.data.pages[num].title);
+            this.labels.setLabel("album-current-page","pag " + num);
 
-            var target = this.elRef.nativeElement.querySelector(".embed-responsive background-comp");
-            this.renderer.addClass(target, 'float');
         });
+    }
+
+    getOutPage(target) {
+        var firstChild = this.current.children[0];
+        if (this.section.sections[this.data.name].difference > 0) {
+            this.renderer.addClass(firstChild, 'fadeOutLeft');
+            this.renderer.addClass(firstChild, 'animated');
+        } else if (this.section.sections[this.data.name].difference < 0) {
+            this.renderer.addClass(firstChild, 'fadeOutRight');
+            this.renderer.addClass(firstChild, 'animated');
+        }
+        console.log(firstChild);    
+    }    
+
+    getInPage(target) {
+        var firstChild = this.current.children[0];
+        if (this.section.sections[this.data.name].difference > 0) {
+            this.renderer.addClass(firstChild, 'fadeInRight');
+            this.renderer.addClass(firstChild, 'animated');
+        } else if (this.section.sections[this.data.name].difference < 0) {
+            this.renderer.addClass(firstChild, 'fadeInLeft');
+            this.renderer.addClass(firstChild, 'animated');
+        }
+        console.log(firstChild);    
     }
 
     getPadding() {

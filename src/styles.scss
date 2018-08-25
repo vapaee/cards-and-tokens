@@ -40,7 +40,9 @@ body.hide-at-work {
     }
 }
 
-
+button, html [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: none !important;
+}
 
 
 

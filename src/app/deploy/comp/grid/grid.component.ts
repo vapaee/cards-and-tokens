@@ -19,19 +19,38 @@ export class GridComponent extends BaseComponent implements OnInit {
     ) {
         super(vapaee, app, cnt, cfResolver);
         this.waitLoaded.then(() => {
-            for (var i=0; i<this.data.rows.length; i++) {
-                if (typeof this.data.rows[i] == "number") {
-                    var rows = [];
-                    for (var j=0; j<this.data.rows[i]; j++) {
-                        rows.push({});
-                    }
-                    this.data.rows[i] = rows;
-                }
-            }
-            console.log("DATA: ", this.data);
+            console.log(this.data.rows);
+            this.data.rows = this.prepareRows(this.data.rows);
             this.rows = this.data.rows;
         });
+    }
 
+    prepareRows(current_rows:any[]) {
+        for (var i=0; i<current_rows.length; i++) {
+            if (typeof current_rows[i] == "number") {
+                var rows = [];
+                for (var j=0; j<current_rows[i]; j++) {
+                    rows.push({});
+                }
+                current_rows[i] = rows;
+            } else if (Array.isArray(current_rows[i])) {
+                var rows = [];
+                for (var j=0; j<current_rows[i].length; j++) {
+                    var col = current_rows[i][j];
+                    if (col.rows) {
+                        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        console.log(col.rows);
+                        col.rows = this.prepareRows(col.rows);
+                        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+                        console.log(col.rows);
+
+                    }
+                    rows.push(col);
+                }
+                current_rows[i] = rows;
+            }
+        }
+        return current_rows;
     }
 
     public static config(): any {

@@ -11,3 +11,23 @@
     display: flex;
     flex-grow: 1;
 }
+
+.fadeinside {
+    
+}
+
+@media (min-width: 1200px) {
+    .bg-container.padding {
+        padding: 25px;
+    }
+}
+@media (min-width: 768px) {
+    .bg-container.padding {
+        padding: 18px;
+    }
+}
+@media (min-width: 576px) {
+    .bg-container.padding {
+        padding: 14px;
+    }
+}

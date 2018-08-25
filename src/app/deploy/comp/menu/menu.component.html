@@ -1,8 +1,10 @@
-<span>
+<span class="btn-container">
     <a *ngFor="let entry of data.menu"
-        class="btn btn-info btn-sm my-0 waves-effect waves-light"
+        [ngClass]="getEntryClass(entry)"
+        [ngStyle]="getEntryStyle(entry)"
         (click)="onMenuEntry(entry)"
         >
-        {{entry.text}}
+        <span *ngIf="entry.text">{{entry.text}}</span>
+        <span *ngIf="entry.icon"><i class="{{entry.icon}}"></i></span>
     </a>
 </span>

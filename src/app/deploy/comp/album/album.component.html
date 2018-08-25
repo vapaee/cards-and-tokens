@@ -1,5 +1,5 @@
 <div class="album-container flex-center flex-grow animated fadeIn" (window:resize)="onResize($event)" [ngStyle]="getStyle" >   
-    <div class="album-content embed-responsive embed-responsive-16by9">
-        <ng-template class="float" comp-host></ng-template>
+    <div class="album-content embed-responsive embed-responsive-16by9" ngClass="{'forward': section[data.name].difference > 0, 'backward':section[data.name].difference < 0}">
+        <ng-template comp-host></ng-template>
     </div>
 </div>
