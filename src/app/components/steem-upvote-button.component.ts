@@ -41,12 +41,13 @@ export class SteemUpvoteButtonComponent implements OnChanges {
     }
 
     update() {
+        console.log("SteemUpvoteButtonComponent.update() ------------- ", this.steemdata);
         this.loading = true;
         
         return new Promise((resolve,reject) => {
 
             this.steem.steemjs.api.getActiveVotes(this.steemdata.author, this.steemdata.permlink, (err, result) => {
-                // console.log("--------------------", err, result);
+                console.log("this.steem.steemjs.api.getActiveVotes -------------- ", err, result);
                 console.assert(Array.isArray(result), result);
                 if (err) {
                     this.loading = false;

@@ -7,6 +7,8 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { UserdataService } from './userdata.service';
 import { BgBoxService } from './bg-box.service';
 import { AppService } from './app.service';
+import { VapaeeUserService } from './vapaee-user.service';
+import { LabelService } from '../deploy/comp/label/label.service';
 
 
 
@@ -49,7 +51,9 @@ export class CntService {
         public userdata: UserdataService,
         public sanitizer: DomSanitizer,
         public box: BgBoxService,
-        public app: AppService
+        public app: AppService,
+        public vapaee: VapaeeUserService,
+        private labels: LabelService
 
     ) {
         this.cards = [];
@@ -69,16 +73,16 @@ export class CntService {
     init(dev:Device) {
         this.device = dev;
         if (!this.ready) {
-            this.waitReady = new Promise((resolve, reject) => {
+            this.waitReady = new Promise((resolve) => {
                 this.dom.appendComponentToBody(CardDeploy);
                 this.ready = true;
                 resolve();
             });
-            this.waitData = new Promise((resolve, reject) => {
-                this.userdata.afterReady.then(() => {
+            this.waitData = new Promise((resolve) => {
+                this.userdata.waitData.then(() => {
                     this.proccessData();
                     resolve();
-                }, reject);
+                });
             });
             this.waitData.then(() => {}, e => {
                 console.log("CntService.waitDara rejected");
@@ -90,7 +94,7 @@ export class CntService {
 
             this.when_FB.then(() => {
                 // this.updateFB();
-            }); 
+            }, () => {}); 
         }
         return this.waitReady;
     }
@@ -207,8 +211,38 @@ export class CntService {
             this.userdata.data.slug.publisher[pub.slug] = pub;
         }
 
-         
+        // overwrite global data --------------
+        // this.cards = [];
+        // this.card = {};
+        // this.albums = [];
+        // this.album = {};
+        //
+        this.userdata_to_global("card");
+        this.userdata_to_global("album");
+
+
     }
+
+    private userdata_to_global(table) {
+        var tables = table + "s";
+        for (let i in this.userdata.data[table]) {
+            let entry = this.userdata.data[table][i];
+            let before = this[table][entry.slug];
+            if (before) {
+                var index = this[tables].indexOf(before);
+                this[table][entry.slug] = entry;
+                if (index>=0) {
+                    this[tables][index] = entry;
+                } else {
+                    console.error("ERROR?: ",[table,index,entry,before,this[tables]]);
+                    this[tables].push(entry);    
+                }
+            } else {
+                this[table][entry.slug] = entry;
+                this[tables].push(entry);
+            }
+        }    
+    }    
 
     getCopyById(id:number) {
         console.log("CntService.getCopyById()",id);
@@ -252,10 +286,31 @@ export class CntService {
         return this.http.post<any>("//api.cardsandtokens.com/swap/slots?access_token="+this.userdata.access_token,{
             from:from, fromi:fromi, to:to, toi:toi
         }).toPromise().then((r) => {
-            this.app.setLoading(false);
             if (r.error) {
                 console.error(r);
                 this.swapLocaly(to, toi, from, fromi);
+                this.app.setLoading(false);
+            } else {
+                if (from != to) {
+                    // alert("HAY QUE RECALCULAR");
+                    var coll_id = 0;
+                    if (this.userdata.data.collection["id-"+from]) {
+                        coll_id = from;
+                    } else if (this.userdata.data.collection["id-"+to]) {
+                        coll_id = to;
+                    } else {
+                        console.error("ERROR? swap sin involucrar un collection? ", [from, to, this.userdata.data.collection]);
+                    }
+                    if (coll_id > 0) {
+                        // alert("coll_id: " + coll_id);
+                        this.getCollectionStats(coll_id).then(coll => {
+                            this.app.setLoading(false);
+                        });
+                    }
+                } else {
+                    this.app.setLoading(false);
+                }
+
             }
         }).catch((e) => {
             this.app.setLoading(false);
@@ -290,7 +345,7 @@ export class CntService {
 
     getDailyPrizeCountdown() {
         return new Promise<any>((resolve, reject) => {
-            this.userdata.afterReady.then(() => {
+            this.userdata.waitData.then(() => {
                 this.userdata.data.dayliprice = {};
                 console.log("CntService.getDailyPrize()");
                 var url = "http://api.cardsandtokens.com/dailyprize/countdown?access_token="+this.userdata.access_token;
@@ -301,8 +356,8 @@ export class CntService {
                         this.userdata.data.dayliprice.remaining = r.sec-1;
                     }
                     resolve(r.sec);
-                }, reject);
-            }, reject);    
+                });
+            });
         });
     }
     //http://api.cardsandtokens.com/dailyprize?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMzMjczODMyLCJleHAiOjE1MzM4Nzg2MzJ9.7oVE9obJJNb_g2WrWqn_xDOAfP7zRx7PNTPdR64juQg
@@ -348,15 +403,33 @@ export class CntService {
 
     updateCollectibleVotes(slug:string, votes:number) {
         return new Promise<any>((resolve) => {
-            this.userdata.afterReady.then(() => {
-                this.userdata.data.dayliprice = {};
-                console.log("CntService.updateCollectibleVotes("+slug+","+votes+")");
-                var url = "http://api.cardsandtokens.com/update/collectible/votes?access_token="+this.userdata.access_token;
-                this.http.post<any>(url, {
-                    slug:slug, votes:votes
-                }).toPromise().then((r) => {
-                    resolve(r);
-                });
+            console.log("CntService.updateCollectibleVotes("+slug+","+votes+")");
+            var url = "http://api.cardsandtokens.com/update/collectible/votes";
+            this.http.post<any>(url, {
+                slug:slug, votes:votes
+            }).toPromise().then((r) => {
+                var card = r.card;
+                var index = this.cards.indexOf(this.card[card.slug]);
+                if (index >= 0) {
+                    this.cards[index] = card;
+                } else {
+                    this.cards.push(card);
+                }
+                this.card[card.slug] = card;
+                if (this.userdata.logged) {
+                    this.userdata.data.card["id-"+card.id] = card;
+                    this.proccessData();
+                    var collectible = this.card[slug];
+                    for (var i in this.userdata.data.slot) {
+                        var slot = this.userdata.data.slot[i];
+                        if (slot.data.collectible == collectible.id) {
+                            if (this.userdata.logged && this.userdata.data.collection["id-"+slot.container.id]) {
+                                this.getCollectionStats(slot.container.id);
+                            }
+                        }
+                    }
+                }
+                resolve(r);
             });
         });
     }
@@ -384,7 +457,7 @@ export class CntService {
     
     getUserInventory(slug) {
         return new Promise<any>((resolve) => {
-            this.userdata.afterReady.then(() => {
+            this.vapaee.afterReady.then(() => {
                 if (this.userdata.logged) {
                     for (let i in this.userdata.data.inventory) {
                         let inventory = this.userdata.data.inventory[i];
@@ -404,7 +477,7 @@ export class CntService {
             this[names] = <any[]>result[table];
             for (var i=0; i<this[names].length; i++) {
                 var obj = this[names][i];
-                this[name][obj.id] = obj;
+                this[name][obj.slug] = obj;
             }
             return this[names];
         });
@@ -439,16 +512,89 @@ export class CntService {
         }
     }
 
-    getAlbumBySlug(slug) {
-        if (this.album[slug]) {
+    getAlbumCollectionBySlug(slug) {
+        return new Promise<any>(resolve => {
+            this.waitData.then(() => {
+                for (var i in this.userdata.data.collection) {
+                    var coll = this.userdata.data.collection[i];
+                    var album = this.userdata.data.album["id-"+coll.album.id];
+                    if (album.slug == slug) {
+                        return resolve(coll);
+                    }
+                }
+            })
+        });
+    };
+
+    updateCollectionSteemPoints(coll_id) {
+        return new Promise<any>(resolve => {
+            this.waitData.then(() => {
+                var coll = this.userdata.data.collection["id-"+coll_id];
+                // console.error("HAY QUE PEGARLE A LA BASE DE DATOS PARA QUE ACTUALICE LOS PUNTOS Y POSICION DE LA COLLECTION coll_id");
+                return this.http.post<any>("//api.cardsandtokens.com/update_collection?access_token="+this.userdata.access_token,{
+                    collection:coll_id
+                }).toPromise().then((r) => {
+                    if (r.error) {
+                        console.error(r);
+                    } else {
+                        console.log("RESULTADO DE UPDATE COLLECTION POINTS: ", [r.collection]);
+                        resolve(r.collection);
+                    }
+                }).catch((e) => {
+                });
+            })
+        });
+    }
+
+    private calculateCollectionPoints(coll_id) {
+        var votes = 0;
+        if (this.userdata.logged) {
+            for (var i in this.userdata.data.slot) {
+                var slot = this.userdata.data.slot[i];
+                if (slot.container.id == coll_id) {
+                    var collectible_id = slot.data.collectible;
+                    var collectible = this.userdata.data.collectible["id-"+collectible_id];
+                    votes += collectible.steem_votes;
+                    console.log("steem_votes: ", votes, "(+"+collectible.steem_votes+")", [slot]);
+                }
+            }    
+        }
+        return votes;
+    }
+
+    getCollectionStats(coll_id) {
+        return new Promise<any>(resolve => {
+            this.waitData.then(() => {
+                var coll = this.userdata.data.collection["id-"+coll_id];
+                var real_points = this.calculateCollectionPoints(coll_id);
+                if (coll.points != real_points) {
+                    this.updateCollectionSteemPoints(coll_id).then(new_coll => {
+                        // Se está asumiendo que el album que se está visualizando es el asociado a new_coll y no tiene porque ser así
+                        console.log("Esto hay que sacarlo de acá");
+                        this.labels.setLabel("album-ranking","Ranking: " + new_coll.position);
+                        this.labels.setLabel("album-points","Points: " + new_coll.points);                        
+                        resolve(new_coll);
+                    })
+                } else {
+                    resolve(coll);
+                }
+            })
+        });
+    }
+
+    getAlbumCompleteBySlug(slug) {
+        if (this.album[slug] && this.album[slug].deploy) {
             console.log("getAlbumBySlug cacheado ", this.album[slug]);
             return Promise.resolve(this.album[slug]);
         } else {
             return this.fetchAlbum(slug).then(album => {
                 console.log("getAlbumBySlug select ", album);
+                var before = this.album[slug];
+                var index = this.albums.indexOf(before);
                 this.album[slug] = album;
-                var search = this.albums.map(e => e.slug != slug);
-                if (search.length == 0) {
+                if (index >= 0) {
+                    this.albums[index] = album;
+                } else {
                     this.albums.push(album);
                 }
                 return album;

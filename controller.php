@@ -14,19 +14,6 @@ $app->get("/", function() use ($app) {
     ));
 });
 
-
-
-$app->get("/update_collection", function() use ($app) {
-    global $config; $namespace = $config['namespace'];
-    trace("$namespace GET 'update_collection' --------------");
-
-
-    $result = updateCollectionSteemPoints(2, $app);
-
-    return json_encode($result);
-});
-
-
 function getUserdata($credentials, $app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace.getUserdata()", $credentials);
@@ -183,7 +170,7 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
     $profile = array(
         "name" => $user["name"],
         "slug" => "ctn" . substr($random, 0, 29),
-        "img" => json_encode(array("avatar" => "http://via.placeholder.com/200x200")),
+        "img" => json_encode(array("avatar" => "/assets/noavatar.png")),
         "owner" => $user["id"]
     );
     
@@ -245,7 +232,6 @@ function getDailyPriceRemainintTimeFromUser($user) {
         "lastprize" => $lastprize
     );
 }
-
 
 $app->post('/update/collectible/votes', function() use ($app) {
     global $config; $namespace = $config['namespace'];
@@ -370,8 +356,6 @@ $app->get('/dailyprize/claim', function() use ($app) {
     ));
 });
 
-
-
 $app->get('/dailyprize/countdown', function() use ($app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace GET 'dailyprize.countdown' --------------");
@@ -382,7 +366,6 @@ $app->get('/dailyprize/countdown', function() use ($app) {
     return json_encode($remaining);
     
 });
-
 
 $app->post('/swap/slots', function() use ($app) {
     global $config; $namespace = $config['namespace'];
@@ -466,10 +449,6 @@ $app->post('/swap/slots', function() use ($app) {
         ));
     }    
 });
-
-
-
-
 
 // STEEM ----------------
 function verifySteemAccessToken($app) {
@@ -573,6 +552,7 @@ function verifySteemAccessToken($app) {
     );
 }
 
+// returns a structure containing the total points a collection has plus the details on each card included
 function calculateSteemPoints($collection_id, $app) {
     trace("calculateSteemPoints()", $collection_id);
     $op = array("unbox" => true);
@@ -599,6 +579,7 @@ function calculateSteemPoints($collection_id, $app) {
     );
 }
 
+// calcula y guarda la cantidad total de puntos que tiene una collection en particular
 function updateCollectionSteemPoints($collection_id, $app) {
     trace("updateCollectionSteemPoints()", $collection_id);
     $op = array("unbox" => true);
@@ -608,17 +589,115 @@ function updateCollectionSteemPoints($collection_id, $app) {
     $old_pts = $collection["points"];
     if ($old_pts != $new_pts) {
         trace("updateCollectionSteemPoints() UPDATE !!!!", $old_pts, "-->", $new_pts);
+        /*/
+        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        /*/
         $app["db"]->http_put("collection", $collection_id, array(
             "points" => $new_pts
-        ));    
+        ));        
+        //*/
+        $collection["points"] = $new_pts;
+        $collection["position"] = updateCollectionPosition($collection, $new_pts - $old_pts, $app);
     }
 
     return array(
         "succes" => true,
         "points" => $new_pts,
-        "steem" => $steemPoints
+        "position" => $collection["position"],
+        "steem" => $steemPoints,
+        "collection" => $collection
     );
 }
+
+$app->get("/update_collections", function() use ($app) {
+    $result = updateCollectionSteemPoints(2, $app);
+    return json_encode($result);
+});
+
+$app->post("/update_collection", function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    $content = $app["request"]->getContent();
+    $content = json_decode($content);
+    trace("$namespace POST 'update_collection' collection ($content->collection) ---------------------");
+    $result = updateCollectionSteemPoints($content->collection, $app);
+    return json_encode($result);
+});
+
+// calcula y guarda las posiciones de las colecciones de un album
+// Este procedimiento es muy costoso y no tiene optimizaciones
+function updateAlbumRanking($album_id, $app) {
+    /*
+        - obtener todas las collecciones de el álbum concreto (ordenadas por points)
+        - por cada collection
+          - si no coincide su position con el índice que le tocó en el ordenamiento
+            - update tupla
+
+    */
+}
+
+function updateCollectionPosition($collection, $delta_points, $app) {
+    trace("updateCollectionPosition()", array("id"=>$collection["id"], "position"=>$collection["position"], "points"=>$collection["points"]), $delta_points);
+    $album_id = $collection["album"]["id"];
+    $init_pos = $collection["position"];
+
+    trace("---------------- INIT -----------------");
+    if ($delta_points > 0) {
+        // si el delta es positivo (gané puntos, subí en el ranking)
+        $select = array("album" => $album_id, "position" => array('$lt' => $collection["position"]));
+        $order_by = array("unbox" => true, "order" => array("by" => "position", "wey" => "DESC")); // ASC|DESC
+        $collections = $app["db"]->http_get("collection", $select, $order_by);
+
+        trace("updateCollectionPosition() collections ", $collections);
+        trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
+        foreach ($collections as $coll) {
+            trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
+            if ($collection["points"] > $coll["points"]) {
+                $collection["position"] = $coll["position"];
+                trace("escalamos -> position:", $collection["position"]);
+                $app["db"]->http_put("collection", $coll["id"], array(
+                    "position" => $coll["position"]+1 // bajar en el ranking es aumnetar el número de la posición
+                ));            
+            } else {
+                break;
+            }
+        }
+    } else {
+        // si el delta es negativo (perdí puntos, bajé en el ranking)  
+        $select = array("album" => $album_id, "position" => array('$gt' => $collection["position"]));
+        $order_by = array("unbox" => true, "order" => array("by" => "position", "wey" => "ASC")); // ASC|DESC
+        $collections = $app["db"]->http_get("collection", $select, $order_by);
+        trace("updateCollectionPosition() collections ", $collections);
+        trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
+        foreach ($collections as $coll) {
+            trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
+            if ($collection["points"] < $coll["points"]) {
+                $collection["position"] = $coll["position"];
+                trace("descendemos -> position:", $collection["position"]);
+                $app["db"]->http_put("collection", $coll["id"], array(
+                    "position" => $coll["position"]-1 // subir en el ranking es decremendar el número de la posición
+                ));
+            } else {
+                break;
+            }
+        }
+    }
+    if ($init_pos != $collection["position"]) {
+        trace("quedamos en -> position:", $collection["position"]);
+        $app["db"]->http_put("collection", $collection["id"], array(
+            "position" => $collection["position"]
+        ));
+    } 
+    trace("---------------- FIN -----------------");
+
+    return $collection["position"];
+}
+
+
 
 
 $app->get('/steem/user', function() use ($app) {

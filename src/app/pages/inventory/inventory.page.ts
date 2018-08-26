@@ -43,12 +43,6 @@ export class InventoryPage implements OnInit, OnDestroy {
                 });
             }
         }
-        this.cnt.getUserInventory(inventory_name).then(inventory => {
-            // acá puedo consultar la capacidad total (por si en algún momento tiene más de 8)
-            // console.log(this.cnt.userdata.data.slug.container[inventory_name].capacity);
-        }, e => {
-            console.log("this.cnt.getUserInventory nop");
-        });
         
         this.updateCountdown();
     }

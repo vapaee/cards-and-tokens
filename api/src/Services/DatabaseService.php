@@ -927,7 +927,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         }
          
         $sql .= ";";
-         
+        // trace($sql); 
         $query = $this->connection->query($sql);        
         $result = array ( $table => array()  );
          

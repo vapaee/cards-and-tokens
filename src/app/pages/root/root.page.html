@@ -33,7 +33,7 @@
                   <a class="nav-link waves-light" routerLink="/games" mdbWavesEffect>Games</a>
           </li>
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.logged">
-                  <a class="nav-link waves-light" routerLink="/market" mdbWavesEffect>Market</a>
+                  <a class="nav-link waves-light" (click)="printData()" mdbWavesEffect>DATA</a>
           </li>
 
           <!-- Dropdown 
@@ -58,7 +58,7 @@
           <li *ngIf="vapaee.logged" class="nav-item dropdown d-none d-lg-block" dropdown >
               <a dropdownToggle mdbWavesEffect [ngClass]="{active: app.stateStartsWith('profile')}" 
                   type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-                  <img [src]="steem.user ? steem.user.profile.avatar : 'http://via.placeholder.com/32x32'" style="height:32px;">&nbsp;&nbsp;&nbsp;
+                  <img [src]="steem.user ? steem.user.profile.avatar : '/assets/noavatar.png'" style="height:32px;">&nbsp;&nbsp;&nbsp;
                   {{vapaee.user_name}}
               <span class="caret"></span></a>
               <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">

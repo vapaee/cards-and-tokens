@@ -30,7 +30,7 @@ export class AppService {
         });
         this.vapaee.afterReady.then(() => {
             this.checkRedirect();
-        });
+        }, () => {});
     }
 
     getDeepestChild(node:any):any {

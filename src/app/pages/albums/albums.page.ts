@@ -18,7 +18,7 @@ export class AlbumsPage implements OnInit {
     public waitInit: Promise<void> = null;
     public deploy: any = null;
     url: SafeResourceUrl;
-    slots: any[];
+    // slots: any[];
 
     constructor(
         public vapaee: VapaeeUserService,
@@ -31,7 +31,7 @@ export class AlbumsPage implements OnInit {
         this.cnt.getAllAlbums().then(e => {
             var slug = this.route.snapshot.paramMap.get('slug');
             if (slug) {
-                this.cnt.getAlbumBySlug(slug).then(album => {
+                this.cnt.getAlbumCompleteBySlug(slug).then(album => {
                     this.waitInit.then(() => {
                         this.deployAlbum(album);
                     });
@@ -68,19 +68,9 @@ export class AlbumsPage implements OnInit {
             });
             */
         });
-        this.slots = [];
-        var inventory_name = "cards-and-tokens";
-        this.cnt.getUserInventory(inventory_name).then(inventory => {
-            // acá puedo consultar la capacidad total (por si en algún momento tiene más de 8)
-            // console.log(this.cnt.userdata.data.slug.container[inventory_name].capacity);    
-            for (var i=0;i<Math.min(10, this.cnt.userdata.data.slug.container[inventory_name].capacity); i++) {
-                this.slots.push({
-                    "index": i, "container": inventory_name
-                });
-            }            
-        }, e => {
-            console.log("this.cnt.getUserInventory() no hay data");
-        });        
+        // this.slots = [];
+        // var inventory_name = "cards-and-tokens";
+        // this.cnt.getUserInventory(inventory_name);
     }
 
     getAlbumUrl() {

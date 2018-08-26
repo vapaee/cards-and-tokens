@@ -68,9 +68,22 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         }
 
         this.labels.setLabel("album-name", this.data.title);
-        this.labels.setLabel("album-ranking","Ranking: 123");
-        this.labels.setLabel("album-points","points: 21");
+        // this.labels.setLabel("album-ranking","Ranking: 123");
+        // this.labels.setLabel("album-points","Points: 21");
 
+        this.cnt.getAlbumCollectionBySlug(this.data.name).then(collection => {
+            console.log("this.cnt.getAlbumCollectionBySlug() -> ", collection);
+            this.labels.setLabel("album-ranking","Ranking: " + collection.position);
+            this.labels.setLabel("album-points","Points: " + collection.points);
+            this.cnt.getCollectionStats(collection.id).then(new_coll => {
+                this.labels.setLabel("album-ranking","Ranking: " + new_coll.position);
+                this.labels.setLabel("album-points","Points: " + new_coll.points);    
+                console.log("this.cnt.updateCollectionSteemPoints() -> ", new_coll, " !!!!!!!");
+                if (collection.points != new_coll.points) {
+                    console.log("CAMBIARON??? Que pasó con la posición??  -->", new_coll.position);
+                }
+            });
+        });
         
         return {pages:pages, pageslist:pageslist};
     }

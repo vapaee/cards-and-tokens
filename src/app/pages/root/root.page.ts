@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VapaeeUserService } from "../../services/vapaee-user.service";
 import { AppService } from "../../services/app.service";
 import { SteemService } from '../../services/steem.service';
+import { CntService } from '../../services/cnt.service';
 
 @Component({
     selector: 'root-page',
@@ -10,13 +11,21 @@ import { SteemService } from '../../services/steem.service';
 })
 export class RootPage implements OnInit {
 
-  constructor(
-      public vapaee: VapaeeUserService,
-      public app: AppService,
-      public steem: SteemService) {
-  }
-  
-  ngOnInit() {
-  }
+    constructor(
+        public vapaee: VapaeeUserService,
+        public app: AppService,
+        public cnt: CntService,
+        public steem: SteemService) {
+    }
+    
+    ngOnInit() {
+
+    }
+
+    printData() {
+        console.log("Userdata", this.cnt.userdata.data);
+        console.log(this.cnt);
+    }
+
 
 }

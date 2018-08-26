@@ -6,13 +6,8 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 -- TODO --
-- Album Header
-  - puntaje del usuario logueado
-    - posición del ranking
-  - página actual
-    - título
-    - numero
-  - nombre del album
+- Cambiar los botones de  los costados del album. Verde contra verde no encara
+- dar formato al Título, página, ranking y demás...
 
 
 

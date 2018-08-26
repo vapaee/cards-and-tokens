@@ -16,14 +16,14 @@ interface UserData {
 
 @Injectable()
 export class UserdataService {
-    public afterReady: Promise<void> = null;
+    public waitData: Promise<void> = null;
     public id: Number;
     public name: string;
     public access_token:string;
     public logged: boolean = false;
     public data: any;
     constructor(private http: HttpClient, public vapaee: VapaeeUserService, public cookie: CookieService) {
-        this.afterReady = new Promise((resolve, reject) => {
+        this.waitData = new Promise((resolve) => {
             // reject();
             this.vapaee.afterReady.then(() => {
                 if (!this.vapaee.logged) {
@@ -31,7 +31,8 @@ export class UserdataService {
                     // console.log('------------------------------');
                     // console.log('---- userdata rejected 0 -----');
                     // console.log('------------------------------');                    
-                    return reject();
+                    // return reject();
+                    return ;
                 }
                 var API_url = "http://api.cardsandtokens.com/";
                 // var url = API_url+"userdata?access_token="+this.vapaee.access_token;
@@ -53,18 +54,21 @@ export class UserdataService {
                     // console.log('------------------------------');
                     // console.log('---- userdata rejected 1 -----');
                     // console.log('------------------------------');
-                    reject();
+                    // reject();
+                    return;
                 });
             }, (ee) => {
                 // console.log('------------------------------');
                 // console.log('---- userdata rejected 2 -----');
                 // console.log('------------------------------');
-                reject();
+                // reject();
+                return;
             });
+            
         });
 
-        this.afterReady.then(() => {}, e => {
-            console.log('this.afterReady rejected');
+        this.waitData.then(() => {}, e => {
+            console.log('this.waitData rejected');
         });
     }
 }

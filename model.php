@@ -99,6 +99,7 @@ $DATA = array (
             "_extends" => "container",
             "album" => array( "type" => "album" ),
             "points" => array( "type" => "int(32)" ),
+            "position" => array( "type" => "int(32)" ),
             "owner" => array( "type" => "user" )
         ),
         // ------------------     
