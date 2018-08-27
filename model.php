@@ -153,6 +153,13 @@ $DATA = array (
             "deck" => array( "type" => "deck" ),
             "opened" => array( "type" => "boolean" ),
         ),
+        // -------------------------------
+        "pending" => array(
+            "owner" => array( "type" => "varchar(70)" ),
+            "task" => array( "type" => "varchar(100)" ),
+            "params" => array( "type" => "json" ),
+            "created" => array( "type" => "timestamp" )
+        ),
     ),
     
     "calculated" => array(

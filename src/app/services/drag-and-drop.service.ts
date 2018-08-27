@@ -64,6 +64,12 @@ export class DragAndDropService {
         if (this.dragging && e.clientY != 0 && e.clientX != 0) {
             this.dragging.front.style.top = (e.clientY + this.dragging.front.init.offset.y + 0) + "px";
             this.dragging.front.style.left = (e.clientX + this.dragging.front.init.offset.x + 3) + "px";
+        } else {
+            if (e.originalEvent) {
+                // console.log(e.originalEvent.clientX);
+            } else {
+                // console.log(e);
+            }            
         }
     }
 

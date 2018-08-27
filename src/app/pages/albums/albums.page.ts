@@ -51,7 +51,7 @@ export class AlbumsPage implements OnInit {
     }
 
     deployAlbum(album) {
-        console.log("AlbumsPage.deployAlbum()", [album]);
+        // console.log("AlbumsPage.deployAlbum()", [album]);
         var src = '/embedded/album/' + album.slug + "?ignore_foreign=true";
         this.url = this.sanitizer.bypassSecurityTrustResourceUrl(src);
         

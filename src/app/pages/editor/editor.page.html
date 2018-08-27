@@ -1,1 +1,56 @@
-<h1>EDITOR NOT IMPLEMENTED</h1>
+<div *ngIf="steem.user.name == 'viterbo'" class="container margin-bottom-lg">
+    <div class="card margin-top-xl opaque-at-work inventory-box">
+        <h3 class="card-header default-color">
+            Editor
+        </h3>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <!-- Form -->
+                    <form class="text-center" style="color: #757575;">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.week" placeholder="(week)" [ngModelOptions]="{standalone: true}">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.position" placeholder="(position)" [ngModelOptions]="{standalone: true}">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.slug" placeholder="(slug)" [ngModelOptions]="{standalone: true}">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.youtube" placeholder="(youtube)" [ngModelOptions]="{standalone: true}">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.steemuser" placeholder="(steemuser)" [ngModelOptions]="{standalone: true}">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.permlink" placeholder="(permlink)" [ngModelOptions]="{standalone: true}">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.title" placeholder="(title)" [ngModelOptions]="{standalone: true}">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.bgimage" placeholder="(bgimage)" [ngModelOptions]="{standalone: true}">
+
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.link" placeholder="(link)" [ngModelOptions]="{standalone: true}">
+
+                        <div class="d-flex">
+                            <div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="original" [(ngModel)]="model.original" [ngModelOptions]="{standalone: true}">
+                                    <label class="custom-control-label" for="original">Original</label>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" (click)="createCard()">Crear Carta</button>
+                
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <pre>{{model|json}}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="steem.user.name != 'viterbo'">
+    under construction
+</div>

@@ -1,0 +1,83 @@
+{
+    "comp": "root",
+    "children": [
+        {
+            "comp": "row-three",
+            "data": {
+                "header": {
+                    "min-height": "12vh"
+                },
+                "footer": {
+                    "min-height": "5vh"
+                }
+            },
+            "children": [
+                {
+                    "comp": "background",
+                    "data": {
+                        "color": "white",
+                        "image": {
+                            "url": "/assets/cards/openmic/images/steemit.svg",
+                            "position": "left",
+                            "positions": "center | left | right | top | bottom",
+                            "repeat": "no-repeat",
+                            "repeats": "round | repeat | no-repeat",
+                            "size": "contain",
+                            "sizes": "contain | cover"
+                        }
+                    }
+                },
+                {
+                    "comp": "background",
+                    "data": {
+                        "color": "rgba(72, 72, 72, 0.0)",
+                        "gradient": {
+                            "dir": "top",
+                            "points": [
+                                {
+                                    "color": "rgba(0,0,0,0.6)",
+                                    "percent": 0
+                                },
+                                {
+                                    "color": "rgba(0,0,0,0.0)",
+                                    "percent": 30
+                                },
+                                {
+                                    "color": "rgba(0,0,0,0.0)",
+                                    "percent": 70
+                                },
+                                {
+                                    "color": "rgba(0,0,0,0.6)",
+                                    "percent": 100
+                                }
+                            ]
+                        },
+                        "image": {
+                            "url": "/assets/backgrounds/maxresdefault.jpg",
+                            "repeat": "no-repeat",
+                            "size": "cover",
+                            "blend-mode": "multiply"
+                        }
+                    },
+                    "children": [
+                        {
+                            "comp": "video",
+                            "data": {
+                                "youtube": {
+                                    "videoId": "5xmIg6P1gb4",
+                                    "autoplay": false
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "comp": "background",
+                    "data": {
+                        "color": "#FFF"
+                    }
+                }
+            ]
+        }
+    ]
+}

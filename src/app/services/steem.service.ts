@@ -95,9 +95,9 @@ export class SteemService {
             this.loggedReject = reject;
         });
         this.waitLogged.then(e => {
-            console.log("STEEMCONNECT LOGGED !!!!!!!!!!!!!!!! ");
+            // console.log("STEEMCONNECT LOGGED !!!!!!!!!!!!!!!! ");
         }, (e) => {
-            console.log("STEEMCONNECT NOT LOGGED !!!!!!!!!!!!!!!! ");
+            // console.log("STEEMCONNECT NOT LOGGED !!!!!!!!!!!!!!!! ");
         });
     }
     
@@ -114,7 +114,7 @@ export class SteemService {
                 account: this.cookie.get("steem.account")
             });
         } else {
-            console.log("--- steem rejected ---");
+            // console.log("--- steem rejected ---");
             if (window.location.href.indexOf("access_token") < 0) {
                 this.loggedReject();
             }            
@@ -172,7 +172,7 @@ export class SteemService {
                 this.askForLogin();
             } else {
                 this.steemconnect.vote(this.user.name, author, permlink, percent, function (err, res) {
-                    console.log("STEEM this.steemconnect.vote", err, res);
+                    // console.log("STEEM this.steemconnect.vote", err, res);
                     if (err) reject(err);
                     else resolve(res);
                 });    
@@ -186,17 +186,17 @@ export class SteemService {
     }
 
     setCredentials(credentials: SteemCredentials) {
-        console.log("SteemService.setCredentials()", [credentials]);
+        // console.log("SteemService.setCredentials()", [credentials]);
         this.waitReady.then(() => {
             this.timeout = window.setTimeout(() => {
-                console.log("TIME OUT: this.timeoutResolve();");
+                // console.log("TIME OUT: this.timeoutResolve();");
                 if (this.timeoutResolve) this.timeoutResolve();
             }, 10000);
             this.steemconnect.setAccessToken(credentials.accessToken);
             this.steemconnect.me((err, result) => {
                 if (err) {
-                    console.log("this.steemconnect.me ERROR:", err);
-                    console.log("--- steem rejected ---");
+                    // console.log("this.steemconnect.me ERROR:", err);
+                    // console.log("--- steem rejected ---");
                     this.loggedReject(err);
                     this.logged = false;
                     setTimeout(() => {

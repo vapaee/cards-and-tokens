@@ -33,16 +33,58 @@ export class AppService {
         }, () => {});
     }
 
+
+    isOpera:boolean;
+    isFirefox:boolean;
+    isSafari:boolean;
+    isIE:boolean;
+    isEdge:boolean;
+    isChrome:boolean;
+    isBlink:boolean;
+
+    detectBrowser() {
+        var _window:any = <any>window;
+        // Opera 8.0+
+        this.isOpera = (!!_window.opr && !!_window.opr.addons) || !!_window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+        // Firefox 1.0+
+        this.isFirefox = typeof _window.InstallTrigger !== 'undefined';
+
+        // Safari 3.0+ "[object HTMLElementConstructor]" 
+        this.isSafari = /constructor/i.test(_window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!_window['safari'] || _window.safari.pushNotification);
+
+        // Internet Explorer 6-11
+        this.isIE = /*@cc_on!@*/false || !!_window.document.documentMode;
+
+        // Edge 20+
+        this.isEdge = !_window.isIE && !!_window.StyleMedia;
+
+        // Chrome 1+
+        this.isChrome = !!_window.chrome && !!_window.chrome.webstore;
+
+        // Blink engine detection
+        this.isBlink = (this.isChrome || this.isOpera) && !!_window.CSS;
+
+        console.log("isOpera", this.isOpera);
+        console.log("isFirefox", this.isFirefox);
+        console.log("isSafari", this.isSafari);
+        console.log("isIE", this.isIE);
+        console.log("isEdge", this.isEdge);
+        console.log("isChrome", this.isChrome);
+        console.log("isBlink", this.isBlink);
+    }
+
+    init (appcomp: AppComponent) {
+        this.detectBrowser();
+        this.dom.appendComponentToBody(LoadingOverall);
+    }
+
     getDeepestChild(node:any):any {
         if (node.firstChild) {
             return this.getDeepestChild(node.firstChild);
         } else {
             return node;
         }
-    }
-
-    init (appcomp: AppComponent) {
-        this.dom.appendComponentToBody(LoadingOverall);
     }
 
     onWindowsResize() {
@@ -83,28 +125,28 @@ export class AppService {
     }
 
     private checkRedirect() {
-        console.log("app.checkRedirect()....  State: ", this.prev_state, this.state, "ready:", this.vapaee.ready);
+        // console.log("app.checkRedirect()....  State: ", this.prev_state, this.state, "ready:", this.vapaee.ready);
         if (this.vapaee.ready) {
             if (this.state === 'loading') {
                 if (this.vapaee.logged || !this.getStateData(this.prev_state).logged) {
-                    console.log("app.checkRedirect() ta todo bien REDIRECTION --> ", this.prev_state);
+                    // console.log("app.checkRedirect() ta todo bien REDIRECTION --> ", this.prev_state);
                     this.router.navigate([this.prev_state]);
                 } else {
-                    console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
+                    // console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
                     this.router.navigate(['home']);
                 }
             } else {
                 if (this.getStateData().logged && !this.vapaee.logged) {
-                    console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
+                    // console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
                     this.router.navigate(['home']);
                 }    
             }
         } else {
             if (this.getStateData().logged) {
-                console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
+                // console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
                 this.router.navigate(['loading']);
             } else {
-                console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
+                // console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
             }            
         }
     }

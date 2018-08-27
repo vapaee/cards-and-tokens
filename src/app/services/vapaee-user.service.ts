@@ -17,7 +17,6 @@ export class VapaeeUserService {
     public afterReady: Promise<void> = null;
 
     constructor(private http: HttpClient, private cookieService: CookieService, public steem: SteemService) {
-        console.log('Hello VapaeeUserService Provider');
         this.init();
     }
 
@@ -34,22 +33,22 @@ export class VapaeeUserService {
         this.ready = false;
 
         this.afterReady = new Promise((resolve, reject) => {
-            console.log("Vapaee.user subscribe to steem.waitLogged");
+            // console.log("Vapaee.user subscribe to steem.waitLogged");
             this.steem.waitLogged.then(() => {
                 this.logged = true;
                 this.ready = true;
                 this.user_name = this.steem.user.profile.name;
-                console.log("--- vapaee.user ---");
+                // console.log("--- vapaee.user ---");
                 resolve();
             }, (err) => {
                 this.ready = true;
-                console.log("--- vapaee.user reject ---");
+                // console.log("--- vapaee.user reject ---");
                 reject();
             });
         });
 
         this.afterReady.then(() => {}, e => {
-            console.log("--- vapaee.user rejected ---");
+            // console.log("--- vapaee.user rejected ---");
         });
         
     }

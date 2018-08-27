@@ -36,7 +36,7 @@ export class InventoryComponent extends BaseComponent implements OnInit {
         this.slots_cache = [];
         this.current = 0;
         this.waitReady.then(() => {
-            console.log("inventoryComponent data", this.data);
+            // console.log("inventoryComponent data", this.data);
             window.setTimeout(() => {
                 this.onResize();
             }, 200);
@@ -72,7 +72,7 @@ export class InventoryComponent extends BaseComponent implements OnInit {
                 this.max = 0;
             }
         }
-        console.log("inventoriComp.updateVars()", this.total, this.step, this.current, this.max);
+        // console.log("inventoriComp.updateVars()", this.total, this.step, this.current, this.max);
     }
 
     public updateOffset() {
@@ -87,7 +87,7 @@ export class InventoryComponent extends BaseComponent implements OnInit {
             var offset = this.step * current;
             var value = "-" + offset + "px";
             this.renderer.setStyle(target, 'margin-left', value);
-            console.log("inventoriComp.updateOffset()", value);            
+            // console.log("inventoriComp.updateOffset()", value);            
         }
     }
 

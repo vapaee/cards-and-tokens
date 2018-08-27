@@ -55,7 +55,7 @@ export class SectionService {
     }
 
     public prevSection(name: string) {
-        console.log("prevSection");
+        // console.log("prevSection");
         var index = this.sections[name].sections.indexOf(this.sections[name].current);
         if (index>0) {
             index--;

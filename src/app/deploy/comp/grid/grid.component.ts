@@ -19,7 +19,7 @@ export class GridComponent extends BaseComponent implements OnInit {
     ) {
         super(vapaee, app, cnt, cfResolver);
         this.waitLoaded.then(() => {
-            console.log(this.data.rows);
+            // console.log(this.data.rows);
             this.data.rows = this.prepareRows(this.data.rows);
             this.rows = this.data.rows;
         });
@@ -38,12 +38,7 @@ export class GridComponent extends BaseComponent implements OnInit {
                 for (var j=0; j<current_rows[i].length; j++) {
                     var col = current_rows[i][j];
                     if (col.rows) {
-                        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                        console.log(col.rows);
                         col.rows = this.prepareRows(col.rows);
-                        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-                        console.log(col.rows);
-
                     }
                     rows.push(col);
                 }

@@ -42,9 +42,6 @@ export class UserdataService {
                 //url +="&avatar="+encodeURIComponent(this.cookie.get("steem.avatar"))
                 //url +="&account="+encodeURIComponent(this.cookie.get("steem.account"));
                 this.http.get<any>(url).toPromise().then(result => {
-                    console.log('-------- userdata ----------');
-                    console.log(result);
-                    console.log('----------------------------');
                     this.data = result.data;
                     this.id = result.id;
                     this.name = result.name;

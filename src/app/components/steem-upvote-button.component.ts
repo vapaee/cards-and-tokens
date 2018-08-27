@@ -16,13 +16,13 @@ import { SteemService } from '../services/steem.service';
         "@keyframes loading { 0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } }"
     ],
     template: `
-        <a [ngClass]="{'loading': loading}" [hidden]="voted" class="steem-vote-btn waves-effect waves-light" (click)="vote()">
+        <a [ngClass]="{'loading': loading}" [hidden]="voted || !steemdata.author" class="steem-vote-btn waves-effect waves-light" (click)="vote()">
             <span class="Icon chevron-up-circle upvote" style="display: inline-block; width: 1.12rem; height: 1.12rem; vertical-align: middle;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Chevron_Up_Circle"><circle cx="16" cy="16" r="15" stroke="#1FBF8F" fill="none"></circle><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#1FBF8F"></path></g></svg></span>
             <span [hidden]="!loading">&nbsp;loading</span>
             <span [hidden]="loading">&nbsp;{{votes}} votes</span>
         </a>
         
-        <a [ngClass]="{'loading': loading}" [hidden]="!voted" class="steem-vote-btn waves-effect waves-light upvoted" (click)="unvote()">
+        <a [ngClass]="{'loading': loading}" [hidden]="!voted || !steemdata.author" class="steem-vote-btn waves-effect waves-light upvoted" (click)="unvote()">
             <span class="Icon chevron-up-circle upvote" style="display: inline-block; width: 1.12rem; height: 1.12rem; vertical-align: middle;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Chevron_Up_Circle"><circle cx="16" cy="16" r="15" stroke="#121313" fill="none"></circle><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#ffffff"></path></g></svg></span>
             <span [hidden]="!loading">&nbsp;loading</span>
             <span [hidden]="loading">&nbsp;{{votes}} votes</span>
@@ -45,6 +45,9 @@ export class SteemUpvoteButtonComponent implements OnChanges {
         this.loading = true;
         
         return new Promise((resolve,reject) => {
+            if (!this.steemdata.author) {
+                return resolve();
+            }
 
             this.steem.steemjs.api.getActiveVotes(this.steemdata.author, this.steemdata.permlink, (err, result) => {
                 console.log("this.steem.steemjs.api.getActiveVotes -------------- ", err, result);

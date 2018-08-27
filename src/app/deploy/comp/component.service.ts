@@ -51,7 +51,7 @@ export class ComponentService implements ComponentServiceI {
     }
 
     createAndDeployTree(object:{deploy:any}, view:ViewContainerRef) {
-        console.log("createAndDeployTree()", [object]);
+        // console.log("createAndDeployTree()", [object]);
         console.assert(typeof object.deploy != "undefined", "ERROR: missing object.deploy", [object]);
         let structure: DeployNode = this.createDeployTree(object.deploy);
         let compFactory = this.cfResolver.resolveComponentFactory(structure.component);

@@ -47,7 +47,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
     }
 
     protected prepareData(structure: DeployNode) {
-        console.log("AlbumComponent.prepareData()", structure);
+        // console.log("AlbumComponent.prepareData()", structure);
         this.data = structure.data;
         this.children = [];
         console.assert(Array.isArray(this.data.pages),
@@ -72,15 +72,15 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         // this.labels.setLabel("album-points","Points: 21");
 
         this.cnt.getAlbumCollectionBySlug(this.data.name).then(collection => {
-            console.log("this.cnt.getAlbumCollectionBySlug() -> ", collection);
+            // console.log("this.cnt.getAlbumCollectionBySlug() -> ", collection);
             this.labels.setLabel("album-ranking","Ranking: " + collection.position);
             this.labels.setLabel("album-points","Points: " + collection.points);
             this.cnt.getCollectionStats(collection.id).then(new_coll => {
                 this.labels.setLabel("album-ranking","Ranking: " + new_coll.position);
                 this.labels.setLabel("album-points","Points: " + new_coll.points);    
-                console.log("this.cnt.updateCollectionSteemPoints() -> ", new_coll, " !!!!!!!");
+                // console.log("this.cnt.updateCollectionSteemPoints() -> ", new_coll, " !!!!!!!");
                 if (collection.points != new_coll.points) {
-                    console.log("CAMBIARON??? Que pasó con la posición??  -->", new_coll.position);
+                    // console.log("CAMBIARON??? Que pasó con la posición??  -->", new_coll.position);
                 }
             });
         });
@@ -103,12 +103,12 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
     }
 
     createPageChild(page: {slots:{position?:any}[], background:any}): {comp: string, data?: any, children?: any[]} {
-        console.log("createPageChild()", page);
+        // console.log("createPageChild()", page);
         let _children:any[] = [];
         let _positions:any[] = [];
         let _slot:number = 0;
         for (let i=0; i<page.slots.length; i++, this.capacity++) {
-            console.log("this.capacity", this.capacity);
+            // console.log("this.capacity", this.capacity);
             let position = page.slots[i].position;
             position["width"] = "15%";
             position["max-width"] = "140px";
@@ -158,20 +158,22 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
     // invocado por SectionService cuando alguien cambia la sección actual.
     current:any;
     public setSection(current: string) {
-        console.log("AlbumComponent.setSection()", current, this.data);
+        // console.log("AlbumComponent.setSection()", current, this.data);
         this.waitReady.then(() => {
             var num = parseInt(current.substr(5));
-            console.log("parseInt(current.substr(5))", current.substr(5), num);
+            // console.log("parseInt(current.substr(5))", current.substr(5), num);
             let child = this.children[num];
             let host = this.hosts.toArray()[0];
             if (host.view.length == 1) {
                 this.renderer.removeClass(this.current, 'animated');
                 this.getOutPage(this.current);
+            }
+            if (host.view.length > 0) {
                 window.setTimeout(() => {
                     if (host.view.length > 1) {
                         host.view.remove(0);
                     }
-                }, 1000);
+                }, 900);
             }
 
             let componentFactory = this.cfResolver.resolveComponentFactory(child.component);
@@ -200,7 +202,6 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
             this.renderer.addClass(firstChild, 'fadeOutRight');
             this.renderer.addClass(firstChild, 'animated');
         }
-        console.log(firstChild);    
     }    
 
     getInPage(target) {
@@ -212,7 +213,6 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
             this.renderer.addClass(firstChild, 'fadeInLeft');
             this.renderer.addClass(firstChild, 'animated');
         }
-        console.log(firstChild);    
     }
 
     getPadding() {
@@ -221,11 +221,12 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
 
     timer:number = 0;
     onResize(skip = false) {
-        console.log("AlbumComponent.onResize() ******************************");
+        // console.log("AlbumComponent.onResize() ******************************");
         var target = this.elRef.nativeElement.querySelector(".embed-responsive");
         var ratio = 16/9;
         var maxHeight = this.elRef.nativeElement.offsetHeight - 2 * this.getPadding();
         var maxWidth = maxHeight * ratio;
+        // console.log(this.elRef.nativeElement.offsetHeight, maxWidth, this.elRef.nativeElement);
         this.renderer.setStyle(target, 'max-width', maxWidth + "px");
         if (!skip) {
             if (!this.timer) {

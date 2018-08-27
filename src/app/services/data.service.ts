@@ -103,9 +103,9 @@ export class DataService {
     }    
 
     make_request (method, path, obj, omited_table) {
-        console.log("Data.make_request("+method+", "+path+", "+omited_table+")");
+        // console.log("Data.make_request("+method+", "+path+", "+omited_table+")");
         if (this.request[path]) {
-            console.log("Data.make_request("+method+", "+path+", "+omited_table+") tengo promise !!!!!!!!!!!!!!!");
+            // console.log("Data.make_request("+method+", "+path+", "+omited_table+") tengo promise !!!!!!!!!!!!!!!");
             
         } else {
             var res = null;

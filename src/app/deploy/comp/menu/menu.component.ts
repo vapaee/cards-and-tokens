@@ -27,7 +27,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
 
     public init() {
         this.waitReady.then(() => {
-            console.log("MenuComponent data", this.data);
+            // console.log("MenuComponent data", this.data);
         });
     }
 

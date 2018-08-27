@@ -70,6 +70,7 @@ export class SlotComponent extends BaseComponent implements OnInit, OnChanges, S
 
     public isDraggable(): boolean {
         if (typeof this.data.draggable != "undefined") {
+            console.log("isDraggable returnning ", this.data.draggable);
             return this.data.draggable;
         }
         return true;

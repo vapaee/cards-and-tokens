@@ -22,7 +22,9 @@ export class DraggableDirective implements OnInit {
         this.target = e.target;
         this.target.style.opacity = "0.2";
         e.dataTransfer.setDragImage(this.target,this.app.device.width*2,this.app.device.height*2);
-        if (this.component.isDraggable()) {
+        var isDraggable = this.component.isDraggable();
+        console.log("this.component.isDraggable()", isDraggable);
+        if (isDraggable) {
             this.cnt.getCopyById(e.target.id.substr(5)).then(copy => {
                 this.dnd.startDragging(e, this.component, e.target);
             });
@@ -33,6 +35,7 @@ export class DraggableDirective implements OnInit {
     }
     
     @HostListener('drag', ['$event']) onDrag(e) {
+        // console.log("DraggableDirective.onDrag()", [e]);
         this.dnd.drag(e);
     }
     @HostListener('dragend', ['$event']) onDragEnd(e) {
@@ -44,7 +47,7 @@ export class DraggableDirective implements OnInit {
     }
 
     ngOnInit(){
-        console.log("DraggableDirective.initialized");
+        // console.log("DraggableDirective.initialized");
     }
 }
 
@@ -66,6 +69,7 @@ export class DroppableDirective implements OnInit {
     public invalidFlag: boolean;
 
     @HostListener('dragover', ['$event']) onDragOver(e) {
+        // console.log("DroppableDirective.onDragOver()", [this.component]);
         this.dnd.draggingOver(this.component);
         // this.component.draggingOver(this.dnd.getDraggingObject().copy);
         // console.log("DroppableDirective.onDragOver()", [e]);

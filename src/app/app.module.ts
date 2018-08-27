@@ -20,6 +20,8 @@ import { SteemService } from './services/steem.service';
 import { FacebookService } from './services/facebook.service';
 import { DragAndDropService, CardDragging } from './services/drag-and-drop.service';
 
+
+
 import { HomePage } from './pages/home/home.page';
 import { CardsPage } from './pages/cards/cards.page';
 import { ProfilePage } from './pages/profile/profile.page';
@@ -57,6 +59,7 @@ import { AlbumComponent } from './deploy/comp/album/album.component';
 import { SlotComponent } from './deploy/comp/slot/slot.component';
 import { InventoryComponent } from './deploy/comp/inventory/inventory.component';
 import { LabelComponent } from './deploy/comp/label/label.component';
+import { FormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -71,7 +74,7 @@ const routes: Routes = [
       { path: 'cards',                data: { state: "cards",  logged: false }, component: CardsPage },
       { path: 'profile',              data: { state: "profile", logged: false }, component: ProfilePage },
       { path: 'albums',               data: { state: "albums", logged: false }, component: AlbumsPage },
-      { path: 'editor',               data: { state: "editor", logged: true }, component: CommingSoonPage },
+      { path: 'editor',               data: { state: "editor", logged: true }, component: EditorPage },
       { path: 'inventory',            data: { state: "inventory", logged: true }, component: InventoryPage },
       { path: 'mastery',              data: { state: "mastery", logged: true }, component: CommingSoonPage },
       { path: 'market',               data: { state: "market", logged: true }, component: CommingSoonPage },
@@ -150,6 +153,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: false } // <-- debugging purposes only

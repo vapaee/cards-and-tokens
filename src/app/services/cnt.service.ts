@@ -113,9 +113,6 @@ export class CntService {
     // ------------------------------------------------------------------------------------------
     // las siguientes funciones sirven para traer datos del usuario -----------------------------
     proccessData() {
-        console.log('-------- userdata ----------');
-        console.log(this.userdata.data);
-        console.log('----------------------------');
 
         // Containers
         this.userdata.data.container = <any>{};
@@ -220,6 +217,9 @@ export class CntService {
         this.userdata_to_global("card");
         this.userdata_to_global("album");
 
+        console.log('-------- data proccessed ----------');
+        console.log(this.userdata.data);
+        console.log('-----------------------------------');
 
     }
 
@@ -537,7 +537,14 @@ export class CntService {
                     if (r.error) {
                         console.error(r);
                     } else {
+                        var new_coll = r.collection;
                         console.log("RESULTADO DE UPDATE COLLECTION POINTS: ", [r.collection]);
+                        this.userdata.data.collection["id-"+new_coll.id] = new_coll;
+                        this.proccessData();
+                        // Se está asumiendo que el album que se está visualizando es el asociado a new_coll y no tiene porque ser así
+                        console.log("Esto hay que sacarlo de acá");
+                        this.labels.setLabel("album-ranking","Ranking: " + new_coll.position);
+                        this.labels.setLabel("album-points","Points: " + new_coll.points);                        
                         resolve(r.collection);
                     }
                 }).catch((e) => {
@@ -555,7 +562,7 @@ export class CntService {
                     var collectible_id = slot.data.collectible;
                     var collectible = this.userdata.data.collectible["id-"+collectible_id];
                     votes += collectible.steem_votes;
-                    console.log("steem_votes: ", votes, "(+"+collectible.steem_votes+")", [slot]);
+                    // console.log("steem_votes: ", votes, "(+"+collectible.steem_votes+")", [slot]);
                 }
             }    
         }
@@ -569,10 +576,6 @@ export class CntService {
                 var real_points = this.calculateCollectionPoints(coll_id);
                 if (coll.points != real_points) {
                     this.updateCollectionSteemPoints(coll_id).then(new_coll => {
-                        // Se está asumiendo que el album que se está visualizando es el asociado a new_coll y no tiene porque ser así
-                        console.log("Esto hay que sacarlo de acá");
-                        this.labels.setLabel("album-ranking","Ranking: " + new_coll.position);
-                        this.labels.setLabel("album-points","Points: " + new_coll.points);                        
                         resolve(new_coll);
                     })
                 } else {
@@ -584,11 +587,11 @@ export class CntService {
 
     getAlbumCompleteBySlug(slug) {
         if (this.album[slug] && this.album[slug].deploy) {
-            console.log("getAlbumBySlug cacheado ", this.album[slug]);
+            // console.log("getAlbumBySlug cacheado ", this.album[slug]);
             return Promise.resolve(this.album[slug]);
         } else {
             return this.fetchAlbum(slug).then(album => {
-                console.log("getAlbumBySlug select ", album);
+                // console.log("getAlbumBySlug select ", album);
                 var before = this.album[slug];
                 var index = this.albums.indexOf(before);
                 this.album[slug] = album;
@@ -679,7 +682,8 @@ export class CntService {
                 "opacity":0,
                 "transition-duration": "1s",
                 "transition-property": "opacity",
-                "transition-timing-function": "ease-in-out"                    
+                "transition-timing-function": "ease-in-out",
+                "box-shadow": "1px 1px 10px 2px rgba(0,0,0,0.5)"
             }
             
             setTimeout(() => {
@@ -725,6 +729,8 @@ export class CntService {
                 // createStatsHeader(carta.attr("id"));
                 _deploy.show.fblikes = false;
                 _deploy.show.steemvotes = true;
+
+
             }, 3000);
 
 
@@ -751,6 +757,19 @@ export class CntService {
         this.deploy = null;
     }
     // ------------------------------------------------------------------------------------------
+
+    createCard(model:any, deploy:any, preview:any) {
+        return new Promise<any>((resolve) => {
+            console.log("CntService.createCard()");
+            var url = "http://api.cardsandtokens.com/crear_carta?access_token="+this.userdata.access_token;
+            this.http.post<any>(url, {
+                model:model, deploy:deploy, preview: preview
+            }).toPromise().then((r) => {
+                console.log("CARTA CREADA", r);
+                resolve(r);
+            });
+        });
+    }
 
 
 }

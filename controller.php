@@ -14,20 +14,26 @@ $app->get("/", function() use ($app) {
     ));
 });
 
+function getUserFromCredentials($credentials, $app) {
+    $user_id = $credentials["user"]["id"];
+    $op = array("unbox"=>true, "mapping"=>"id", "no-detail" => true, "secure" => true);
+    $user = $app["db"]->http_get_id("user", $user_id);
+    $user["profile"] = $app["db"]->http_get_id("profile", $user["profile"]["id"], array("unbox"=>true, "secure" => true));
+    return $user;
+}
+
 function getUserdata($credentials, $app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace.getUserdata()", $credentials);
-    $user_id = $credentials["user"]["id"];
-    $op = array("unbox"=>true, "mapping"=>"id", "no-detail" => true, "secure" => true);
     
-    $user = $app["db"]->http_get_id("user", $user_id);
+    $op = array("unbox"=>true, "mapping"=>"id", "no-detail" => true, "secure" => true);
+    $user = getUserFromCredentials($credentials, $app);
         
-    $select_owner = array("owner" => $user_id);
-    $select_creator = array("creator" => $user_id);
+    $select_owner = array("owner" => $user["id"]);
+    $select_creator = array("creator" => $user["id"]);
     
     $user["data"] = array();
     // definido por el usuario
-    $user["profile"] = $app["db"]->http_get_id("profile", $user["profile"]["id"], array("unbox"=>true, "secure" => true));
 
     $user["data"]["app"] = $app["db"]->http_get("app", $select_creator, $op);
     $user["data"]["album"] = $app["db"]->http_get("album", $select_creator, $op);
@@ -589,18 +595,9 @@ function updateCollectionSteemPoints($collection_id, $app) {
     $old_pts = $collection["points"];
     if ($old_pts != $new_pts) {
         trace("updateCollectionSteemPoints() UPDATE !!!!", $old_pts, "-->", $new_pts);
-        /*/
-        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        /*/
         $app["db"]->http_put("collection", $collection_id, array(
             "points" => $new_pts
-        ));        
-        //*/
+        ));
         $collection["points"] = $new_pts;
         $collection["position"] = updateCollectionPosition($collection, $new_pts - $old_pts, $app);
     }
@@ -614,10 +611,10 @@ function updateCollectionSteemPoints($collection_id, $app) {
     );
 }
 
-$app->get("/update_collections", function() use ($app) {
+/* $app->get("/update_collections", function() use ($app) {
     $result = updateCollectionSteemPoints(2, $app);
     return json_encode($result);
-});
+}); */
 
 $app->post("/update_collection", function() use ($app) {
     global $config; $namespace = $config['namespace'];
@@ -627,6 +624,89 @@ $app->post("/update_collection", function() use ($app) {
     $result = updateCollectionSteemPoints($content->collection, $app);
     return json_encode($result);
 });
+
+$app->post("/crear_carta", function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace POST 'crear_carta' ---------------------");
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $content = $app["request"]->getContent();
+        $content = json_decode($content, true);
+
+        $credentials = verifySteemAccessToken($app);
+        if (!isset($credentials)) {
+            trace("ERROR: user not logged -- ");
+            return json_encode(array("error" => "user not logged"));
+        }
+    
+        $user = getUserFromCredentials($credentials, $app);
+        if ($user["id"] != 1) {
+            trace("ERROR: OPA!!! UN ALGUIEN ESTA TRATANDO DE HACKEARNOS !!!");
+            trace($user);
+            trace($credentials);
+            return json_encode(array("error" => "you are not admin"));
+        }
+
+        $unbox  = array("unbox"=>true);
+
+        // Card
+        $card = array(
+            // collectible ----
+            "publisher" => 1,
+            "creator" => 1,
+            "edition" => 1,
+            "deployable" => true,
+            "steem" => array("empty" => true),
+            "steem_votes" => 0,
+            "type" => "collection",
+            // Card ---------
+            "slug" => $content["model"]["slug"],
+            "text" => array("title" => $content["model"]["title"], "subtitle" => "by @" . $content["model"]["steemuser"] . " for Steemit OpenMic")
+        );
+        $card = $app["db"]->http_post("card", $card, $unbox);        
+
+        $content["deploy"]["data"] = $content["model"];
+        // Edition
+        $edition = array(
+            "collectible" => 1,
+            "creator" => 1,
+            "url" => "first",
+            "preload" => array($content["model"]["bgimage"]),
+            "preview" => $content["preview"],
+            "deploy" => $content["deploy"],
+            "copies" => 0,
+            "released" => true
+        );
+        $edition = $app["db"]->http_post("edition", $edition, $unbox);
+        $edition["collectible"] = $card["id"];
+        $card["edition"] = $edition["id"];
+
+        $app["db"]->http_put("edition", $edition["id"], array(
+            "collectible" => $card["id"]
+        ));
+
+        $app["db"]->http_put("card", $card["id"], array(
+            "edition" => $edition["id"]
+        ));
+                
+        // Pending
+        $pending = array(
+            "owner" => "steem@".$content["model"]["steemuser"],
+            "task" => "claim-openmic-card",
+            "params" => array( "card" => $card["id"], "edition" => $edition["id"] )
+        );
+        $pending = $app["db"]->http_post("pending", $pending, $unbox);
+
+        return json_encode(array(
+            "success" => true,
+            "card" => $card,
+            "edition" => $edition,
+            "pending" => $pending
+        ));
+    }
+});
+
+
 
 // calcula y guarda las posiciones de las colecciones de un album
 // Este procedimiento es muy costoso y no tiene optimizaciones
