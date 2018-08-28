@@ -17,17 +17,13 @@
 }
 
 @media (min-width: 1200px) {
-    .bg-container.padding {
-        padding: 25px;
-    }
+    .bg-container.padding { padding: 25px; }
 }
 @media (min-width: 768px) {
-    .bg-container.padding {
-        padding: 18px;
-    }
+    .bg-container.padding { padding: 18px; }
+    .bg-container.padding-sm { padding: 5px; }
 }
 @media (min-width: 576px) {
-    .bg-container.padding {
-        padding: 14px;
-    }
+    .bg-container.padding { padding: 14px; }
+    .bg-container.padding-sm { padding: 3px; }
 }

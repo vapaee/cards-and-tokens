@@ -46,7 +46,10 @@ export class MenuComponent extends BaseComponent implements OnInit {
                 this.section.nextSection(entry.section);
             } else {
                 this.section.prevSection(entry.section);
-            }            
+            }
+        }
+        if (entry.link) {
+            window.open(entry.link, entry.target||"_blank");
         }
     }
 

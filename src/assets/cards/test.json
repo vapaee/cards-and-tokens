@@ -7,14 +7,15 @@
                 "rows": [
                     [
                         {
-                            "height": "12vh"
+                            "height": "10vh"
                         }
                     ],
-                    [
-                        {
-                            "grow": 0
-                        }
-                    ],
+                    {
+                        "grow": 0,
+                        "cols": [
+                            1
+                        ]
+                    },
                     [
                         {
                             "grow": 1
@@ -22,7 +23,7 @@
                     ],
                     [
                         {
-                            "height": "5vh"
+                            "height": "3vh"
                         }
                     ]
                 ]
@@ -43,8 +44,36 @@
                 {
                     "comp": "background",
                     "data": {
-                        "color": "grey"
-                    }
+                        "color": "grey",
+                        "padding-sm": true,
+                        "container": true
+                    },
+                    "children": [
+                        {
+                            "comp": "menu",
+                            "data": {
+                                "menu": [
+                                    {
+                                        "text": "Video",
+                                        "class": "btn btn-sm btn-outline-white",
+                                        "section": "main",
+                                        "value": "Video"
+                                    },
+                                    {
+                                        "text": "Lyrics",
+                                        "class": "btn btn-sm btn-outline-white",
+                                        "section": "main",
+                                        "value": "Lyrics"
+                                    },
+                                    {
+                                        "text": "Steemit post",
+                                        "class": "btn btn-sm btn-outline-white",
+                                        "link": "https://steemit.com/@viterbo"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
                 },
                 {
                     "comp": "background",
@@ -80,13 +109,48 @@
                     },
                     "children": [
                         {
-                            "comp": "video",
+                            "comp": "section",
                             "data": {
-                                "youtube": {
-                                    "videoId": "8vQb2JRloQ8",
-                                    "autoplay": false
+                                "name": "main",
+                                "current": "Video",
+                                "sections": [
+                                    "Video",
+                                    "Lyrics"
+                                ]
+                            },
+                            "children": [
+                                {
+                                    "comp": "video",
+                                    "data": {
+                                        "youtube": {
+                                            "videoId": "",
+                                            "autoplay": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "comp": "background",
+                                    "data": {
+                                        "container": true,
+                                        "fgcolor": "white",
+                                        "padding": true
+                                    },
+                                    "children": [
+                                        {
+                                            "comp": "scrolleable",
+                                            "children": [
+                                                {
+                                                    "comp": "markdown",
+                                                    "data": {
+                                                        "markdown": "# Lyrics\n\nAs a young boy I had my share\n\nof pain and loss but always fair\n\n",
+                                                        "markdown_": "# Lyrics\n\nAs a young boy I had my share\n\nof pain and loss but always fair\n\ntimes I tried to wonder why\n\nwas me the others did I try\n\n\n\nThe garden path I used to walk\n\nback from school, without, without a thought\n\ntimes were good but they had their faults\n\nbut my daddy he did try to resolve\n\nbut my daddy he did try to resolve\n\n\n\nTravelling back of thoughts when young\n\nthe journey's new the lesson's begun\n\nkeeping them safely locked away\n\nthey stay with us tomorrow, today\n\nand help and help and help\n\n\n\nYears roll by and memories fade\n\nbut the important ones have always stayed\n\nbad times made us who we are\n\nhowever near or far\n\nbut the times were good and had their faults\n\n\n\nTravelling back of thoughts when young\n\nour journey's new the lesson's begun\n\nkeeping them safely locked away\n\nthey stay with us tomorrow, today.\n\n"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
-                            }
+                            ]
                         }
                     ]
                 },

@@ -36,9 +36,9 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
             _class["animated"] = true;
             _class["fadeinside"] = true;
         }        
-        if (this.data.padding) {
-            _class["padding"] = true;
-        }
+        if (this.data["padding"])    { _class["padding"] = true; }
+        if (this.data["padding-sm"]) { _class["padding-sm"] = true; }
+
         return _class;
     }
 

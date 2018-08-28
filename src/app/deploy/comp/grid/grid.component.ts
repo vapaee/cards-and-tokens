@@ -26,23 +26,36 @@ export class GridComponent extends BaseComponent implements OnInit {
     }
 
     prepareRows(current_rows:any[]) {
+        console.log("Grid.prepareRows()", current_rows);
+        
         for (var i=0; i<current_rows.length; i++) {
+            // console.log(i, current_rows[i]);
             if (typeof current_rows[i] == "number") {
-                var rows = [];
+                var row:any = {cols:[]}
                 for (var j=0; j<current_rows[i]; j++) {
-                    rows.push({});
+                    row.cols.push({});
                 }
-                current_rows[i] = rows;
-            } else if (Array.isArray(current_rows[i])) {
-                var rows = [];
-                for (var j=0; j<current_rows[i].length; j++) {
-                    var col = current_rows[i][j];
+                current_rows[i] = row;
+            } else if (typeof current_rows[i] == "object") {
+                var row:any = {cols:[]};
+                if (Array.isArray(current_rows[i])) {
+                    row.cols = current_rows[i];
+                } else if (Array.isArray(current_rows[i].cols)) {
+                    row = current_rows[i];
+                }
+                console.log("row:", row);
+                
+                for (var j=0; j<row.cols.length; j++) {
+                    var col = row.cols[j];
+                    if (col.height) {
+                        row.grow = 0;
+                    }
                     if (col.rows) {
                         col.rows = this.prepareRows(col.rows);
                     }
-                    rows.push(col);
                 }
-                current_rows[i] = rows;
+                
+                current_rows[i] = row;
             }
         }
         return current_rows;
