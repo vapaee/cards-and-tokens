@@ -1,8 +1,9 @@
 <div class="row" *ngFor="let row of rows">
-    <div class="col" [ngStyle]="{'flex-grow': col.grow}"
+    <div class="col" [ngStyle]="{'flex-grow': col.grow, 'height': col.height}"
         [ngClass]="{'text-right': col.align == 'right', 'text-center': col.align == 'center', 'padding': col.padding}"
         *ngFor="let col of row">
         <ng-template *ngIf="!col.rows" comp-host></ng-template>
+        <pre [hidden]="true">{{col|json}}</pre>
         <div class="row" *ngFor="let col_row of col.rows || []">
             <div class="col" [ngStyle]="{'flex-grow': col_row_col.grow}"
                 [ngClass]="{'text-right': col_row_col.align == 'right', 'text-center': col_row_col.align == 'center', 'padding': col_row_col.padding}"

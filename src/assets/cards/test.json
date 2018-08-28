@@ -2,168 +2,99 @@
     "comp": "root",
     "children": [
         {
-            "comp": "row-three",
+            "comp": "grid",
             "data": {
-                "header": {
-                    "min-height": "10vh"
-                },
-                "footer": {
-                    "min-height": "6vh"
-                }
+                "rows": [
+                    [
+                        {
+                            "height": "12vh"
+                        }
+                    ],
+                    [
+                        {
+                            "grow": 0
+                        }
+                    ],
+                    [
+                        {
+                            "grow": 1
+                        }
+                    ],
+                    [
+                        {
+                            "height": "5vh"
+                        }
+                    ]
+                ]
             },
             "children": [
                 {
                     "comp": "background",
                     "data": {
+                        "color": "white",
                         "image": {
-                            "url": "/assets/albums/openmic/marmol.png",
-                            "repeat": "repeat"
-                        },
+                            "url": "/assets/cards/openmic/images/steemit.svg",
+                            "position": "left",
+                            "repeat": "no-repeat",
+                            "size": "contain"
+                        }
+                    }
+                },
+                {
+                    "comp": "background",
+                    "data": {
+                        "color": "grey"
+                    }
+                },
+                {
+                    "comp": "background",
+                    "data": {
+                        "color": "rgba(72, 72, 72, 0.0)",
                         "gradient": {
                             "dir": "top",
                             "points": [
                                 {
-                                    "color": "black",
+                                    "color": "rgba(0,0,0,0.6)",
                                     "percent": 0
                                 },
                                 {
-                                    "color": "rgba(0,0,0,0)",
-                                    "percent": 50
-                                }                                
-                            ]
-                        },
-                        "fgcolor": "white"
-                    },
-                    "children": [
-                        {
-                            "comp": "float",
-                            "data": {
-                                "style": {
-                                    "_width": "500px",
-                                    "_height": "500px",
-                                    "bottom": "20px",
-                                    "left": "20%"
-                                }
-                            },
-                            "children": [
-                                {
-                                    "comp": "menu",
-                                    "data": {
-                                        "menu": [
-                                            { "text": "<<", "section": "openmic-100-weeks", "move": -1 },
-                                            { "text": "Cover Page", "section": "openmic-100-weeks", "value": "page-0"},
-                                            { "text": "Page 1", "section": "openmic-100-weeks", "value": "page-1"},
-                                            { "text": "Page 2", "section": "openmic-100-weeks", "value": "page-2" },
-                                            { "text": "Page 3", "section": "openmic-100-weeks", "value": "page-3" },
-                                            { "text": ">>", "section": "openmic-100-weeks", "move": 1 }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "comp": "background",
-                    "data": {
-                        "color": "#9a9"
-                    },
-                    "children": [
-                        {
-                            "comp": "album",
-                            "data": {
-                                "name":"openmic-100-weeks",
-                                "pages": [
-                                    {
-                                        "background": {
-                                            "fadein": true,
-                                            "image": {
-                                                "url": "/assets/albums/openmic/cover-fullsize.png",
-                                                "repeat": "no-repeat",
-                                                "size": "cover"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "background": {
-                                            "fadein": true,
-                                            "image": {
-                                                "url": "/assets/backgrounds/maxresdefault.jpg",
-                                                "repeat": "no-repeat",
-                                                "size": "cover"
-                                            }
-                                        },
-                                        "slots": [
-                                            { "position": { "top": "10%", "left": "22%" } },
-                                            { "position": { "top": "30%", "left": "44%" } },
-                                            { "position": { "top": "50%", "left": "66%" } }
-                                        ]
-                                    },
-                                    {
-                                        "background": {
-                                            "fadein": true,
-                                            "image": {
-                                                "url": "/assets/backgrounds/bg_pic1.jpg",
-                                                "repeat": "no-repeat",
-                                                "size": "cover"
-                                            }
-                                        },
-                                        "slots": [
-                                            { "position": { "top": "20%", "left": "10%" } },
-                                            { "position": { "top": "20%", "left": "30%" } },
-                                            { "position": { "top": "20%", "left": "50%" } }
-                                        ]
-                                    },
-                                    {
-                                        "background": {
-                                            "fadein": true,
-                                            "image": {
-                                                "url": "/assets/backgrounds/tmb_38184_1852.jpg",
-                                                "repeat": "no-repeat",
-                                                "size": "cover"
-                                            }
-                                        },
-                                        "slots": [
-                                            { "position": { "top": "20%", "right": "10%" } },
-                                            { "position": { "top": "20%", "right": "30%" } },
-                                            { "position": { "top": "20%", "right": "50%" } }
-                                        ]
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                },
-                {
-                    "comp": "background",
-                    "data": {
-                        "image": {
-                            "url": "/assets/albums/openmic/marmol.png",
-                            "repeat": "repeat"
-                        },
-                        "gradient": {
-                            "dir": "top",
-                            "points": [
-                                {
-                                    "color": "rgba(0,0,0,0)",
-                                    "percent": 50
+                                    "color": "rgba(0,0,0,0.0)",
+                                    "percent": 30
                                 },
                                 {
-                                    "color": "black",
+                                    "color": "rgba(0,0,0,0.0)",
+                                    "percent": 70
+                                },
+                                {
+                                    "color": "rgba(0,0,0,0.6)",
                                     "percent": 100
                                 }
                             ]
+                        },
+                        "image": {
+                            "url": "/assets/backgrounds/maxresdefault.jpg",
+                            "repeat": "no-repeat",
+                            "size": "cover",
+                            "blend-mode": "multiply"
                         }
                     },
                     "children": [
                         {
-                            "comp": "inventory",
+                            "comp": "video",
                             "data": {
-                                "horizontal": true,
-                                "horizontal": true
+                                "youtube": {
+                                    "videoId": "8vQb2JRloQ8",
+                                    "autoplay": false
+                                }
                             }
                         }
                     ]
+                },
+                {
+                    "comp": "background",
+                    "data": {
+                        "color": "#FFF"
+                    }
                 }
             ]
         }
