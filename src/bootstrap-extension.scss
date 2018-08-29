@@ -421,3 +421,27 @@ table.table-inverse td, table.table-inverse th, table.table-inverse thead th {
     background-color: #000 !important;
     color: #fff !important;
 }
+
+// https://mdbootstrap.com/utilities/bootstrap-text/
+.text-xl-left, .text-gl-left, .text-md-left, .text-sm-left, .text-xs-left {
+    text-align: left;
+}
+.text-xl-right, .text-gl-right, .text-md-right, .text-sm-right, .text-xs-right {
+    text-align: right;
+}
+
+.text-xl-left, .text-xl-right {
+    font-size: 30px;
+}
+.text-gl-left, .text-gl-right {
+    font-size: 22px;
+}
+.text-md-left, .text-md-right {
+    font-size: 16px;
+}
+.text-sm-left, .text-sm-right {
+    font-size: 12px;
+}
+.text-xs-left, .text-xs-right {
+    font-size: 8px;
+}

@@ -74,7 +74,7 @@ export class ComponentService implements ComponentServiceI {
             let child: DeployNode = this.createDeployTree(depth[i]);
             children.push(child);
         }
-        return new DeployNode(type, data, children);
+        return new DeployNode(struct.comp, type, data, children);
     }
 
     public static getConfig(): any {

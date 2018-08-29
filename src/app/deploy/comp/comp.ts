@@ -10,5 +10,5 @@ export class ComponentHost {
 // class DeployNode ---------------------------------------------
 // contenedor de datos
 export class DeployNode {
-    constructor(public component: Type<any>, public data: any, public children: DeployNode[]) {}
+    constructor(public comp:string, public component: Type<any>, public data: any, public children: DeployNode[]) {}
 }

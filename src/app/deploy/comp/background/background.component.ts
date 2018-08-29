@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, HostBinding } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { VapaeeUserService } from '../../../services/vapaee-user.service';
 import { AppService } from '../../../services/app.service';
@@ -10,6 +10,9 @@ import { CntService } from '../../../services/cnt.service';
     styleUrls: ['./background.component.scss']
 })
 export class BackgroundComponent extends BaseComponent implements OnInit {
+
+    // expand
+    @HostBinding('class.expand') expand = false;
 
     constructor(
         public vapaee: VapaeeUserService,
@@ -38,7 +41,9 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
         }        
         if (this.data["padding"])    { _class["padding"] = true; }
         if (this.data["padding-sm"]) { _class["padding-sm"] = true; }
-
+        if (this.data.expand) {
+            this.expand = true;
+        }
         return _class;
     }
 

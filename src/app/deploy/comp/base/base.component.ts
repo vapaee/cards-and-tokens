@@ -51,20 +51,21 @@ export class BaseComponent implements OnInit {
     }
 
     loadStructure(structure: DeployNode) {
-        // console.log("loadStructure()", structure);
         this.data = structure.data;
         this.children = structure.children;
         this.loadedResolve();
+        // console.log("loadStructure()", structure.comp, this.children.length);
         return this.waitReady.then(() => {
-            console.assert(this.hosts.length >= structure.children.length || this.data.reusehost,
+            console.assert(this.hosts.length >= this.children.length || this.data.reusehost,
                 "ERROR: wrong structure children length. Expected ",
                 this.hosts.length,
                 "got ",
-                structure.children.length,
-                structure.children);
+                this.children.length,
+                this.children);
             var promises = [];
-            for (let i in structure.children) {
-                let child = structure.children[i];
+            // console.log("loadStructure() children", structure.comp, this.children.length);
+            for (let i in this.children) {
+                let child = this.children[i];
                 let hostarray = this.hosts.toArray();
                 // ---------------------------
                 // para usar la capacidad de poner más de un hijo en el mismo host incluirlo en la data programáticamente así:

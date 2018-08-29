@@ -39,8 +39,28 @@ export class LabelComponent extends BaseComponent implements OnInit {
         return "";
     }
 
-    get getStyle(): any {
+    get class(): any {
+        var _class = {};
+        if (typeof this.data.class == "string") {
+            this.data.class = this.data.class.split(" ");
+            var newclass = {};
+            for (var i in this.data.class) {
+                newclass[this.data.class[i]] = true;
+            }
+            this.data.class = newclass;
+        }
+        if (typeof this.data.class == "object") {
+            _class = this.data.class;
+        }
+        console.log(_class);
+        return _class;
+    }
+
+    get style(): any {
         var style = {};
+        
+
+        
         // style["height"] = "50px";
         // style["background-color"] = "red";
         return style;
