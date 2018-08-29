@@ -21,12 +21,21 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
         private cfResolver: ComponentFactoryResolver
     ) {
         super(vapaee, app, cnt, cfResolver);
+        this.init();
     }
     
     public static config(): any {
         return {
 
         };
+    }
+
+    public init() {
+        this.waitLoaded.then(() => {
+            if (this.data.expand) {
+                this.expand = true;
+            }    
+        });
     }
 
     get class(): any {
@@ -41,9 +50,6 @@ export class BackgroundComponent extends BaseComponent implements OnInit {
         }        
         if (this.data["padding"])    { _class["padding"] = true; }
         if (this.data["padding-sm"]) { _class["padding-sm"] = true; }
-        if (this.data.expand) {
-            this.expand = true;
-        }
         return _class;
     }
 

@@ -30,44 +30,162 @@ export class EditorPage implements OnInit {
 
         this._deploy = {
             "comp": "root",
-            "children": [{
-                "comp": "row-three",
-                "data": { "header": { "min-height": "12vh" }, "footer": { "min-height": "5vh" } },
-                "children": [
-                    {
-                        "comp": "background",
-                        "data": {
-                            "color": "white",
-                            "image": { "url": "/assets/cards/openmic/images/steemit.svg", "position": "left", "repeat": "no-repeat", "size": "contain" }
-                        }
-                    },
-                    {
-                        "comp": "background",
-                        "data": {
-                            "color": "rgba(72, 72, 72, 0.0)",
-                            "gradient": {
-                                "dir": "top",
-                                "points": [
-                                    { "color": "rgba(0,0,0,0.6)", "percent": 0 },
-                                    { "color": "rgba(0,0,0,0.0)", "percent": 30 },
-                                    { "color": "rgba(0,0,0,0.0)", "percent": 70 },
-                                    { "color": "rgba(0,0,0,0.6)", "percent": 100 }
-                                ]
-                            },
-                            "image": { "url": "/assets/backgrounds/maxresdefault.jpg", "repeat": "no-repeat", "size": "cover", "blend-mode": "multiply" }
-                        },
-                        "children": [
-                            {
-                                "comp": "video",
-                                "data": { "youtube": { "videoId": "5xmIg6P1gb4", "autoplay": false } }
-                            }
+            "children": [
+                {
+                    "comp": "grid",
+                    "data": {
+                        "rows": [
+                            [ { "height": "10vh" } ],
+                            { "grow": 0, "cols": [ 1 ] },
+                            [ { "grow": 1 } ],
+                            [ { "height": "3vh" } ]
                         ]
                     },
-                    {
-                        "comp": "background", "data": { "color": "#FFF" }
-                    }
-                ]
-            }]
+                    "children": [
+                        {
+                            "comp": "background",
+                            "data": {
+                                "color": "white",
+                                "image": {
+                                    "url": "/assets/cards/openmic/images/steemit.svg",
+                                    "position": "left", "repeat": "no-repeat", "size": "contain"
+                                }
+                            }
+                        },
+                        {
+                            "comp": "background",
+                            "data": {
+                                "color": "grey",
+                                "padding-sm": true,
+                                "container": true
+                            },
+                            "children": [
+                                {
+                                    "comp": "grid",
+                                    "data": {
+                                        "rows": [ [ { "grow": 1 }, { "grow": 0 } ] ]
+                                    },
+                                    "children": [
+                                        {
+                                            "comp": "label",
+                                            "data": {
+                                                "class": "text-xl-left white-text",
+                                                "text": "Unseen (The Good Fight)"
+                                            }
+                                        },
+                                        {
+                                            "comp": "menu",
+                                            "data": {
+                                                "menu": [
+                                                    {
+                                                        "text": "Video",
+                                                        "class": "btn btn-sm btn-outline-white",
+                                                        "section": "main",
+                                                        "value": "Video"
+                                                    },
+                                                    {
+                                                        "text": "Lyrics",
+                                                        "class": "btn btn-sm btn-outline-white",
+                                                        "section": "main",
+                                                        "value": "Lyrics"
+                                                    },
+                                                    {
+                                                        "text": "Steemit post",
+                                                        "class": "btn btn-sm btn-outline-white",
+                                                        "link": "https://steemit.com/@viterbo"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "comp": "background",
+                            "data": {
+                                "color": "rgba(72, 72, 72, 0.0)",
+                                "gradient": {
+                                    "dir": "top",
+                                    "points": [
+                                        { "color": "rgba(0,0,0,0.6)", "percent": 0 },
+                                        { "color": "rgba(0,0,0,0.0)", "percent": 30 },
+                                        { "color": "rgba(0,0,0,0.0)", "percent": 70 },
+                                        { "color": "rgba(0,0,0,0.6)", "percent": 100 }
+                                    ]
+                                },
+                                "image": {
+                                    "url": "/assets/backgrounds/maxresdefault.jpg",
+                                    "repeat": "no-repeat",
+                                    "size": "cover",
+                                    "blend-mode": "multiply"
+                                }
+                            },
+                            "children": [
+                                {
+                                    "comp": "section",
+                                    "data": {
+                                        "name": "main",
+                                        "current": "Video",
+                                        "sections": [
+                                            "Video",
+                                            "Lyrics"
+                                        ]
+                                    },
+                                    "children": [
+                                        {
+                                            "comp": "video",
+                                            "data": {
+                                                "youtube": {
+                                                    "videoId": "8vQb2JRloQ8",
+                                                    "autoplay": false
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "comp": "background",
+                                            "data": {
+                                                "container": true,
+                                                "padding": true
+                                            },
+                                            "children": [
+                                                {
+                                                    "comp": "background",
+                                                    "data": {
+                                                        "color": "rgba(0,0,0,0.3)",
+                                                        "fgcolor": "white",
+                                                        "padding": true,
+                                                        "expand": true
+                                                    },
+                                                    "children": [
+                                                        {
+                                                            "comp": "scrolleable",
+                                                            "children": [
+                                                                {
+                                                                    "comp": "markdown",
+                                                                    "data": {
+                                                                        "markdown": ""
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "comp": "background",
+                            "data": {
+                                "color": "#FFF"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     }
 
@@ -75,6 +193,8 @@ export class EditorPage implements OnInit {
     }
 
     get deploy(): CompSpec {
+        aaaaaaaaaaaaaaaaaaaaaaaa
+        // acá hay que reescribir las rutas y la lógica de los datos
         this._deploy.children[0].children[1].data.image.url = this.model.bgimage;
         this._deploy.children[0].children[1].children[0].data.youtube.videoId = this.model.youtube;
         return this._deploy;
@@ -98,7 +218,14 @@ export class EditorPage implements OnInit {
     }
 
     public createCard() {
-        this.cnt.createCard(this.model, this.deploy, this.preview);
+        this.cnt.createCard(this.model, this.deploy, this.preview).then((e) => {
+            if (e.error) {
+                alert("ERROR: " + e.error);
+            } else {
+                alert("Carta OK !!");
+                this.model = {}
+            }
+        });
     }
 
 }
