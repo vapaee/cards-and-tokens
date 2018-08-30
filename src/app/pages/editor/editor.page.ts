@@ -224,6 +224,7 @@ export class EditorPage implements OnInit {
         // si tienen lyrics
         if (this.model.has_lyrics) {
             var lyrics = this.getMarkDownLyrics();
+            this._deploy.children[0].children[1].children[0].children[1].data.menu[1].hidden = false;
             this._deploy.children[0].children[2].children[0].children[1].children[0].children[0].children[0].data.markdown = lyrics;
         } else {
             this._deploy.children[0].children[1].children[0].children[1].data.menu[1].hidden = true;
@@ -250,17 +251,21 @@ export class EditorPage implements OnInit {
     }
 
     public createCard() {
+        /*/
         console.log("this.deploy", this.deploy);
-        
+        console.log(JSON.stringify(this._deploy));
+        console.log([JSON.stringify(this._deploy)]);        
+        /*/
         this.cnt.createCard(this.model, this.deploy, this.preview).then((e) => {
             if (e.error) {
                 alert("ERROR: " + e.error);
             } else {
-                alert("Carta OK !!");
+                console.log();
+                alert("Carta ID: " + e.card.id);
                 this.model = {}
             }
         });
-        
+        //*/
     }
 
 }
