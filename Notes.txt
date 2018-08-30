@@ -12,6 +12,13 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 
 
+
+
+
+
+
+
+
 -- ARREGLOS & MEJORAS --
 - en el inventario del album se ven hasta 10 slots cuando debería ser un máximo de 8
 - cuando hacés drag and drop (en el album) y soltás fuera de un slot, se rompe todo

@@ -2,6 +2,7 @@
     <a *ngFor="let entry of data.menu"
         [ngClass]="getEntryClass(entry)"
         [ngStyle]="getEntryStyle(entry)"
+        [hidden]="entry.hidden"
         (click)="onMenuEntry(entry)"
         >
         <span *ngIf="entry.text">{{entry.text}}</span>

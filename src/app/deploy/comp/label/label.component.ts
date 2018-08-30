@@ -52,7 +52,7 @@ export class LabelComponent extends BaseComponent implements OnInit {
         if (typeof this.data.class == "object") {
             _class = this.data.class;
         }
-        console.log(_class);
+        // console.log(_class);
         return _class;
     }
 

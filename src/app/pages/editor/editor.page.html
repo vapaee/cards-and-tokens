@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="d-flex margin-top" [hidden]="!model.has_lyrics" >
-                            <a [ngHref]="model.link">{{model.link}}</a>
+                            <a [ngHref]="model.link" target="_blank">link</a>
                         </div>
 
                         <textarea [hidden]="!model.has_lyrics" class="form-control mb-4" style="height: 500px;" [(ngModel)]="model.lyrics" [ngModelOptions]="{standalone: true}">

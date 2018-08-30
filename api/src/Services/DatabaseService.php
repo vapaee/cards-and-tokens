@@ -190,24 +190,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
                 $_model[$super_name]["_sub_table"] = array( "type" => "varchar(40)" );
                 $_model[$super_name]["_subclasses"] = true;
             }
-            
-            // aaaaaaaaaaaa
-            /*
-             + no hay que agregar columnas -> eso borrarlo
-             + hay que crear una propiedad que sirva de caché y contenga siempre lo que contendría la entrada en la supertabla
-               así evitamos hacer una doble consulta cuando se pidan $table
-             + el superclass tiene que tener dos propiedades: sub_id, sub_table que apuntan al objeto de tipo subclass
-               así cuando se pida el superrclass/super_id facilmente pueda buscar en la sub_table por en sub_id
-             - actualizar el caché _$super_name no va a ser facil. Si un modelo C extiende un model B que a su vez extiende uno A 
-               si modifico A o B debería afectar el caché de C
-             + la función completar debría fijarse si el model extiende algo y por tanto tiene un _$super_name de tipo caché.
-               si es así debería pegar ese cache en el objeto de manera que sean propiedades propias y no parte de un arbol json
-               $objeto[$_super_attrname] = $objeto["_$super_name"][$_super_attrname]
-            */
-            
-            
-            // $this->DATA["model"][$table] = $newcols;
-             
+                         
             foreach($table_spec as $attr_name => $attr_spec) {
                 foreach ($this->DATA["model"] as $class => $_spec) {
                     if ($attr_name == "_extends") continue;

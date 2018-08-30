@@ -118,6 +118,7 @@ export class EditorPage implements OnInit {
                                     "url": "/assets/backgrounds/maxresdefault.jpg",
                                     "repeat": "no-repeat",
                                     "size": "cover",
+                                    "position": "center",
                                     "blend-mode": "multiply"
                                 }
                             },
@@ -192,11 +193,42 @@ export class EditorPage implements OnInit {
     ngOnInit() {
     }
 
+    public getMarkDownLyrics() {
+        var lyrics = this.model.lyrics.split("\n\n").join("<br>").split("\n").join("  \n").split("<br>").join(" \n\n");
+        lyrics = "# Lyrics  \n\n" + lyrics;
+        return lyrics;
+    }
+
+    public getBgImage() {
+        if (this.model.bgimage.indexOf("/") != -1) {
+            return this.model.bgimage;
+        } else {
+            return "/assets/backgrounds/" + this.model.bgimage;
+        }
+    }
+
     get deploy(): CompSpec {
-        aaaaaaaaaaaaaaaaaaaaaaaa
-        // acá hay que reescribir las rutas y la lógica de los datos
-        this._deploy.children[0].children[1].data.image.url = this.model.bgimage;
-        this._deploy.children[0].children[1].children[0].data.youtube.videoId = this.model.youtube;
+        
+        // background image
+        this._deploy.children[0].children[2].data.image.url = this.getBgImage();
+
+        // el título
+        this._deploy.children[0].children[1].children[0].children[0].data.text = this.model.title;
+
+        // el video
+        this._deploy.children[0].children[2].children[0].children[0].data.youtube.videoId = this.model.youtube;
+
+        // el link
+        this._deploy.children[0].children[1].children[0].children[1].data.menu[2].link = this.model.link;
+
+        // si tienen lyrics
+        if (this.model.has_lyrics) {
+            var lyrics = this.getMarkDownLyrics();
+            this._deploy.children[0].children[2].children[0].children[1].children[0].children[0].children[0].data.markdown = lyrics;
+        } else {
+            this._deploy.children[0].children[1].children[0].children[1].data.menu[1].hidden = true;
+        }
+
         return this._deploy;
     }
 
@@ -218,6 +250,8 @@ export class EditorPage implements OnInit {
     }
 
     public createCard() {
+        console.log("this.deploy", this.deploy);
+        
         this.cnt.createCard(this.model, this.deploy, this.preview).then((e) => {
             if (e.error) {
                 alert("ERROR: " + e.error);
@@ -226,6 +260,7 @@ export class EditorPage implements OnInit {
                 this.model = {}
             }
         });
+        
     }
 
 }
