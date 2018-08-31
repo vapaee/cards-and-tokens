@@ -17,6 +17,7 @@ export class SlotComponent extends BaseComponent implements OnInit, OnChanges, S
     @ViewChild('placeholder') placeholder:ElementRef;
     // copy: any;
     acceptingDrop: boolean;
+    dark: boolean = false;
     constructor(
         public vapaee: VapaeeUserService,
         public app: AppService, 
@@ -32,6 +33,10 @@ export class SlotComponent extends BaseComponent implements OnInit, OnChanges, S
         this.acceptingDrop = false;
         this.waitReady.then(() => {
             // this.container.registerSlot(this.data.container, this, this.data.index);
+            if (this.data.dark) {
+                this.dark = this.data.dark;
+            }
+            console.log("------->>>>>>>><", this.data);
         });
     }
 

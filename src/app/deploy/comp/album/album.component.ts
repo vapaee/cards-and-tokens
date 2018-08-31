@@ -102,7 +102,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         return Promise.resolve(<any[]>[]);
     }
 
-    createPageChild(page: {slots:{position?:any}[], background:any}): {comp: string, data?: any, children?: any[]} {
+    createPageChild(page: {slots:{position?:any, dark?:boolean}[], background:any}): {comp: string, data?: any, children?: any[]} {
         // console.log("createPageChild()", page);
         let _children:any[] = [];
         let _positions:any[] = [];
@@ -110,6 +110,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         for (let i=0; i<page.slots.length; i++, this.capacity++) {
             // console.log("this.capacity", this.capacity);
             let position = page.slots[i].position;
+            let dark = page.slots[i].dark;
             position["width"] = "15%";
             position["max-width"] = "140px";
             let _child = {
@@ -117,7 +118,8 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
                 "data": {
                     "position": position,
                     "index": this.capacity,
-                    "container": this.data.name
+                    "container": this.data.name,
+                    "dark": dark
                 }
             }
             _children.push(_child);

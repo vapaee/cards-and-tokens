@@ -7,7 +7,7 @@
         <div class="row" *ngFor="let col_row of col.rows || []">
             <div class="col" [ngStyle]="{'flex-grow': col_row_col.grow}"
                 [ngClass]="{'text-right': col_row_col.align == 'right', 'text-center': col_row_col.align == 'center', 'padding': col_row_col.padding}"
-                *ngFor="let col_row_col of col_row">
+                *ngFor="let col_row_col of col_row.cols">
                 <ng-template comp-host></ng-template>
             </div>
         </div>
