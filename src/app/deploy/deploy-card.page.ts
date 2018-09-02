@@ -25,7 +25,7 @@ export class DeployCardPage implements OnInit {
         private route: ActivatedRoute
     ) {
         this.loading = true;
-        this.stable = true;
+        this.stable = false;
     }
 
     ngOnInit() {
