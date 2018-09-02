@@ -28,7 +28,7 @@ export class DeployAlbumPage implements OnInit {
 
     ngOnInit() {
         this.loading = true;
-        this.stable = true;
+        this.stable = false;
 
         var slug = this.route.snapshot.paramMap.get('slug');
         if (slug) {
