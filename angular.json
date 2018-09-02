@@ -26,8 +26,8 @@
             "styles": [
               "node_modules/font-awesome/scss/font-awesome.scss",
               "node_modules/angular-bootstrap-md/scss/mdb-free.scss",
-              "node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.min.scss",
               "node_modules/flipclock/dist/flipclock.css",
+              "src/libs/MDB-Pro/css/bootstrap.min.css",
               "src/libs/MDB-Pro/css/mdb.min.css",
               "src/libs/MDB-Pro/css/addons/datatables.min.css",
               "src/styles.scss"
