@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DeployCardPage implements OnInit {
     @ViewChild(ComponentHost) public main: ComponentHost;
     loading: boolean;
+    stable:boolean;
 
     constructor(
         public vapaee: VapaeeUserService,
@@ -24,6 +25,7 @@ export class DeployCardPage implements OnInit {
         private route: ActivatedRoute
     ) {
         this.loading = true;
+        this.stable = true;
     }
 
     ngOnInit() {
@@ -44,18 +46,23 @@ export class DeployCardPage implements OnInit {
             console.log("--------- CARTA DE PRUEBA ----------"),
             card.edition = {deploy: card.deploy};
             this.loading = false;
+            this.stable = true;
             return Promise.resolve();
         }
         return this.comp.preload(card.edition.preload).then(() => {
             this.loading = false;
+            window.setTimeout(() => {
+                this.stable = true;
+            }, 1000);
         });
     }
 
     getLoadingClass() {
-        var classes:any = {"deploy-card":true};
+        var classes:any = {"deploy-container":true};
         if (this.loading) {
-            classes.loading = true;
+            classes.fadeOut = true;
         } else {
+            classes.fadeIn = true;
         }
         return classes;
     }

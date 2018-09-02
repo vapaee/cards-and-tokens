@@ -609,6 +609,48 @@ export class CntService {
         console.log("getJSON()", file);
         return this.http.get(file).toPromise();
     }
+
+    private getCornerCardSize() {
+        var W = 370*0.5;
+        var H = 520*0.5;
+
+        if (this.device.height*0.34 < H) {
+            var K = (this.device.height*0.34)/H;
+            H = H * K;
+            W = W * K;
+        }
+        if (this.device.width*0.34 < W) {
+            var K = (this.device.width*0.34)/W;
+            H = H * K;
+            W = W * K;
+        }
+
+        return {
+            w: W, h: H
+        }
+    }
+
+    private getCenterCardSize() {
+        var W = 370;
+        var H = 520;
+
+        if (this.device.height*0.5 < H) {
+            var K = (this.device.height*0.5)/H;
+            H = H * K;
+            W = W * K;
+        }
+        if (this.device.width*0.5 < W) {
+            var K = (this.device.width*0.5)/W;
+            H = H * K;
+            W = W * K;
+        }
+        
+        return {
+            w: W, h: H
+        }
+    }
+
+
     
     deployCard(card, img:HTMLImageElement) {
         console.log("------------ deployCard -------------");
@@ -624,6 +666,26 @@ export class CntService {
             _deploy.show = {};
             _deploy.card = card;
             _deploy.preload = card.edition.preload;
+
+            var src = window.location.origin + "/embedded/card/" + card.slug;
+            var safeUrl:SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(src);            
+            _deploy.frame = {
+                src: safeUrl
+            };
+            _deploy.frame.style = {
+                "z-index": "10",
+                "top": "30px",
+                "left": "30px",
+                "bottom": "30px",
+                "right": "30px",
+                "width": "auto",
+                "position": "absolute",
+                "opacity":0,
+                "transition-duration": "1s",
+                "transition-property": "opacity",
+                "transition-timing-function": "ease-in-out",
+                "box-shadow": "1px 1px 10px 2px rgba(0,0,0,0.5)"
+            }            
             _deploy.closebtn = {};
             _deploy.closebtn.style = {
                 "z-index": "9",
@@ -668,27 +730,11 @@ export class CntService {
                 "transition-property": "top left height width opacity",
                 "transition-timing-function": "ease-in-out"
             };
-            _deploy.frame = {
-                src: null
-            };
-            _deploy.frame.style = {
-                "z-index": "10",
-                "top": "30px",
-                "left": "30px",
-                "bottom": "30px",
-                "right": "30px",
-                "width": "auto",
-                "position": "absolute",
-                "opacity":0,
-                "transition-duration": "1s",
-                "transition-property": "opacity",
-                "transition-timing-function": "ease-in-out",
-                "box-shadow": "1px 1px 10px 2px rgba(0,0,0,0.5)"
-            }
             
             setTimeout(() => {
-                var W = 370;
-                var H = 520;
+                var size = this.getCenterCardSize();
+                var W = size.w;
+                var H = size.h;
                 _deploy.front.style.top = (this.device.height-H)*0.5 + "px";
                 _deploy.front.style.left = (this.device.width-W)*0.5 + "px";
                 _deploy.front.style.height = H + "px";
@@ -708,8 +754,11 @@ export class CntService {
                 _deploy.body.style.top = "0px";
                 _deploy.body.style.bottom = "0px";
                 
-                var W = 370*0.5;
-                var H = 520*0.5;
+                var cardsize = this.getCornerCardSize();
+
+                var W = cardsize.w;
+                var H = cardsize.h;
+
 
                 _deploy.front.style.top = (this.device.height-H-10) + "px";
                 _deploy.front.style.left = (this.device.width-W-10) + "px";
@@ -720,8 +769,7 @@ export class CntService {
             }, 2000);
 
             setTimeout(() => {
-                var src = window.location.origin + "/embedded/card/" + card.slug;
-                var safeUrl:SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(src);
+
                 _deploy.frame.src = safeUrl;
                 // console.log("---->", _deploy.frame.src);
                 _deploy.frame.style.opacity = 1;
@@ -730,6 +778,10 @@ export class CntService {
                 _deploy.show.fblikes = false;
                 _deploy.show.steemvotes = true;
 
+                _deploy.front.style.top = "";
+                _deploy.front.style.left = "";
+                _deploy.front.style.bottom = "10px";
+                _deploy.front.style.right = "10px";
 
             }, 3000);
 

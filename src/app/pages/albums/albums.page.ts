@@ -57,20 +57,10 @@ export class AlbumsPage implements OnInit {
         
         this.deploy = album;
 
-        this.comp.createAndDeployTree(album, this.main.view).then(() => {
-            /*
-            this.cnt.getUserAlbumCollection(album.slug).then(collection => {
-                this.containers.setContent(album.slug, collection.container_id, collection.slots);
-            });
-            
-            this.cnt.getUserInventory("cards-and-tokens").then(inventory => {
-                this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
-            });
-            */
-        });
-        // this.slots = [];
-        // var inventory_name = "cards-and-tokens";
-        // this.cnt.getUserInventory(inventory_name);
+        if (this.main) {
+            this.comp.createAndDeployTree(album, this.main.view);
+        }
+        
     }
 
     getAlbumUrl() {

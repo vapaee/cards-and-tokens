@@ -85,8 +85,6 @@ export class ComponentService implements ComponentServiceI {
 
     public preload(list)     {
         var promises = [];
-    
-        
         for (var i in list) {
             let headers = new HttpHeaders();
             

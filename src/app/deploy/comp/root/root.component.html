@@ -1,1 +1,4 @@
 <ng-template comp-host></ng-template>
+<div class="pre-load" *ngIf="data && data.preload">
+    <img *ngFor="let href of data.preload" src="{{href}}">
+</div>

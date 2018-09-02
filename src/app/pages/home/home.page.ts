@@ -4,6 +4,8 @@ import { AppService } from "../../services/app.service";
 import { CntService } from '../../services/cnt.service';
 import { SteemService } from '../../services/steem.service';
 
+declare var $: any;
+
 @Component({
     selector: 'home-page',
     templateUrl: './home.page.html',

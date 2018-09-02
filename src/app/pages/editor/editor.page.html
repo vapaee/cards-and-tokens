@@ -1,4 +1,4 @@
-<div *ngIf="steem.user.name == 'viterbo'" class="container margin-bottom-lg">
+<div *ngIf="vapaee.isAdmin" class="container margin-bottom-lg">
     <div class="card margin-top-xl opaque-at-work inventory-box">
         <h3 class="card-header default-color">
             Editor
@@ -69,6 +69,7 @@
 </div>
 
 
-<div *ngIf="steem.user.name != 'viterbo'">
-    under construction
-</div>
+<comming-soon-page *ngIf="!vapaee.isAdmin">
+    
+</comming-soon-page>
+

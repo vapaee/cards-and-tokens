@@ -15,6 +15,7 @@ export class VapaeeUserService {
     public logged: boolean = false;
     public ready: boolean = false;
     public afterReady: Promise<void> = null;
+    public isAdmin: boolean = false;
 
     constructor(private http: HttpClient, private cookieService: CookieService, public steem: SteemService) {
         this.init();
@@ -38,6 +39,7 @@ export class VapaeeUserService {
                 this.logged = true;
                 this.ready = true;
                 this.user_name = this.steem.user.profile.name;
+                this.isAdmin = this.steem.user.name == 'viterbo';
                 // console.log("--- vapaee.user ---");
                 resolve();
             }, (err) => {

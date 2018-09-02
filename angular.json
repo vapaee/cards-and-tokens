@@ -28,6 +28,8 @@
               "node_modules/angular-bootstrap-md/scss/mdb-free.scss",
               "node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss",
               "node_modules/flipclock/dist/flipclock.css",
+              "src/libs/MDB-Pro/css/mdb.css",
+              "src/libs/MDB-Pro/css/addons/datatables.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -37,6 +39,8 @@
               "node_modules/chart.js/dist/Chart.js",
               "node_modules/hammerjs/hammer.min.js",
               "node_modules/flipclock/dist/flipclock.js",
+              "src/libs/MDB-Pro/js/bootstrap.js",
+              "src/libs/MDB-Pro/js/mdb.js",
               "src/app/app.extras.js"
             ]
           },

@@ -31,6 +31,8 @@ export class AppService {
         this.vapaee.afterReady.then(() => {
             this.checkRedirect();
         }, () => {});
+
+        window.document.body.removeAttribute("loading");
     }
 
 

@@ -1,4 +1,14 @@
-<ng-template comp-host></ng-template>
-<!--a class="btn btn-default btn-sm my-0 ml-3 waves-effect waves-light" (click)="containers.print()">
-    Containers
-</a-->
+<div class="animated fadeIn deploy-container" [ngClass]="{fadeIn:!loading, fadeOut:loading}">
+    <ng-template comp-host></ng-template>
+</div>
+
+<div class="animated preloader expand-float" [ngClass]="{fadeIn:loading, fadeOut:!loading, 'd-none':stable}">
+    <div class="flex-center flex-column">
+        <h1 class="animated fadeIn mb-4">loading album</h1>
+        <div class="container">
+            <div class="progress md-progress defauler-color-dark" style="height:10px">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
+    </div>
+</div>

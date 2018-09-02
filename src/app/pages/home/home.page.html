@@ -1,72 +1,16 @@
-<div style="height: 80vh">
-    <div class="flex-center flex-column hide-at-work">
-        <!--img class="img-fluid" src="/assets/cards-and-tokens-full.png"-->
-        
-        <!--button type="button" class="btn btn-primary relative waves-light" (click)="steem.vote()" mdbRippleRadius>vote</button-->
 
-
-
-
-        <div class="preloader-wrapper big active">
-            <div class="spinner-layer spinner-blue">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div>
-              <div class="gap-patch">
-                <div class="circle"></div>
-              </div>
-              <div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+<div class="flex-center flex-column hide-at-work animated fadeIn">
+    
+    <div class="container">
+        <div class="jumbotron text-center margin-top-lg">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/YSVJgKsSobA" allowfullscreen></iframe>
             </div>
-            <div class="spinner-layer spinner-red">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div>
-              <div class="gap-patch">
-                <div class="circle"></div>
-              </div>
-              <div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
-            </div>
-            <div class="spinner-layer spinner-yellow">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div>
-              <div class="gap-patch">
-                <div class="circle"></div>
-              </div>
-              <div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
-            </div>
-            <div class="spinner-layer spinner-green">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div>
-              <div class="gap-patch">
-                <div class="circle"></div>
-              </div>
-              <div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-
-
-
-        <h3>welcome to</h3>
-        <h1>Cards & Tokens</h1>
-        <br><br><br><br>
-        <div class="animated fadeIn mb-4" [hidden]="vapaee.logged">
-            <button type="button" class="btn btn-primary relative waves-light" (click)="steem.askForLogin()" mdbRippleRadius>Login</button>
-        </div>
+            <div class="mb-4 margin-top-lg" [hidden]="vapaee.logged">
+                <button type="button" class="btn btn-primary relative waves-light" (click)="steem.askForLogin()" mdbRippleRadius>Login</button>
+            </div>            
+        </div>            
     </div>
 </div>
+
+

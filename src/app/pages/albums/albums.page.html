@@ -9,16 +9,10 @@
 
 
 <!-- Once the album is selected -->
+<!--
 <div class="display-flex flex-grow" [hidden]="!deploy">
     <ng-template comp-host></ng-template>
-
-    <!--div class="container-fluid" [hidden]="!deploy">
-        <div class="inventory-box">
-            <div class="row">
-                <div class="col" *ngFor="let slot of slots">
-                    <slot-comp [data]="slot"></slot-comp>
-                </div>
-            </div>
-        </div>
-    </div-->
 </div>
+-->
+
+<deploy-album-page [hidden]="!deploy"></deploy-album-page>

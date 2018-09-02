@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DeployAlbumPage implements OnInit {
     @ViewChild(ComponentHost) public main: ComponentHost;
+    loading:boolean;
+    stable:boolean;
 
     constructor(
         public vapaee: VapaeeUserService,
@@ -25,22 +27,37 @@ export class DeployAlbumPage implements OnInit {
     }
 
     ngOnInit() {
+        this.loading = true;
+        this.stable = true;
 
         var slug = this.route.snapshot.paramMap.get('slug');
-        this.cnt.fetchAlbum(slug).then(album => {
-            this.comp.createAndDeployTree(album, this.main.view);
-            /*
-            this.cnt.getUserAlbumCollection(slug).then(collection => {
-                this.containers.setContent(slug, collection.container_id, collection.slots);
-            });
-
-            this.cnt.getUserInventory("cards-and-tokens").then(inventory => {
-                this.containers.setContent("cards-and-tokens", inventory.container_id, inventory.slots);
-            });
-            */
-        }, e => {
-            console.log("this.cnt.fetchAlbum(slug) no hay data");
-        }); 
+        if (slug) {
+            this.cnt.fetchAlbum(slug).then(album => {
+                this.comp.createAndDeployTree(album, this.main.view);
+                this.preloadAlbum(album)
+            }, e => {
+                console.log("this.cnt.fetchAlbum(slug) no hay data");
+            });    
+        }
     }
+
+    preloadAlbum(album:any) {
+        return this.comp.preload(album.preload).then(() => {
+            this.loading = false;
+            window.setTimeout(() => {
+                this.stable = true;
+            }, 1000);            
+        });
+    }
+
+    getLoadingClass() {
+        var classes:any = {"deploy-card":true};
+        if (this.loading) {
+            classes.fadeOut = true;
+        } else {
+            classes.fadeIn = true;
+        }
+        return classes;
+    }    
 
 }
