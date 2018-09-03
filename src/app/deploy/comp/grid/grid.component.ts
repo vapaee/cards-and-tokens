@@ -19,9 +19,9 @@ export class GridComponent extends BaseComponent implements OnInit {
     ) {
         super(vapaee, app, cnt, cfResolver);
         this.waitLoaded.then(() => {
-            // console.log(this.data.rows);
             this.data.rows = this.prepareRows(this.data.rows);
             this.rows = this.data.rows;
+            console.log("ROWS:" , this.data.rows);
         });
     }
 
@@ -53,12 +53,43 @@ export class GridComponent extends BaseComponent implements OnInit {
                     if (col.rows) {
                         col.rows = this.prepareRows(col.rows);
                     }
+                    if (typeof col.class == "string") {
+                        var obj = {}
+                        col.class.split(" ").map(_class => {
+                            obj[_class] = true;
+                        });
+                        col.class = obj;
+                    }
+                }
+                if (typeof row.class == "string") {
+                    var obj = {}
+                    row.class.split(" ").map(_class => {
+                        obj[_class] = true;
+                    });
+                    row.class = obj;
                 }
                 
                 current_rows[i] = row;
             }
         }
         return current_rows;
+    }
+
+    public getRowClass(row:any) {
+        var classes = row.class || {};
+        classes["text-right"] = row.align == 'right';
+        classes["text-center"] = row.align == 'center';
+        classes["padding"] = row.padding;
+        return classes;
+    }
+
+
+    public getColClass(col:any) {
+        var classes = col.class || {};
+        classes["text-right"] = col.align == 'right';
+        classes["text-center"] = col.align == 'center';
+        classes["padding"] = col.padding;
+        return classes;
     }
 
     public static config(): any {

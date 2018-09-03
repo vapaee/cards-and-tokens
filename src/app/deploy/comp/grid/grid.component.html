@@ -1,14 +1,14 @@
-<div class="row" *ngFor="let row of rows" [ngStyle]="{'flex-grow': row.grow}">
+<div class="row" [ngClass]="getRowClass(row)" *ngFor="let row of rows" [ngStyle]="{'flex-grow': row.grow, 'max-height': row.maxheight}">
     <div class="col" [ngStyle]="{'flex-grow': col.grow, 'height': col.height}"
-        [ngClass]="{'text-right': col.align == 'right', 'text-center': col.align == 'center', 'padding': col.padding}"
+        [ngClass]="getColClass(col)"
         *ngFor="let col of row.cols">
-        <ng-template *ngIf="!col.rows" comp-host></ng-template>
+        <ng-template *ngIf="!col.rows && !col.empty" comp-host></ng-template>
         <pre [hidden]="true">{{col|json}}</pre>
-        <div class="row" *ngFor="let col_row of col.rows || []">
+        <div class="row" *ngFor="let col_row of col.rows || []" [ngClass]="getRowClass(col_row)" [ngStyle]="{'flex-grow': col_row.grow, 'max-height': col_row.maxheight}">
             <div class="col" [ngStyle]="{'flex-grow': col_row_col.grow}"
-                [ngClass]="{'text-right': col_row_col.align == 'right', 'text-center': col_row_col.align == 'center', 'padding': col_row_col.padding}"
+                [ngClass]="getColClass(col_row_col)"
                 *ngFor="let col_row_col of col_row.cols">
-                <ng-template comp-host></ng-template>
+                <ng-template comp-host *ngIf="!col_row_col.empty"></ng-template>
             </div>
         </div>
     </div>

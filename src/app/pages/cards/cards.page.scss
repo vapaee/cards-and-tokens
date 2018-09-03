@@ -1,0 +1,34 @@
+.card {
+    height: 100px;
+    width: 71.06px;
+}
+
+
+@media (min-width: 576px) {
+    img.card {
+        height: 118.2px;
+        width: 84px;
+    }
+}
+
+@media (min-width: 768px) {
+    img.card {
+        height: 147.75px;
+        width: 105px;
+    }    
+}
+
+@media (min-width: 992px) {
+    img.card {
+        height: 157.6px;
+        width: 112px;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    img.card {
+        height: 197px;
+        width: 140px;
+    }
+}

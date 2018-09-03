@@ -1,11 +1,53 @@
 :host {
     display: block;
     height: 100%;
+}
 
+page-container {
+    height: calc(100% - 56px);
+    display: block;
+    overflow: auto;
+    position: relative;
+}
+
+.cnt-logo {
+    height: 23px;
+}
+
+
+@media (min-width: 576px) {
     page-container {
-        display: block;
+        height: calc(100% - 56px);
+    }      
+    img.cnt-logo {
+        height: 23px;
+    }
+}
+
+@media (min-width: 768px) {
+    page-container {
+        height: calc(100% - 58px);
+    }  
+    img.cnt-logo {
+        height: 30px;
+    }    
+}
+
+@media (min-width: 992px) {
+    page-container {
+        height: calc(100% - 63px);
+    }    
+    img.cnt-logo {
+        height: 37px;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    page-container {
         height: calc(100% - 71px);
-        overflow: auto;
-        position: relative;
+    }
+    img.cnt-logo {
+        height: 45px;
     }
 }

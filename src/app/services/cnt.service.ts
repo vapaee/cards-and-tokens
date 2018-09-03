@@ -672,12 +672,19 @@ export class CntService {
             _deploy.frame = {
                 src: safeUrl
             };
+            var margin = "5px";
+            if (this.device.width > 576) margin = "20px";
+            if (this.device.width > 768) margin = "30px";
+            if (this.device.width > 992) margin = "30px";
+            if (this.device.width > 1200) margin = "30px";
+
+
             _deploy.frame.style = {
                 "z-index": "10",
-                "top": "30px",
-                "left": "30px",
-                "bottom": "30px",
-                "right": "30px",
+                "top": margin,
+                "left": margin,
+                "bottom": margin,
+                "right": margin,
                 "width": "auto",
                 "position": "absolute",
                 "opacity":0,

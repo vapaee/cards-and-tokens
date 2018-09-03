@@ -60,10 +60,22 @@ export class VideoComponent extends BaseComponent implements OnInit {
         var ratio = 16/9;
         var maxHeight = this.elRef.nativeElement.offsetHeight - 2 * this.getPadding();
         var maxWidth = maxHeight * ratio;
+        if (this.app.device.width <= 380) {
+            var old = maxWidth;
+            maxWidth = this.app.device.width - 2 * this.getPadding();
+            var marginLeft = (2*this.app.device.width-(375+maxWidth)) + "px";
+            // console.log("AAAAAAAAAAAA", this.app.device.width-41, maxWidth-375, 2*this.app.device.width-(375+maxWidth), maxWidth+41);
+            this.renderer.setStyle(target, 'margin-left', marginLeft);
+        }
+        
         this.renderer.setStyle(target, 'max-width', maxWidth + "px");
     }
 
     getPadding() {
+        if (this.app.device.width < 576) return 5;
+        if (this.app.device.width < 768) return 20;
+        if (this.app.device.width < 992) return 40;
+        if (this.app.device.width < 1200) return 50;
         return 50;
     }
 

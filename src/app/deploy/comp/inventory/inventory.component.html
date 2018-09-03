@@ -1,6 +1,6 @@
 <div class="inventory-container" (window:resize)="onResize($event)" [ngClass]="{'vertical':data.vertical, 'horizontal':!data.vertical}">
     <div class="inventory-prev flex-center flex-column" [hidden]="max==0">
-        <a class="btn-floating btn-sm btn-outline-default btn-rounded waves-effect purple-gradient" (click)="prev()">
+        <a class="btn-floating btn-sm btn-outline-default btn-rounded waves-effect green-gradient" (click)="prev()">
             <i [hidden]="data.vertical" class="fa fa-angle-left" aria-hidden="true"></i>
             <i [hidden]="!data.vertical" class="fa fa-angle-down" aria-hidden="true"></i>
         </a>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="inventory-next flex-center flex-column"  [hidden]="max==0">
-        <a class="btn-floating btn-sm btn-outline-default btn-rounded waves-effect purple-gradient" (click)="next()">
+        <a class="btn-floating btn-sm btn-outline-default btn-rounded waves-effect green-gradient" (click)="next()">
             <i [hidden]="data.vertical" class="fa fa-angle-right" aria-hidden="true"></i>
             <i [hidden]="!data.vertical" class="fa fa-angle-up" aria-hidden="true"></i>
         </a>

@@ -1,52 +1,79 @@
 {
     "comp": "root",
+    "data": {
+        "preload": [
+            "/assets/albums/openmic/cover-fullsize.png",
+            "/assets/backgrounds/banjo-player-fashion-man-387.jpg",
+            "/assets/backgrounds/acoustic-antique-art-290660.jpg",
+            "/assets/backgrounds/audio-black-black-and-white-159472.jpg",
+            "/assets/backgrounds/artist-barrel-cord-591674.jpg",
+            "/assets/backgrounds/adult-beautiful-fall-745238.jpg"
+        ]
+    },
     "children": [
         {
-            "comp": "grid",
+            "comp": "row-three",
             "data": {
-                "rows": [
-                    [
-                        {
-                            "height": "10vh"
-                        }
-                    ],
-                    {
-                        "grow": 0,
-                        "cols": [
-                            1
-                        ]
-                    },
-                    [
-                        {
-                            "grow": 1
-                        }
-                    ],
-                    [
-                        {
-                            "height": "3vh"
-                        }
-                    ]
-                ]
+                "header": {
+                    "min-height": "10vh"
+                },
+                "footer": {
+                    "min-height": "6vh"
+                }
             },
             "children": [
                 {
                     "comp": "background",
                     "data": {
-                        "color": "white",
+                        "container": true,
                         "image": {
-                            "url": "/assets/cards/openmic/images/steemit.svg",
-                            "position": "left",
-                            "repeat": "no-repeat",
-                            "size": "contain"
-                        }
+                            "url": "/assets/albums/openmic/marmol.png",
+                            "repeat": "repeat"
+                        },
+                        "gradient": {
+                            "dir": "top",
+                            "points": [
+                                {
+                                    "color": "black",
+                                    "percent": 0
+                                },
+                                {
+                                    "color": "rgba(0,0,0,0)",
+                                    "percent": 50
+                                }
+                            ]
+                        },
+                        "fgcolor": "white"
                     }
                 },
                 {
                     "comp": "background",
                     "data": {
-                        "color": "grey",
-                        "padding-sm": true,
-                        "container": true
+                        "image": {
+                            "url": "/assets/albums/openmic/billartable.png",
+                            "repeat": "repeat"
+                        },
+                        "gradient": {
+                            "dir": "top",
+                            "points": [
+                                {
+                                    "color": "rgba(255,255,255,0.1)",
+                                    "percent": 0
+                                },
+                                {
+                                    "color": "rgba(255,255,255,0.3)",
+                                    "percent": 30
+                                },
+                                {
+                                    "color": "rgba(255,255,255,0.3)",
+                                    "percent": 70
+                                },
+                                {
+                                    "color": "rgba(255,255,255,0.1)",
+                                    "percent": 100
+                                }
+                            ]
+                        }
                     },
                     "children": [
                         {
@@ -55,20 +82,252 @@
                                 "rows": [
                                     [
                                         {
+                                            "grow": 0,
+                                            "padding": true,
+                                            "class": "d-none d-sm-flex"
+                                        },
+                                        {
                                             "grow": 1
                                         },
                                         {
-                                            "grow": 0
+                                            "grow": 0,
+                                            "padding": true,
+                                            "class": "d-none d-sm-flex"
                                         }
                                     ]
                                 ]
                             },
                             "children": [
                                 {
-                                    "comp": "label",
+                                    "comp": "menu",
                                     "data": {
-                                        "class": "text-xl-left white-text",
-                                        "text": "Unseen (The Good Fight)"
+                                        "menu": [
+                                            {
+                                                "class": "btn btn-floating btn-success",
+                                                "icon": "fa fa-angle-left",
+                                                "section": "openmic-100-weeks",
+                                                "move": -1
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "comp": "album",
+                                    "data": {
+                                        "name": "openmic-100-weeks",
+                                        "title": "Steemit OpenMic 100 weaks commemoration album",
+                                        "pages": [
+                                            {
+                                                "title": "Coverpage",
+                                                "background": {
+                                                    "fadein": true,
+                                                    "image": {
+                                                        "url": "/assets/albums/openmic/cover-fullsize.png",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/banjo-player-fashion-man-387.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "30%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "10%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "30%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "10%"
+                                                        },
+                                                        "dark": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/acoustic-antique-art-290660.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "left": "10%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "left": "30%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "left": "10%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "left": "30%"
+                                                        },
+                                                        "dark": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/audio-black-black-and-white-159472.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "27%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "7%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "27%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "7%"
+                                                        },
+                                                        "dark": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/artist-barrel-cord-591674.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "12%",
+                                                            "left": "10%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "12%",
+                                                            "right": "10%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "12%",
+                                                            "left": "20%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "12%",
+                                                            "left": "43%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "12%",
+                                                            "right": "20%"
+                                                        },
+                                                        "dark": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/adult-beautiful-fall-745238.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "14%",
+                                                            "left": "4%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "14%",
+                                                            "left": "23%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "14%",
+                                                            "left": "42%"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
                                     }
                                 },
                                 {
@@ -76,21 +335,10 @@
                                     "data": {
                                         "menu": [
                                             {
-                                                "text": "Video",
-                                                "class": "btn btn-sm btn-outline-white",
-                                                "section": "main",
-                                                "value": "Video"
-                                            },
-                                            {
-                                                "text": "Lyrics",
-                                                "class": "btn btn-sm btn-outline-white",
-                                                "section": "main",
-                                                "value": "Lyrics"
-                                            },
-                                            {
-                                                "text": "Steemit post",
-                                                "class": "btn btn-sm btn-outline-white",
-                                                "link": "https://steemit.com/@viterbo"
+                                                "class": "btn btn-floating btn-success",
+                                                "icon": "fa fa-angle-right",
+                                                "section": "openmic-100-weeks",
+                                                "move": 1
                                             }
                                         ]
                                     }
@@ -102,97 +350,32 @@
                 {
                     "comp": "background",
                     "data": {
-                        "color": "rgba(72, 72, 72, 0.0)",
+                        "image": {
+                            "url": "/assets/albums/openmic/marmol.png",
+                            "repeat": "repeat"
+                        },
                         "gradient": {
                             "dir": "top",
                             "points": [
                                 {
-                                    "color": "rgba(0,0,0,0.6)",
-                                    "percent": 0
+                                    "color": "rgba(0,0,0,0)",
+                                    "percent": 50
                                 },
                                 {
-                                    "color": "rgba(0,0,0,0.0)",
-                                    "percent": 30
-                                },
-                                {
-                                    "color": "rgba(0,0,0,0.0)",
-                                    "percent": 70
-                                },
-                                {
-                                    "color": "rgba(0,0,0,0.6)",
+                                    "color": "black",
                                     "percent": 100
                                 }
                             ]
-                        },
-                        "image": {
-                            "url": "/assets/backgrounds/maxresdefault.jpg",
-                            "repeat": "no-repeat",
-                            "size": "cover",
-                            "blend-mode": "multiply"
                         }
                     },
                     "children": [
                         {
-                            "comp": "section",
+                            "comp": "inventory",
                             "data": {
-                                "name": "main",
-                                "current": "Video",
-                                "sections": [
-                                    "Video",
-                                    "Lyrics"
-                                ]
-                            },
-                            "children": [
-                                {
-                                    "comp": "video",
-                                    "data": {
-                                        "youtube": {
-                                            "videoId": "8vQb2JRloQ8",
-                                            "autoplay": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "comp": "background",
-                                    "data": {
-                                        "container": true,
-                                        "padding": true
-                                    },
-                                    "children": [
-                                        {
-                                            "comp": "background",
-                                            "data": {
-                                                "color": "rgba(0,0,0,0.3)",
-                                                "fgcolor": "white",
-                                                "padding": true,
-                                                "expand": true
-                                            },
-                                            "children": [
-                                                {
-                                                    "comp": "scrolleable",
-                                                    "children": [
-                                                        {
-                                                            "comp": "markdown",
-                                                            "data": {
-                                                                "markdown_": "# Lyrics\n\nAs a young boy I had my share\n\nof pain and loss but always fair\n\n",
-                                                                "markdown": "# Lyrics  \nAs a young boy I had my share  \nof pain and loss but always fair  \ntimes I tried to wonder why  \nwas me the others did I try  \n\n  \nThe garden path I used to walk  \nback from school, without, without a thought  \ntimes were good but they had their faults  \nbut my daddy he did try to resolve  \nbut my daddy he did try to resolve  \n\n  \nTravelling back of thoughts when young  \nthe journey's new the lesson's begun  \nkeeping them safely locked away  \nthey stay with us tomorrow, today  \nand help and help and help  \n\n  \nYears roll by and memories fade  \nbut the important ones have always stayed  \nbad times made us who we are  \nhowever near or far  \nbut the times were good and had their faults  \n\n  \nTravelling back of thoughts when young  \nour journey's new the lesson's begun  \nkeeping them safely locked away  \nthey stay with us tomorrow, today.  \n\n"
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
+                                "horizontal": true
+                            }
                         }
                     ]
-                },
-                {
-                    "comp": "background",
-                    "data": {
-                        "color": "#FFF"
-                    }
                 }
             ]
         }
