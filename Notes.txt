@@ -6,68 +6,8 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
--- AHORA --
-+ php: bajar la cantidad de trace al minimo
-+ fadein al aparecer la carta
-- buscar en los comentarios a quien le mandé tokens y agregar eso a la base de datos en pending para cada usuario
-  -- 
-  - 0xad787485655550dA5c493Bc712B85A4548a8DEf9 - samstickkz
-  - 0xDD3de350EF20D33210ef563e27521614abba4294 - silent-ghost 
-  - 0xDAC5876916e9EE712c6D53246b0DCEDB39bfb1C9 - logan1617 
-  - 0x5a900fFf9D3833C1505cab8241E6FB2a4F1dc70F - mycryptostalker
-  - 0x69347cf6a9a596e48667e27b01299ec898ea7cdd - viperblckz
-  - 0xd397A799a623C180Bc91989AE774A0854c797663 - healaa
-  - 0x74BcF6c182B9b2a01d30CC0A405949ab57c774F7 - sa4van
-  - 0x973d80Bf65D06118ed8e9787c7821b69bf7FAc51 - perchits
-  - 0xdAc2e81999D835eEad986171554d2CBE8711C935 - voluntary-io
-  - 0xffE99D62590bcB63C561d682325BfA06BCc39fe2 - yobana
-  - 0x17B50871b0d826Cd981d01FaF521Fa9D43812fBD - ferfla
-  - 0x8141c48249B9879dd565BdA9A3E7E02b69ceB34D - natxlaw
-  - 0xBB314fA9bD4046256b4754A870dB50F5Fb8Aa484 - myjournal
-  - 0x078603ae44A80e4E6177942D77f17A2b276949e7 - emojiet
-  - 0x224DCf86D7A1818Cc3CB8CF7ADd09dDF3f9ae3C4 - shuvomahfuz
-  - 0x3A0d032939ff3A7745f2FA2361FC7F5000935616 - cryptogecko
-  - 0xEF308E49659ea1A0DCCB384c39c01ecF53979DE8 - yesmin
-  - 0x4543f502cb0962282E41bd65F2667f7a0Ca3BE44 - bitcoinquest
-  - 0xa30b5e3c8Fee56C135Aecb733cd708cC31A5657a - gcalvete
-  - 0xf14F05b4568D94c6c31BE44D53F251759801dab1 - devcore
-  - 0x79e2Dbf7aBE8385767B798A7bfACEf4CA2E93299 - yepidan
-  - 0x8FfEEaA9457f313eDa0B9C53175432cA8dbB2a0b - radus
-  - 0xe33661d331C750ff850D1Ca21b27F903a52B88A3 - jpederson96  https://steemit.com/introduceyourself/@viterbo/introducing-cards-and-tokens#@viterbo/re-jpederson96-re-viterbo-introducing-cards-and-tokens-20180618t185001727z
-  - 0x5eb94dd216682cc773f7ae52518728f9d85451bc - yennsth      https://steemit.com/introduceyourself/@viterbo/introducing-cards-and-tokens#@yennsth/re-viterbo-introducing-cards-and-tokens-20180830t045201626z
-  -- 
-  - 0x52746720d8c1701754dfe4dd3e1fD8d326099301 - beesteem
-  - 0xE3347F8E662583d6EEeE6C3117a7ddDacE070984 - dalexx
-  - 0xF09F00bBC3ed01ff85356716Db846d4274f50c58 - louiscpt     https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@viterbo/re-louiscpt-re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180530t180343456z
-  - 0xa3bB5420C91C5A0dd6FE18B7DEf0f7a9e290AB24 - drycounty    https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@drycounty/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180617t025003035z
-  - 0xb79798DAFf2F2E1eD9B2d5181f519485D5eF89dc - unknown78    https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@unknown78/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180617t062924763z
-  - 0x684b73f413264C1389D30111145936531e43597E - scandinavianlife
-  - 0xda1343d66d39e89322b7b5af6635cc2e9b2d5065 - pairmike
-  - 0xfaacc0bb2cdca1ba63f9253e0d1b14b9eea77662 - wakeupworldnews
-  - 0xAb209A212db3BA9630026e5f82F83BD7fd6c2D55 - kingyus
-  - 0xe49441a10338DeE6CBEfA471fDFa1EB3499475A5 - deismac
-  - 0x1164Ef6eAc4fBacB1BC748D6954e4a72d1c95d73 - scooter77
-  - 0xF8CCCb38863Ba4861669Cf54c9535DA474d14847 - excy4yaweh
-  - 0x785aC98c0a95d996Cb1F3e3F42EF93EEFdfbED4e - amberlamps
-  - 0x355b8390f43f4e75b06f5dee54b7ec9f96069150 - satoshibit
-  - 0x74BcF6c182B9b2a01d30CC0A405949ab57c774F7 - sa4van
-  - 0x71E90a070e20999Ed492C8299050B6508424A3b4 - stone89son
-  - 0x60389e3DBdcc9EaE591C028B3342A625Db7b9Ba0 - napkin
-  - 0x0f62038497c7074e0A4c7092c2CfBBAB28aa7fa5 - technewbie https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@technewbie/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180530t215841804z
-  - 0x413c8dE1eaD694520423B0603411fc5d4D7237D8 - joooc
-  - 0x60750b7c635C0c42967BF88c8c87F0Ce93c9D50b - leejy
-  - 0xaeEe3335BeE1EcB9060D73d65BAb9575792f0b95 - draceos
-  - 0x43624b74eF6BE60e5932B2925E53BDBDc0775F73 - cryptohorizons
-  - 0x5433DcD85904a83883AE7d698Ea4E05E782D7DdF - andrew88
-  - 0x8F71012Aa45D7016d9185224A8fA6ca260524602 - wellnessguy
-  - 0x4906E4f95ad546cE865916F65C825e00630bFfa8 - lover33
-  - ------------------------------------------ - becky.rac https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@becky.rac/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180708t124446742z
-  - 0x2A90853d49C05Bd79a582234269F59AD64b927DA - phi2818
-
-
-
-
-
+- que la gente se pueda loguear con Vapaee
+- 
 -- ANTES DE PUBLICAR
 - poner una foto linda de en construción en las que no tengan nada aun
 - poner el botón de likes de facebook a la vista en el home
@@ -131,3 +71,65 @@ https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3Nf
 
 /assets/backgrounds/maxresdefault.jpg
 
+
+
+
+
+
+
+
+----- CNT TOKENS DISTRIBUTION -----
+
+  -- 
+  - 0xad787485655550dA5c493Bc712B85A4548a8DEf9 - samstickkz
+  - 0xDD3de350EF20D33210ef563e27521614abba4294 - silent-ghost 
+  - 0xDAC5876916e9EE712c6D53246b0DCEDB39bfb1C9 - logan1617 
+  - 0x5a900fFf9D3833C1505cab8241E6FB2a4F1dc70F - mycryptostalker
+  - 0x69347cf6a9a596e48667e27b01299ec898ea7cdd - viperblckz
+  - 0xd397A799a623C180Bc91989AE774A0854c797663 - healaa
+  - 0x74BcF6c182B9b2a01d30CC0A405949ab57c774F7 - sa4van
+  - 0x973d80Bf65D06118ed8e9787c7821b69bf7FAc51 - perchits
+  - 0xdAc2e81999D835eEad986171554d2CBE8711C935 - voluntary-io
+  - 0xffE99D62590bcB63C561d682325BfA06BCc39fe2 - yobana
+  - 0x17B50871b0d826Cd981d01FaF521Fa9D43812fBD - ferfla
+  - 0x8141c48249B9879dd565BdA9A3E7E02b69ceB34D - natxlaw
+  - 0xBB314fA9bD4046256b4754A870dB50F5Fb8Aa484 - myjournal
+  - 0x078603ae44A80e4E6177942D77f17A2b276949e7 - emojiet
+  - 0x224DCf86D7A1818Cc3CB8CF7ADd09dDF3f9ae3C4 - shuvomahfuz
+  - 0x3A0d032939ff3A7745f2FA2361FC7F5000935616 - cryptogecko
+  - 0xEF308E49659ea1A0DCCB384c39c01ecF53979DE8 - yesmin
+  - 0x4543f502cb0962282E41bd65F2667f7a0Ca3BE44 - bitcoinquest
+  - 0xa30b5e3c8Fee56C135Aecb733cd708cC31A5657a - gcalvete
+  - 0xf14F05b4568D94c6c31BE44D53F251759801dab1 - devcore
+  - 0x79e2Dbf7aBE8385767B798A7bfACEf4CA2E93299 - yepidan
+  - 0x8FfEEaA9457f313eDa0B9C53175432cA8dbB2a0b - radus
+  - 0xe33661d331C750ff850D1Ca21b27F903a52B88A3 - jpederson96  https://steemit.com/introduceyourself/@viterbo/introducing-cards-and-tokens#@viterbo/re-jpederson96-re-viterbo-introducing-cards-and-tokens-20180618t185001727z
+  - 0x5eb94dd216682cc773f7ae52518728f9d85451bc - yennsth      https://steemit.com/introduceyourself/@viterbo/introducing-cards-and-tokens#@yennsth/re-viterbo-introducing-cards-and-tokens-20180830t045201626z
+  -- 
+  - 0x52746720d8c1701754dfe4dd3e1fD8d326099301 - beesteem
+  - 0xE3347F8E662583d6EEeE6C3117a7ddDacE070984 - dalexx
+  - 0xF09F00bBC3ed01ff85356716Db846d4274f50c58 - louiscpt     https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@viterbo/re-louiscpt-re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180530t180343456z
+  - 0xa3bB5420C91C5A0dd6FE18B7DEf0f7a9e290AB24 - drycounty    https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@drycounty/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180617t025003035z
+  - 0xb79798DAFf2F2E1eD9B2d5181f519485D5eF89dc - unknown78    https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@unknown78/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180617t062924763z
+  - 0x684b73f413264C1389D30111145936531e43597E - scandinavianlife
+  - 0xda1343d66d39e89322b7b5af6635cc2e9b2d5065 - pairmike
+  - 0xfaacc0bb2cdca1ba63f9253e0d1b14b9eea77662 - wakeupworldnews
+  - 0xAb209A212db3BA9630026e5f82F83BD7fd6c2D55 - kingyus
+  - 0xe49441a10338DeE6CBEfA471fDFa1EB3499475A5 - deismac
+  - 0x1164Ef6eAc4fBacB1BC748D6954e4a72d1c95d73 - scooter77
+  - 0xF8CCCb38863Ba4861669Cf54c9535DA474d14847 - excy4yaweh
+  - 0x785aC98c0a95d996Cb1F3e3F42EF93EEFdfbED4e - amberlamps
+  - 0x355b8390f43f4e75b06f5dee54b7ec9f96069150 - satoshibit
+  - 0x74BcF6c182B9b2a01d30CC0A405949ab57c774F7 - sa4van
+  - 0x71E90a070e20999Ed492C8299050B6508424A3b4 - stone89son
+  - 0x60389e3DBdcc9EaE591C028B3342A625Db7b9Ba0 - napkin
+  - 0x0f62038497c7074e0A4c7092c2CfBBAB28aa7fa5 - technewbie https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@technewbie/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180530t215841804z
+  - 0x413c8dE1eaD694520423B0603411fc5d4D7237D8 - joooc
+  - 0x60750b7c635C0c42967BF88c8c87F0Ce93c9D50b - leejy
+  - 0xaeEe3335BeE1EcB9060D73d65BAb9575792f0b95 - draceos
+  - 0x43624b74eF6BE60e5932B2925E53BDBDc0775F73 - cryptohorizons
+  - 0x5433DcD85904a83883AE7d698Ea4E05E782D7DdF - andrew88
+  - 0x8F71012Aa45D7016d9185224A8fA6ca260524602 - wellnessguy
+  - 0x4906E4f95ad546cE865916F65C825e00630bFfa8 - lover33
+  - ------------------------------------------ - becky.rac https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@becky.rac/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180708t124446742z
+  - 0x2A90853d49C05Bd79a582234269F59AD64b927DA - phi2818
