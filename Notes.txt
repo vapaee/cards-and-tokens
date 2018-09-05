@@ -6,7 +6,6 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 -- TODO --
-- Cambiar los botones de  los costados del album. Verde contra verde no encara
 - dar formato al Título, página, ranking y demás...
 
 

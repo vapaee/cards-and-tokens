@@ -670,7 +670,7 @@ export class CntService {
             var src = window.location.origin + "/embedded/card/" + card.slug;
             var safeUrl:SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(src);            
             _deploy.frame = {
-                src: safeUrl
+                src: null
             };
             var margin = "5px";
             if (this.device.width > 576) margin = "20px";
@@ -681,7 +681,7 @@ export class CntService {
 
             _deploy.frame.style = {
                 "z-index": "10",
-                "top": margin,
+                "top": "30px",
                 "left": margin,
                 "bottom": margin,
                 "right": margin,
@@ -846,7 +846,7 @@ export class CntService {
                     data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
             </div>
             <div class="contenedor embed-responsive" [ngStyle]="cnt.deploy.frame.style">
-                <iframe [src]="cnt.deploy.frame.src" class="embed-responsive-item"></iframe>
+                <iframe *ngIf="cnt.deploy.frame.src" [src]="cnt.deploy.frame.src" class="embed-responsive-item"></iframe>
             </div>
         </div>
         <div class="close-cross cursor-pointer" (click)="close()" [ngStyle]="cnt.deploy.closebtn.style">
@@ -855,9 +855,9 @@ export class CntService {
         <card-front [ngStyle]="cnt.deploy.front.style">
             
         </card-front>
-        <div style="position: absolute; top:-3000px;left:-3000px; pointer-events:none; opacity: 0">
+        <!--div style="position: absolute; top:-3000px;left:-3000px; pointer-events:none; opacity: 0">
             <img *ngFor="let src of cnt.deploy.preload" [src]="src">
-        </div>
+        </div-->
     </div>`
 })
 export class CardDeploy {

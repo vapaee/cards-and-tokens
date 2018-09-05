@@ -680,19 +680,24 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         $query = $this->connection->query($sql);
          
         $result = array ( $table => array()  );
-        while($row = $query->fetch_assoc()) {
-            $obj = array();
-            foreach ($attribs as $name => $spec) {
-                if ($this->isNotASpec($name)) continue;
-                $obj = $this->prepare_for_json($obj, $name, $row, $spec, $op);
-            }
-            if (isset($op["mapping"])) {
-                $attr = $op["mapping"];
-                $key = "$attr-" . $obj[$attr];
-                $result[$table][$key] = $obj;
-            } else {
-                array_push($result[$table], $obj);
-            }
+        if ($query) {
+            while($row = $query->fetch_assoc()) {
+                $obj = array();
+                foreach ($attribs as $name => $spec) {
+                    if ($this->isNotASpec($name)) continue;
+                    $obj = $this->prepare_for_json($obj, $name, $row, $spec, $op);
+                }
+                if (isset($op["mapping"])) {
+                    $attr = $op["mapping"];
+                    $key = "$attr-" . $obj[$attr];
+                    $result[$table][$key] = $obj;
+                } else {
+                    array_push($result[$table], $obj);
+                }
+            }    
+        } else {
+            trace("ERROR: $sql");
+            return array("error" => "internal error");
         }
          
         if (array_key_exists("json", $op) && $op["json"]) {
