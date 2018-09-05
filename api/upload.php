@@ -52,9 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 function encodeFilename ($filename) {
-    trace("encodeFilename() <-", $filename);
+    // trace("encodeFilename() <-", $filename);
     $filename = str_replace(" ", "-",$filename);
-    trace("encodeFilename() ->", $filename);
+    // trace("encodeFilename() ->", $filename);
     return $filename;
 }
 

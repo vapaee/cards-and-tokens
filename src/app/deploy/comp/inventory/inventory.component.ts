@@ -117,9 +117,14 @@ export class InventoryComponent extends BaseComponent implements OnInit {
                     "container":"cards-and-tokens",
                     "index":i,
                     "style": {
+                        "width":"115px",
+                        "max-width": "23vh"
+                    }
+                    
+                    /*{
                         "width":"13vw",
                         "max-width": "115px"
-                    }
+                    }*/
                 });
             }
         }    

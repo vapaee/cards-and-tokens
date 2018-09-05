@@ -6,8 +6,15 @@
         display: flex;
         flex-grow: 1;
         align-items: center;
-        a span {
-            white-space: nowrap;
+        a {
+            color: currentColor;
+            span {
+                white-space: nowrap;
+                color: currentColor;
+                i {
+                    color: currentColor;
+                }
+            }
         }
     }
 }

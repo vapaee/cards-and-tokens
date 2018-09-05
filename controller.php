@@ -24,7 +24,7 @@ function getUserFromCredentials($credentials, $app) {
 
 function getUserdata($credentials, $app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace.getUserdata()", $credentials);
+    // trace("$namespace.getUserdata()", $credentials);
     
     $op = array("unbox"=>true, "mapping"=>"id", "no-detail" => true, "secure" => true);
     $user = getUserFromCredentials($credentials, $app);
@@ -364,7 +364,7 @@ $app->get('/dailyprize/claim', function() use ($app) {
 
 $app->get('/dailyprize/countdown', function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace GET 'dailyprize.countdown' --------------");
+    // trace("$namespace GET 'dailyprize.countdown' --------------");
     
     $op = array("unbox"=>true);
     $user = getUserFromSteemAccessToken($app, $op);
@@ -381,7 +381,7 @@ $app->post('/swap/slots', function() use ($app) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $content = $app["request"]->getContent();
         $content = json_decode($content);
-        trace("$namespace GET 'swap.slots' from ($content->from,$content->fromi) to ($content->to,$content->toi) ---------------------");
+        // trace("$namespace GET 'swap.slots' from ($content->from,$content->fromi) to ($content->to,$content->toi) ---------------------");
 
         $credentials = verifySteemAccessToken($app);
         if (!isset($credentials)) {
@@ -397,8 +397,8 @@ $app->post('/swap/slots', function() use ($app) {
         $slot_to   = $app["db"]->http_get("slot", $select_to, $op);
         $slot_from = $app["db"]->http_get("slot", $select_from, $op);
 
-        trace('$slot_from', $slot_from, isset($slot_from));
-        trace('$slot_to', $slot_to, isset($slot_to));
+        // trace('$slot_from', $slot_from, isset($slot_from));
+        // trace('$slot_to', $slot_to, isset($slot_to));
 
         if (
             ($slot_to && $slot_to[0]["owner"]["id"] != $credentials["user"]["id"]) ||
@@ -477,15 +477,15 @@ function verifySteemAccessToken($app) {
     $credentials = null;
     $op = array("unbox"=>true, "secure" => true);
     $oauth_steem = $app["db"]->http_get("oauth_steem", array("access_token" => $access_token), $op);
-    trace("$namespace.verifySteemAccessToken()", $access_token, $oauth_steem);
+// trace("$namespace.verifySteemAccessToken()", $access_token, $oauth_steem);
     if ($oauth_steem) {
         if(is_array($oauth_steem)) {
             $oauth_steem = $oauth_steem[0];
         }
-        trace("$namespace.verifySteemAccessToken()   ENCONTRE!  ", $oauth_steem);
+        // trace("$namespace.verifySteemAccessToken()   ENCONTRE!  ", $oauth_steem);
         $user = $app["db"]->http_get_id("user", $oauth_steem["user"]["id"], $op);
     } else {
-        trace("$namespace.verifySteemAccessToken()   NO ENCONTRE!  CHEKAMOS EL TOKEN EN STEEM... ");
+        // trace("$namespace.verifySteemAccessToken()   NO ENCONTRE!  CHEKAMOS EL TOKEN EN STEEM... ");
 
         $opts = array(
             "ssl" => array(
@@ -542,8 +542,8 @@ function verifySteemAccessToken($app) {
             $user = $app["db"]->http_get_id("user", $user["id"], $op);
             $app["db"]->http_delete_id("oauth_steem", $old_oauth_steem["id"]);
         } else {
-            trace("NUEVO USUSARIO !!!!!!", $name);
             $user = $app["db"]->http_post("user", array("name" => $name), array("unbox" => true, "secure" => true));
+            trace("NUEVO USUSARIO !!!!!!", $user["id"], $account, $name);
         }
 
         $app["db"]->http_post("oauth_steem", array(
@@ -552,7 +552,7 @@ function verifySteemAccessToken($app) {
             "account" => $account
         ), $op);
     }
-    trace("$namespace.verifySteemAccessToken() return ", array("user" => $user));
+    // trace("$namespace.verifySteemAccessToken() return ", array("user" => $user));
     return array(
         "user" => $user
     );
@@ -782,7 +782,7 @@ function updateCollectionPosition($collection, $delta_points, $app) {
 
 $app->get('/steem/user', function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace GET '/steem/user' ---------------------");
+    // trace("$namespace GET 'steem.user' ---------------------");
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {

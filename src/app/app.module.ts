@@ -68,6 +68,7 @@ const routes: Routes = [
     { path: 'loading',              data: { state: "loading" }, component: LoadingPage },
     { path: 'steemconnect',         data: { state: "steemconnect" }, component: SteemConnectPage },
     { path: 'facebookconnect',      data: { state: "facebookconnect" }, component: FacebookConnectPage },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '',                     data: { state: "root" }, component: RootPage,
       children: [
         { path: 'home',                 data: { state: "home" }, component: HomePage },
@@ -84,7 +85,6 @@ const routes: Routes = [
         { path: 'deploy/album/:slug',   data: { state: "deploy-album",  logged: false }, component: AlbumsPage },
       ]
     },
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**',                   data: { state: "404" }, component: NotFoundPage }
 ];
 

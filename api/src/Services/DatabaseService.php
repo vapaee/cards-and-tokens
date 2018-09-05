@@ -133,7 +133,7 @@ class DatabaseService {
                                 $current_value = $this->API_get_id($type, $ref_id, array("secure" => true));
                             } else {
 
-trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
+// trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
 
                                 $current_value = $this->getByPk($type, $ref_id, $_op);
                             }
@@ -208,7 +208,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
     // -------------------
     public function http_post($table, $object, $op = array()) {
         global $config; $namespace = $config['namespace'];
-        trace("$namespace.http_post($table, object)", $object);
+        // trace("$namespace.http_post($table, object)", $object);
         $this->aux_connect(); // requisito del format_json
         $op["skip_db"] = true;
 
@@ -227,11 +227,11 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
             $object["_sub_table"] = $table;
             
             $sup_result = $this->http_post($supperclass, $object, $op);
-            trace($table, '$sup_result ----> ', $sup_result);
+            // trace($table, '$sup_result ----> ', $sup_result);
             // persistimos el estado del padre como el json _super
             if (isset($sup_result[$supperclass])) {
-                trace("ERROR: !!!! PORQUE SE DA ESTE CASO??? QUIERO SACAR ESTE IF A LA MIERDA !!! ($supperclass)");
-                trace('$sup_result', $sup_result);
+                // trace("ERROR: !!!! PORQUE SE DA ESTE CASO??? QUIERO SACAR ESTE IF A LA MIERDA !!! ($supperclass)");
+                // trace('$sup_result', $sup_result);
             } else {
                 $result["_super"] = $sup_result;
             }
@@ -241,9 +241,9 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         }
 
         $result = $this->create($table, $result, array("useid" => true));
-        trace($table, '$result after create', $result);
+        // trace($table, '$result after create', $result);
         $result = $this->trigger("post:$table", $result, $op, $table);           
-        trace($table, '$result after trigger', $result);
+        // trace($table, '$result after trigger', $result);
 
 
         if (isset($op["unbox"])) {
@@ -259,7 +259,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         if (is_string($select)) {
             $select = json_decode($select, true);
         }        
-        trace("$namespace.http_get($table)", $select, $op); // $table = "token", $select == {"owner":"1"}
+        // trace("$namespace.http_get($table)", $select, $op); // $table = "token", $select == {"owner":"1"}
                 
         $sql = $this->conditions($table, $select, "", array("alert" => true));
         
@@ -325,7 +325,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
                 if (isset($result["$table"])) {
                     return $result["$table"];
                 } else {
-                    trace('$result', $result);
+                    // trace('$result', $result);
                     return $result;
                 }
             } else {
@@ -338,7 +338,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
     
     public function http_get_id($table, $id) {
         global $config; $namespace = $config['namespace'];
-        trace("$namespace.http_get_id($table, $id)");
+        // trace("$namespace.http_get_id($table, $id)");
         $op = array("secure" => true);
         
         $subclases = $this->getSubClases($table);
@@ -389,7 +389,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
     
     public function http_put($table, $id, $changes, $op = array()) {
         global $config; $namespace = $config['namespace'];
-        trace("$namespace.http_put($table, $id)", $changes);
+        // trace("$namespace.http_put($table, $id)", $changes);
         
         $local_cache = array();
 
@@ -449,7 +449,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
         
     public function http_delete_id($table, $id, $op = array()) {
         global $config; $namespace = $config['namespace'];
-        trace("$namespace.http_delete_id($table, $id)");
+        // trace("$namespace.http_delete_id($table, $id)");
         $attribs = $this->get_table_attribs($table);
         $this->aux_connect();
         
@@ -466,7 +466,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
     
     public function http_delete($table, $select, $op = array()) {
         global $config; $namespace = $config['namespace'];
-        trace("$namespace.http_delete($table, select)", $select);
+        // trace("$namespace.http_delete($table, select)", $select);
         if ($select) {
             if (is_string($select)) {
                 $find = json_decode($select);
@@ -858,7 +858,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
                             $sql .= "(" . $this->conditions($table, (array) $values, $_op) . ")";
                         } else {
                             foreach($cond as $_attr => $_cond){
-                             trace("---->", $_attr, $_cond);
+                             // trace("---->", $_attr, $_cond);
                                 $sql .= $this->resolve_condition($_attr, $_cond, $attribs, $options);
                                 break;
                             }
@@ -1162,7 +1162,7 @@ trace('$this->getByPk($type, $ref_id, $_op);', $type, $ref_id, $_op);
      
     public function create($table, $item, $options = array()) {
         global $config; $namespace = $config['namespace'];
-        trace("$namespace.create($table, item, options)", $item, $options);
+        // trace("$namespace.create($table, item, options)", $item, $options);
         $op = $options ? $options : array();        
         $attribs = $this->get_table_attribs($table);
         $this->aux_connect();
