@@ -64,7 +64,18 @@ export class AlbumsPage implements OnInit {
     }
 
     getAlbumUrl() {
-        return this.url
+        return this.url;
     }
+    
+    getAlbumStyle(album) {
+        var obj = {};
+        obj["background-image"] = "url("+album.preview.images.thumbnail+"), url(/assets/loading.gif)";
+        obj["background-repeat"] = "no-repeat, no-repeat";
+        obj["background-position"] = "center";
+        obj["background-size"] = "contain, auto"; 
+        return obj;
+    }
+
+
     
 }

@@ -52,5 +52,14 @@ export class CardsPage implements OnInit {
         var img:HTMLImageElement = e.target;
         this.cnt.deployCard(card, img);
     }
+
+    getCardStyle(card) {
+        var obj = {};
+        obj["background-image"] = "url("+card.edition.preview.images.thumbnail+"), url(/assets/loading.gif)";
+        obj["background-repeat"] = "no-repeat, no-repeat";
+        obj["background-position"] = "center";
+        obj["background-size"] = "contain, auto"; 
+        return obj;
+    }
     
 }

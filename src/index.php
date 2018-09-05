@@ -82,6 +82,7 @@
     <!-- loading -->
     <div class="cnt-page-preload-anim circle1"></div>
     <div class="cnt-page-preload-anim circle2"></div>
+    <img src="/assets/loading.gif" style="opacity: 0; pointer-events: none; position: fixed">
     
     <app-root></app-root>
     

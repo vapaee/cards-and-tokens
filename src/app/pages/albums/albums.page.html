@@ -1,18 +1,13 @@
-
 <!-- First page: list of available albums -->
 <div class="container margin-top-lg" *ngIf="!deploy">
-    <div class="cnt-card cursor-pointer inline-block margin" *ngFor="let album of cnt.albums" [routerLink]="'/deploy/album/'+album.slug" mdbWavesEffect>
-        <img width="200" height="240" [id]="album.slug" [src]="album.preview.images.thumbnail" class="hide-at-work">
+    <div class="cnt-album card cursor-pointer inline-block margin hide-at-work"
+         *ngFor="let album of cnt.albums"
+         [routerLink]="'/deploy/album/'+album.slug"
+         [ngStyle]="getAlbumStyle(album)"
+         mdbWavesEffect
+    >
+        <img [id]="album.slug" [src]="album.preview.images.thumbnail" class="album-img">
     </div>
 </div>
-
-
-
-<!-- Once the album is selected -->
-<!--
-<div class="display-flex flex-grow" [hidden]="!deploy">
-    <ng-template comp-host></ng-template>
-</div>
--->
 
 <deploy-album-page [hidden]="!deploy"></deploy-album-page>

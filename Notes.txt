@@ -6,11 +6,11 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
-- que la gente se pueda loguear con Vapaee
-- 
--- ANTES DE PUBLICAR
-- poner una foto linda de en construción en las que no tengan nada aun
 - poner el botón de likes de facebook a la vista en el home
+- poner una foto linda de en construción en las que no tengan nada aun
+- poner un link "about" que te lleve al post de Steemit donde voy a explicar que es un prototipo
+-- ANTES DE PUBLICAR
+- que la gente se pueda loguear con Vapaee
 - poner una última página del álbum con una imagen con que diga comming soon y deje ver que habrá un ranking y los primeros premios ganarán Tokens
 -- PROXIMA PUBLICACIÓN --
 - tenés que tener una forma de descartarte de una carta (la dejaría disponible para el daily prize)

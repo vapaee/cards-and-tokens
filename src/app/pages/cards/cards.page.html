@@ -1,7 +1,12 @@
 <div class="container margin-top-lg text-center">
 
-    <div class="cnt-card cursor-pointer inline-block margin" *ngFor="let card of cnt.cards" (click)="deployCard(card, $event)">
-        <img [id]="card.slug" [src]="card.edition.preview.images.thumbnail" class="hide-at-work card">
+    <div class="cnt-card card cursor-pointer inline-block margin hide-at-work d-inline-block"
+        *ngFor="let card of cnt.cards"
+        (click)="deployCard(card, $event)"
+        [ngStyle]="getCardStyle(card)"
+    >
+        
+        <img [id]="card.slug" [src]="card.edition.preview.images.thumbnail" class="card-img">
     </div>
 
     <!--hr>
