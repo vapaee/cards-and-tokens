@@ -91,11 +91,11 @@
     
     <app-root></app-root>
     
-    <script type="text/javascript" src="runtime.js"></script>
-    <script type="text/javascript" src="polyfills.js"></script>
-    <script type="text/javascript" src="styles.js"></script>
-    <script type="text/javascript" src="scripts.js"></script>
-    <script type="text/javascript" src="vendor.js"></script>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="runtime.js" size="5.2kb" ></script>
+    <script type="text/javascript" src="polyfills.js" size="227.7kb"></script>
+    <script type="text/javascript" src="styles.js" size="936.9kb"></script>
+    <script type="text/javascript" src="scripts.js" size="1.1Mb"></script>
+    <script type="text/javascript" src="vendor.js" size="5.2Mb"></script>
+    <script type="text/javascript" src="main.js" size="413.0kb"></script>
 </body>
 </html>

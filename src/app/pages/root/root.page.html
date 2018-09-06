@@ -10,26 +10,26 @@
 
 
   <!-- Collapsible content -->
-  <links>
+  <links *ngIf="app.countdown == 0">
 
       <!-- Pages -->
       <ul class="navbar-nav mr-auto">
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('editor')}" *ngIf="vapaee.logged && app.countdown == 0" >
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('editor')}" *ngIf="vapaee.logged" >
                   <a class="nav-link waves-light" routerLink="/editor" mdbWavesEffect>Editor</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('cards')}" *ngIf="app.countdown == 0">
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('cards')}">
                   <a class="nav-link waves-light" routerLink="/cards" mdbWavesEffect>Cards</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('albums')}" *ngIf="app.countdown == 0">
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('albums')}">
                   <a class="nav-link waves-light" routerLink="/albums" mdbWavesEffect>Albums</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('inventory')}" *ngIf="vapaee.logged && app.countdown == 0">
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('inventory')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/inventory" mdbWavesEffect>Inventory</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.logged && app.countdown == 0">
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/market" mdbWavesEffect>Market</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('games')}" *ngIf="vapaee.logged && app.countdown == 0">
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('games')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/games" mdbWavesEffect>Games</a>
           </li>
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.isAdmin">
@@ -55,7 +55,7 @@
 
       <!-- User Account -->
       <ul class="navbar-nav ml-auto">
-          <li *ngIf="vapaee.logged && app.countdown == 0" class="nav-item dropdown d-none d-lg-block" dropdown >
+          <li *ngIf="vapaee.logged" class="nav-item dropdown d-none d-lg-block" dropdown >
               <a dropdownToggle mdbWavesEffect [ngClass]="{active: app.stateStartsWith('profile')}" 
                   type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
                   <img [src]="steem.user ? steem.user.profile.avatar : '/assets/noavatar.png'" style="height:32px;">&nbsp;&nbsp;&nbsp;
@@ -75,20 +75,20 @@
                   </a-->
               </div>
           </li>
-          <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged && app.countdown == 0">
+          <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged">
               <div class="divider dropdown-divider"></div>
           </li>   
-          <li class="nav-item" *ngIf="!vapaee.logged && app.countdown == 0">
+          <li class="nav-item" *ngIf="!vapaee.logged">
               <a class="nav-link waves-light" (click)="steem.askForLogin()" mdbWavesEffect>
                   <i class="fa fa-sign-in" aria-hidden="true"></i> Login
               </a>
           </li>
-          <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged && app.countdown == 0">
+          <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged">
               <a class="nav-link waves-light" routerLink="/profile" mdbWavesEffect>
                   <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile
               </a>            
           </li>
-          <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged && app.countdown == 0">
+          <li class="nav-item d-lg-none d-md-block" *ngIf="vapaee.logged">
               <a class="nav-link waves-light"
                   (click)="vapaee.logout()" mdbWavesEffect>
                   <i class="fa fa-sign-out" aria-hidden="true"></i> Logout

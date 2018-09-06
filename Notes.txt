@@ -6,11 +6,11 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
-- poner un estado global en la app que sea (special:boolean) y que sea special mientras hoy < el lunes
-- si special == true
-  - si está special mostrar un countdown en el home y el loquito de coming soon
-  - todos los estados redirigen al home si hay special
-  - el link de una carta debe funcionar bien pero al cerrar la carta lo redirige al home
+- open graph image tag
+- POST
+  - news, promise, link, video
+  - publicar
+
 -- ANTES DE PUBLICAR
 - Hacer un post en Steemit explicando sobre el prototipo (alcance)
 - El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)

@@ -2,7 +2,11 @@
 $config = array();
 $config["site_url"] = "http://cardsandtokens.com";
 $config["site_name"] = "Cards & Tokens";
-$config["site_social_image"] = "http://cardsandtokens.com/img/cnt-header.png";
+$config["site_social_image"] = "http://cardsandtokens.com/assets/cards-and-tokens.jpg";
+$config["image_size"] = array(
+    "width" => "670",
+    "height" => "380"
+);
 $config["description"] = "A place where you can create, trade and collect cards of any topic and make money in the process.";
 $config["favicon_url"] = "assets/chip-16.png";
 $config["favicon_type"] = "image/png";

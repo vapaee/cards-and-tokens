@@ -1,6 +1,14 @@
 
 <div class="flex-center flex-column hide-at-work animated fadeIn">
     <div class="container flex-center flex-column" style="height: 90%">
+        <div [hidden]="app.countdown == 0" class="black-text">
+                <h1 class="d-none d-xl-block">countdown for the release...</h1>
+                <h2 class="d-none d-lg-block d-xl-none">countdown for the release...</h2>
+                <h3 class="d-none d-md-block d-lg-none">countdown for the release...</h3>
+                <h4 class="d-sm-block d-md-none">countdown for the release...</h4>
+
+            
+        </div>
         <div class="card elegant-color flex-center flex-column" style="flex-grow: 1; width:100%">
             <div class="text-center margin-top-lg flip-clock-wrapper flex-center flex-column" style="flex-grow: 1; width:100%">
                 <div class="count-down light" [hidden]="app.countdown == 0"></div>
