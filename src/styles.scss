@@ -52,31 +52,36 @@ button, html [type="button"], [type="reset"], [type="submit"] {
 
 
 // flip-clock responsive ----------------------
+.light .flipclock-dot {
+    background: #cccccc;
+}
 .flipclock-wrapper {
     background:transparent !important;
     width: auto !important;
 }
 span.flipclock-label {
     color: white !important;
+    text-transform: capitalize;
 }
-@media (max-width: 770px) {
+/*
+@media (max-width: 768px) {
     .flip-clock-wrapper {
-        .flip-clock-divider {
+        .flipclock-divider {
             width: 16px;
             height: 86px;
-            &.seconds .flip-clock-label {
+            &.seconds .flipclock-label {
                 right: -79px;
             }
-            &.minutes .flip-clock-label {
+            &.minutes .flipclock-label {
                 right: -77px;
             }
-            &.hours .flip-clock-label {
+            &.hours .flipclock-label {
                 right: -73px;
             }
-            &.days .flip-clock-label {
+            &.days .flipclock-label {
                 right: -71px;
             }
-            .flip-clock-dot {
+            .flipclock-dot {
                 left: 4px;
                 width: 8px;
                 height: 8px;
@@ -96,26 +101,26 @@ span.flipclock-label {
         }
     }
 }
+*/
 
-
-@media (max-width: 680px) {
+@media (max-width: 768px) {
     .flip-clock-wrapper {
-        .flip-clock-divider {
+        .flipclock-divider {
             width: 10px;
             height: 52px;
-            &.seconds .flip-clock-label {
+            &.seconds .flipclock-label {
                 right: -72px;
             }
-            &.minutes .flip-clock-label {
+            &.minutes .flipclock-label {
                 right: -70px;
             }
-            &.hours .flip-clock-label {
+            &.hours .flipclock-label {
                 right: -65px;
             }
-            &.days .flip-clock-label {
+            &.days .flipclock-label {
                 right: -62px;
             }
-            .flip-clock-dot {
+            .flipclock-dot {
                 left: 2px;
                 width: 6px;
                 height: 6px;
@@ -137,27 +142,32 @@ span.flipclock-label {
 }
 
 
-@media (max-width: 590px) {
+@media (max-width: 576px) {
     .flip-clock-wrapper {
-        .flip-clock-divider {
+        .flipclock-divider {
             width: 5px;
             height: 49px;
-            &.seconds .flip-clock-label {
+            .flipclock-label {
+                font-size: .60em;
+            }
+            &.seconds .flipclock-label {
                 right: -42px;
             }
-            &.minutes .flip-clock-label {
+            &.minutes .flipclock-label {
                 right: -40px;
+                right: -52px;
             }
-            &.hours .flip-clock-label {
+            &.hours .flipclock-label {
                 right: -45px;
             }
-            &.days .flip-clock-label {
+            &.days .flipclock-label {
                 right: -42px;
+                right: -45px;
             }
-            .flip-clock-dot.top {
+            .flipclock-dot.top {
                 top: 26px;
             }
-            .flip-clock-dot {
+            .flipclock-dot {
                 left: 1px;
                 width: 4px;
                 height: 4px;
@@ -181,28 +191,28 @@ span.flipclock-label {
 
 @media (max-width: 400px) {
     .flip-clock-wrapper {
-        .flip-clock-divider {
+        .flipclock-divider {
             width: 5px;
             height: 26px;
-            &.seconds .flip-clock-label {
+            &.seconds .flipclock-label {
                 right: -45px;
             }
-            &.minutes .flip-clock-label {
+            &.minutes .flipclock-label {
                 right: -43px;
             }
-            &.hours .flip-clock-label {
+            &.hours .flipclock-label {
                 right: -36px;
             }
-            &.days .flip-clock-label {
+            &.days .flipclock-label {
                 right: -34px;
             }
-            .flip-clock-dot.top {
+            .flipclock-dot.top {
                 top: 17px;
             }            
-            .flip-clock-dot.bottom {
+            .flipclock-dot.bottom {
                 bottom: 13px;
             }            
-            .flip-clock-dot {
+            .flipclock-dot {
                 left: 0px;
                 width: 3px;
                 height: 3px;

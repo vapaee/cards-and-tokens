@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "publish": "git merge master; ng build; git add -A; git commit -m 'update'; git push; amazon_server_console",
     "postinstall": "node patch.js; ng serve -o"
   },
   "private": true,

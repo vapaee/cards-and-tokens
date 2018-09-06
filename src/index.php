@@ -19,6 +19,7 @@
     <style>
         body, html { height: 100vh; margin: 0; overflow: hidden; background-color: black !important; color: white; }
         body[loading] app-root { display: none;  }
+        div.img-preload { opacity: 0; pointer-events: none; position: fixed; top:-5000px; left: -5000px; }
     </style>
     <style>
         body {
@@ -79,11 +80,14 @@
     </style>       
 </head>
 <body class="hide-at-work-" loading="true">
+    <div class="img-preload">
+        <img src="/assets/loading.gif">
+        <img src="/assets/coming-soon.jpg">
+    </div>    
     <div id="fb-root"></div>
     <!-- loading -->
     <div class="cnt-page-preload-anim circle1"></div>
     <div class="cnt-page-preload-anim circle2"></div>
-    <img src="/assets/loading.gif" style="opacity: 0; pointer-events: none; position: fixed">
     
     <app-root></app-root>
     

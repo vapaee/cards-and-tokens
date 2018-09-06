@@ -15,10 +15,16 @@ export class AppService {
     prev_state : string = "none";
     device: {big?:boolean, small?:boolean, tiny?:boolean, portrait?:boolean, wide?:boolean, height?:number, width?: number} = {};
     loading: boolean;
+    countdown: number;
 
     constructor(public vapaee: VapaeeUserService, router: Router, route: ActivatedRoute, private dom: DomService) {
         this.router = router;
         this.route = route;
+
+        // -----------------------------------
+        this.updateCountDown();
+        console.log("calculamos el countdown para el lanzamiento", this.countdown);
+        // -----------------------------------
 
         this.router.events.subscribe((event) => {
             if (event.constructor.name === "NavigationEnd") {
@@ -33,6 +39,28 @@ export class AppService {
         }, () => {});
 
         window.document.body.removeAttribute("loading");
+    }
+
+    private updateCountDown() {
+        var countdown:number = 0;
+        var YYYY = 2018, MM = 8, DD = 11, hh = 0, mm = 0;
+        DD = 6; hh = 12; mm = 59;
+
+        var t1 = new Date(YYYY, MM, DD, hh, mm, 0, 0);
+        var t2 = new Date();
+        var dif = t1.getTime() - t2.getTime();
+        var Seconds_from_T1_to_T2 = Math.floor(dif / 1000);
+        var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
+        countdown = Seconds_from_T1_to_T2;
+        if (countdown <= 0) {
+            countdown = 0;
+        } else {
+            window.setTimeout(() => {
+                this.updateCountDown();
+            }, (countdown+1) * 1000);
+        }
+        this.countdown = countdown;
+        return countdown;
     }
 
 

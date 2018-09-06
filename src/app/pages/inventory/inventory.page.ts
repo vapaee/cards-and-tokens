@@ -15,8 +15,7 @@ declare var FlipClock:any;
 })
 export class InventoryPage implements OnInit, OnDestroy {
     @ViewChild(ComponentHost) public main: ComponentHost;
-    clock:any;
-
+    
     inventory:any;
     slots:any[];
     dailycard:any;
@@ -72,6 +71,8 @@ export class InventoryPage implements OnInit, OnDestroy {
             alert("You have to wait " + this.cnt.userdata.data.dayliprice.remaining + " seconds to claim your daily price");
         }
     }
+
+    clock:any;
 
     destroyCountdown(){
         if (this.clock) {
