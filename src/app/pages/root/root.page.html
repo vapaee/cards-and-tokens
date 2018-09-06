@@ -26,13 +26,13 @@
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('inventory')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/inventory" mdbWavesEffect>Inventory</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('mastery')}" *ngIf="vapaee.logged">
-                  <a class="nav-link waves-light" routerLink="/mastery" mdbWavesEffect>Mastery</a>
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.logged">
+                  <a class="nav-link waves-light" routerLink="/market" mdbWavesEffect>Market</a>
           </li>
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('games')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/games" mdbWavesEffect>Games</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.logged">
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.isAdmin">
                   <a class="nav-link waves-light" (click)="printData()" mdbWavesEffect>DATA</a>
           </li>
 

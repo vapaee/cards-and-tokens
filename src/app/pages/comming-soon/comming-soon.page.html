@@ -1,7 +1,22 @@
-<div style="height: 80vh">
-  <div class="flex-center flex-column animated fadeIn">
-      <h1 class="mb-4">{{app.state}}</h1>
-      <p class="text-muted">Comming Soon</p>
-      <a class="btn btn-primary" routerLink="/home">Home</a>
-  </div>
+
+<div class="container animated fadeIn margin-top-lg text-center">
+    <img src="/assets/coming-soon.jpg" class="img-fluid" alt="Coming Soon">
+    <p class="margin-top">
+        The <b>{{app.state}}</b> page will be available in next releases.<br>
+        If you want to support this project, please give us a like.<br>
+        Thank you !
+    </p>
+    <div class="fb-like-container">
+        <div class="fb-like" 
+                data-href="https://www.facebook.com/cardsandtokens"
+                data-layout="button_count"
+                data-action="like"
+                data-show-faces="false" 
+                data-share="true"></div>        
+    </div>
+    <div class="no-wrap">
+        <a class="btn btn-success" routerLink="/home">Home</a>
+        <a class="btn btn-primary" href="https://www.facebook.com/messages/t/cardsandtokens" target="_blank">Contact</a>
+        <a class="btn btn-info" href="http://presale.cardsandtokens.com" target="_blank">About</a>
+    </div>      
 </div>

@@ -79,6 +79,7 @@
     </style>       
 </head>
 <body class="hide-at-work-" loading="true">
+    <div id="fb-root"></div>
     <!-- loading -->
     <div class="cnt-page-preload-anim circle1"></div>
     <div class="cnt-page-preload-anim circle2"></div>
