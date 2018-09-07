@@ -6,9 +6,11 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
-- open graph image tag
 - POST
-  - news, promise, link, video
+  
+
+
+
   - publicar
 
 -- ANTES DE PUBLICAR
