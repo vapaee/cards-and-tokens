@@ -3,6 +3,7 @@
         <h3 class="card-header default-color">
             Editor
         </h3>
+        <button class="btn btn-danger btn-rounded waves-effect" (click)="crearCartasAPartirDeDataAux()">DALE</button>
         <div class="card-body">
             <div class="row">
                 <div class="col">
@@ -23,9 +24,12 @@
 
                         <input type="text" class="form-control mb-4" [(ngModel)]="model.title" placeholder="(title)" [ngModelOptions]="{standalone: true}">
 
+                        <input type="text" class="form-control mb-4" [(ngModel)]="model.color" placeholder="(color)" [ngModelOptions]="{standalone: true}">
+
                         <input type="text" class="form-control mb-4" [(ngModel)]="model.bgimage" placeholder="(bgimage)" [ngModelOptions]="{standalone: true}">
 
                         <input type="text" class="form-control mb-4" [(ngModel)]="model.link" placeholder="(link)" [ngModelOptions]="{standalone: true}">
+
 
                         <div class="d-flex">
                             <div>
@@ -54,7 +58,7 @@
                         </textarea>
                         
                 
-                        <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" (click)="createCard()">Crear Carta</button>
+                        <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" (click)="saveCardDataAux()">Save Card Data</button>
                 
                     </form>
                 </div>

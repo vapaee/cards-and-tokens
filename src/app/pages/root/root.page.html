@@ -79,7 +79,7 @@
               <div class="divider dropdown-divider"></div>
           </li>   
           <li class="nav-item" *ngIf="!vapaee.logged">
-              <a class="nav-link waves-light" (click)="steem.askForLogin()" mdbWavesEffect>
+              <a class="nav-link waves-light" (click)="steem.askForLogin({'header':'steemconnect'})" mdbWavesEffect>
                   <i class="fa fa-sign-in" aria-hidden="true"></i> Login
               </a>
           </li>

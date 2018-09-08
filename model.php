@@ -75,6 +75,17 @@ $DATA = array (
             "released" => array( "type" => "boolean" ),
             "released_time" => array( "type" => "timestamp" )
         ),
+        "data_aux" => array(
+            "slug" => array( "type" => "varchar(250)" ),
+            "week" => array( "type" => "int(10)" ),
+            "position" => array( "type" => "int(5)" ),
+            "data" => array( "type" => "json" )
+        ),        
+        "deploy_template" => array(
+            "title" => array( "type" => "varchar(250)" ),
+            "template" => array( "type" => "json" ),
+            "form" => array( "type" => "json" )
+        ),
         // ------------------
         "sticker" => array(
             "_extends" => "collectible",

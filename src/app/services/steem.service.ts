@@ -101,8 +101,8 @@ export class SteemService {
         });
     }
     
-    askForLogin() {
-        this.appcomp.loginModal.show();
+    askForLogin(config:any) {
+        this.appcomp.loginModal.show(config);
     }
 
     init(appcomp: AppComponent) {
@@ -169,7 +169,7 @@ export class SteemService {
     vote(author:string, permlink:string, percent:number = 10000): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             if (!this.user) {
-                this.askForLogin();
+                this.askForLogin({'header':'steemconnect'});
             } else {
                 this.steemconnect.vote(this.user.name, author, permlink, percent, function (err, res) {
                     // console.log("STEEM this.steemconnect.vote", err, res);

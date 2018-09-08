@@ -3,6 +3,7 @@ import { VapaeeUserService } from "../../services/vapaee-user.service";
 import { AppService } from "../../services/app.service";
 import { SteemService } from '../../services/steem.service';
 import { CntService } from '../../services/cnt.service';
+import { DataService } from '../../services/data.service';
 
 interface CompSpec {
     comp:string,
@@ -23,8 +24,10 @@ export class EditorPage implements OnInit {
         public vapaee: VapaeeUserService, 
         public app: AppService, 
         public steem: SteemService,
-        public cnt: CntService
+        public cnt: CntService,
+        public data: DataService
     ) {
+        
         this.model = {
         };
 
@@ -207,6 +210,112 @@ export class EditorPage implements OnInit {
         }
     }
 
+    public daleSalvarDato(card, promise) {
+        var data = card.edition.deploy.data || this.extractData(card) 
+                
+        var _package = {
+            week: data.week,
+            slug: data.slug,
+            position: data.position,
+            data: data
+        };
+        
+        return promise.then(() => {
+            console.log("this.data.create(data_aux)",data.slug,[_package]);
+            return this.data.create("data_aux", _package);
+        });
+    }
+
+    public dale() {
+        // creo que ya no necesito esta funcion. Era para recuperar los colores y ya los tengo en data-aux
+        var promise = new Promise((resolve) => {
+            resolve();
+        })
+        this.data.getAll("data_aux", {}).then((r) => {
+            var data_aux = r.data_aux;
+            this.data.getAll("edition", {details:true}).then((r) => {
+                var edition = r.edition;
+                console.log("data_aux ----------------->", data_aux);
+                console.log("edition ----------------->", edition);
+
+                for (var e in edition) {
+                    var color = edition[e].preview.colors.bg;
+                    var slug = edition[e].deploy.data ? edition[e].deploy.data.slug : null;
+                    if (!slug) {
+                        slug = edition[e].preview.images.fullsize.substr(edition[e].preview.images.fullsize.lastIndexOf("/")+1).split(".")[0];
+                    }
+                    console.log("color:", color, slug);
+                    for (var d in data_aux) {
+                        if (data_aux[d].slug == slug) {
+                            data_aux[d].data.color = color;
+                            promise = this.updateDataAux({"id": data_aux[d].id, "data":data_aux[d].data}, promise);
+                            break;
+                        }
+                    }
+                }                
+
+            });
+        });        
+    }
+
+    public updateDataAux(update, promise) {
+        return promise.then(() => {
+            console.log("->", update);
+            return this.data.update("data_aux", update);
+        });
+    }
+
+    public crearCartasAPartirDeDataAux() {
+        var promise = new Promise((resolve) => {
+            resolve();
+        })
+        this.data.getAll("data_aux", {edition:true, details:true}).then((r) => {
+            console.log("dale() ----------------->", r);
+            r.data_aux.sort(function(a, b){
+                if (a.week != b.week) return b.week - a.week;
+                if (a.position != b.position) return a.position - b.position;
+                return (a.slug > b.slug) ? 1 : -1;
+            });
+
+            for (var i in r.data_aux) {
+                var data_aux = r.data_aux[i];
+                promise = this.daleCreateCard(data_aux.data, promise);
+            }
+        });        
+    }
+
+    daleCreateCard(data, promise) {
+        return promise.then(() => {
+            this.model = data;
+            console.log(this.model.week, this.model.position, this.model.slug, [this.model]);
+            return this.createCard();
+        });
+    }
+
+    public extractData(card) {
+        var obj:any = card.edition.deploy.data || {};
+        // background image
+        obj.bgimage = card.edition.deploy.children[0].children[2].data.image.url;
+
+        // el título
+        obj.title = card.edition.deploy.children[0].children[1].children[0].children[0].data.text = this.model.title;
+
+        // el video
+        obj.youtube = card.edition.deploy.children[0].children[2].children[0].children[0].data.youtube.videoId = this.model.youtube;
+
+        // el link
+        obj.link = card.edition.deploy.children[0].children[1].children[0].children[1].data.menu[2].link = this.model.link;
+
+        // lyrics
+        obj.lyrics = card.edition.deploy.children[0].children[2].children[0].children[1].children[0].children[0].children[0].data.markdown;
+        obj.has_lyrics = !!obj.lyrics;
+        
+        // deploy colors 
+        obj.colors = card.edition.preview.colors;
+
+        return obj;
+    }    
+
     get deploy(): CompSpec {
         
         // background image
@@ -233,11 +342,7 @@ export class EditorPage implements OnInit {
         return this._deploy;
     }
 
-    get preview(): any {
-        var r,g,b;
-        r = Math.floor( 100 * Math.random()) + 100;
-        g = Math.floor( 100 * Math.random()) + 100;
-        b = Math.floor( 100 * Math.random()) + 100;        
+    get preview(): any {    
         return {
             "images": {
                 "opengraph": "./assets/cards/openmic/images/opengraph/" + this.model.slug + ".png",
@@ -245,9 +350,42 @@ export class EditorPage implements OnInit {
                 "thumbnail": "./assets/cards/openmic/images/thumbnail/" + this.model.slug + ".png"
             },
             "colors": {
-                "bg": "rgb("+r+","+g+","+b+")"
+                "bg":  this.model.color
             }
         };
+    }
+
+    public saveCardDataAux() {
+        var promise = new Promise((r) => {r();});
+        var card = {
+            edition: {
+                deploy: {
+                    data: {
+                        week: this.model.week,
+                        position: this.model.position,
+                        slug: this.model.slug,
+                        youtube: this.model.youtube,
+                        steemuser: this.model.steemuser,
+                        permlink: this.model.permlink,
+                        title: this.model.title,
+                        bgimage: this.getBgImage(),
+                        link: this.model.link,
+                        original: this.model.original,
+                        color: this.model.color,
+                        has_lyrics: this.model.has_lyrics,
+                        lyrics: this.model.lyrics
+                    }
+                }
+            }
+        };
+        return this.daleSalvarDato(card, promise).then((e) => {
+            if (e.error) {
+                alert("ERROR: " + e.error);
+            } else {
+                console.log(e);
+                this.model = {}
+            }
+        });
     }
 
     public createCard() {
@@ -256,12 +394,12 @@ export class EditorPage implements OnInit {
         console.log(JSON.stringify(this._deploy));
         console.log([JSON.stringify(this._deploy)]);        
         /*/
-        this.cnt.createCard(this.model, this.deploy, this.preview).then((e) => {
+        return this.cnt.createCard(this.model, this.deploy, this.preview).then((e) => {
             if (e.error) {
-                alert("ERROR: " + e.error);
+                // alert("ERROR: " + e.error);
             } else {
                 console.log();
-                alert("Carta ID: " + e.card.id);
+                // alert("Carta ID: " + e.card.id);
                 this.model = {}
             }
         });

@@ -277,7 +277,7 @@ $app->post('/update/collectible/votes', function() use ($app) {
 
 $app->get('/dailyprize/claim', function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace GET 'dailyprize' --------------");
+    // trace("$namespace GET 'dailyprize' --------------");
     $op = array("unbox"=>true);
     $user = getUserFromSteemAccessToken($app, $op);
     $remaining = getDailyPriceRemainintTimeFromUser($user);
@@ -537,7 +537,7 @@ function verifySteemAccessToken($app) {
             if(is_array($old_oauth_steem)) {
                 $old_oauth_steem = $old_oauth_steem[0];
             }
-            trace("Aahhh ya habia estado el usuario '$account' pero cambio el access_token");
+            // trace("Aahhh ya habia estado el usuario '$account' pero cambio el access_token");
             $user = $old_oauth_steem["user"];
             $user = $app["db"]->http_get_id("user", $user["id"], $op);
             $app["db"]->http_delete_id("oauth_steem", $old_oauth_steem["id"]);
@@ -627,7 +627,7 @@ $app->post("/update_collection", function() use ($app) {
 
 $app->post("/crear_carta", function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace POST 'crear_carta' ---------------------");
+    // trace("$namespace POST 'crear_carta' ---------------------");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $content = $app["request"]->getContent();

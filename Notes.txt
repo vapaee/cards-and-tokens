@@ -6,19 +6,16 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
-- POST
-  
-
-
-
-  - publicar
-
+- google analitics. poner en todos lados
+- ver la posibilidad de cachear los 5M de vendor.js y q no se cargue cada vez que ves una carta
+- POST: dirigido a los participantes ganadores que les hice cartas. Como reclamar la carta y empezar el contador.
+- después hay que resolver el open graph para cada carta y para el album
 -- ANTES DE PUBLICAR
-- Hacer un post en Steemit explicando sobre el prototipo (alcance)
+- POST: Hacer un post en Steemit explicando sobre el prototipo (alcance)
 - El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
-- que la gente se pueda loguear con Vapaee
 - poner una última página del álbum con una imagen con que diga comming soon y deje ver que habrá un ranking y los primeros premios ganarán Tokens
 -- PROXIMA PUBLICACIÓN --
+- que la gente se pueda loguear con Vapaee
 - tenés que tener una forma de descartarte de una carta (la dejaría disponible para el daily prize)
 - el botón de claim daily prize debería tener una animación como el deploy, darse vuelta la carta y caer en el lugar del inventario
 - ver la diferencia de el width del padre y el width del device para el video-comp
@@ -29,8 +26,6 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 - el actual deploy dividirlo en data+template con tabla de template_deploy aparte
 - el album de sebe de poder pasar de página con el gesto del dedo 
 - convertir el menu-comp en un ícono a la derecha en resoluciones bajas (y ocultar los botones)
-
-
 
 
 

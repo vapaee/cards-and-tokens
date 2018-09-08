@@ -13,7 +13,7 @@ import { DragAndDropService } from './services/drag-and-drop.service';
 })
 export class AppComponent {
     @ViewChild('loginModal') public loginModal;
-
+    
     constructor(
         public vapaee: VapaeeUserService,
         public user: UserdataService,

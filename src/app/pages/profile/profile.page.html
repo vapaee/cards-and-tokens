@@ -7,7 +7,7 @@
         <div class="card-body" *ngIf="!steem.user">
             <h4 class="card-title">Not connected</h4>
             <p class="card-text">Connect to your Steem account by using Steem-Connect.</p>
-            <a class="btn btn-success" (click)="steem.askForLogin()">Connect</a>
+            <a class="btn btn-success" (click)="steem.askForLogin({'header':'steemconnect'})">Connect</a>
         </div>
         <div class="card-body" *ngIf="steem.user">
             <h4 class="card-title">

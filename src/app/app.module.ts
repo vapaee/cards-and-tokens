@@ -42,6 +42,8 @@ import { RootPage } from './pages/root/root.page';
 import { ComponentHost } from './deploy/comp/comp';
 
 import { SteemUpvoteButtonComponent } from './components/steem-upvote-button.component';
+import { LoginModalComponent } from './components/login-modal.component';
+
 // import { BaseComponent } from './deploy/comp/base/base.component';
 import { RootComponent } from './deploy/comp/root/root.component';
 import { RowThreeComponent } from './deploy/comp/row-three/row-three.component';
@@ -113,6 +115,7 @@ const routes: Routes = [
         BackgroundComponent,
         ScrolleableComponent,
         SteemUpvoteButtonComponent,
+        LoginModalComponent,
         VideoComponent,
         MarkDownComponent,
         SectionComponent,
