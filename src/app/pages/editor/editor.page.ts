@@ -226,35 +226,20 @@ export class EditorPage implements OnInit {
         });
     }
 
-    public dale() {
+    public arreglarDataAux() {
         // creo que ya no necesito esta funcion. Era para recuperar los colores y ya los tengo en data-aux
         var promise = new Promise((resolve) => {
             resolve();
         })
         this.data.getAll("data_aux", {}).then((r) => {
             var data_aux = r.data_aux;
-            this.data.getAll("edition", {details:true}).then((r) => {
-                var edition = r.edition;
-                console.log("data_aux ----------------->", data_aux);
-                console.log("edition ----------------->", edition);
-
-                for (var e in edition) {
-                    var color = edition[e].preview.colors.bg;
-                    var slug = edition[e].deploy.data ? edition[e].deploy.data.slug : null;
-                    if (!slug) {
-                        slug = edition[e].preview.images.fullsize.substr(edition[e].preview.images.fullsize.lastIndexOf("/")+1).split(".")[0];
-                    }
-                    console.log("color:", color, slug);
-                    for (var d in data_aux) {
-                        if (data_aux[d].slug == slug) {
-                            data_aux[d].data.color = color;
-                            promise = this.updateDataAux({"id": data_aux[d].id, "data":data_aux[d].data}, promise);
-                            break;
-                        }
-                    }
-                }                
-
-            });
+            for (var d in data_aux) {
+                console.log(data_aux[d].data.bgimage);
+                if (data_aux[d].data.bgimage.indexOf("/") == -1) {
+                    data_aux[d].data.bgimage = "/assets/backgrounds/" + data_aux[d].data.bgimage;
+                    promise = this.updateDataAux({"id": data_aux[d].id, "data":data_aux[d].data}, promise);
+                }
+            }
         });        
     }
 
@@ -279,7 +264,11 @@ export class EditorPage implements OnInit {
 
             for (var i in r.data_aux) {
                 var data_aux = r.data_aux[i];
-                promise = this.daleCreateCard(data_aux.data, promise);
+                if (data_aux.data) {
+                    promise = this.daleCreateCard(data_aux.data, promise);
+                } else {
+                    console.error("ERROR: no tiene data", data_aux);
+                }                
             }
         });        
     }

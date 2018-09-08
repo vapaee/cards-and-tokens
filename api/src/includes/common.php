@@ -97,7 +97,7 @@ function config_is_set($coso) {
 // error_log("DEFINITION function insert_open_graph_metatags()");
 function insert_open_graph_metatags($path) {
     global $config;
-    // error_log("insert_open_graph_metatags($path)");
+    error_log("insert_open_graph_metatags($path)");
     
     echo "<!-- Open Graph -->\n";
     echo "<meta property='og:type' content='website'>\n";

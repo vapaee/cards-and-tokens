@@ -3,9 +3,9 @@
 $VAPAEE_ENDPOINT = "http://accounts.vapaee.com/index.php?route=extension/module/oauth/endpoint";
 
 
-$app->get('/opengraph/{path}', function($path) use ($app) {
-    return insert_open_graph_metatags("$path");
-})->assert('path', '.+');
+// $app->get('/opengraph/{path}', function($path) use ($app) {
+//     return insert_open_graph_metatags("$path");
+// })->assert('path', '.+');
 
 
 // -----------------------------------------------------------------------------------------------

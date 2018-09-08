@@ -805,3 +805,66 @@ function putHeaders() {
 }
 
 putHeaders();
+
+
+
+
+/// Open graph -------------------------------------------------------
+$app->get('/opengraph/{path}', function($path) use ($app) {
+    return insert_opengraph("$path", $app);
+})->assert('path', '.+');
+
+
+function insert_opengraph($path) {
+    global $config;
+    trace("insert_opengraph($path)");
+    $info = array(
+        "site_url" => $config["site_url"],
+        "site_name" => $config["site_name"],
+        "site_social_image" => $config["site_social_image"],
+        "description" => $config["description"],
+        "favicon_url" => $config["favicon_url"],
+        "favicon_type" => $config["favicon_type"],
+        "locale" => $config["locale"],
+        "page_title" => $config["site_name"]
+    );
+    if (strpos($path, 'deploy/card/') !== false) {
+        $slug = explode('/card/', $path);
+        $slug = $slug[1];
+        $info["site_social_image"] = $info["site_url"] . "/assets/cards/openmic/images/opengraph/$slug.png";
+        $info["image_size"] = array(
+            "width" => "500",
+            "height" => "276"
+        );
+    } else {
+        $info = $config;
+        $config['page_title'] = $config["site_name"];
+    }
+    insert_opengraph_metatags($path, $info);
+    return "";
+
+};
+
+function insert_opengraph_metatags($path, $info) {
+    
+    trace("insert_opengraph_metatags($path)");
+    
+    echo "<!-- Open Graph -->\n";
+    echo "<meta property='og:type' content='website'>\n";
+    echo "<meta property='path' content='$path'>\n";
+    
+    // "og:image:width" y "og:image:height""og:image:width" y "og:image:height"
+    if (config_is_set($info["site_url"]))          echo "<meta property='og:url' content='" . $info["site_url"] . $path ."'>\n";
+    if (config_is_set($info["page_title"]))         echo "<meta property='og:title' content='" . $info["page_title"] . "'>\n";
+    if (config_is_set($info["site_name"]))         echo "<meta property='og:site_name' content='" . $info["site_name"] . "'>\n";
+    if (config_is_set($info["site_social_image"])) echo "<meta property='og:image' content='" . $info["site_social_image"] . "'>\n";
+    // trace('$info', $info);
+    if (isset($info["image_size"]) && is_array($info["image_size"])) {
+        echo "<meta property='og:image:width' content='" . $info["image_size"]["width"] . "'>\n";
+        echo "<meta property='og:image:height' content='" . $info["image_size"]["height"] . "'>\n";
+    }
+    if (config_is_set($info["fb_app_id"]))         echo "<meta property='fb:app_id' content='" . $info["fb_app_id"] . "'>\n";
+    if (config_is_set($info["locale"]))            echo "<meta property='og:locale' content='" . $info["locale"] . "'>\n";
+    if (config_is_set($info["description"]))       echo "<meta property='og:description' content='" . $info["description"] . "'>\n";
+    return "";
+};
