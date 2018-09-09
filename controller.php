@@ -833,8 +833,8 @@ function insert_opengraph($path) {
         $slug = $slug[1];
         $info["site_social_image"] = $info["site_url"] . "/assets/cards/openmic/images/opengraph/$slug.png";
         $info["image_size"] = array(
-            "width" => "500",
-            "height" => "276"
+            "width" => "540",
+            "height" => "282"
         );
     } else {
         $info = $config;
