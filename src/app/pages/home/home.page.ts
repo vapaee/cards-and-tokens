@@ -51,8 +51,8 @@ export class HomePage implements OnInit {
             clock.face.options.autoStart = false;
             clock.face.options.autoPlay = false;
             clock.face.options.showSeconds = true;
-            console.log("clock.face.options", clock.face.options);
-            console.log("clock", clock);
+            /// console.log("clock.face.options", clock.face.options);
+            // console.log("clock", clock);
             // clock.face.value = clock.face.value - 4;
             clock.stop();
             clock.start();
@@ -71,7 +71,7 @@ export class HomePage implements OnInit {
                 $(html).insertAfter(t);
                 
                 $('.flipclock-divider').each(function (a,b,c) {
-                    console.log(this);
+                    // console.log(this);
                     var text = "";
                     if (a==0) text = "days";
                     if (a==1) text = "hours";

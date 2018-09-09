@@ -90,7 +90,6 @@
     <div class="cnt-page-preload-anim circle2"></div>
     
     <app-root></app-root>
-    
     <script type="text/javascript" src="runtime.js" size="5.2kb" ></script>
     <script type="text/javascript" src="polyfills.js" size="227.7kb"></script>
     <script type="text/javascript" src="styles.js" size="936.9kb"></script>

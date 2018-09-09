@@ -44,7 +44,7 @@ export class VideoComponent extends BaseComponent implements OnInit {
             if (this.data.youtube) {
                 console.assert(this.data.youtube.videoId, "ERROR: youtube params missing videoId", this.data.youtube);
                 this.updateSrc();
-                this.onResize();
+                this.onResize({});
             }
         });        
     }
@@ -55,7 +55,7 @@ export class VideoComponent extends BaseComponent implements OnInit {
         };
     }
 
-    onResize() {
+    onResize(e) {
         var target = this.elRef.nativeElement.querySelector(".embed-responsive");
         var ratio = 16/9;
         var maxHeight = this.elRef.nativeElement.offsetHeight - 2 * this.getPadding();

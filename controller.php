@@ -836,6 +836,15 @@ function insert_opengraph($path) {
             "width" => "540",
             "height" => "282"
         );
+    } else if (strpos($path, 'deploy/album/openmic-100-weeks') !== false) {
+        
+        $info["site_social_image"] = $info["site_url"] . "/assets/albums/openmic/preview-thumbnail.png";
+        $info["image_size"] = array(
+            "width" => "200",
+            "height" => "240"
+        );
+
+        // deploy\\/album\\/openmic-100-weeks
     } else {
         $info = $config;
         $config['page_title'] = $config["site_name"];
@@ -849,6 +858,10 @@ function insert_opengraph_metatags($path, $info) {
     
     trace("insert_opengraph_metatags($path)");
     
+
+    if (!isset($config['page_title'])) {
+        $config['page_title'] = $config["site_name"];
+    }    
     echo "<!-- Open Graph -->\n";
     echo "<meta property='og:type' content='website'>\n";
     echo "<meta property='path' content='$path'>\n";

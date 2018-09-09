@@ -51,7 +51,7 @@ export class LoginModalComponent {
     @ViewChild('_modal') private loginModal;
 
     constructor(public steem: SteemService) {
-        console.log("LoginModalComponent()");
+        // console.log("LoginModalComponent()");
         this.config = {"header":""};
     }
 

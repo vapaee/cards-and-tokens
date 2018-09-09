@@ -13,7 +13,7 @@ export class CardsPage implements OnInit {
     initResolve:(value?:void) => void;
     public waitInit: Promise<void> = null;
 
-    constructor(public vapaee: VapaeeUserService, public app: AppService, private cnt: CntService, private route: ActivatedRoute) {
+    constructor(public vapaee: VapaeeUserService, public app: AppService, public cnt: CntService, private route: ActivatedRoute) {
         this.cnt.getAllCards().then(e => {
             console.log(this.cnt.cards.length, this.cnt.cards);
             var slug = this.route.snapshot.paramMap.get('slug');
