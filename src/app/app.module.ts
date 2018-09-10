@@ -37,6 +37,7 @@ import { SteemConnectPage } from './pages/steem-connect/steem-connect.page';
 import { FacebookConnectPage } from './pages/facebook-connect/facebook-connect.page';
 import { InventoryPage } from './pages/inventory/inventory.page';
 import { RootPage } from './pages/root/root.page';
+import { PendingsPage } from './pages/pendings/pendings.page';
 
 
 import { ComponentHost } from './deploy/comp/comp';
@@ -85,6 +86,7 @@ const routes: Routes = [
         { path: 'privacy-policy',       data: { state: "privacy-policy" }, component: PrivacyPolicyPage },
         { path: 'deploy/card/:slug',    data: { state: "deploy-card",  logged: false }, component: CardsPage },
         { path: 'deploy/album/:slug',   data: { state: "deploy-album",  logged: false }, component: AlbumsPage },
+        { path: 'pendings',             data: { state: "pendings" }, component: PendingsPage },
       ]
     },
     { path: '**',                   data: { state: "404" }, component: NotFoundPage }
@@ -132,7 +134,8 @@ const routes: Routes = [
         SteemConnectPage,
         FacebookConnectPage,
         InventoryPage,
-        RootPage
+        RootPage,
+        PendingsPage
     ],
     entryComponents: [
         RootComponent,

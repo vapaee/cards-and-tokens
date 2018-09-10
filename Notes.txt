@@ -7,6 +7,7 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
 - google analitics. poner en todos lados
+- pensar si hay que manejar el $app->post('/update/collectible/votes')
 - POST: dirigido a los participantes ganadores que les hice cartas. Como reclamar la carta y empezar el contador.
 -- ANTES DE PUBLICAR
 - POST: Hacer un post en Steemit explicando sobre el prototipo (alcance)

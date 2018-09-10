@@ -70,6 +70,7 @@ $DATA = array (
             "url" => array( "type" => "varchar(250)" ),
             "preload" => array( "type" => "json" ),
             "preview" => array( "type" => "json" ),
+            "data" => array( "type" => "json"),
             "deploy" => array( "type" => "json", "detail" => true ),
             "copies" => array( "type" => "int(10)" ),
             "released" => array( "type" => "boolean" ),

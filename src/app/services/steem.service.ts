@@ -164,6 +164,7 @@ export class SteemService {
         }
         console.log("**************************************");
         */
+       /*
         this.steemjs.api.getDiscussionsByBlog({tag: "gcalvete", limit: 10}, function(err, result) {
             console.log("**************************************");
             console.log("STEEM: this.steemjs.api.getDiscussionsByBlog", err, result);
@@ -175,7 +176,64 @@ export class SteemService {
             console.log("STEEM: this.steemjs.api.getContent(viterbo, prueba-con-rechazo-e-pago-re-kbqgb)", err, result);
             console.log("**************************************");
         });
+        */
     }
+
+    publishOpenmicCardOnSteem(card) {
+        var parentAuthor = "";
+        var parentPermlink = "cards-and-tokens";
+        var permlink = card.edition.data.slug;
+        
+        var link = "http://cardsandtokens.com/deploy/card/"+card.edition.data.slug;
+        var image = "http://cardsandtokens.com/assets/cards/openmic/images/steem-image/"+card.edition.data.slug+".png";
+        var jsonMetadata = {
+            "tags": [parentPermlink, "openmic", "eos", "project", "card"],
+            "data": card.edition.data,
+            "image": [image],
+            "links": [link],
+            "app": "cardsandtokens/0.1.0",
+            "format": "markdown"
+        };
+        var title = "OpenMic Trading Card: " + card.edition.data.title + " by @" + card.edition.data.steemuser;
+        var body = 
+        '<h1>'+card.edition.data.title+' ' + (card.edition.data.original?'(original)':'(cover)') +'</h1> ' + 
+        '<h3>by @' + card.edition.data.steemuser + '</h3>' + 
+        '<p><center><a href="'+link+'"><img src="'+image+'"></a></center></p>';
+
+        console.log(parentAuthor, parentPermlink, this.user.name, permlink, title, jsonMetadata);
+        console.log(body);
+        console.log("--------------------");
+        console.log([jsonMetadata]);
+        
+        card.loading = true;        
+        this.steemconnect.comment(parentAuthor, parentPermlink, this.user.name, permlink, title, body, jsonMetadata, (err, res) => {
+            console.log(err, res);
+            if (err) {
+                if (err.error_description) {
+                    alert("ERROR: " + err.error_description);
+                } else {
+                    alert("ERROR: " + JSON.stringify(err,null,4));
+                }
+                
+            } else {
+                this.data.update("card", {
+                    "id": card.id,
+                    "steem": {
+                        "author": this.user.name,
+                        "permlink": permlink
+                    }
+                }).then(() => {
+                    card.loading = false;
+                    card.steem = {
+                        "author": this.user.name,
+                        "permlink": permlink
+                    }
+                });
+            }
+        });
+    }
+
+
 
     pruebaDePost() {
         // https://steemit.com/debug/@gcalvete/prueba-con-rechazo-e-pago
@@ -192,6 +250,33 @@ export class SteemService {
         console.log(parentAuthor, parentPermlink, this.user.name, permlink, title, body, jsonMetadata);
         
         this.steemconnect.comment(parentAuthor, parentPermlink, this.user.name, permlink, title, body, jsonMetadata, function (err, res) {
+            /*
+            res = {
+                block_num: 25823163,
+                expiration: "2018-09-10T00:40:03",
+                expired: false,
+                extensions: [],
+                id: "f50128dc47caa36fd0363e74137cc8b27bb7f213",
+                operations: [
+                    [
+                        "comment",
+                        {,
+                            author: "gcalvete",
+                            body: "body",
+                            json_metadata: ""{\"jsonMetadata\":true}"",
+                            parent_author: "",
+                            parent_permlink: "debug",
+                            permlink: "this-is-a-test",
+                            title: "title"
+                        }
+                    ]
+                ],
+                ref_block_num: 1960,
+                ref_block_prefix: 3094508356,
+                signatures: ["20344f2479748f796b6a6b52efb3b131288c221452ef358415…98ed71954ce65ba258c785a8809f7a3f3084dbab1d2d228ce"],
+                trx_num: 18
+            }
+            */
             console.log(err, res);
         });
         

@@ -1,0 +1,41 @@
+<div class="container margin-top-lg text-center" *ngIf="cnt.userdata">
+    <h1>Claim authorship</h1>
+
+    <div class="card margin hide-at-work d-block padding"
+        *ngFor="let pending of cnt.userdata.data.pending"
+    >
+        
+        <img class="img-fluid" [id]="pending.card.slug" [src]="pending.card.edition.preview.images.opengraph">
+        
+        <div class="margin-top-lg container" *ngIf="!pending.card.steem.permlink">
+            <p><big><b>You can claim the authorship of this trading card</b></big></p>
+            <p><small>
+                By pressing the button below you will post on steemit a link to this card to redirect people to cardsandtokens.com and vote for your card.<br>
+            </small></p>
+            <p><small>
+                    All the cards that have been published in steemit will participate in a competition where the cards with the most up-votes (regardless of the raised amount) will won and will receive prizes in CNT tokens.
+            </small></p>
+            <button class="btn btn-success" *ngIf="!pending.card.loading" (click)="steem.publishOpenmicCardOnSteem(pending.card)">Publish on steemit</button>
+            <div class="preloader-wrapper small active" *ngIf="pending.card.loading">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="margin-top-lg container" *ngIf="pending.card.steem.permlink">
+                <p><big><b>This trading card is registered and has {{pending.card.steem_votes}} votes</b></big></p>
+            <a href="https://steemit.com/cards-and-tokens/@{{pending.card.steem.author}}/{{pending.card.steem.permlink}}" target="_blank">Go to POST</a>
+        </div>
+    </div>
+
+    <hr>
+    <!--pre *ngIf="cnt.userdata" class="text-left">{{cnt.userdata.data.pending|json}}</pre-->
+</div>

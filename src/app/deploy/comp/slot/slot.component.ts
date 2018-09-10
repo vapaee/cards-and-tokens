@@ -98,6 +98,7 @@ export class SlotComponent extends BaseComponent implements OnInit, OnChanges, S
             return this.data;
         }
         if (!this.cnt.userdata.data) return null;
+        if (!this.cnt.userdata.data.slug) return null;
         var contaienr = this.cnt.userdata.data.slug.container[this.data.container];
         if (!contaienr) return null;
         var slot = contaienr.slots[this.data.index];

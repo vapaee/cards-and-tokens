@@ -21,7 +21,7 @@ export class UserdataService {
     public name: string;
     public access_token:string;
     public logged: boolean = false;
-    public data: any;
+    public data: any = {};
     constructor(private http: HttpClient, public vapaee: VapaeeUserService, public cookie: CookieService) {
         this.waitData = new Promise((resolve) => {
             // reject();

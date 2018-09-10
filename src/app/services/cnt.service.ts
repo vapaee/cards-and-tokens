@@ -216,11 +216,33 @@ export class CntService {
         //
         this.userdata_to_global("card");
         this.userdata_to_global("album");
-
+        this.getAllCards().then(() => {
+            for (let i in this.cards) {
+                var card = this.cards[i];
+                if (!card.edition.data) continue;
+                if (card.edition.data.steemuser == this.vapaee.steemuser) {
+                    if (!card.steem.author || !card.steem.permlink) {
+                        this.userdata.data.pending = this.userdata.data.pending || [];
+                        this.userdata.data.pending.push({
+                            "task": "steempost",
+                            "card": card
+                        });    
+                    }
+                }
+            }
+            // we search for an unclamed card
+            console.log('-------- PENDING ----------');
+            console.log(this.userdata.data.pending);
+            console.log('---------------------------');
+            if (this.userdata.data.pending) {
+                this.app.navigate("/pendings");
+            }
+    
+        });
+        // we search for an unclamed card
         console.log('-------- data proccessed ----------');
         console.log(this.userdata.data);
         console.log('-----------------------------------');
-
     }
 
     private userdata_to_global(table) {
@@ -483,8 +505,13 @@ export class CntService {
         });
     }    
 
+    allCards: Promise<any>;
     getAllCards() {
-        return this.getAllInstances("card", "card", {"edition":true});
+        if (this.allCards) return this.allCards;
+        this.allCards = new Promise((resolve) => {
+            this.getAllInstances("card", "card", {"edition":true}).then(resolve);
+        });
+        return this.allCards;
     }
 
     getAllSpecs() {

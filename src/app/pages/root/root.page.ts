@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { VapaeeUserService } from "../../services/vapaee-user.service";
 import { AppService } from "../../services/app.service";
 import { SteemService } from '../../services/steem.service';
@@ -15,7 +15,9 @@ export class RootPage implements OnInit {
         public vapaee: VapaeeUserService,
         public app: AppService,
         public cnt: CntService,
-        public steem: SteemService) {
+        public steem: SteemService,
+        private renderer: Renderer2,
+        private elRef: ElementRef) {
     }
     
     ngOnInit() {
@@ -27,5 +29,11 @@ export class RootPage implements OnInit {
         console.log(this.cnt);
     }
 
-
+    collapseMenu() {
+        var target = this.elRef.nativeElement.querySelector("div.navbar-collapse.show");
+        if (target) {
+            this.renderer.removeClass(target, "show");
+        }
+        
+    }
 }

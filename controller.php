@@ -524,13 +524,13 @@ function verifySteemAccessToken($app) {
         $steemuser["profile"] = $profile;
         $account = $steemuser["name"];
         $name = isset($profile["name"]) ? $profile["name"] : $account;
-        /*
-        trace("------------ STEEM RESULT --------------------");
-        trace($steemuser);
-        trace($profile);
-        trace($name);
-        trace("----------------------------------------------");
-        */
+        
+        // trace("------------ STEEM RESULT --------------------");
+        // trace($steemuser);
+        // trace($profile);
+        // trace($name);
+        // trace("----------------------------------------------");
+        
 
         $old_oauth_steem = $app["db"]->http_get("oauth_steem", array("account" => $account), $op);
         if ($old_oauth_steem) {
@@ -560,7 +560,7 @@ function verifySteemAccessToken($app) {
 
 // returns a structure containing the total points a collection has plus the details on each card included
 function calculateSteemPoints($collection_id, $app) {
-    trace("calculateSteemPoints()", $collection_id);
+    // trace("calculateSteemPoints()", $collection_id);
     $op = array("unbox" => true);
     $total = 0;
     $items = array();
@@ -573,11 +573,11 @@ function calculateSteemPoints($collection_id, $app) {
         $pts = $card["steem_votes"];
         $total += $pts;
         $item["steem_votes"] = $pts;
-        trace("calculateSteemPoints() - ", $item);
+        // trace("calculateSteemPoints() - ", $item);
         array_push($items, $item);
     }
 
-    trace("calculateSteemPoints() ", $total, "<-");
+    // trace("calculateSteemPoints() ", $total, "<-");
 
     return array(
         "total" => $total,
@@ -587,14 +587,14 @@ function calculateSteemPoints($collection_id, $app) {
 
 // calcula y guarda la cantidad total de puntos que tiene una collection en particular
 function updateCollectionSteemPoints($collection_id, $app) {
-    trace("updateCollectionSteemPoints()", $collection_id);
+    // trace("updateCollectionSteemPoints()", $collection_id);
     $op = array("unbox" => true);
     $steemPoints = calculateSteemPoints($collection_id, $app);
     $new_pts = $steemPoints["total"];
     $collection = $app["db"]->http_get_id("collection", $collection_id, $op);
     $old_pts = $collection["points"];
     if ($old_pts != $new_pts) {
-        trace("updateCollectionSteemPoints() UPDATE !!!!", $old_pts, "-->", $new_pts);
+        // trace("updateCollectionSteemPoints() UPDATE !!!!", $old_pts, "-->", $new_pts);
         $app["db"]->http_put("collection", $collection_id, array(
             "points" => $new_pts
         ));
@@ -620,7 +620,7 @@ $app->post("/update_collection", function() use ($app) {
     global $config; $namespace = $config['namespace'];
     $content = $app["request"]->getContent();
     $content = json_decode($content);
-    trace("$namespace POST 'update_collection' collection ($content->collection) ---------------------");
+    // trace("$namespace POST 'update_collection' collection ($content->collection) ---------------------");
     $result = updateCollectionSteemPoints($content->collection, $app);
     return json_encode($result);
 });
@@ -673,6 +673,7 @@ $app->post("/crear_carta", function() use ($app) {
             "url" => "first",
             "preload" => array($content["model"]["bgimage"]),
             "preview" => $content["preview"],
+            "data" => $content["model"],
             "deploy" => $content["deploy"],
             "copies" => 0,
             "released" => true
@@ -721,24 +722,24 @@ function updateAlbumRanking($album_id, $app) {
 }
 
 function updateCollectionPosition($collection, $delta_points, $app) {
-    trace("updateCollectionPosition()", array("id"=>$collection["id"], "position"=>$collection["position"], "points"=>$collection["points"]), $delta_points);
+// trace("updateCollectionPosition()", array("id"=>$collection["id"], "position"=>$collection["position"], "points"=>$collection["points"]), $delta_points);
     $album_id = $collection["album"]["id"];
     $init_pos = $collection["position"];
 
-    trace("---------------- INIT -----------------");
+// trace("---------------- INIT -----------------");
     if ($delta_points > 0) {
         // si el delta es positivo (gané puntos, subí en el ranking)
         $select = array("album" => $album_id, "position" => array('$lt' => $collection["position"]));
         $order_by = array("unbox" => true, "order" => array("by" => "position", "wey" => "DESC")); // ASC|DESC
         $collections = $app["db"]->http_get("collection", $select, $order_by);
 
-        trace("updateCollectionPosition() collections ", $collections);
-        trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
+// trace("updateCollectionPosition() collections ", $collections);
+// trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
         foreach ($collections as $coll) {
-            trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
+// trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
             if ($collection["points"] > $coll["points"]) {
                 $collection["position"] = $coll["position"];
-                trace("escalamos -> position:", $collection["position"]);
+// trace("escalamos -> position:", $collection["position"]);
                 $app["db"]->http_put("collection", $coll["id"], array(
                     "position" => $coll["position"]+1 // bajar en el ranking es aumnetar el número de la posición
                 ));            
@@ -751,13 +752,13 @@ function updateCollectionPosition($collection, $delta_points, $app) {
         $select = array("album" => $album_id, "position" => array('$gt' => $collection["position"]));
         $order_by = array("unbox" => true, "order" => array("by" => "position", "wey" => "ASC")); // ASC|DESC
         $collections = $app["db"]->http_get("collection", $select, $order_by);
-        trace("updateCollectionPosition() collections ", $collections);
-        trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
+// trace("updateCollectionPosition() collections ", $collections);
+// trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
         foreach ($collections as $coll) {
-            trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
+// trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
             if ($collection["points"] < $coll["points"]) {
                 $collection["position"] = $coll["position"];
-                trace("descendemos -> position:", $collection["position"]);
+// trace("descendemos -> position:", $collection["position"]);
                 $app["db"]->http_put("collection", $coll["id"], array(
                     "position" => $coll["position"]-1 // subir en el ranking es decremendar el número de la posición
                 ));
@@ -767,12 +768,12 @@ function updateCollectionPosition($collection, $delta_points, $app) {
         }
     }
     if ($init_pos != $collection["position"]) {
-        trace("quedamos en -> position:", $collection["position"]);
+// trace("quedamos en -> position:", $collection["position"]);
         $app["db"]->http_put("collection", $collection["id"], array(
             "position" => $collection["position"]
         ));
     } 
-    trace("---------------- FIN -----------------");
+// trace("---------------- FIN -----------------");
 
     return $collection["position"];
 }
@@ -817,7 +818,7 @@ $app->get('/opengraph/{path}', function($path) use ($app) {
 
 function insert_opengraph($path) {
     global $config;
-    trace("insert_opengraph($path)");
+    // trace("insert_opengraph($path)");
     $info = array(
         "site_url" => $config["site_url"],
         "site_name" => $config["site_name"],
@@ -826,7 +827,8 @@ function insert_opengraph($path) {
         "favicon_url" => $config["favicon_url"],
         "favicon_type" => $config["favicon_type"],
         "locale" => $config["locale"],
-        "page_title" => $config["site_name"]
+        "page_title" => $config["site_name"],
+        "fb_app_id" => $config["fb_app_id"]
     );
     if (strpos($path, 'deploy/card/') !== false) {
         $slug = explode('/card/', $path);
@@ -856,11 +858,11 @@ function insert_opengraph($path) {
 
 function insert_opengraph_metatags($path, $info) {
     
-    trace("insert_opengraph_metatags($path)");
+    // trace("insert_opengraph_metatags($path)");
     
 
-    if (!isset($config['page_title'])) {
-        $config['page_title'] = $config["site_name"];
+    if (!isset($info['page_title'])) {
+        $info['page_title'] = $info["site_name"];
     }    
     echo "<!-- Open Graph -->\n";
     echo "<meta property='og:type' content='website'>\n";

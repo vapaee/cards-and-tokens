@@ -12,6 +12,7 @@ export class VapaeeUserService {
     public refresh_token: string;
     public user_id: Number;
     public user_name: string;
+    public steemuser: string;
     public logged: boolean = false;
     public ready: boolean = false;
     public afterReady: Promise<void> = null;
@@ -39,6 +40,7 @@ export class VapaeeUserService {
                 this.logged = true;
                 this.ready = true;
                 this.user_name = this.steem.user.profile.name;
+                this.steemuser = this.steem.user.name;
                 this.isAdmin = this.steem.user.name == 'viterbo';
                 // console.log("--- vapaee.user ---");
                 resolve();

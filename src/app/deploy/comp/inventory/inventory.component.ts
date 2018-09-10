@@ -107,7 +107,7 @@ export class InventoryComponent extends BaseComponent implements OnInit {
 
     get slots(): any {
         var capacity = 8;
-        if (this.cnt.userdata.data) {
+        if (this.cnt.userdata.data && this.cnt.userdata.data.slug && this.cnt.userdata.data.slug.container) {
             capacity = this.cnt.userdata.data.slug.container["cards-and-tokens"].capacity;
         }
         if (capacity != this.slots_cache.length) {
