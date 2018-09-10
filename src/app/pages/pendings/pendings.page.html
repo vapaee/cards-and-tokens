@@ -13,7 +13,7 @@
                 By pressing the button below you will post on steemit a link to this card to redirect people to cardsandtokens.com and vote for your card.<br>
             </small></p>
             <p><small>
-                    All the cards that have been published in steemit will participate in a competition where the cards with the most up-votes (regardless of the raised amount) will won and will receive prizes in CNT tokens.
+                    All the cards that have been published in steemit will participate in a competition where the cards with the most up-votes will receive prizes in CNT tokens.
             </small></p>
             <button class="btn btn-success" *ngIf="!pending.card.loading" (click)="steem.publishOpenmicCardOnSteem(pending.card)">Publish on steemit</button>
             <div class="preloader-wrapper small active" *ngIf="pending.card.loading">
