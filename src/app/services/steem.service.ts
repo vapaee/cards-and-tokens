@@ -164,8 +164,39 @@ export class SteemService {
         }
         console.log("**************************************");
         */
+        this.steemjs.api.getDiscussionsByBlog({tag: "gcalvete", limit: 10}, function(err, result) {
+            console.log("**************************************");
+            console.log("STEEM: this.steemjs.api.getDiscussionsByBlog", err, result);
+            console.log("**************************************");
+        });
+        
+        this.steemjs.api.getContent("viterbo", "prueba-con-rechazo-e-pago-re-kbqgb", function(err, result) {
+            console.log("**************************************");
+            console.log("STEEM: this.steemjs.api.getContent(viterbo, prueba-con-rechazo-e-pago-re-kbqgb)", err, result);
+            console.log("**************************************");
+        });
     }
-    
+
+    pruebaDePost() {
+        // https://steemit.com/debug/@gcalvete/prueba-con-rechazo-e-pago
+        var parentAuthor = "gcalvete";
+        var parentPermlink = "prueba-con-rechazo-e-pago";
+        var permlink = "prueba-con-rechazo-e-pago-re-" + Math.random().toString(36).replace(/[^a-z]+/g, '');//.substr(0, 5);;
+        var jsonMetadata = '{"jsonMetadata":true}';
+        var title = "Cards & Tokens - test 2";
+        var body = '<p><center><img src="http://cardsandtokens.com/assets/cards/openmic/images/steem-image/openmic-w100-pechichemena-el-balcon.png"></center></p>';
+        // ------------------------
+        parentAuthor = "";
+        parentPermlink = "debug";
+        permlink = "this-is-a-test-2";
+        console.log(parentAuthor, parentPermlink, this.user.name, permlink, title, body, jsonMetadata);
+        
+        this.steemconnect.comment(parentAuthor, parentPermlink, this.user.name, permlink, title, body, jsonMetadata, function (err, res) {
+            console.log(err, res);
+        });
+        
+    }
+
     vote(author:string, permlink:string, percent:number = 10000): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             if (!this.user) {

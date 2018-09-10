@@ -8,7 +8,6 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 ----- TODO -----
 - google analitics. poner en todos lados
 - POST: dirigido a los participantes ganadores que les hice cartas. Como reclamar la carta y empezar el contador.
-- después hay que resolver el open graph para el album
 -- ANTES DE PUBLICAR
 - POST: Hacer un post en Steemit explicando sobre el prototipo (alcance)
 - El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
@@ -26,7 +25,13 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 - el album de sebe de poder pasar de página con el gesto del dedo 
 - convertir el menu-comp en un ícono a la derecha en resoluciones bajas (y ocultar los botones)
 
-
+            ga('send', {
+              hitType: 'event',
+              eventCategory: 'submit',
+              eventAction: name,
+              eventLabel: label,
+              eventValue: value
+            });
 
 Me quedaron por ver
 https://twitter.com/learaduazzo/status/1035187985040453632
