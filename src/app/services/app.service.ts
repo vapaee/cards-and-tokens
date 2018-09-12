@@ -44,7 +44,7 @@ export class AppService {
     private updateCountDown() {
         var countdown:number = 0;
         var YYYY = 2018, MM = 8, DD = 17, hh = 0, mm = 0;
-        // DD = 6; hh = 12; mm = 59;
+        DD = 6; hh = 12; mm = 59;
 
         var t1 = new Date(YYYY, MM, DD, hh, mm, 0, 0);
         var t2 = new Date();

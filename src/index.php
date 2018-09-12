@@ -79,7 +79,7 @@
         }  
     </style>       
 </head>
-<body class="hide-at-work-" loading="true">
+<body class="hide-at-work" loading="true">
     <div class="img-preload">
         <img src="/assets/loading.gif">
         <img src="/assets/coming-soon.jpg">

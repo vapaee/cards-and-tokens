@@ -21,7 +21,7 @@ export class AppComponent {
         public cnt: CntService,
         public steem: SteemService,
         public dnd: DragAndDropService
-    ) {        
+    ) {
         this.app.init(this);
         this.cnt.init(this.app.device);
         this.steem.init(this);

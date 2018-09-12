@@ -8,9 +8,17 @@ import { SlotComponent } from '../deploy/comp/slot/slot.component';
     selector: '[draggable]'
 })
 export class DraggableDirective implements OnInit {
+    mouseX: number;
+    mouseY: number;
 
     constructor(private dnd:DragAndDropService, private cnt:CntService, private app: AppService, private component: SlotComponent) {
-        
+        if (app.isFirefox) {
+            window.document.body.addEventListener("dragover", (event) => {
+                this.mouseX = event.clientX;
+                this.mouseY = event.clientY;
+                console.log(this.mouseX, this.mouseY);
+            });
+        }
     }
 
     @Output() dropHandler: EventEmitter<any> = new EventEmitter<any>();
@@ -36,7 +44,12 @@ export class DraggableDirective implements OnInit {
     
     @HostListener('drag', ['$event']) onDrag(e) {
         // console.log("DraggableDirective.onDrag()", [e]);
-        this.dnd.drag(e);
+        if (this.app.isFirefox) {
+            var _e = Object.assign({}, e, {clientY: this.mouseY, clientX: this.mouseX});
+            this.dnd.drag(_e);
+        } else {
+            this.dnd.drag(e);
+        }
     }
     @HostListener('dragend', ['$event']) onDragEnd(e) {
         console.log("DraggableDirective.onDragEnd()", [e]);
