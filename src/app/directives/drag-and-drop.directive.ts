@@ -16,7 +16,6 @@ export class DraggableDirective implements OnInit {
             window.document.body.addEventListener("dragover", (event) => {
                 this.mouseX = event.clientX;
                 this.mouseY = event.clientY;
-                console.log(this.mouseX, this.mouseY);
             });
         }
     }
@@ -92,12 +91,13 @@ export class DroppableDirective implements OnInit {
     }
     
     @HostListener('dragleave', ['$event']) handleDragLeave(e) {
+        console.log("DroppableDirective.handleDragLeave()", [e]);
         if (e.clientX == 0 && e.clientY == 0) {
             // En este caso el leave no es real. Sigue estando sobre el objeto pero por alguna razón ejecuta el 'dragleave' event
             return;
         }
         // var rect:ClientRect = this.component.placeholder.nativeElement.getBoundingClientRect();
-        console.log("DroppableDirective.handleDragLeave()", e.clientX, e.clientY, [e.target]);
+        console.log("DroppableDirective.handleDragLeave() POSTA !", e.clientX, e.clientY, [e.target]);
         this.dnd.dragLeave(this.component);
     }
     

@@ -79,11 +79,12 @@ export class DragAndDropService {
 
     dragLeave(to:SlotComponent) {
         // console.log("DragAndDropService.dragLeave()",[this.dragging]);
+        // console.log("DragAndDropService.dragLeave() this.dragging >>>>> ",this.dragging);
         if (!this.dragging) return;
         to.dragLeave();
         if (to == this.toComp) {
             this.toComp = null;
-            console.log("DragAndDropService.dragLeave()",to.data);
+            // console.log("DragAndDropService.dragLeave()",to.data);
         }
     }
 
@@ -92,12 +93,13 @@ export class DragAndDropService {
         if (!this.dragging) return;
         if (to.acceptsDrop(this.dragging.copy)) {
             this.toComp = to;
-            console.log("DragAndDropService.draggingOver()", [to.data]);
+            // console.log("DragAndDropService.draggingOver() TENGO TOCMP !!", [to.data]);
         }
     }
 
     stopDragging(e) {
         if (this.toComp) {
+            // console.log("DragAndDropService.stopDragging() SIIIIIIII");
             this.toComp.dragLeave();
             this.dragging = null;
             this.cnt.swapSlots(this.fromComp.data.container, this.fromComp.data.index, this.toComp.data.container, this.toComp.data.index).then(() => {
@@ -105,11 +107,12 @@ export class DragAndDropService {
                 this.toComp = null;
             });    
         } else {
+            // console.log("DragAndDropService.stopDragging() NOOOOOOOOOOO");
             this.fromComp = null;
             this.toComp = null;
             this.dragging = null;
         }
-        console.log("stopDragging()",[e]);
+        // console.log("stopDragging()",[e]);
     }
 }
 
