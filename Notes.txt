@@ -20,6 +20,7 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 - POST: Hacer un post en Steemit explicando sobre el prototipo (alcance)
 - El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
 - poner una última página del álbum con una imagen con que diga comming soon y deje ver que habrá un ranking y los primeros premios ganarán Tokens
+- Tengo que resolver poner el nombre del artista en la carta deployada
 
 -- PROXIMA PUBLICACIÓN --
 - que la gente se pueda loguear con Vapaee
