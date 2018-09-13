@@ -25,12 +25,12 @@ export class DraggableDirective implements OnInit {
     public target: HTMLElement;
     
     @HostListener('dragstart', ['$event']) onDragStart(e) {
-        console.log("DraggableDirective.onDragStart()", [e]);
+        // console.log("DraggableDirective.onDragStart()", [e]);
         this.target = e.target;
         this.target.style.opacity = "0.2";
         e.dataTransfer.setDragImage(this.target,this.app.device.width*2,this.app.device.height*2);
         var isDraggable = this.component.isDraggable();
-        console.log("this.component.isDraggable()", isDraggable);
+        // console.log("this.component.isDraggable()", isDraggable);
         if (isDraggable) {
             this.cnt.getCopyById(e.target.id.substr(5)).then(copy => {
                 this.dnd.startDragging(e, this.component, e.target);
@@ -51,7 +51,7 @@ export class DraggableDirective implements OnInit {
         }
     }
     @HostListener('dragend', ['$event']) onDragEnd(e) {
-        console.log("DraggableDirective.onDragEnd()", [e]);
+        console.log("dragend", [e]);
         if (this.target) {
             this.target.style.opacity = "1";
             this.dnd.stopDragging(e);    
@@ -68,7 +68,7 @@ export class DraggableDirective implements OnInit {
 })
 export class DroppableDirective implements OnInit {
 
-    constructor(private dnd:DragAndDropService, private component: SlotComponent) {
+    constructor(private dnd:DragAndDropService, private app: AppService, private component: SlotComponent) {
         // console.log("DROPPABLE:" , [this.component, this.target]);
     }
 
@@ -79,7 +79,9 @@ export class DroppableDirective implements OnInit {
     public imageLoaded: boolean;
     public imageSrc: string;
     public invalidFlag: boolean;
-
+    @HostListener('drop', ['$event']) onProp(e) {
+        console.log("drop", [e]);
+    }
     @HostListener('dragover', ['$event']) onDragOver(e) {
         // console.log("DroppableDirective.onDragOver()", [this.component]);
         this.dnd.draggingOver(this.component);
@@ -91,13 +93,22 @@ export class DroppableDirective implements OnInit {
     }
     
     @HostListener('dragleave', ['$event']) handleDragLeave(e) {
-        console.log("DroppableDirective.handleDragLeave()", [e]);
-        if (e.clientX == 0 && e.clientY == 0) {
-            // En este caso el leave no es real. Sigue estando sobre el objeto pero por alguna razón ejecuta el 'dragleave' event
+        console.log("dragleave", [e]);
+
+        // En algunos casos el 'dragleave' no es real.
+        // Sigue estando sobre el objeto pero se ejecuta el 'dragleave' justo antes de 'dragend'
+
+        // Como detectalo en Chrome
+        if (this.app.isChrome && e.clientX == 0 && e.clientY == 0) {
+            return;
+        }
+
+        // Como detectalo en Firefox
+        if (this.app.isFirefox && e.buttons == 0) {
             return;
         }
         // var rect:ClientRect = this.component.placeholder.nativeElement.getBoundingClientRect();
-        console.log("DroppableDirective.handleDragLeave() POSTA !", e.clientX, e.clientY, [e.target]);
+        // console.log("DroppableDirective.handleDragLeave() POSTA !", e.clientX, e.clientY, [e.target]);
         this.dnd.dragLeave(this.component);
     }
     

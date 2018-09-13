@@ -22,9 +22,9 @@ export class DragAndDropService {
     }
 
     startDragging(event, slot: SlotComponent, div:HTMLDivElement) {
-        console.log("------------ startDragging -------------");
-        console.log(event, slot, div);
-        console.log("-------------------------------------");
+        // console.log("------------ startDragging -------------");
+        // console.log(event, slot, div);
+        // console.log("-------------------------------------");
         this.fromComp = slot;
         
         var rect:ClientRect = div.getBoundingClientRect();
@@ -56,8 +56,8 @@ export class DragAndDropService {
             "background-image": "url("+_dragging.copy.edition.preview.images.fullsize+"), url("+_dragging.copy.edition.preview.images.thumbnail+")"
         }
         this.dragging = _dragging;
-        console.log([this.dragging]);
-        console.log("-------------------------------------");
+        //console.log([this.dragging]);
+        //console.log("-------------------------------------");
     }
 
     drag(e) {
@@ -84,6 +84,7 @@ export class DragAndDropService {
         to.dragLeave();
         if (to == this.toComp) {
             this.toComp = null;
+            console.log("TOY VACIO");
             // console.log("DragAndDropService.dragLeave()",to.data);
         }
     }
@@ -93,6 +94,7 @@ export class DragAndDropService {
         if (!this.dragging) return;
         if (to.acceptsDrop(this.dragging.copy)) {
             this.toComp = to;
+            console.log("TENGO DONDE CAER");
             // console.log("DragAndDropService.draggingOver() TENGO TOCMP !!", [to.data]);
         }
     }

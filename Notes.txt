@@ -6,13 +6,21 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
-- google analitics. poner en todos lados
-- pensar si hay que manejar el $app->post('/update/collectible/votes')
-- POST: dirigido a los participantes ganadores que les hice cartas. Como reclamar la carta y empezar el contador.
 -- ANTES DE PUBLICAR
+- google analitics. poner en todos lados
+            ga('send', {
+              hitType: 'event',
+              eventCategory: 'submit',
+              eventAction: name,
+              eventLabel: label,
+              eventValue: value
+            });
+
+- POST: dirigido a los participantes ganadores que les hice cartas. Como reclamar la carta y empezar el contador.
 - POST: Hacer un post en Steemit explicando sobre el prototipo (alcance)
 - El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
 - poner una última página del álbum con una imagen con que diga comming soon y deje ver que habrá un ranking y los primeros premios ganarán Tokens
+
 -- PROXIMA PUBLICACIÓN --
 - que la gente se pueda loguear con Vapaee
 - tenés que tener una forma de descartarte de una carta (la dejaría disponible para el daily prize)
@@ -23,16 +31,8 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 - php cuando me actualizan un votes debo actualizar el puntaje de cada usuario que tenga una copia de esa carta
 - seccion que te liste los usuarios y si le hacés click podés explorar sobre sus datos
 - el actual deploy dividirlo en data+template con tabla de template_deploy aparte
-- el album de sebe de poder pasar de página con el gesto del dedo 
+- el album se debe de poder pasar de página con el gesto del dedo 
 - convertir el menu-comp en un ícono a la derecha en resoluciones bajas (y ocultar los botones)
-
-            ga('send', {
-              hitType: 'event',
-              eventCategory: 'submit',
-              eventAction: name,
-              eventLabel: label,
-              eventValue: value
-            });
 
 Me quedaron por ver
 https://twitter.com/learaduazzo/status/1035187985040453632
@@ -41,12 +41,7 @@ https://www.facebook.com/PlayGroundMag/videos/2204702882902909/
 
 
 
--- ARREGLOS & MEJORAS --
-- en el inventario del album se ven hasta 10 slots cuando debería ser un máximo de 8
-- cuando hacés drag and drop (en el album) y soltás fuera de un slot, se rompe todo
-- que el preload tenga dos secciones: {
-    "first": ["la lista actual de url de preload"],
-    "all": ["la lista de", "todas las imágenes", "de todas las páginas"]
+
 
 
 lectura Steem api
