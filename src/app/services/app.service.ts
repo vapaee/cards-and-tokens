@@ -3,23 +3,31 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { VapaeeUserService } from './vapaee-user.service';
 import { DomService } from './dom.service';
+import { AnalyticsService } from './analytics.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
     public path: string;
-    router : Router;
-    route : ActivatedRoute;
+    // router : Router;
+    // route : ActivatedRoute;
     state : string;
     prev_state : string = "none";
     device: {big?:boolean, small?:boolean, tiny?:boolean, portrait?:boolean, wide?:boolean, height?:number, width?: number} = {};
     loading: boolean;
     countdown: number;
 
-    constructor(public vapaee: VapaeeUserService, router: Router, route: ActivatedRoute, private dom: DomService) {
-        this.router = router;
-        this.route = route;
+    constructor(
+        public vapaee: VapaeeUserService, 
+        public router: Router, 
+        public route: ActivatedRoute, 
+        private dom: DomService,
+        private analytics: AnalyticsService
+    ) {
+
+        // this.router = router;
+        // this.route = route;
 
         // -----------------------------------
         this.updateCountDown();
@@ -31,7 +39,17 @@ export class AppService {
                 this.prev_state = this.state;
                 this.path = this.router.url;
                 this.state = this.getDeepestChild(this.route.root).snapshot.data.state;
-                this.checkRedirect();
+                var state = this.checkRedirect();
+                // console.log("------>", this.state, window.location.href);
+                switch (state) {
+                    case "steemconnect":
+                    case "loading":
+                    case "embedded-card":
+                        break; // estos no se registran
+                    default:
+                       this.analytics.sendPageView(window.location.href); 
+
+                }
             }
         });
         this.vapaee.afterReady.then(() => {
@@ -152,6 +170,7 @@ export class AppService {
 
     navigate(path) {
         this.router.navigate([path]);
+        return path;
     }
 
     private checkRedirect() {
@@ -160,25 +179,26 @@ export class AppService {
             if (this.state === 'loading') {
                 if (this.vapaee.logged || !this.getStateData(this.prev_state).logged) {
                     // console.log("app.checkRedirect() ta todo bien REDIRECTION --> ", this.prev_state);
-                    this.router.navigate([this.prev_state]);
+                    return this.navigate(this.prev_state);
                 } else {
                     // console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
-                    this.router.navigate(['home']);
+                    return this.navigate('home');
                 }
             } else {
                 if (this.getStateData().logged && !this.vapaee.logged) {
                     // console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
-                    this.router.navigate(['home']);
+                    return this.navigate('home');
                 }    
             }
         } else {
             if (this.getStateData().logged) {
                 // console.log("app.checkRedirect() El estado '"+this.state+"' necesita que estemos logueados. -----> Loading ");
-                this.router.navigate(['loading']);
+                return this.navigate('loading');
             } else {
                 // console.log("app.checkRedirect() El estado '"+this.state+"' NO necesita que estemos logueados");
-            }            
+            }
         }
+        return this.state;
     }
 
     onCardClose() {

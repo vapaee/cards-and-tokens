@@ -7,20 +7,15 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
 -- ANTES DE PUBLICAR
-- google analitics. poner en todos lados
-            ga('send', {
-              hitType: 'event',
-              eventCategory: 'submit',
-              eventAction: name,
-              eventLabel: label,
-              eventValue: value
-            });
-
+- antes del release
+  - cerrar una carta te reenvía para el home
+  - la página de album te reenvía para el home
+  - la página de profile te reenvía para el home
 - POST: dirigido a los participantes ganadores que les hice cartas. Como reclamar la carta y empezar el contador.
 - POST: Hacer un post en Steemit explicando sobre el prototipo (alcance)
 - El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
 - poner una última página del álbum con una imagen con que diga comming soon y deje ver que habrá un ranking y los primeros premios ganarán Tokens
-- Tengo que resolver poner el nombre del artista en la carta deployada
+- tengo que mostrar el puntaje de la collección (sin la posición)
 
 -- PROXIMA PUBLICACIÓN --
 - que la gente se pueda loguear con Vapaee
@@ -134,3 +129,56 @@ https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3Nf
   - 0x4906E4f95ad546cE865916F65C825e00630bFfa8 - lover33
   - ------------------------------------------ - becky.rac https://steemit.com/eos/@viterbo/cards-and-tokens-announces-airdrop-x2-for-eos-token-holders#@becky.rac/re-viterbo-cards-and-tokens-announces-airdrop-x2-for-eos-token-holders-20180708t124446742z
   - 0x2A90853d49C05Bd79a582234269F59AD64b927DA - phi2818
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---- google analitics ----
+  eventos:
+  + copy
+    + dailyprize
+      + success
+      + fail
+  + cards
+    + swap // una por otra en el mismo container
+      + init
+      + success
+      + fail
+    + move // mueve una carta dentro del mismo container
+      + init
+      + success
+      + fail
+    + putin // pone una carta dentro de un album
+      + init
+      + success
+      + fail
+    + putout // saca una carta del album
+      + init
+      + success
+      + fail
+    + replace // reemplaza na carta por otra estando en diferentes containers
+      + init
+      + success
+      + fail
+    + deploy // despliega una carta
+      + init
+      + success
+  + user
+    + login
+      + init
+      + success
+    + logout

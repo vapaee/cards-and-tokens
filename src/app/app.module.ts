@@ -19,8 +19,7 @@ import { ComponentService } from './deploy/comp/component.service';
 import { SteemService } from './services/steem.service';
 import { FacebookService } from './services/facebook.service';
 import { DragAndDropService, CardDragging } from './services/drag-and-drop.service';
-
-
+import { AnalyticsService } from './services/analytics.service';
 
 import { HomePage } from './pages/home/home.page';
 import { CardsPage } from './pages/cards/cards.page';
@@ -181,7 +180,8 @@ const routes: Routes = [
         HttpClient,
         CookieService,
         DomService,
-        DragAndDropService
+        DragAndDropService,
+        AnalyticsService
     ],
     bootstrap: [AppComponent]
 })

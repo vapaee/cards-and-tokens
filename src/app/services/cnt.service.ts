@@ -9,6 +9,7 @@ import { BgBoxService } from './bg-box.service';
 import { AppService } from './app.service';
 import { VapaeeUserService } from './vapaee-user.service';
 import { LabelService } from '../deploy/comp/label/label.service';
+import { AnalyticsService } from './analytics.service';
 
 
 
@@ -53,7 +54,8 @@ export class CntService {
         public box: BgBoxService,
         public app: AppService,
         public vapaee: VapaeeUserService,
-        private labels: LabelService
+        private labels: LabelService,
+        public analytics: AnalyticsService
 
     ) {
         this.cards = [];
@@ -278,6 +280,32 @@ export class CntService {
         });
     }
 
+    private determineAction(from:number, fromi:number, to:number, toi:number) {
+        var action = "unknown("+from+","+fromi+","+to+","+toi+")";
+        var slot_to = this.userdata.data.container["id-"+to].slots[toi];
+        var slot_from = this.userdata.data.container["id-"+from].slots[fromi];        
+        if (from != to) {
+            if (slot_to) {
+                action = "replace";
+            } else {
+                if (this.userdata.data.collection["id-"+to]) {
+                    action = "putin";
+                } else {
+                    action = "putout";
+                }                
+            }
+        } else {
+            if (slot_to) {
+                action = "swap";
+            } else {
+                action = "move";
+            }
+        }
+        // console.log("-- slot_from", slot_from, "slot_to", slot_to, "action", action, [this.userdata.data.album["id-"+to]]);
+        return action;
+        
+    }
+
     private swapLocaly(from:number, fromi:number, to:number, toi:number) {
         var slot_to = this.userdata.data.container["id-"+to].slots[toi];
         var slot_from = this.userdata.data.container["id-"+from].slots[fromi];
@@ -295,16 +323,19 @@ export class CntService {
             slot_to.index = fromi;
             slot_to.container.slots[slot_to.index] = slot_to;
         }
+
+
     }
 
-    swapSlots(from_slug:string, fromi:number, to_slug:string, toi: number) {
+    swapSlots(from_slug:string, fromi:number, to_slug:string, toi: number, action:string = "unset") {
         var from = this.userdata.data.slug.container[from_slug].id;
         var to = this.userdata.data.slug.container[to_slug].id;
-        console.log("CntService.swapSlots() from (" + from_slug + "," + fromi + ") to (" + to_slug + "," + toi + ")");
+        action = this.determineAction(from, fromi, to, toi);
+        // console.log("CntService.swapSlots() from (" + from_slug + "," + fromi + ") to (" + to_slug + "," + toi + ") ---> ", action);
         this.app.setLoading(true);
-
         this.swapLocaly(from, fromi, to, toi);
-
+        this.analytics.emitEvent("cards", action, "init");
+        
         return this.http.post<any>("//api.cardsandtokens.com/swap/slots?access_token="+this.userdata.access_token,{
             from:from, fromi:fromi, to:to, toi:toi
         }).toPromise().then((r) => {
@@ -312,6 +343,7 @@ export class CntService {
                 console.error(r);
                 this.swapLocaly(to, toi, from, fromi);
                 this.app.setLoading(false);
+                this.analytics.emitEvent("cards", action, "fail");
             } else {
                 if (from != to) {
                     // alert("HAY QUE RECALCULAR");
@@ -332,11 +364,12 @@ export class CntService {
                 } else {
                     this.app.setLoading(false);
                 }
-
+                this.analytics.emitEvent("cards", action, "success");
             }
         }).catch((e) => {
             this.app.setLoading(false);
             this.swapLocaly(to, toi, from, fromi);
+            this.analytics.emitEvent("cards", action, "fail");
         });
     }
 
@@ -348,8 +381,10 @@ export class CntService {
                 if (r.error) {
                     alert(r.error);
                     reject(r.error);
+                    this.analytics.emitEvent("copy", "dailyprize", "fail");
                     return;
                 }
+                this.analytics.emitEvent("copy", "dailyprize", "success");
                 
                 this.userdata.data.slot["id-"+r.slot.id] = r.slot;
                 this.userdata.data.copy["id-"+r.copy.id] = r.copy;
@@ -676,8 +711,6 @@ export class CntService {
             w: W, h: H
         }
     }
-
-
     
     deployCard(card, img:HTMLImageElement) {
         console.log("------------ deployCard -------------");
@@ -685,6 +718,7 @@ export class CntService {
         console.log("-------------------------------------");
         var rect:ClientRect = img.getBoundingClientRect();
         // console.log(rect.top, rect.right, rect.bottom, rect.left);
+        this.analytics.emitEvent("cards", "deploy", "init");
         
         this.waitReady.then(() => {
             var _deploy:any = {};
@@ -839,7 +873,14 @@ export class CntService {
             window.history.pushState({}, "", this.deploy.prevhref);
         } else {
             this.app.onCardClose();
-        }        
+        }
+
+        if (this.app.countdown == 0) {
+            this.app.navigate("home");
+        } else {
+            console.error("sacar esto");
+        }
+
         this.deploy = null;
     }
     // ------------------------------------------------------------------------------------------

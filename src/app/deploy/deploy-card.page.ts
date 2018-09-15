@@ -5,6 +5,7 @@ import { CntService } from "../services/cnt.service";
 import { ComponentHost} from "./comp/comp";
 import { ComponentService } from "./comp/component.service";
 import { ActivatedRoute } from '@angular/router';
+import { AnalyticsService } from '../services/analytics.service';
 
 
 @Component({
@@ -22,14 +23,15 @@ export class DeployCardPage implements OnInit {
         public app: AppService, 
         public cnt: CntService, 
         public comp: ComponentService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public analytics: AnalyticsService
     ) {
         this.loading = true;
         this.stable = false;
     }
 
     ngOnInit() {
-
+        this.analytics.emitEvent("cards", "deploy", "success");
         var slug = this.route.snapshot.paramMap.get('slug');
         // console.log("-- ETAPA 1 -- this.cnt.getCardBySlug()");
         this.cnt.getCardBySlug(slug).then(card => {

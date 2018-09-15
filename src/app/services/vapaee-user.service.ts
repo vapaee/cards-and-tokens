@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { SteemService } from './steem.service';
+import { AnalyticsService } from './analytics.service';
 
 @Injectable()
 export class VapaeeUserService {
@@ -18,12 +19,17 @@ export class VapaeeUserService {
     public afterReady: Promise<void> = null;
     public isAdmin: boolean = false;
 
-    constructor(private http: HttpClient, private cookieService: CookieService, public steem: SteemService) {
+    constructor(
+        private cookies: CookieService, 
+        public steem: SteemService, 
+        public analytics: AnalyticsService
+    ) {
         this.init();
     }
 
     logout() {
         this.steem.logout();
+        this.analytics.emitEvent("user", "logout");
         setTimeout(() => {
             document.location.reload();
         }, 500);
@@ -42,6 +48,11 @@ export class VapaeeUserService {
                 this.user_name = this.steem.user.profile.name;
                 this.steemuser = this.steem.user.name;
                 this.isAdmin = this.steem.user.name == 'viterbo';
+                // analytics
+                if (this.cookies.get("login") == "init") {
+                    this.analytics.emitEvent("user", "login", "success");
+                }
+                this.cookies.delete("login");
                 // console.log("--- vapaee.user ---");
                 resolve();
             }, (err) => {
@@ -54,6 +65,12 @@ export class VapaeeUserService {
         this.afterReady.then(() => {}, e => {
             // console.log("--- vapaee.user rejected ---");
         });
-        
+
+    }
+
+    askForLogin() {
+        this.steem.askForLogin({'header':'steemconnect'});
+        this.cookies.set("login", "init");
+        this.analytics.emitEvent("user", "login", "init");
     }
 }

@@ -11,7 +11,11 @@ import { SteemService } from '../../services/steem.service';
 export class ProfilePage implements OnInit {
 
     constructor(public vapaee: VapaeeUserService, public app: AppService, public steem: SteemService) {
-        
+        if (this.app.countdown == 0) {
+            this.app.navigate("home");
+        } else {
+            console.error("sacar esto");
+        }
     }
 
     ngOnInit() {
