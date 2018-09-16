@@ -23,9 +23,9 @@ export class AnalyticsService {
             };
     
             this.pageviewTimer = window.setTimeout(() => {
-                console.log("AnalyticsService.sendPageView() -------> ", url);
-                // ga('set', 'page', url);
-                // ga('send', 'pageview');
+                console.log("Analytics::Pageview --> ", url);
+                ga('set', 'page', url);
+                ga('send', 'pageview');
             }, 1000);    
         });
     }
@@ -37,8 +37,8 @@ export class AnalyticsService {
         value: number = null
     ) {
         this.waitReady.then(ga => {
-            console.log("AnalyticsService.emitEvent() -------> ", category, action, label, value);
-            // ga('send', 'event', category, action, label, value); 
+            console.log("Analytics::Event --> ", category, action, label, value);
+            ga('send', 'event', category, action, label, value); 
         });
     }
     
