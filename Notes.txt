@@ -7,15 +7,23 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
 -- ANTES DE PUBLICAR
-- antes del release
-  - cerrar una carta te reenvía para el home
-  - la página de album te reenvía para el home
-  - la página de profile te reenvía para el home
 - POST: dirigido a los participantes ganadores que les hice cartas. Como reclamar la carta y empezar el contador.
 - POST: Hacer un post en Steemit explicando sobre el prototipo (alcance)
 - El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
-- poner una última página del álbum con una imagen con que diga comming soon y deje ver que habrá un ranking y los primeros premios ganarán Tokens
-- tengo que mostrar el puntaje de la collección (sin la posición)
+- cambiar la contra cara de las cartas
+
+
+
+
+
+
+35: {"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225817497z"}
+25: {"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t225841288z"}
+4: {"author":"gcalvete", "permlink":"re-gcalvete-prueba-con-rechazo-e-pago-20180819t230042963z"}
+51: {"author":"viterbo", "permlink":"prueba-con-rechazo-e-pago-re-kbqgb"}
+
+
+
 
 -- PROXIMA PUBLICACIÓN --
 - que la gente se pueda loguear con Vapaee
@@ -29,6 +37,15 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 - el actual deploy dividirlo en data+template con tabla de template_deploy aparte
 - el album se debe de poder pasar de página con el gesto del dedo 
 - convertir el menu-comp en un ícono a la derecha en resoluciones bajas (y ocultar los botones)
+- El slot tiene el dato extra de a que carta pertenece la copia: {"collectible":22}, necesitaría agregar el slug del container {"collectible":22, "container":"cards-and-tokens"}
+
+
+-- IDEAS --
+- puntos extra por tener más de una vez al mismo artista (con distintas cartas)
+- puntos extra si juntás en la misma página varias caras de la misma semana
+
+
+
 
 Me quedaron por ver
 https://twitter.com/learaduazzo/status/1035187985040453632

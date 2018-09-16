@@ -19,16 +19,20 @@
                 </div>
             </div>
             <div class="row daily-card-box">
-                <div class="col">
-                    <slot-comp [data]="dailycard" (click)="claimDailyPrize()"></slot-comp>
-                </div>
-                <div class="col-9">
+                <!--  COUNTDOWN  -->
+                <div class="col-12" *ngIf="!dailycard.claimable">
                     <div class="countdown-container flex-center flex-column flip-clock-wrapper color-white animated fadeIn">
                         <div class="count-down hide-at-work"></div>
-                        <div *ngIf="!dailycard.claimable">
-                            <h1>Free Daily Prize</h1>
-                        </div>
-                        <a class="btn btn-success btn-lg waves-effect waves-light" *ngIf="dailycard.claimable" (click)="claimDailyPrize()">
+                        <h1>Free Daily Prize</h1>
+                    </div>
+                </div>
+                <!--  CLAIM PRIZE  -->
+                <div class="col" *ngIf="dailycard.claimable">
+                    <slot-comp [data]="dailycard" (click)="claimDailyPrize()"></slot-comp>
+                </div>
+                <div class="col-9" *ngIf="dailycard.claimable">
+                    <div class="flex-center flex-column color-white animated fadeIn">
+                        <a class="btn btn-success btn-lg waves-effect waves-light" (click)="claimDailyPrize()">
                             Claim your daily price
                         </a>
                     </div>

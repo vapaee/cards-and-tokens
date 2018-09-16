@@ -1,7 +1,8 @@
-<div droppable (click)="onClick($event)" class="slot-container" [ngClass]="{'accepting-drop': acceptingDrop, 'dark': dark }">
+<div droppable (click)="onClick($event)" attr.index="{{data.index}}" attr.container="{{data.container}}" class="slot-container" [ngClass]="{'accepting-drop': acceptingDrop, 'dark': dark }">
     <div #placeholder class="placeholder embed-responsive embed-responsive-card" [ngClass]="{'empty': !copy }">
         <div *ngIf="!copy" class="slot-number">{{data.index+1}}</div>
+        <img *ngIf="!copy" class="slot-pixel-image expand-float expand" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
         <img #img draggable *ngIf="copy" [id]="'item-' + copy.id" [src]="copy.thumbnail"
-            class="hide-at-work cursor-pointer expand-float expand" >
+            class="hide-at-work cursor-pointer expand-float expand">
     </div>
 </div>

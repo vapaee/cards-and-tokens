@@ -22,7 +22,7 @@ export class CardsPage implements OnInit {
                     this.tryTodeployCard(slug);
                 });                
             } else {
-                if (this.app.countdown == 0) {
+                if (this.app.countdown > 0) {
                     this.app.navigate("home");
                 } else {
                     console.error("sacar esto");

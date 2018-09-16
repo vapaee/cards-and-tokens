@@ -194,17 +194,21 @@ export class SteemService {
             "app": "cardsandtokens/0.1.0",
             "format": "markdown"
         };
+
         var title = "OpenMic Trading Card: " + card.edition.data.title + " by @" + card.edition.data.steemuser;
         var body = 
         '<h1>'+card.edition.data.title+' ' + (card.edition.data.original?'(original)':'(cover)') +'</h1> ' + 
         '<h3>by @' + card.edition.data.steemuser + '</h3>' + 
-        '<p><center><a href="'+link+'"><img src="'+image+'"></a></center></p>';
-
+        '<p><center><a href="'+link+'"><img src="'+image+'"></a></center></p><hr>'+
+        (card.edition.data.has_lyrics? '\n# Lyrics\n\n' + card.edition.data.lyrics:'') +
+        '<hr><center><h4>powered by</h4><br><a href="http://cardsandtokens.com"><img src="https://cdn.steemitimages.com/DQmR8TvY2u1djNXcKdbFaJmCtmuPCck58LPCSd3zKr4tCFi/cards-and-tokens-small.jpg"></a></center>' +
+        '<br><ul><li><a href="https://steemit.com/introduceyourself/@viterbo/introducing-cards-and-tokens">about this project</a></li>'+
+        '<li><a href="http://presale.cardsandtokens.com">about openmic trading cards</a></li></ul>';
         console.log(parentAuthor, parentPermlink, this.user.name, permlink, title, jsonMetadata);
         console.log(body);
         console.log("--------------------");
         console.log([jsonMetadata]);
-        
+        // if (1*2>0) { return; }
         card.loading = true;        
         this.steemconnect.comment(parentAuthor, parentPermlink, this.user.name, permlink, title, body, jsonMetadata, (err, res) => {
             console.log(err, res);

@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { VapaeeUserService } from '../../../services/vapaee-user.service';
 import { AppService } from '../../../services/app.service';
 import { CntService } from '../../../services/cnt.service';
+import { CombineLatestOperator } from 'rxjs/internal/observable/combineLatest';
 
 @Component({
     selector: 'grid-comp',
@@ -79,16 +80,15 @@ export class GridComponent extends BaseComponent implements OnInit {
         var classes = row.class || {};
         classes["text-right"] = row.align == 'right';
         classes["text-center"] = row.align == 'center';
-        classes["padding"] = row.padding;
+        classes["padding"] = row.padding == true;
         return classes;
     }
-
 
     public getColClass(col:any) {
         var classes = col.class || {};
         classes["text-right"] = col.align == 'right';
         classes["text-center"] = col.align == 'center';
-        classes["padding"] = col.padding;
+        classes["padding"] = col.padding == true;
         return classes;
     }
 

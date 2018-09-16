@@ -12,6 +12,7 @@ import { SteemService } from '../services/steem.service';
         ".steem-vote-btn {font-weight: 500; border-radius: 5px; background-color: white; padding: 2px 10px; color: #1FBF8F !important; font-size: smaller; }",
         ".upvoted .Icon:hover { -webkit-animation: none !important; animation: none !important; }",
         ".upvoted circle { fill: #06D6A9; stroke: #06D6A9; }",
+        "svg { vertical-align: top; }",
         ".loading svg { border: 1px solid #06D6A9; border-radius: 50%; border-right-color: transparent; border-top-color: transparent; -webkit-animation: loading 500ms infinite linear; animation: loading 500ms infinite linear; }",
         "@keyframes loading { 0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } }"
     ],
@@ -61,7 +62,7 @@ export class SteemUpvoteButtonComponent implements OnChanges {
                 this.votes = 0;
                 this.list = result;
                 for (var i=0; i<this.list.length; i++) {
-                    if (this.list[i].weight > 0) {
+                    if (this.list[i].percent > 0) {
                         this.votes++;
                     }
                 }
@@ -72,7 +73,7 @@ export class SteemUpvoteButtonComponent implements OnChanges {
 
                 this.steem.waitLogged.then(() => {
                     for (var i=0; i<this.list.length; i++) {
-                        if (this.list[i].voter == this.steem.user.name && this.list[i].weight > 0) {
+                        if (this.list[i].voter == this.steem.user.name && this.list[i].percent > 0) {
                             this.voted = true;
                         }
                     }

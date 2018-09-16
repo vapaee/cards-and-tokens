@@ -1,5 +1,5 @@
 <div class="bg-container opaque-at-work" [ngStyle]="style" [ngClass]="class" >
-    <div class="container" *ngIf="data.container">
+    <div class="container" *ngIf="data.container" [ngClass]="{'d-flex': data.flex}">
         <ng-template comp-host></ng-template>
     </div>
     <ng-template *ngIf="!data.container" comp-host></ng-template>

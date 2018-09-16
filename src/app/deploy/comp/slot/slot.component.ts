@@ -36,7 +36,6 @@ export class SlotComponent extends BaseComponent implements OnInit, OnChanges, S
             if (this.data.dark) {
                 this.dark = this.data.dark;
             }
-            console.log("------->>>>>>>><", this.data);
         });
     }
 
@@ -50,7 +49,7 @@ export class SlotComponent extends BaseComponent implements OnInit, OnChanges, S
         if (this.data.backface) {
             console.log("SLOT BACKFACE", [this.data]);
             if (this.data.backface === true) {
-                this.data.thumbnail = "/assets/jumbocard_dbbb-full.jpg";
+                this.data.thumbnail = "/assets/card-back.png";
             } else if (typeof this.data.backface == "string") {
                 this.data.thumbnail = this.data.backface;
             }

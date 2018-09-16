@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { VapaeeUserService } from "../../services/vapaee-user.service";
 import { AppService } from "../../services/app.service";
 import { CntService } from '../../services/cnt.service';
@@ -24,7 +24,8 @@ export class InventoryPage implements OnInit, OnDestroy {
         public vapaee: VapaeeUserService, 
         public app: AppService, 
         public comp: ComponentService, 
-        public cnt: CntService
+        public cnt: CntService,
+        public elRef: ElementRef
     ) {
         
     }
@@ -64,7 +65,8 @@ export class InventoryPage implements OnInit, OnDestroy {
 
     claimDailyPrize() {
         if (this.cnt.userdata.data.dayliprice.claimable) {
-            this.cnt.claimDailyPrize().then(() => {
+            var dailycardimg = this.elRef.nativeElement.querySelector("#item-dailycard");
+            this.cnt.claimDailyPrize(dailycardimg).then(() => {
                 this.updateCountdown();
             });
         } else {

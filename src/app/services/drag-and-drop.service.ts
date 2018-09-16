@@ -42,9 +42,12 @@ export class DragAndDropService {
                 x: rect.left - event.clientX
             }
         }
+
         _dragging.front.style = {
             "z-index": "11",
-            // "opacity": "0",
+            "border-radius": "6px",
+            "box-shadow": "8px 8px 10px 0px rgba(0, 0, 0, 0.7)",
+            "background-color": "rgba(0, 0, 0, 0.7)",
             "top": rect.top + "px",
             "left": rect.left + "px",
             "height": rect.height + "px",

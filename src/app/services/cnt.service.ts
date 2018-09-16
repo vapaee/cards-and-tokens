@@ -373,9 +373,78 @@ export class CntService {
         });
     }
 
-    claimDailyPrize() {
+    private claimDailyPrizePart2(r:any, targetimg: Element) {
         return new Promise<any>((resolve, reject) => {
-            console.log("CntService.getDailyPrize()");
+            this.app.setLoading(false);
+            console.assert(this.deploy);
+            console.assert(this.deploy.front);
+            console.assert(this.deploy.front.style);
+            
+            this.deploy.front.style["transition-duration"] = "0.5s";
+            this.deploy.front.style["transform"] = "scaleX(0)";
+            window.setTimeout(() => {
+                this.deploy.front.style["background-image"] = "url("+r.edition.preview.images.fullsize+"), url("+r.edition.preview.images.thumbnail+")";
+                this.deploy.front.style["transform"] = "scaleX(1)";
+                window.setTimeout(() => {
+                    this.deploy.front.style["transition-duration"] = "1s";
+                    this.deployFromCenterToSlot(r.edition.preview.images, <HTMLElement>targetimg).then(() => {
+                        console.assert(!!this.userdata);
+                        console.assert(this.userdata.data);
+                        console.assert(this.userdata.data.slot);
+                        console.assert(this.userdata.data.copy);
+                        console.assert(this.userdata.data.card);
+                        console.assert(this.userdata.data.edition);
+                        this.userdata.data.slot["id-"+r.slot.id] = r.slot;
+                        this.userdata.data.copy["id-"+r.copy.id] = r.copy;
+                        this.userdata.data.card["id-"+r.card.id] = r.card;
+                        this.userdata.data.edition["id-"+r.edition.id] = r.edition;
+                        this.proccessData();
+            
+                        this.getUserInventory("cards-and-tokens").then(inventory => {
+                            resolve(inventory);
+                            this.deploy = null;
+                        }, (e) => {
+                            console.error("ERROR: hobe un error con el getUserInventory. ");
+                            reject(e);
+                            this.deploy = null;
+                        });
+                    });
+                }, 1500);    
+            }, 500);
+            
+            
+        });
+    }
+
+    claimDailyPrize(img:HTMLElement) {
+        return new Promise<any>((resolve, reject) => {
+            this.deployToCenter({"fullsize":"/assets/card-back.png"}, img).then(() => {
+                this.app.setLoading(true);
+                var url = "http://api.cardsandtokens.com/dailyprize/claim?access_token="+this.userdata.access_token;
+                this.http.get<any>(url).toPromise().then((r) => {
+                    if (r.error) {
+                        this.deploy = null;
+                        this.app.setLoading(false);
+                        this.analytics.emitEvent("copy", "dailyprize", "fail");
+                        alert(r.error);
+                        reject(r.error);
+                        return;
+                    }
+                    this.analytics.emitEvent("copy", "dailyprize", "success");
+                    var index = r.slot.index;
+                    var container = "cards-and-tokens";
+                    var query = ".slot-container[index='"+index+"'][container='"+container+"'] img.slot-pixel-image";
+                    console.log("----------------------------------------------");
+                    console.log("query", query);
+                    var targetimg = window.document.body.querySelector(query);
+                    console.log("img", targetimg);
+                    this.claimDailyPrizePart2(r, targetimg).then(resolve, reject);
+                }, reject);
+            });
+            // console.log("CntService.getDailyPrize()");
+
+
+            /*
             var url = "http://api.cardsandtokens.com/dailyprize/claim?access_token="+this.userdata.access_token;
             this.http.get<any>(url).toPromise().then((r) => {
                 if (r.error) {
@@ -397,6 +466,7 @@ export class CntService {
                 }, reject);
                 
             }, reject);
+            */
         });
     }
 
@@ -617,12 +687,17 @@ export class CntService {
 
     private calculateCollectionPoints(coll_id) {
         var votes = 0;
+        var counted = {};
         if (this.userdata.logged) {
             for (var i in this.userdata.data.slot) {
                 var slot = this.userdata.data.slot[i];
                 if (slot.container.id == coll_id) {
                     var collectible_id = slot.data.collectible;
                     var collectible = this.userdata.data.collectible["id-"+collectible_id];
+                    if (counted[collectible.slug]) {
+                        continue;
+                    }
+                    counted[collectible.slug] = true;
                     votes += collectible.steem_votes;
                     // console.log("steem_votes: ", votes, "(+"+collectible.steem_votes+")", [slot]);
                 }
@@ -712,7 +787,7 @@ export class CntService {
         }
     }
     
-    deployCard(card, img:HTMLImageElement) {
+    deployCard(card, img:HTMLElement) {
         console.log("------------ deployCard -------------");
         console.log("card: ", card, img);
         console.log("-------------------------------------");
@@ -863,7 +938,83 @@ export class CntService {
 
     }
 
-    deployAlbum(card, img:HTMLImageElement) {
+    deployToCenter(data, img:HTMLElement) {
+        return new Promise((resolve) => {
+            console.log("------------ deployToCenter -------------");
+            console.log(data, img);
+            console.log("-------------------------------------");
+            var rect:ClientRect = img.getBoundingClientRect();
+            
+            this.waitReady.then(() => {
+                var _deploy:any = {};
+                _deploy.style = {};
+                _deploy.show = {};
+    
+                var margin = "5px";
+                if (this.device.width > 576) margin = "20px";
+                if (this.device.width > 768) margin = "30px";
+                if (this.device.width > 992) margin = "30px";
+                if (this.device.width > 1200) margin = "30px";
+               
+                _deploy.front = {};
+                _deploy.front.style = {
+                    "z-index": "11",
+                    "top": rect.top + "px",
+                    "left": rect.left + "px",
+                    "height": rect.height + "px",
+                    "width": rect.width + "px",
+                    "position": "fixed",
+                    "display": "block",
+                    "background-size": "contain",
+                    "background-image": "url("+data.fullsize+"), url("+data.thumbnail+")",
+                    "transition-duration": "1s",
+                    "transition-property": "top, left, height, width, transform",
+                    "transition-timing-function": "ease-in-out"
+                };
+                
+                setTimeout(() => {
+                    var size = this.getCenterCardSize();
+                    var W = size.w;
+                    var H = size.h;
+                    _deploy.front.style.top = (this.device.height-H)*0.5 + "px";
+                    _deploy.front.style.left = (this.device.width-W)*0.5 + "px";
+                    _deploy.front.style.height = H + "px";
+                    _deploy.front.style.width = W + "px";
+                }, 50);
+    
+                this.deploy = _deploy;
+                window.setTimeout(resolve, 1100);
+            });    
+        });
+    }
+    
+    deployFromCenterToSlot(data, img:HTMLElement) {
+        return new Promise((resolve) => {
+            console.log("------------ deployFromCenterToSlot -------------");
+            console.log(data, img, this.deploy);
+            console.log("-------------------------------------");
+            var rect:ClientRect = img.getBoundingClientRect();
+            this.waitReady.then(() => {
+                console.assert(this.deploy, "ERROR: deployFromCenterToSlot was called but there's currently nothing deployed")
+                if (this.deploy) {
+                    this.deploy.front.style["top"] = rect.top + "px";
+                    this.deploy.front.style["left"] = rect.left + "px";
+                    this.deploy.front.style["height"] = rect.height + "px";
+                    this.deploy.front.style["width"] = rect.width + "px";
+                    this.deploy.front.style["background-image"] = "url("+data.fullsize+"), url("+data.thumbnail+")";
+                    this.deploy.front.style["transition-duration"] = "1s";
+                    window.setTimeout(() => {
+                        resolve();
+                    }, 1000);
+                } else {
+                    resolve();
+                }
+                
+            });
+        });
+    }
+
+    deployAlbum(card, img:HTMLElement) {
         alert("WHAT?????");
     }
 
@@ -875,7 +1026,7 @@ export class CntService {
             this.app.onCardClose();
         }
 
-        if (this.app.countdown == 0) {
+        if (this.app.countdown > 0) {
             this.app.navigate("home");
         } else {
             console.error("sacar esto");
@@ -906,24 +1057,24 @@ export class CntService {
     styles: [".stats_container {position: fixed; top: 3px; left: 30px; z-index: 9;}"],
     template: `
     <div *ngIf="cnt.deploy">
-        <div class="body" [ngStyle]="cnt.deploy.body.style">
+        <div *ngIf="cnt.deploy.body" class="body" [ngStyle]="cnt.deploy.body.style">
             <div class="stats_container animated fadeIn">
                 <steem-upvote-button [hidden]="!cnt.deploy.show.steemvotes" [steemdata]="cnt.deploy.steem" [card]="cnt.deploy.card"></steem-upvote-button>
                 <div [hidden]="!cnt.deploy.show.fblikes" class="fb-like"
                     [data-href]="cnt.deploy.href"
                     data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
             </div>
-            <div class="contenedor embed-responsive" [ngStyle]="cnt.deploy.frame.style">
+            <div *ngIf="cnt.deploy.frame" class="contenedor embed-responsive" [ngStyle]="cnt.deploy.frame.style">
                 <iframe *ngIf="cnt.deploy.frame.src" [src]="cnt.deploy.frame.src" class="embed-responsive-item"></iframe>
             </div>
         </div>
-        <div class="close-cross cursor-pointer" (click)="close()" [ngStyle]="cnt.deploy.closebtn.style">
+        <div *ngIf="cnt.deploy.closebtn" class="close-cross cursor-pointer" (click)="close()" [ngStyle]="cnt.deploy.closebtn.style">
             <img src="/assets/btn-close.png" />
         </div>
         <card-front [ngStyle]="cnt.deploy.front.style">
             
         </card-front>
-        <!--div style="position: absolute; top:-3000px;left:-3000px; pointer-events:none; opacity: 0">
+        <!--div *ngIf="cnt.deploy.preload" style="position: absolute; top:-3000px;left:-3000px; pointer-events:none; opacity: 0">
             <img *ngFor="let src of cnt.deploy.preload" [src]="src">
         </div-->
     </div>`

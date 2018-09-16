@@ -8,6 +8,7 @@ import { DeployNode } from '../comp';
 import { SectionI } from '../section/section.component';
 import { ContainerCtrl } from '../../../services/datatypes.service';
 import { LabelService } from '../label/label.service';
+import { AnalyticsService } from '../../../services/analytics.service';
 
 @Component({
     selector: 'album-comp',
@@ -25,7 +26,8 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
         protected section: SectionService,
         private renderer: Renderer2,
         private elRef: ElementRef,
-        private labels: LabelService
+        private labels: LabelService,
+        private analytics: AnalyticsService
     ) {
         super(vapaee, app, cnt, cfResolver);
         this.init();
@@ -37,7 +39,8 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
             window.setTimeout(() => {
                 this.onResize();
             }, 200);
-        });        
+        });
+        this.analytics.sendPageView(window.location.href + "#page-0");
     }
 
     public static config(): any {
@@ -192,6 +195,7 @@ export class AlbumComponent extends BaseComponent implements OnInit, SectionI, C
             this.labels.setLabel("album-page-title",this.data.pages[num].title);
             this.labels.setLabel("album-current-page","pag " + num);
 
+            this.analytics.sendPageView(window.location.href + "#page-"+num);
         });
     }
 

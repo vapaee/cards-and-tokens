@@ -37,7 +37,7 @@ export class AlbumsPage implements OnInit {
                     });
                 });    
             } else {
-                if (this.app.countdown == 0) {
+                if (this.app.countdown > 0) {
                     this.app.navigate("home");
                 } else {
                     console.error("sacar esto");
