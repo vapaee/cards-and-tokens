@@ -614,7 +614,13 @@ export class CntService {
     getAllCards() {
         if (this.allCards) return this.allCards;
         this.allCards = new Promise((resolve) => {
-            this.getAllInstances("card", "card", {"edition":true}).then(resolve);
+            this.getAllInstances("card", "card", {"edition":true}).then((r) => {
+                this.cards.sort(function(a, b) {
+                    if (a.edition.data.week != b.edition.data.week) return b.edition.data.week - a.edition.data.week;
+                    if (a.edition.data.position != b.edition.data.position) return a.edition.data.position - b.edition.data.position;
+                    return (a.slug > b.slug) ? 1 : -1;
+                });
+            });
         });
         return this.allCards;
     }

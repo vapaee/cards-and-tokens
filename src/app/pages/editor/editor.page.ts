@@ -256,11 +256,13 @@ export class EditorPage implements OnInit {
         })
         this.data.getAll("data_aux", {edition:true, details:true}).then((r) => {
             console.log("dale() ----------------->", r);
+            /*
             r.data_aux.sort(function(a, b){
                 if (a.week != b.week) return b.week - a.week;
                 if (a.position != b.position) return a.position - b.position;
                 return (a.slug > b.slug) ? 1 : -1;
             });
+            */
 
             for (var i in r.data_aux) {
                 var data_aux = r.data_aux[i];
