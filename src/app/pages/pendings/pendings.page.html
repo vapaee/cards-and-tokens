@@ -13,9 +13,10 @@
                 By pressing the button below you will post on steemit a link to this card to redirect people to cardsandtokens.com and vote for your card.<br>
             </small></p>
             <p><small>
-                    All the cards that have been published in steemit will participate in a competition where the cards with the most up-votes will receive prizes in CNT tokens.
+                All the cards that have been published in steemit will participate in a competition where the cards with the most up-votes will receive prizes in CNT tokens.
             </small></p>
             <button class="btn btn-success" *ngIf="!pending.card.loading" (click)="steem.publishOpenmicCardOnSteem(pending.card)">Publish on steemit</button>
+            <a class="btn btn-info" *ngIf="!pending.card.loading" href="https://steemit.com/openmic/@viterbo/claim-your-steemit-openmic-trading-card-authorship" target="_blank">Reed more about</a>
             <div class="preloader-wrapper small active" *ngIf="pending.card.loading">
                 <div class="spinner-layer spinner-green-only">
                     <div class="circle-clipper left">

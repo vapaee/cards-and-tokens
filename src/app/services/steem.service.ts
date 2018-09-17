@@ -209,31 +209,29 @@ export class SteemService {
         console.log("--------------------");
         console.log([jsonMetadata]);
         // if (1*2>0) { return; }
-        card.loading = true;        
-        this.steemconnect.comment(parentAuthor, parentPermlink, this.user.name, permlink, title, body, jsonMetadata, (err, res) => {
-            console.log(err, res);
-            if (err) {
-                if (err.error_description) {
-                    alert("ERROR: " + err.error_description);
+        card.loading = true;
+        return new Promise((resolve, reject) => {
+            this.steemconnect.comment(parentAuthor, parentPermlink, this.user.name, permlink, title, body, jsonMetadata, (err, res) => {
+                console.log(err, res);
+                if (err) {
+                    reject(err);
                 } else {
-                    alert("ERROR: " + JSON.stringify(err,null,4));
+                    this.data.update("card", {
+                        "id": card.id,
+                        "steem": {
+                            "author": this.user.name,
+                            "permlink": permlink
+                        }
+                    }).then(() => {
+                        card.loading = false;
+                        card.steem = {
+                            "author": this.user.name,
+                            "permlink": permlink
+                        }
+                        resolve();
+                    });
                 }
-                
-            } else {
-                this.data.update("card", {
-                    "id": card.id,
-                    "steem": {
-                        "author": this.user.name,
-                        "permlink": permlink
-                    }
-                }).then(() => {
-                    card.loading = false;
-                    card.steem = {
-                        "author": this.user.name,
-                        "permlink": permlink
-                    }
-                });
-            }
+            });    
         });
     }
 

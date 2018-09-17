@@ -4,6 +4,7 @@ import { AppService } from "../../services/app.service";
 import { SteemService } from '../../services/steem.service';
 import { CntService } from '../../services/cnt.service';
 import { DataService } from '../../services/data.service';
+import { AnalyticsService } from '../../services/analytics.service';
 
 interface CompSpec {
     comp:string,
@@ -25,7 +26,8 @@ export class PendingsPage implements OnInit {
         public app: AppService, 
         public steem: SteemService,
         public cnt: CntService,
-        public data: DataService
+        public data: DataService,
+        public analytics: AnalyticsService
     ) {
     }
 
@@ -33,5 +35,18 @@ export class PendingsPage implements OnInit {
 
     }
 
-    
+    publishOpenmicCardOnSteem(card) {
+        this.analytics.emitEvent("cards", "claim", "init");
+        this.steem.publishOpenmicCardOnSteem(card).then(() => {
+            this.analytics.emitEvent("cards", "claim", "success");
+        }, (err) => {
+            if (err.error_description) {
+                alert("ERROR: " + err.error_description);
+            } else {
+                alert("ERROR: " + JSON.stringify(err,null,4));
+            }            
+            this.analytics.emitEvent("cards", "claim", "fail");
+        });
+    }
+        
 }

@@ -147,21 +147,6 @@ https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3Nf
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---- google analitics ----
   eventos:
   + copy
@@ -197,77 +182,3 @@ https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3Nf
       + init
       + success
     + logout
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<center><h1>Claim your Steemit Openmic Trading Card Authorship</h1></center>
-<p>If you are one of the winners of the last weeks of the Steemit Openmic contest, this post is of your interest.</p>
-
-<center><img src="https://cdn.steemitimages.com/DQmQfTB3Tu9aRYdkoGrsuSdfa62KrTR9B9xHvguH5HbvhGp/openmic-w99-viterbo-billie-jean-candombe.png"></center>
-
-<h2>What is this all about?</h2>
-
-<p>I am the creator of an ambitious project that aims to give content creators the possibility of creating collectible trading cards to show their work in a much more customizable format, with the potential to create community, increase followers and earn money in the process.</p>
-
-<p>This project is not finished yet but a functional prototype is already online, which already has an album and several collection cards. The topic chosen for the first album was Steemit Openmic, because I love this awesome community and I wanted to deliver this album as a form of gift for the 100-week anniversary (sorry that I'm a little late).</p>
-
-<p>The cards preloaded in the system were built from the content found in the post that the participants of the weekly Steemit Openmic contest did. The selection criteria was based simply on the winners of the last weeks. That's why if you are one of these winners, there's probably one or more cards waiting for you to claim your authorship.</p>
-
-<h2>What is a OpenMic Trading Card?</h2>
-
-<p>As you can see I also participated in the contest in week 99. Although I was not one of the winners, I made a card with my publication anyway to show you my case as an example.</p>
-
-<p>First take a look at all the cards loaded in the system and try to find yours (I promise a search field next update). </p>
-
-<a href="http://cardsandtokens.com/cards" target="_blank">http://cardsandtokens.com/cards</a>
-<a href="http://cardsandtokens.com/cards" target="_blank"><center><img src="https://cdn.steemitimages.com/DQmcsHFN4jVuWRBF7UcdmSVoxCfWY9nuwJmFJkFFkmidSBX/1-cards.jpg"></center></a>
-
-<p>You can click any of them and it will be displayed showing all the embedded content. The lyrics of the song and the video used were taken from the post that the participant made, while the surrounding color and the choice of the background image were personal criteria.<br>
-(All images are free license and were taken from https://www.pexels.com/)</p>
-
-<center><img src="https://cdn.steemitimages.com/DQmdQCyK9CLFX8aa61Bap1c9uJeJiDnkYq41sAhADGug2oN/2-cards-deploying.jpg"></center>
-
-<h2>Claim your authorship</h2>
-
-<p>Currently the cards are stored in a regular mysql database but you can store yours in the steemit blockchain with you as the author and start collecting upvotes.</p>
-
-<p>You can claim the authorship of your cards in two simple steps:</p>
-<ul>
-<li><b>Login:</b> Using your steemit account you can login with Steemconnect. When a new user logs in, the system verifies if there's any unclaimed card at the new user's name. If this is the case, the following page will show automatically for you (see the image below).</li>
-<li><b>Push the "Publish on Steemit" button:</b> By pushing that button you will create a post on steemit that shows the preview of your card along with the lyrics (if any was included)</li>
-</ul>
-
-<center><img src="https://cdn.steemitimages.com/DQmaWkejECfHyAEfum9idAkQaCGC7CuDdFDFpnHgH1QTQfU/5-claim-card-authorship.jpg"></center>
-
-<h2>Permission</h2>
-
-<p>I have already communicated with @lucypher and luckily he is very happy with this initiative.</p>
-
-<p>Although this project may seem like a good idea to most, it does not have to be your case. Especially since I did not ask for permission to do what I did using other people's content.</p>
-
-<p>If this is your case and you do not want your song to be used to make a trading card, just let me know. I will remove it immediatelly.</p>
-
-<p>On the other hand, if you had previously participated in Steemit Openmic and you want to create cards with your entries, just write me a comment and post the link to your song. For now the job of creating cards is manual and I'm doing it myself. In future versions there will be an editor that will allow to create all types of cards in a self-managed way.</p>
-
-<hr><center><h4>powered by</h4><br><a href="http://cardsandtokens.com"><img src="https://cdn.steemitimages.com/DQmR8TvY2u1djNXcKdbFaJmCtmuPCck58LPCSd3zKr4tCFi/cards-and-tokens-small.jpg"></a></center><br><ul><li><a href="https://steemit.com/introduceyourself/@viterbo/introducing-cards-and-tokens">about this project</a></li><li><a href="http://presale.cardsandtokens.com">about openmic trading cards</a></li></ul>
