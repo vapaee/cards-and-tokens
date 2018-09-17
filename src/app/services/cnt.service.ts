@@ -219,6 +219,7 @@ export class CntService {
         this.userdata_to_global("card");
         this.userdata_to_global("album");
         this.getAllCards().then(() => {
+            console.log('CARDS: ', this.cards);
             for (let i in this.cards) {
                 var card = this.cards[i];
                 if (!card.edition.data) continue;
