@@ -620,6 +620,7 @@ export class CntService {
                     if (a.edition.data.position != b.edition.data.position) return a.edition.data.position - b.edition.data.position;
                     return (a.slug > b.slug) ? 1 : -1;
                 });
+                resolve(this.cards);
             });
         });
         return this.allCards;

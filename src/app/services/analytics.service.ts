@@ -8,6 +8,7 @@ export class AnalyticsService {
     pageviewTimer: number;
     waitReady: Promise<any>;
     constructor() {
+        console.log("Analytics()");
         this.waitReady = new Promise((resolve)=> {
             var interval = 0;
             window.setTimeout(() => {
@@ -21,11 +22,13 @@ export class AnalyticsService {
             window.setInterval(() => {
                 if (typeof ga === 'function') {
                     resolve(ga);
-                }                
+                    window.clearInterval(interval);
+                } else {
+                    console.log("Analytics() not ga found");
+                }               
             }, 250);
         });
     }
-
     
     setUserId(id) {
         this.waitReady.then(ga => {
