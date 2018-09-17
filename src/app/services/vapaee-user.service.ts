@@ -52,6 +52,7 @@ export class VapaeeUserService {
                 if (this.cookies.get("login") == "init") {
                     this.analytics.emitEvent("user", "login", "success");
                 }
+                this.analytics.setUserId("steem@" + this.steemuser);
                 this.cookies.delete("login");
                 // console.log("--- vapaee.user ---");
                 resolve();

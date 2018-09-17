@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 16-09-2018 a las 20:47:55
+-- Tiempo de generación: 17-09-2018 a las 01:39:46
 -- Versión del servidor: 5.7.23-0ubuntu0.16.04.1
--- Versión de PHP: 7.1.20-1+ubuntu16.04.1+deb.sury.org+1
+-- Versión de PHP: 7.1.15-1+ubuntu16.04.1+deb.sury.org+2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -600,7 +600,7 @@ CREATE TABLE `oauth_steem` (
 --
 
 INSERT INTO `oauth_steem` (`id`, `access_token`, `account`, `user`, `expires`) VALUES
-(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTM3MDc4MTk4LCJleHAiOjE1Mzc2ODI5OTh9.2QJ8Ef9aYmJudomixpHIPGt7EDcRQHwYc_6-Ocso9lk', 'viterbo', 1, '2018-09-16 23:46:13');
+(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTM3MDc4MTk4LCJleHAiOjE1Mzc2ODI5OTh9.2QJ8Ef9aYmJudomixpHIPGt7EDcRQHwYc_6-Ocso9lk', 'viterbo', 1, '2018-09-17 00:03:48');
 
 -- --------------------------------------------------------
 
@@ -634,7 +634,7 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `name`, `owner`, `_super`) VALUES
-(5, 'Viterbo RodrÃ­guez', 1, '{"id":5,"name":"Viterbo Rodr\\u00edguez","slug":"ctnf5c413d6861f651e4e0cbeccb6487","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":1},"publisher_id":5}');
+(2, 'Viterbo RodrÃ­guez', 1, '{"id":2,"name":"Viterbo Rodr\\u00edguez","slug":"ctnbec9a8f878e1dbceec642a1570e58","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":1},"publisher_id":2}');
 
 -- --------------------------------------------------------
 
@@ -657,7 +657,7 @@ CREATE TABLE `publisher` (
 
 INSERT INTO `publisher` (`id`, `name`, `slug`, `img`, `owner`, `_sub_table`) VALUES
 (1, 'Cards & Tokens', 'cards-and-tokens', '{"avatar":"http://cardsandtokens.com/assets/cards-and-tokens.png"}', 1, 'app'),
-(5, 'Viterbo RodrÃ­guez', 'ctnf5c413d6861f651e4e0cbeccb6487', '{"avatar":"\\/assets\\/noavatar.png"}', 1, 'profile');
+(2, 'Viterbo RodrÃ­guez', 'ctnbec9a8f878e1dbceec642a1570e58', '{"avatar":"\\/assets\\/noavatar.png"}', 1, 'profile');
 
 -- --------------------------------------------------------
 
@@ -705,7 +705,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `vapaee_id`, `name`, `profile`, `dailyprize`) VALUES
-(1, 0, 'Viterbo RodrÃ­guez', 5, '2000-01-01 03:00:00');
+(1, 0, 'Viterbo RodrÃ­guez', 2, '2000-01-01 00:00:00');
 
 --
 -- Índices para tablas volcadas
@@ -958,12 +958,12 @@ ALTER TABLE `pending`
 -- AUTO_INCREMENT de la tabla `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `publisher`
 --
 ALTER TABLE `publisher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `slot`
 --

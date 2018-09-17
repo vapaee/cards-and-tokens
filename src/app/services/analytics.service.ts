@@ -9,9 +9,28 @@ export class AnalyticsService {
     waitReady: Promise<any>;
     constructor() {
         this.waitReady = new Promise((resolve)=> {
-            if (typeof ga === 'function') {
-                resolve(ga);
-            }
+            var interval = 0;
+            window.setTimeout(() => {
+                if (typeof ga === 'function') {
+                    resolve(ga);
+                } else {
+                    console.error("ERROR: AnalyticsService() ga not found");
+                }    
+                window.clearInterval(interval);
+            }, 10000);
+            window.setInterval(() => {
+                if (typeof ga === 'function') {
+                    resolve(ga);
+                }                
+            }, 250);
+        });
+    }
+
+    
+    setUserId(id) {
+        this.waitReady.then(ga => {
+            console.log("Analytics::UserId --> ", id);
+            ga('set', 'userId', id);
         });
     }
 

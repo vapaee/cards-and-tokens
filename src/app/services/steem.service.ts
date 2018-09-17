@@ -181,13 +181,13 @@ export class SteemService {
 
     publishOpenmicCardOnSteem(card) {
         var parentAuthor = "";
-        var parentPermlink = "cards-and-tokens";
+        var parentPermlink = "cardsandtokens";
         var permlink = card.edition.data.slug;
         
         var link = "http://cardsandtokens.com/deploy/card/"+card.edition.data.slug;
         var image = "http://cardsandtokens.com/assets/cards/openmic/images/steem-image/"+card.edition.data.slug+".png";
         var jsonMetadata = {
-            "tags": [parentPermlink, "openmic", "eos", "project", "card"],
+            "tags": [parentPermlink, "openmic", "eos", "music", "cards"],
             "data": card.edition.data,
             "image": [image],
             "links": [link],
