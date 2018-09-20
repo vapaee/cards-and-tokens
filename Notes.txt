@@ -81,6 +81,27 @@ https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3Nf
 
 
 
+
+
+
+
+
+
+
+
+
+
+Al contrario, gracias a ustedes por permitirme incorporar su canción a esta colección de cartas coleccionables.
+
+Resulta que cada carta compite por un <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">premio final que se entregará a fin de año</a>. La forma de evaluar los ganadores es simplemente comparando la cantidad de upvotes que consiga cada carta.
+
+Para empezar a recolectar upvotes puedes <a href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options">loguearte con tu cuenta de steemit</a> y reclamar la autoría de tu carta. Así será publicada en steemit a tu nombre y empezarás a compeitr.
+
+Saludos y mucha suerte !
+
+
+
+
 @aaaaaaaaaaaaaaaa, tu canción fue seleccionada para formar parte del conjunto inicial de cartas coleccionables para el álbum de Steemit OpenMic.
 <b>Felicitaciones !!</b>
 <center><a href="http://cardsandtokens.com/deploy/card/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><img src="aaaaaaaaaaaaaaaaaaaaaaaa"></a></center>
