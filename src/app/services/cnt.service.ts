@@ -1034,12 +1034,6 @@ export class CntService {
             this.app.onCardClose();
         }
 
-        if (this.app.countdown > 0) {
-            this.app.navigate("home");
-        } else {
-            console.error("sacar esto");
-        }
-
         this.deploy = null;
     }
     // ------------------------------------------------------------------------------------------

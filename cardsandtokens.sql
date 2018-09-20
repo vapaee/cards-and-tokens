@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-09-2018 a las 01:39:46
+-- Tiempo de generación: 20-09-2018 a las 13:17:25
 -- Versión del servidor: 5.7.23-0ubuntu0.16.04.1
 -- Versión de PHP: 7.1.15-1+ubuntu16.04.1+deb.sury.org+2
 
@@ -99,7 +99,7 @@ INSERT INTO `card` (`id`, `slug`, `text`, `_super`) VALUES
 (9, 'openmic-w97-chaifm-dreamkeeper', '{"title":"Dreamkeeper","subtitle":"by @chaifm for Steemit OpenMic"}', '{"id":9,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":9},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (10, 'openmic-w97-paintingangels-swim', '{"title":"Swim","subtitle":"by @paintingangels for Steemit OpenMic"}', '{"id":10,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":10},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (11, 'openmic-w96-daily-musings-little-truthful-one', '{"title":"Little Truthful One","subtitle":"by @daily-musings for Steemit OpenMic"}', '{"id":11,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":11},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
-(12, 'openmic-w96-pechichemena-reflejosne', '{"title":"Reflejos","subtitle":"by @pechichemena for Steemit OpenMic"}', '{"id":12,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":12},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
+(12, 'openmic-w96-pechichemena-reflejosne', '{"title":"Reflejos","subtitle":"by @pechichemena for Steemit OpenMic"}', '{"id":12,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":12},"deployable":true,"steem":{"author":"pechichemena","permlink":"openmic-w96-pechichemena-reflejosne"},"steem_votes":46,"type":"collection"}'),
 (13, 'openmic-w96-joseacabrerav-lloro', '{"title":"Lloro","subtitle":"by @joseacabrerav for Steemit OpenMic"}', '{"id":13,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":13},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (14, 'openmic-w96-lillywilton-the-wrong-way', '{"title":"The Wrong Way","subtitle":"by @lillywilton for Steemit OpenMic"}', '{"id":14,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":14},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (15, 'openmic-w96-silentscreamer-show-must-go-on', '{"title":"Show must go on","subtitle":"by @silentscreamer for Steemit OpenMic"}', '{"id":15,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":15},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
@@ -134,19 +134,19 @@ INSERT INTO `card` (`id`, `slug`, `text`, `_super`) VALUES
 (44, 'openmic-w90-dreamrafa-power-out-jam', '{"title":"Power Out Jam","subtitle":"by @dreamrafa for Steemit OpenMic"}', '{"id":44,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":44},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (45, 'openmic-w89-darrenclaxton-resolve', '{"title":"Resolve","subtitle":"by @darrenclaxton for Steemit OpenMic"}', '{"id":45,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":45},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (46, 'openmic-w89-lecocoramos-hallelujah', '{"title":"Hallelujah","subtitle":"by @lecocoramos for Steemit OpenMic"}', '{"id":46,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":46},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
-(47, 'openmic-w89-wilins-porque-podemos', '{"title":"Porque podemos","subtitle":"by @wilins for Steemit OpenMic"}', '{"id":47,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":47},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
+(47, 'openmic-w89-wilins-porque-podemos', '{"title":"Porque podemos","subtitle":"by @wilins for Steemit OpenMic"}', '{"id":47,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":47},"deployable":true,"steem":{"author":"wilins","permlink":"openmic-w89-wilins-porque-podemos"},"steem_votes":154,"type":"collection"}'),
 (48, 'openmic-w89-armandolnrs-mi-ninez', '{"title":"Mi Ni\\u00f1ez","subtitle":"by @armandolnrs for Steemit OpenMic"}', '{"id":48,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":48},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (49, 'openmic-w89-fax4u-I-can-t-go-on-without-you', '{"title":"I can\'t go on without you","subtitle":"by @fax4u for Steemit OpenMic"}', '{"id":49,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":49},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (50, 'openmic-w100-arigenevieve-july', '{"title":"July","subtitle":"by @arigenevieve for Steemit OpenMic"}', '{"id":50,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":50},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
-(51, 'openmic-w100-pechichemena-el-balcon', '{"title":"El Balc\\u00f3n","subtitle":"by @pechichemena for Steemit OpenMic"}', '{"id":51,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":51},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
+(51, 'openmic-w100-pechichemena-el-balcon', '{"title":"El Balc\\u00f3n","subtitle":"by @pechichemena for Steemit OpenMic"}', '{"id":51,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":51},"deployable":true,"steem":{"author":"pechichemena","permlink":"openmic-w100-pechichemena-el-balcon"},"steem_votes":31,"type":"collection"}'),
 (52, 'openmic-w100-darrenclaxton-chapters-just-begun', '{"title":"Chapters Just Begun","subtitle":"by @darrenclaxton for Steemit OpenMic"}', '{"id":52,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":52},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (53, 'openmic-w100-drewsmusic-i-say-a-little-prayer', '{"title":"I Say A Little Prayer","subtitle":"by @drewsmusic for Steemit OpenMic"}', '{"id":53,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":53},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (54, 'openmic-w100-lisamalletart-tempo-ao-tempo', '{"title":"Tempo ao Tempo","subtitle":"by @lisamalletart for Steemit OpenMic"}', '{"id":54,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":54},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
-(55, 'openmic-w99-paintingangels-shotgun-ravens-pale-night', '{"title":"Shotgun Ravens, Pale Night","subtitle":"by @paintingangels for Steemit OpenMic"}', '{"id":55,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":55},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
+(55, 'openmic-w99-paintingangels-shotgun-ravens-pale-night', '{"title":"Shotgun Ravens, Pale Night","subtitle":"by @paintingangels for Steemit OpenMic"}', '{"id":55,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":55},"deployable":true,"steem":{"author":"paintingangels","permlink":"openmic-w99-paintingangels-shotgun-ravens-pale-night"},"steem_votes":20,"type":"collection"}'),
 (56, 'openmic-w99-lillywilton-how-loved-you-are', '{"title":"How Loved You Are","subtitle":"by @lillywilton for Steemit OpenMic"}', '{"id":56,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":56},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (57, 'openmic-w99-alcoholisedbsoul-unbreak-my-heart', '{"title":"Unbreak my heart","subtitle":"by @alcoholisedbsoul for Steemit OpenMic"}', '{"id":57,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":57},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
 (58, 'openmic-w99-katrina-ariel-back-to-myself', '{"title":"Back to Myself","subtitle":"by @katrina-ariel for Steemit OpenMic"}', '{"id":58,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":58},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}'),
-(59, 'openmic-w99-viterbo-billie-jean-candombe', '{"title":"Billie Jean (candombe)","subtitle":"by @viterbo for Steemit OpenMic"}', '{"id":59,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":59},"deployable":true,"steem":{"empty":true},"steem_votes":0,"type":"collection"}');
+(59, 'openmic-w99-viterbo-billie-jean-candombe', '{"title":"Billie Jean (candombe)","subtitle":"by @viterbo for Steemit OpenMic"}', '{"id":59,"publisher":{"id":1},"creator":{"id":1},"edition":{"id":59},"deployable":true,"steem":{"author":"viterbo","permlink":"openmic-w99-viterbo-billie-jean-candombe"},"steem_votes":3,"type":"collection"}');
 
 -- --------------------------------------------------------
 
@@ -182,7 +182,7 @@ INSERT INTO `collectible` (`id`, `publisher`, `creator`, `edition`, `deployable`
 (9, 1, 1, 9, 1, '{"empty":true}', 0, 'collection', 'card'),
 (10, 1, 1, 10, 1, '{"empty":true}', 0, 'collection', 'card'),
 (11, 1, 1, 11, 1, '{"empty":true}', 0, 'collection', 'card'),
-(12, 1, 1, 12, 1, '{"empty":true}', 0, 'collection', 'card'),
+(12, 1, 1, 12, 1, '{"author":"pechichemena","permlink":"openmic-w96-pechichemena-reflejosne"}', 46, 'collection', 'card'),
 (13, 1, 1, 13, 1, '{"empty":true}', 0, 'collection', 'card'),
 (14, 1, 1, 14, 1, '{"empty":true}', 0, 'collection', 'card'),
 (15, 1, 1, 15, 1, '{"empty":true}', 0, 'collection', 'card'),
@@ -217,19 +217,19 @@ INSERT INTO `collectible` (`id`, `publisher`, `creator`, `edition`, `deployable`
 (44, 1, 1, 44, 1, '{"empty":true}', 0, 'collection', 'card'),
 (45, 1, 1, 45, 1, '{"empty":true}', 0, 'collection', 'card'),
 (46, 1, 1, 46, 1, '{"empty":true}', 0, 'collection', 'card'),
-(47, 1, 1, 47, 1, '{"empty":true}', 0, 'collection', 'card'),
+(47, 1, 1, 47, 1, '{"author":"wilins","permlink":"openmic-w89-wilins-porque-podemos"}', 154, 'collection', 'card'),
 (48, 1, 1, 48, 1, '{"empty":true}', 0, 'collection', 'card'),
 (49, 1, 1, 49, 1, '{"empty":true}', 0, 'collection', 'card'),
 (50, 1, 1, 50, 1, '{"empty":true}', 0, 'collection', 'card'),
-(51, 1, 1, 51, 1, '{"empty":true}', 0, 'collection', 'card'),
+(51, 1, 1, 51, 1, '{"author":"pechichemena","permlink":"openmic-w100-pechichemena-el-balcon"}', 31, 'collection', 'card'),
 (52, 1, 1, 52, 1, '{"empty":true}', 0, 'collection', 'card'),
 (53, 1, 1, 53, 1, '{"empty":true}', 0, 'collection', 'card'),
 (54, 1, 1, 54, 1, '{"empty":true}', 0, 'collection', 'card'),
-(55, 1, 1, 55, 1, '{"empty":true}', 0, 'collection', 'card'),
+(55, 1, 1, 55, 1, '{"author":"paintingangels","permlink":"openmic-w99-paintingangels-shotgun-ravens-pale-night"}', 20, 'collection', 'card'),
 (56, 1, 1, 56, 1, '{"empty":true}', 0, 'collection', 'card'),
 (57, 1, 1, 57, 1, '{"empty":true}', 0, 'collection', 'card'),
 (58, 1, 1, 58, 1, '{"empty":true}', 0, 'collection', 'card'),
-(59, 1, 1, 59, 1, '{"empty":true}', 0, 'collection', 'card');
+(59, 1, 1, 59, 1, '{"author":"viterbo","permlink":"openmic-w99-viterbo-billie-jean-candombe"}', 3, 'collection', 'card');
 
 -- --------------------------------------------------------
 
@@ -251,7 +251,12 @@ CREATE TABLE `collection` (
 --
 
 INSERT INTO `collection` (`id`, `album`, `points`, `position`, `owner`, `_super`) VALUES
-(2, 1, 0, 0, 1, '{"id":2,"owner":{"id":1},"capacity":9,"empty":9,"spec":{"id":1}}');
+(2, 1, 30, 0, 1, '{"id":2,"owner":{"id":1},"capacity":9,"empty":8,"spec":{"id":1}}'),
+(4, 1, 0, 0, 2, '{"id":4,"owner":{"id":2},"capacity":9,"empty":9,"spec":{"id":1}}'),
+(6, 1, 0, 0, 3, '{"id":6,"owner":{"id":3},"capacity":9,"empty":9,"spec":{"id":1}}'),
+(8, 1, 0, 0, 4, '{"id":8,"owner":{"id":4},"capacity":9,"empty":9,"spec":{"id":1}}'),
+(10, 1, 0, 0, 5, '{"id":10,"owner":{"id":5},"capacity":9,"empty":9,"spec":{"id":1}}'),
+(12, 1, 0, 0, 6, '{"id":12,"owner":{"id":6},"capacity":9,"empty":9,"spec":{"id":1}}');
 
 -- --------------------------------------------------------
 
@@ -273,8 +278,18 @@ CREATE TABLE `container` (
 --
 
 INSERT INTO `container` (`id`, `owner`, `capacity`, `empty`, `spec`, `_sub_table`) VALUES
-(1, 1, 8, 8, 2, 'inventory'),
-(2, 1, 9, 9, 1, 'collection');
+(1, 1, 8, 7, 2, 'inventory'),
+(2, 1, 9, 8, 1, 'collection'),
+(3, 2, 8, 6, 2, 'inventory'),
+(4, 2, 9, 9, 1, 'collection'),
+(5, 3, 8, 8, 2, 'inventory'),
+(6, 3, 9, 9, 1, 'collection'),
+(7, 4, 8, 6, 2, 'inventory'),
+(8, 4, 9, 9, 1, 'collection'),
+(9, 5, 8, 8, 2, 'inventory'),
+(10, 5, 9, 9, 1, 'collection'),
+(11, 6, 8, 8, 2, 'inventory'),
+(12, 6, 9, 9, 1, 'collection');
 
 -- --------------------------------------------------------
 
@@ -301,6 +316,18 @@ CREATE TABLE `copy` (
   `edition` int(32) DEFAULT '0',
   `_super` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `copy`
+--
+
+INSERT INTO `copy` (`id`, `multiplicity`, `collectible`, `edition`, `_super`) VALUES
+(1, 1, 51, 51, '{"id":1,"owner":{"id":1},"spec":{"id":1}}'),
+(2, 1, 41, 41, '{"id":2,"owner":{"id":2},"spec":{"id":1}}'),
+(3, 1, 44, 44, '{"id":3,"owner":{"id":4},"spec":{"id":1}}'),
+(4, 1, 31, 31, '{"id":4,"owner":{"id":1},"spec":{"id":1}}'),
+(5, 1, 52, 52, '{"id":5,"owner":{"id":4},"spec":{"id":1}}'),
+(6, 1, 55, 55, '{"id":6,"owner":{"id":2},"spec":{"id":1}}');
 
 -- --------------------------------------------------------
 
@@ -380,7 +407,7 @@ INSERT INTO `data_aux` (`id`, `slug`, `week`, `position`, `data`) VALUES
 (56, 'openmic-w99-lillywilton-how-loved-you-are', 99, 2, '{"week":"99","position":"2","slug":"openmic-w99-lillywilton-how-loved-you-are","youtube":"3_U1htSqyL8","steemuser":"lillywilton","permlink":"rqfbmpf1","title":"How Loved You Are","bgimage":"\\/assets\\/backgrounds\\/block-blow-blur-279453.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@lillywilton\\/rqfbmpf1","original":true,"color":"#413035","has_lyrics":true,"lyrics":"Oh close your eyes and drift away.\\nPoint me to your favorite star.\\nI\'ll meet you at the break of day.\\nOh, how loved you are.\\n\\nDo not fear a dimming light.\\nYou\'ll see there\'s another side.\\nYou will learn to love the night.\\nOh, how loved you are.\\n\\nLa dai dai da dai...\\n\\nTomorrow when the light returns,\\nThere might be many twists and turns.\\nBut in the end you\'ll always learn\\nJust how loved you are."}'),
 (57, 'openmic-w99-alcoholisedbsoul-unbreak-my-heart', 99, 4, '{"week":"99","position":"4","slug":"openmic-w99-alcoholisedbsoul-unbreak-my-heart","youtube":"QBfCzWmn9Rc","steemuser":"alcoholisedbsoul","permlink":"steemit-openmic-week-99-unbreak-my-heart-toni-braxton-cover-alcoholisedbsoul-ft-manuelmusic","title":"Unbreak my heart","bgimage":"\\/assets\\/backgrounds\\/art-blur-breakup-580631.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@alcoholisedbsoul\\/steemit-openmic-week-99-unbreak-my-heart-toni-braxton-cover-alcoholisedbsoul-ft-manuelmusic","color":"#391107"}'),
 (58, 'openmic-w99-katrina-ariel-back-to-myself', 99, 5, '{"week":"99","position":"5","slug":"openmic-w99-katrina-ariel-back-to-myself","youtube":"0M3QWHEs3mw","steemuser":"katrina-ariel","permlink":"steemit-open-mic-week-99-original-music-back-to-myself","title":"Back to Myself","bgimage":"\\/assets\\/backgrounds\\/background-board-carpentry-960137.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@katrina-ariel\\/steemit-open-mic-week-99-original-music-back-to-myself","original":true,"color":"#AB130C","has_lyrics":true,"lyrics":"This body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nLead me back to myself\\n\\nI wander through this life\\nNot quite aimlessly, just wantin\' to feel free\\nI sing my way along\\nCaught up in the mystery, in all its beauty\\n\\nThere are so many ways to love\\nDancin\' naked in the rain, wild and untamed\\nAnd there are so many ways to fly\\nSwing myself into the sky, swear I\'ll spread my wings sometime\\n\\nI am mine\\nI am mine\\nAnd I gotta shine\\n\\nThis body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nTake me back to myself\\n\\nI\'m out here doin\' my thing\\nYou know I gotta sing\\nSing\\n\\nBut I gotta say\\nIt sure is nice to be seen\\nThe way you see me\\nThe way you hear me\\nThe way you feel me\\nThe way you free me\\n\\nAnd this body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nTake me back to myself"}'),
-(59, 'openmic-w99-viterbo-billie-jean-candombe', 99, 10, '{\r\n    "bgimage": "/assets/backgrounds/lonja-3275547856_8c69ba0903.jpg",\r\n    "link": "https://steemit.com/openmic/@viterbo/steem-open-mic-semana-99-billie-jean-cover-version-original-candome",\r\n    "has_lyrics": false,\r\n    "original": false,\r\n    "title": "Billie Jean (candombe)",\r\n    "permlink": "steem-open-mic-semana-99-billie-jean-cover-version-original-candome",\r\n    "steemuser": "viterbo",\r\n    "youtube": "_pT_Rigv-k4",\r\n    "slug": "openmic-w99-viterbo-billie-jean-candombe",\r\n    "position": "10",\r\n    "week": "99",\r\n    "lyrics": "",\r\n    "color": "#037377"\r\n}');
+(59, 'openmic-w99-viterbo-billie-jean-candombe', 99, 10, '{\n    "bgimage": "/assets/backgrounds/lonja-3275547856_8c69ba0903.jpg",\n    "link": "https://steemit.com/openmic/@viterbo/steem-open-mic-semana-99-billie-jean-cover-version-original-candome",\n    "has_lyrics": true,\n    "original": false,\n    "title": "Billie Jean (candombe)",\n    "permlink": "steem-open-mic-semana-99-billie-jean-cover-version-original-candome",\n    "steemuser": "viterbo",\n    "youtube": "_pT_Rigv-k4",\n    "slug": "openmic-w99-viterbo-billie-jean-candombe",\n    "position": "10",\n    "week": "99",\n    "lyrics": "# Lyrics \\n\\nShe was more like a beauty queen\\nFrom a movie scene\\nI said, Don\'t mind, but what do you mean\\nI am the one\\nWho will dance on the floor in the round?\\n\\nShe told me her name was Billie Jean\\nAs she caused a scene\\nThen every head turned with eyes that dreamed of being the one\\nWho will dance on the floor in the round\\n\\nPeople always told me, Be careful of what you do.\\nAnd don\'t go around breaking young girls\' hearts.\\nAnd mother always told me,  be careful of who you love,\\nAnd be careful of what you do\\n\'Cause the lie becomes the truth.\\n\\nBillie Jean is not my lover\\nShe\'s just a girl who claims that I am the one\\nBut the kid is not my son\\nShe says I am the one\\nBut the kid is not my son\\n\\nFor forty days and for forty nights\\nLaw was on her side\\nBut who can stand\\nWhen she\'s in demand\\nHer schemes and plans\\n\'Cause we danced on the floor in the round\\nSo take my strong advice\\nJust remember to always think twice\\n\\nShe told, My baby, we\'d danced \'til three.\\nThen she looked at me\\nThen showed a photo of a baby cry\\nHis eyes looked like mine, oh, no\\nDo a dance on the floor in the round, baby\\n\\npeople always told me, Be careful of what you do\\nAnd don\'t go around breaking young girls\' hearts.\\nbut she came and stood right by me\\nAnd just the smell of sweet perfume\\nAnd this happened much too soon\\nAnd she called me to her room\\n\\nBillie Jean is not my lover\\nShe\'s just a girl who claims that I am the one\\nBut the kid is not my son\\n\\nBillie Jean is not my lover\\nBillie Jean\\nBillie Jean is not my lover\\nBillie Jean\\n",\n    "color": "#037377"\n}');
 
 -- --------------------------------------------------------
 
@@ -496,7 +523,7 @@ INSERT INTO `edition` (`id`, `collectible`, `creator`, `url`, `preload`, `previe
 INSERT INTO `edition` (`id`, `collectible`, `creator`, `url`, `preload`, `preview`, `data`, `deploy`, `copies`, `released`, `released_time`) VALUES
 (57, 57, 1, 'first', '["\\/assets\\/backgrounds\\/art-blur-breakup-580631.jpg"]', '{"images":{"opengraph":".\\/assets\\/cards\\/openmic\\/images\\/opengraph\\/openmic-w99-alcoholisedbsoul-unbreak-my-heart.png","fullsize":".\\/assets\\/cards\\/openmic\\/images\\/fullsize\\/openmic-w99-alcoholisedbsoul-unbreak-my-heart.png","thumbnail":".\\/assets\\/cards\\/openmic\\/images\\/thumbnail\\/openmic-w99-alcoholisedbsoul-unbreak-my-heart.png"},"colors":{"bg":"#391107"}}', '{"week":"99","position":"4","slug":"openmic-w99-alcoholisedbsoul-unbreak-my-heart","youtube":"QBfCzWmn9Rc","steemuser":"alcoholisedbsoul","permlink":"steemit-openmic-week-99-unbreak-my-heart-toni-braxton-cover-alcoholisedbsoul-ft-manuelmusic","title":"Unbreak my heart","bgimage":"\\/assets\\/backgrounds\\/art-blur-breakup-580631.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@alcoholisedbsoul\\/steemit-openmic-week-99-unbreak-my-heart-toni-braxton-cover-alcoholisedbsoul-ft-manuelmusic","color":"#391107"}', '{"comp":"root","children":[{"comp":"grid","data":{"rows":[[{"height":"10vh"}],{"grow":0,"cols":[1]},[{"grow":1}],[{"height":"3vh"}]]},"children":[{"comp":"background","data":{"color":"white","image":{"url":"\\/assets\\/cards\\/openmic\\/images\\/steemit.svg","position":"left","repeat":"no-repeat","size":"contain"}}},{"comp":"background","data":{"color":"grey","padding-sm":true,"container":true},"children":[{"comp":"grid","data":{"rows":[[{"grow":1},{"grow":0}]]},"children":[{"comp":"label","data":{"class":"text-xl-left white-text","text":"Unbreak my heart"}},{"comp":"menu","data":{"menu":[{"text":"Video","class":"btn btn-sm btn-outline-white","section":"main","value":"Video"},{"text":"Lyrics","class":"btn btn-sm btn-outline-white","section":"main","value":"Lyrics","hidden":true},{"text":"Steemit post","class":"btn btn-sm btn-outline-white","link":"https:\\/\\/steemit.com\\/openmic\\/@alcoholisedbsoul\\/steemit-openmic-week-99-unbreak-my-heart-toni-braxton-cover-alcoholisedbsoul-ft-manuelmusic"}]}}]}]},{"comp":"background","data":{"color":"rgba(72, 72, 72, 0.0)","gradient":{"dir":"top","points":[{"color":"rgba(0,0,0,0.6)","percent":0},{"color":"rgba(0,0,0,0.0)","percent":30},{"color":"rgba(0,0,0,0.0)","percent":70},{"color":"rgba(0,0,0,0.6)","percent":100}]},"image":{"url":"\\/assets\\/backgrounds\\/art-blur-breakup-580631.jpg","repeat":"no-repeat","size":"cover","position":"center","blend-mode":"multiply"}},"children":[{"comp":"section","data":{"name":"main","current":"Video","sections":["Video","Lyrics"]},"children":[{"comp":"video","data":{"youtube":{"videoId":"QBfCzWmn9Rc","autoplay":false}}},{"comp":"background","data":{"container":true,"padding":true},"children":[{"comp":"background","data":{"color":"rgba(0,0,0,0.3)","fgcolor":"white","padding":true,"expand":true},"children":[{"comp":"scrolleable","children":[{"comp":"markdown","data":{"markdown":"# Lyrics  \\n\\nOh close your eyes and drift away.  \\nPoint me to your favorite star.  \\nI\'ll meet you at the break of day.  \\nOh, how loved you are. \\n\\nDo not fear a dimming light.  \\nYou\'ll see there\'s another side.  \\nYou will learn to love the night.  \\nOh, how loved you are. \\n\\nLa dai dai da dai... \\n\\nTomorrow when the light returns,  \\nThere might be many twists and turns.  \\nBut in the end you\'ll always learn  \\nJust how loved you are."}}]}]}]}]}]},{"comp":"background","data":{"color":"#FFF"}}]}],"data":{"week":"99","position":"4","slug":"openmic-w99-alcoholisedbsoul-unbreak-my-heart","youtube":"QBfCzWmn9Rc","steemuser":"alcoholisedbsoul","permlink":"steemit-openmic-week-99-unbreak-my-heart-toni-braxton-cover-alcoholisedbsoul-ft-manuelmusic","title":"Unbreak my heart","bgimage":"\\/assets\\/backgrounds\\/art-blur-breakup-580631.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@alcoholisedbsoul\\/steemit-openmic-week-99-unbreak-my-heart-toni-braxton-cover-alcoholisedbsoul-ft-manuelmusic","color":"#391107"}}', 0, 1, '2018-09-16 23:47:06'),
 (58, 58, 1, 'first', '["\\/assets\\/backgrounds\\/background-board-carpentry-960137.jpg"]', '{"images":{"opengraph":".\\/assets\\/cards\\/openmic\\/images\\/opengraph\\/openmic-w99-katrina-ariel-back-to-myself.png","fullsize":".\\/assets\\/cards\\/openmic\\/images\\/fullsize\\/openmic-w99-katrina-ariel-back-to-myself.png","thumbnail":".\\/assets\\/cards\\/openmic\\/images\\/thumbnail\\/openmic-w99-katrina-ariel-back-to-myself.png"},"colors":{"bg":"#AB130C"}}', '{"week":"99","position":"5","slug":"openmic-w99-katrina-ariel-back-to-myself","youtube":"0M3QWHEs3mw","steemuser":"katrina-ariel","permlink":"steemit-open-mic-week-99-original-music-back-to-myself","title":"Back to Myself","bgimage":"\\/assets\\/backgrounds\\/background-board-carpentry-960137.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@katrina-ariel\\/steemit-open-mic-week-99-original-music-back-to-myself","original":true,"color":"#AB130C","has_lyrics":true,"lyrics":"This body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nLead me back to myself\\n\\nI wander through this life\\nNot quite aimlessly, just wantin\' to feel free\\nI sing my way along\\nCaught up in the mystery, in all its beauty\\n\\nThere are so many ways to love\\nDancin\' naked in the rain, wild and untamed\\nAnd there are so many ways to fly\\nSwing myself into the sky, swear I\'ll spread my wings sometime\\n\\nI am mine\\nI am mine\\nAnd I gotta shine\\n\\nThis body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nTake me back to myself\\n\\nI\'m out here doin\' my thing\\nYou know I gotta sing\\nSing\\n\\nBut I gotta say\\nIt sure is nice to be seen\\nThe way you see me\\nThe way you hear me\\nThe way you feel me\\nThe way you free me\\n\\nAnd this body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nTake me back to myself"}', '{"comp":"root","children":[{"comp":"grid","data":{"rows":[[{"height":"10vh"}],{"grow":0,"cols":[1]},[{"grow":1}],[{"height":"3vh"}]]},"children":[{"comp":"background","data":{"color":"white","image":{"url":"\\/assets\\/cards\\/openmic\\/images\\/steemit.svg","position":"left","repeat":"no-repeat","size":"contain"}}},{"comp":"background","data":{"color":"grey","padding-sm":true,"container":true},"children":[{"comp":"grid","data":{"rows":[[{"grow":1},{"grow":0}]]},"children":[{"comp":"label","data":{"class":"text-xl-left white-text","text":"Back to Myself"}},{"comp":"menu","data":{"menu":[{"text":"Video","class":"btn btn-sm btn-outline-white","section":"main","value":"Video"},{"text":"Lyrics","class":"btn btn-sm btn-outline-white","section":"main","value":"Lyrics","hidden":false},{"text":"Steemit post","class":"btn btn-sm btn-outline-white","link":"https:\\/\\/steemit.com\\/openmic\\/@katrina-ariel\\/steemit-open-mic-week-99-original-music-back-to-myself"}]}}]}]},{"comp":"background","data":{"color":"rgba(72, 72, 72, 0.0)","gradient":{"dir":"top","points":[{"color":"rgba(0,0,0,0.6)","percent":0},{"color":"rgba(0,0,0,0.0)","percent":30},{"color":"rgba(0,0,0,0.0)","percent":70},{"color":"rgba(0,0,0,0.6)","percent":100}]},"image":{"url":"\\/assets\\/backgrounds\\/background-board-carpentry-960137.jpg","repeat":"no-repeat","size":"cover","position":"center","blend-mode":"multiply"}},"children":[{"comp":"section","data":{"name":"main","current":"Video","sections":["Video","Lyrics"]},"children":[{"comp":"video","data":{"youtube":{"videoId":"0M3QWHEs3mw","autoplay":false}}},{"comp":"background","data":{"container":true,"padding":true},"children":[{"comp":"background","data":{"color":"rgba(0,0,0,0.3)","fgcolor":"white","padding":true,"expand":true},"children":[{"comp":"scrolleable","children":[{"comp":"markdown","data":{"markdown":"# Lyrics  \\n\\nThis body is my home  \\nThis spirit my whole world  \\nAnd all the paths I roam  \\nLead me back to myself \\n\\nI wander through this life  \\nNot quite aimlessly, just wantin\' to feel free  \\nI sing my way along  \\nCaught up in the mystery, in all its beauty \\n\\nThere are so many ways to love  \\nDancin\' naked in the rain, wild and untamed  \\nAnd there are so many ways to fly  \\nSwing myself into the sky, swear I\'ll spread my wings sometime \\n\\nI am mine  \\nI am mine  \\nAnd I gotta shine \\n\\nThis body is my home  \\nThis spirit my whole world  \\nAnd all the paths I roam  \\nTake me back to myself \\n\\nI\'m out here doin\' my thing  \\nYou know I gotta sing  \\nSing \\n\\nBut I gotta say  \\nIt sure is nice to be seen  \\nThe way you see me  \\nThe way you hear me  \\nThe way you feel me  \\nThe way you free me \\n\\nAnd this body is my home  \\nThis spirit my whole world  \\nAnd all the paths I roam  \\nTake me back to myself"}}]}]}]}]}]},{"comp":"background","data":{"color":"#FFF"}}]}],"data":{"week":"99","position":"5","slug":"openmic-w99-katrina-ariel-back-to-myself","youtube":"0M3QWHEs3mw","steemuser":"katrina-ariel","permlink":"steemit-open-mic-week-99-original-music-back-to-myself","title":"Back to Myself","bgimage":"\\/assets\\/backgrounds\\/background-board-carpentry-960137.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@katrina-ariel\\/steemit-open-mic-week-99-original-music-back-to-myself","original":true,"color":"#AB130C","has_lyrics":true,"lyrics":"This body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nLead me back to myself\\n\\nI wander through this life\\nNot quite aimlessly, just wantin\' to feel free\\nI sing my way along\\nCaught up in the mystery, in all its beauty\\n\\nThere are so many ways to love\\nDancin\' naked in the rain, wild and untamed\\nAnd there are so many ways to fly\\nSwing myself into the sky, swear I\'ll spread my wings sometime\\n\\nI am mine\\nI am mine\\nAnd I gotta shine\\n\\nThis body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nTake me back to myself\\n\\nI\'m out here doin\' my thing\\nYou know I gotta sing\\nSing\\n\\nBut I gotta say\\nIt sure is nice to be seen\\nThe way you see me\\nThe way you hear me\\nThe way you feel me\\nThe way you free me\\n\\nAnd this body is my home\\nThis spirit my whole world\\nAnd all the paths I roam\\nTake me back to myself"}}', 0, 1, '2018-09-16 23:47:06'),
-(59, 59, 1, 'first', '["\\/assets\\/backgrounds\\/lonja-3275547856_8c69ba0903.jpg"]', '{"images":{"opengraph":".\\/assets\\/cards\\/openmic\\/images\\/opengraph\\/openmic-w99-viterbo-billie-jean-candombe.png","fullsize":".\\/assets\\/cards\\/openmic\\/images\\/fullsize\\/openmic-w99-viterbo-billie-jean-candombe.png","thumbnail":".\\/assets\\/cards\\/openmic\\/images\\/thumbnail\\/openmic-w99-viterbo-billie-jean-candombe.png"},"colors":{"bg":"#037377"}}', '{"bgimage":"\\/assets\\/backgrounds\\/lonja-3275547856_8c69ba0903.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@viterbo\\/steem-open-mic-semana-99-billie-jean-cover-version-original-candome","has_lyrics":false,"original":false,"title":"Billie Jean (candombe)","permlink":"steem-open-mic-semana-99-billie-jean-cover-version-original-candome","steemuser":"viterbo","youtube":"_pT_Rigv-k4","slug":"openmic-w99-viterbo-billie-jean-candombe","position":"10","week":"99","lyrics":"","color":"#037377"}', '{"comp":"root","children":[{"comp":"grid","data":{"rows":[[{"height":"10vh"}],{"grow":0,"cols":[1]},[{"grow":1}],[{"height":"3vh"}]]},"children":[{"comp":"background","data":{"color":"white","image":{"url":"\\/assets\\/cards\\/openmic\\/images\\/steemit.svg","position":"left","repeat":"no-repeat","size":"contain"}}},{"comp":"background","data":{"color":"grey","padding-sm":true,"container":true},"children":[{"comp":"grid","data":{"rows":[[{"grow":1},{"grow":0}]]},"children":[{"comp":"label","data":{"class":"text-xl-left white-text","text":"Billie Jean (candombe)"}},{"comp":"menu","data":{"menu":[{"text":"Video","class":"btn btn-sm btn-outline-white","section":"main","value":"Video"},{"text":"Lyrics","class":"btn btn-sm btn-outline-white","section":"main","value":"Lyrics","hidden":true},{"text":"Steemit post","class":"btn btn-sm btn-outline-white","link":"https:\\/\\/steemit.com\\/openmic\\/@viterbo\\/steem-open-mic-semana-99-billie-jean-cover-version-original-candome"}]}}]}]},{"comp":"background","data":{"color":"rgba(72, 72, 72, 0.0)","gradient":{"dir":"top","points":[{"color":"rgba(0,0,0,0.6)","percent":0},{"color":"rgba(0,0,0,0.0)","percent":30},{"color":"rgba(0,0,0,0.0)","percent":70},{"color":"rgba(0,0,0,0.6)","percent":100}]},"image":{"url":"\\/assets\\/backgrounds\\/lonja-3275547856_8c69ba0903.jpg","repeat":"no-repeat","size":"cover","position":"center","blend-mode":"multiply"}},"children":[{"comp":"section","data":{"name":"main","current":"Video","sections":["Video","Lyrics"]},"children":[{"comp":"video","data":{"youtube":{"videoId":"_pT_Rigv-k4","autoplay":false}}},{"comp":"background","data":{"container":true,"padding":true},"children":[{"comp":"background","data":{"color":"rgba(0,0,0,0.3)","fgcolor":"white","padding":true,"expand":true},"children":[{"comp":"scrolleable","children":[{"comp":"markdown","data":{"markdown":"# Lyrics  \\n\\nThis body is my home  \\nThis spirit my whole world  \\nAnd all the paths I roam  \\nLead me back to myself \\n\\nI wander through this life  \\nNot quite aimlessly, just wantin\' to feel free  \\nI sing my way along  \\nCaught up in the mystery, in all its beauty \\n\\nThere are so many ways to love  \\nDancin\' naked in the rain, wild and untamed  \\nAnd there are so many ways to fly  \\nSwing myself into the sky, swear I\'ll spread my wings sometime \\n\\nI am mine  \\nI am mine  \\nAnd I gotta shine \\n\\nThis body is my home  \\nThis spirit my whole world  \\nAnd all the paths I roam  \\nTake me back to myself \\n\\nI\'m out here doin\' my thing  \\nYou know I gotta sing  \\nSing \\n\\nBut I gotta say  \\nIt sure is nice to be seen  \\nThe way you see me  \\nThe way you hear me  \\nThe way you feel me  \\nThe way you free me \\n\\nAnd this body is my home  \\nThis spirit my whole world  \\nAnd all the paths I roam  \\nTake me back to myself"}}]}]}]}]}]},{"comp":"background","data":{"color":"#FFF"}}]}],"data":{"bgimage":"\\/assets\\/backgrounds\\/lonja-3275547856_8c69ba0903.jpg","link":"https:\\/\\/steemit.com\\/openmic\\/@viterbo\\/steem-open-mic-semana-99-billie-jean-cover-version-original-candome","has_lyrics":false,"original":false,"title":"Billie Jean (candombe)","permlink":"steem-open-mic-semana-99-billie-jean-cover-version-original-candome","steemuser":"viterbo","youtube":"_pT_Rigv-k4","slug":"openmic-w99-viterbo-billie-jean-candombe","position":"10","week":"99","lyrics":"","color":"#037377"}}', 0, 1, '2018-09-16 23:47:07');
+(59, 59, 1, 'first', '["\\/assets\\/backgrounds\\/lonja-3275547856_8c69ba0903.jpg"]', '{"images":{"opengraph":".\\/assets\\/cards\\/openmic\\/images\\/opengraph\\/openmic-w99-viterbo-billie-jean-candombe.png","fullsize":".\\/assets\\/cards\\/openmic\\/images\\/fullsize\\/openmic-w99-viterbo-billie-jean-candombe.png","thumbnail":".\\/assets\\/cards\\/openmic\\/images\\/thumbnail\\/openmic-w99-viterbo-billie-jean-candombe.png"},"colors":{"bg":"#037377"}}', '{"bgimage":"/assets/backgrounds/lonja-3275547856_8c69ba0903.jpg","link":"https://steemit.com/openmic/@viterbo/steem-open-mic-semana-99-billie-jean-cover-version-original-candome","has_lyrics":true,"original":false,"title":"Billie Jean (candombe)","permlink":"steem-open-mic-semana-99-billie-jean-cover-version-original-candome","steemuser":"viterbo","youtube":"_pT_Rigv-k4","slug":"openmic-w99-viterbo-billie-jean-candombe","position":"10","week":"99","lyrics":"She was more like a beauty queen\\nFrom a movie scene\\nI said, Don\'t mind, but what do you mean\\nI am the one\\nWho will dance on the floor in the round?\\n\\nShe told me her name was Billie Jean\\nAs she caused a scene\\nThen every head turned with eyes that dreamed of being the one\\nWho will dance on the floor in the round\\n\\nPeople always told me, Be careful of what you do.\\nAnd don\'t go around breaking young girls\' hearts.\\nAnd mother always told me,  be careful of who you love,\\nAnd be careful of what you do\\n\'Cause the lie becomes the truth.\\n\\nBillie Jean is not my lover\\nShe\'s just a girl who claims that I am the one\\nBut the kid is not my son\\nShe says I am the one\\nBut the kid is not my son\\n\\nFor forty days and for forty nights\\nLaw was on her side\\nBut who can stand\\nWhen she\'s in demand\\nHer schemes and plans\\n\'Cause we danced on the floor in the round\\nSo take my strong advice\\nJust remember to always think twice\\n\\nShe told, My baby, we\'d danced \'til three.\\nThen she looked at me\\nThen showed a photo of a baby cry\\nHis eyes looked like mine, oh, no\\nDo a dance on the floor in the round, baby\\n\\npeople always told me, Be careful of what you do\\nAnd don\'t go around breaking young girls\' hearts.\\nbut she came and stood right by me\\nAnd just the smell of sweet perfume\\nAnd this happened much too soon\\nAnd she called me to her room\\n\\nBillie Jean is not my lover\\nShe\'s just a girl who claims that I am the one\\nBut the kid is not my son\\n\\nBillie Jean is not my lover\\nBillie Jean\\nBillie Jean is not my lover\\nBillie Jean\\n","color":"#037377"}', '{"comp":"root","children":[{"comp":"grid","data":{"rows":[[{"height":"10vh"}],{"grow":0,"cols":[1]},[{"grow":1}],[{"height":"3vh"}]]},"children":[{"comp":"background","data":{"color":"white","image":{"url":"/assets/cards/openmic/images/steemit.svg","position":"left","repeat":"no-repeat","size":"contain"}}},{"comp":"background","data":{"color":"grey","padding-sm":true,"container":true},"children":[{"comp":"grid","data":{"rows":[[{"grow":1},{"grow":0}]]},"children":[{"comp":"label","data":{"class":"text-xl-left white-text","text":"Billie Jean (candombe)"}},{"comp":"menu","data":{"menu":[{"text":"Video","class":"btn btn-sm btn-outline-white","section":"main","value":"Video"},{"text":"Lyrics","class":"btn btn-sm btn-outline-white","section":"main","value":"Lyrics","hidden":false},{"text":"Steemit post","class":"btn btn-sm btn-outline-white","link":"https://steemit.com/openmic/@viterbo/steem-open-mic-semana-99-billie-jean-cover-version-original-candome"}]}}]}]},{"comp":"background","data":{"color":"rgba(72, 72, 72, 0.0)","gradient":{"dir":"top","points":[{"color":"rgba(0,0,0,0.6)","percent":0},{"color":"rgba(0,0,0,0.0)","percent":30},{"color":"rgba(0,0,0,0.0)","percent":70},{"color":"rgba(0,0,0,0.6)","percent":100}]},"image":{"url":"/assets/backgrounds/lonja-3275547856_8c69ba0903.jpg","repeat":"no-repeat","size":"cover","position":"center","blend-mode":"multiply"}},"children":[{"comp":"section","data":{"name":"main","current":"Video","sections":["Video","Lyrics"]},"children":[{"comp":"video","data":{"youtube":{"videoId":"_pT_Rigv-k4","autoplay":false}}},{"comp":"background","data":{"container":true,"padding":true},"children":[{"comp":"background","data":{"color":"rgba(0,0,0,0.3)","fgcolor":"white","padding":true,"expand":true},"children":[{"comp":"scrolleable","children":[{"comp":"markdown","data":{"markdown":"# Lyrics  \\n\\nShe was more like a beauty queen  \\nFrom a movie scene  \\nI said, Don\'t mind, but what do you mean  \\nI am the one  \\nWho will dance on the floor in the round? \\n\\nShe told me her name was Billie Jean  \\nAs she caused a scene  \\nThen every head turned with eyes that dreamed of being the one  \\nWho will dance on the floor in the round \\n\\nPeople always told me, Be careful of what you do.  \\nAnd don\'t go around breaking young girls\' hearts.  \\nAnd mother always told me,  be careful of who you love,  \\nAnd be careful of what you do  \\n\'Cause the lie becomes the truth. \\n\\nBillie Jean is not my lover  \\nShe\'s just a girl who claims that I am the one  \\nBut the kid is not my son  \\nShe says I am the one  \\nBut the kid is not my son \\n\\nFor forty days and for forty nights  \\nLaw was on her side  \\nBut who can stand  \\nWhen she\'s in demand  \\nHer schemes and plans  \\n\'Cause we danced on the floor in the round  \\nSo take my strong advice  \\nJust remember to always think twice \\n\\nShe told, My baby, we\'d danced \'til three.  \\nThen she looked at me  \\nThen showed a photo of a baby cry  \\nHis eyes looked like mine, oh, no  \\nDo a dance on the floor in the round, baby \\n\\npeople always told me, Be careful of what you do  \\nAnd don\'t go around breaking young girls\' hearts.  \\nbut she came and stood right by me  \\nAnd just the smell of sweet perfume  \\nAnd this happened much too soon  \\nAnd she called me to her room \\n\\nBillie Jean is not my lover  \\nShe\'s just a girl who claims that I am the one  \\nBut the kid is not my son \\n\\nBillie Jean is not my lover  \\nBillie Jean  \\nBillie Jean is not my lover  \\nBillie Jean  \\n"}}]}]}]}]}]},{"comp":"background","data":{"color":"#FFF"}}]}],"data":{"bgimage":"/assets/backgrounds/lonja-3275547856_8c69ba0903.jpg","link":"https://steemit.com/openmic/@viterbo/steem-open-mic-semana-99-billie-jean-cover-version-original-candome","has_lyrics":true,"original":false,"title":"Billie Jean (candombe)","permlink":"steem-open-mic-semana-99-billie-jean-cover-version-original-candome","steemuser":"viterbo","youtube":"_pT_Rigv-k4","slug":"openmic-w99-viterbo-billie-jean-candombe","position":"10","week":"99","lyrics":"She was more like a beauty queen\\nFrom a movie scene\\nI said, Don\'t mind, but what do you mean\\nI am the one\\nWho will dance on the floor in the round?\\n\\nShe told me her name was Billie Jean\\nAs she caused a scene\\nThen every head turned with eyes that dreamed of being the one\\nWho will dance on the floor in the round\\n\\nPeople always told me, Be careful of what you do.\\nAnd don\'t go around breaking young girls\' hearts.\\nAnd mother always told me,  be careful of who you love,\\nAnd be careful of what you do\\n\'Cause the lie becomes the truth.\\n\\nBillie Jean is not my lover\\nShe\'s just a girl who claims that I am the one\\nBut the kid is not my son\\nShe says I am the one\\nBut the kid is not my son\\n\\nFor forty days and for forty nights\\nLaw was on her side\\nBut who can stand\\nWhen she\'s in demand\\nHer schemes and plans\\n\'Cause we danced on the floor in the round\\nSo take my strong advice\\nJust remember to always think twice\\n\\nShe told, My baby, we\'d danced \'til three.\\nThen she looked at me\\nThen showed a photo of a baby cry\\nHis eyes looked like mine, oh, no\\nDo a dance on the floor in the round, baby\\n\\npeople always told me, Be careful of what you do\\nAnd don\'t go around breaking young girls\' hearts.\\nbut she came and stood right by me\\nAnd just the smell of sweet perfume\\nAnd this happened much too soon\\nAnd she called me to her room\\n\\nBillie Jean is not my lover\\nShe\'s just a girl who claims that I am the one\\nBut the kid is not my son\\n\\nBillie Jean is not my lover\\nBillie Jean\\nBillie Jean is not my lover\\nBillie Jean\\n","color":"#037377"}}', 0, 1, '2018-09-16 23:47:07');
 
 -- --------------------------------------------------------
 
@@ -529,7 +556,12 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `owner`, `app`, `_super`) VALUES
-(1, 1, 1, '{"id":1,"owner":{"id":1},"capacity":8,"empty":8,"spec":{"id":2}}');
+(1, 1, 1, '{"id":1,"owner":{"id":1},"capacity":8,"empty":7,"spec":{"id":2}}'),
+(3, 2, 1, '{"id":3,"owner":{"id":2},"capacity":8,"empty":6,"spec":{"id":2}}'),
+(5, 3, 1, '{"id":5,"owner":{"id":3},"capacity":8,"empty":8,"spec":{"id":2}}'),
+(7, 4, 1, '{"id":7,"owner":{"id":4},"capacity":8,"empty":6,"spec":{"id":2}}'),
+(9, 5, 1, '{"id":9,"owner":{"id":5},"capacity":8,"empty":8,"spec":{"id":2}}'),
+(11, 6, 1, '{"id":11,"owner":{"id":6},"capacity":8,"empty":8,"spec":{"id":2}}');
 
 -- --------------------------------------------------------
 
@@ -543,6 +575,18 @@ CREATE TABLE `item` (
   `spec` int(32) DEFAULT '0',
   `_sub_table` varchar(40) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `item`
+--
+
+INSERT INTO `item` (`id`, `owner`, `spec`, `_sub_table`) VALUES
+(1, 1, 1, 'copy'),
+(2, 2, 1, 'copy'),
+(3, 4, 1, 'copy'),
+(4, 1, 1, 'copy'),
+(5, 4, 1, 'copy'),
+(6, 2, 1, 'copy');
 
 -- --------------------------------------------------------
 
@@ -600,7 +644,12 @@ CREATE TABLE `oauth_steem` (
 --
 
 INSERT INTO `oauth_steem` (`id`, `access_token`, `account`, `user`, `expires`) VALUES
-(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTM3MDc4MTk4LCJleHAiOjE1Mzc2ODI5OTh9.2QJ8Ef9aYmJudomixpHIPGt7EDcRQHwYc_6-Ocso9lk', 'viterbo', 1, '2018-09-17 00:03:48');
+(2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoicmFkdXMiLCJzY29wZSI6WyJsb2dpbiIsIm9mZmxpbmUiLCJ2b3RlIiwiY29tbWVudCIsImRlbGV0ZV9jb21tZW50IiwiY29tbWVudF9vcHRpb25zIl0sImlhdCI6MTUzNzE1NTk1NiwiZXhwIjoxNTM3NzYwNzU2fQ.mW3H5dD7uq2WcmVOxOmbZEzP0Sx-lnADvDvtEcYdrRs', 'radus', 2, '2018-09-17 03:46:06'),
+(3, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoicGVjaGljaGVtZW5hIiwic2NvcGUiOlsibG9naW4iLCJvZmZsaW5lIiwidm90ZSIsImNvbW1lbnQiLCJkZWxldGVfY29tbWVudCIsImNvbW1lbnRfb3B0aW9ucyJdLCJpYXQiOjE1MzcxNzYzMDAsImV4cCI6MTUzNzc4MTEwMH0.GwDl_rvqwLp1eJqCoga7rjThg7EUg77V8FjT2K9pOaY', 'pechichemena', 3, '2018-09-17 09:25:05'),
+(6, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoiYWJkdXJhbWFuIiwic2NvcGUiOlsibG9naW4iLCJvZmZsaW5lIiwidm90ZSIsImNvbW1lbnQiLCJkZWxldGVfY29tbWVudCIsImNvbW1lbnRfb3B0aW9ucyJdLCJpYXQiOjE1MzcyODU0NzQsImV4cCI6MTUzNzg5MDI3NH0.dN7J5pzYbBmtok39BcWVkDs-2IsSfz1blqUBOSLmKP4', 'abduraman', 4, '2018-09-18 15:44:39'),
+(8, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoicGFpbnRpbmdhbmdlbHMiLCJzY29wZSI6WyJsb2dpbiIsIm9mZmxpbmUiLCJ2b3RlIiwiY29tbWVudCIsImRlbGV0ZV9jb21tZW50IiwiY29tbWVudF9vcHRpb25zIl0sImlhdCI6MTUzNzI5NDMwMiwiZXhwIjoxNTM3ODk5MTAyfQ.mmq08zqaYYzPXaG6IxE8E_r99NMQD-2kJC__NbsR90M', 'paintingangels', 5, '2018-09-18 18:11:44'),
+(10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoid2lsaW5zIiwic2NvcGUiOlsibG9naW4iLCJvZmZsaW5lIiwidm90ZSIsImNvbW1lbnQiLCJkZWxldGVfY29tbWVudCIsImNvbW1lbnRfb3B0aW9ucyJdLCJpYXQiOjE1MzczOTA4MDYsImV4cCI6MTUzNzk5NTYwNn0.6wkgYvpUMsiob1pdlNe4Lo30HIcQKVQGzWJKNwb_kLk', 'wilins', 6, '2018-09-19 21:00:13'),
+(11, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTM3NDQ3MTM3LCJleHAiOjE1MzgwNTE5Mzd9.AgXz5U-5YcmBSWb8Yl90lAE1sa5uqyV57iLt6bTNBF0', 'viterbo', 1, '2018-09-20 12:39:01');
 
 -- --------------------------------------------------------
 
@@ -634,7 +683,12 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `name`, `owner`, `_super`) VALUES
-(2, 'Viterbo RodrÃ­guez', 1, '{"id":2,"name":"Viterbo Rodr\\u00edguez","slug":"ctnbec9a8f878e1dbceec642a1570e58","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":1},"publisher_id":2}');
+(2, 'Viterbo RodrÃ­guez', 1, '{"id":2,"name":"Viterbo Rodr\\u00edguez","slug":"ctnbec9a8f878e1dbceec642a1570e58","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":1},"publisher_id":2}'),
+(3, 'radus', 2, '{"id":3,"name":"radus","slug":"ctn1279488ec8d0d7edebc9332302636","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":2},"publisher_id":3}'),
+(4, 'Pechiche Mena', 3, '{"id":4,"name":"Pechiche Mena","slug":"ctnd71d23b6d8f6cad09ca986f1d8b82","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":3},"publisher_id":4}'),
+(5, 'Abduraman Blackram', 4, '{"id":5,"name":"Abduraman Blackram","slug":"ctnd18429effbae02a199541a284296c","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":4},"publisher_id":5}'),
+(6, 'Painting Angels ', 5, '{"id":6,"name":"Painting Angels ","slug":"ctnc9fc39f06537c58273f32e3f85504","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":5},"publisher_id":6}'),
+(7, 'Wilins', 6, '{"id":7,"name":"Wilins","slug":"ctn555f3cc1c133482a727ca3993a47c","img":{"avatar":"\\/assets\\/noavatar.png"},"owner":{"id":6},"publisher_id":7}');
 
 -- --------------------------------------------------------
 
@@ -657,7 +711,12 @@ CREATE TABLE `publisher` (
 
 INSERT INTO `publisher` (`id`, `name`, `slug`, `img`, `owner`, `_sub_table`) VALUES
 (1, 'Cards & Tokens', 'cards-and-tokens', '{"avatar":"http://cardsandtokens.com/assets/cards-and-tokens.png"}', 1, 'app'),
-(2, 'Viterbo RodrÃ­guez', 'ctnbec9a8f878e1dbceec642a1570e58', '{"avatar":"\\/assets\\/noavatar.png"}', 1, 'profile');
+(2, 'Viterbo RodrÃ­guez', 'ctnbec9a8f878e1dbceec642a1570e58', '{"avatar":"\\/assets\\/noavatar.png"}', 1, 'profile'),
+(3, 'radus', 'ctn1279488ec8d0d7edebc9332302636', '{"avatar":"\\/assets\\/noavatar.png"}', 2, 'profile'),
+(4, 'Pechiche Mena', 'ctnd71d23b6d8f6cad09ca986f1d8b82', '{"avatar":"\\/assets\\/noavatar.png"}', 3, 'profile'),
+(5, 'Abduraman Blackram', 'ctnd18429effbae02a199541a284296c', '{"avatar":"\\/assets\\/noavatar.png"}', 4, 'profile'),
+(6, 'Painting Angels ', 'ctnc9fc39f06537c58273f32e3f85504', '{"avatar":"\\/assets\\/noavatar.png"}', 5, 'profile'),
+(7, 'Wilins', 'ctn555f3cc1c133482a727ca3993a47c', '{"avatar":"\\/assets\\/noavatar.png"}', 6, 'profile');
 
 -- --------------------------------------------------------
 
@@ -673,6 +732,18 @@ CREATE TABLE `slot` (
   `container` int(32) DEFAULT '0',
   `_index` int(8) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `slot`
+--
+
+INSERT INTO `slot` (`id`, `owner`, `item`, `data`, `container`, `_index`) VALUES
+(1, 1, 1, '{"collectible":51}', 2, 0),
+(2, 2, 2, '{"collectible":41}', 3, 0),
+(3, 4, 3, '{"collectible":44}', 7, 0),
+(4, 1, 4, '{"collectible":31}', 1, 0),
+(5, 4, 5, '{"collectible":52}', 7, 1),
+(6, 2, 6, '{"collectible":55}', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -705,7 +776,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `vapaee_id`, `name`, `profile`, `dailyprize`) VALUES
-(1, 0, 'Viterbo RodrÃ­guez', 2, '2000-01-01 00:00:00');
+(1, 0, 'Viterbo RodrÃ­guez', 2, '2018-09-19 02:23:07'),
+(2, 0, 'radus', 3, '2018-09-19 17:59:27'),
+(3, 0, 'Pechiche Mena', 4, '2000-01-01 00:00:00'),
+(4, 0, 'Abduraman Blackram', 5, '2018-09-19 17:09:42'),
+(5, 0, 'Painting Angels ', 6, '2000-01-01 00:00:00'),
+(6, 0, 'Wilins', 7, '2000-01-01 00:00:00');
 
 --
 -- Índices para tablas volcadas
@@ -883,12 +959,12 @@ ALTER TABLE `collectible`
 -- AUTO_INCREMENT de la tabla `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `container`
 --
 ALTER TABLE `container`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `container_spec`
 --
@@ -898,7 +974,7 @@ ALTER TABLE `container_spec`
 -- AUTO_INCREMENT de la tabla `copy`
 --
 ALTER TABLE `copy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `data_aux`
 --
@@ -928,12 +1004,12 @@ ALTER TABLE `envelop`
 -- AUTO_INCREMENT de la tabla `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `item_spec`
 --
@@ -948,7 +1024,7 @@ ALTER TABLE `oauth_cache`
 -- AUTO_INCREMENT de la tabla `oauth_steem`
 --
 ALTER TABLE `oauth_steem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `pending`
 --
@@ -958,17 +1034,17 @@ ALTER TABLE `pending`
 -- AUTO_INCREMENT de la tabla `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `publisher`
 --
 ALTER TABLE `publisher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `slot`
 --
 ALTER TABLE `slot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `sticker`
 --
@@ -978,7 +1054,7 @@ ALTER TABLE `sticker`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

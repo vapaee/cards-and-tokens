@@ -7,10 +7,6 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 ----- TODO -----
 -- ANTES DE PUBLICAR
-- POST: dirigido a los participantes ganadores que les hice cartas. Como reclamar la carta y empezar el contador.
-- POST: Hacer un post en Steemit explicando sobre el prototipo (alcance)
-- El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
-- cambiar la contra cara de las cartas
 
 
 
@@ -26,6 +22,7 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 
 -- PROXIMA PUBLICACIÓN --
+- El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
 - que la gente se pueda loguear con Vapaee
 - tenés que tener una forma de descartarte de una carta (la dejaría disponible para el daily prize)
 - el botón de claim daily prize debería tener una animación como el deploy, darse vuelta la carta y caer en el lugar del inventario
@@ -82,7 +79,39 @@ https://www.pexels.com/search/music/
 
 https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3NfOEU/edit#gid=0
 
-/assets/backgrounds/maxresdefault.jpg
+
+
+@aaaaaaaaaaaaaaaa, tu canción fue seleccionada para formar parte del conjunto inicial de cartas coleccionables para el álbum de Steemit OpenMic.
+<b>Felicitaciones !!</b>
+<center><a href="http://cardsandtokens.com/deploy/card/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><img src="aaaaaaaaaaaaaaaaaaaaaaaa"></a></center>
+<p>lee más sobre:
+<ul>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">el concurso de cartas de Steemit Openmic</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/reclama-tu-autoria-steemit-openmic-trading-cards">cómo reclamar la autoría de tus cartas</a></li>
+</ul>
+</p>
+
+
+
+
+<a href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options">login</a>
+
+
+@aaaaaaaaaaaaaaaa, your song was selected to be part of the initial collection set of trading cards for the album of Steemit OpenMic.
+<b>Congratulations !!</b>
+<center><a href="http://cardsandtokens.com/deploy/card/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><img src="aaaaaaaaaaaaaaaaaaaaa"></a></center>
+<p>read more about:
+<ul>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Openmic trading cards contest</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/claim-your-steemit-openmic-trading-card-authorship">How to claim authorship of your cards</a></li>
+</ul>
+</p>
+
+
+
+
+Este es un joven artista argentino con pocos seguidores ero mucho talento y ésta es una de sus cartas de colección.
+http://cardsandtokens.com/deploy/card/openmic-w91-juanhobos-atomos
 
 
 

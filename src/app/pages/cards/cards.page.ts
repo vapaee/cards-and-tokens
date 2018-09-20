@@ -21,12 +21,6 @@ export class CardsPage implements OnInit {
                 this.waitInit.then(() => {
                     this.tryTodeployCard(slug);
                 });                
-            } else {
-                if (this.app.countdown > 0) {
-                    this.app.navigate("home");
-                } else {
-                    console.error("sacar esto");
-                }                
             }
         });
 
