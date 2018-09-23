@@ -477,7 +477,7 @@ function verifySteemAccessToken($app) {
     $credentials = null;
     $op = array("unbox"=>true, "secure" => true);
     $oauth_steem = $app["db"]->http_get("oauth_steem", array("access_token" => $access_token), $op);
-// trace("$namespace.verifySteemAccessToken()", $access_token, $oauth_steem);
+    // trace("$namespace.verifySteemAccessToken()", $access_token, $oauth_steem);
     if ($oauth_steem) {
         if(is_array($oauth_steem)) {
             $oauth_steem = $oauth_steem[0];
@@ -722,24 +722,24 @@ function updateAlbumRanking($album_id, $app) {
 }
 
 function updateCollectionPosition($collection, $delta_points, $app) {
-// trace("updateCollectionPosition()", array("id"=>$collection["id"], "position"=>$collection["position"], "points"=>$collection["points"]), $delta_points);
+    // trace("updateCollectionPosition()", array("id"=>$collection["id"], "position"=>$collection["position"], "points"=>$collection["points"]), $delta_points);
     $album_id = $collection["album"]["id"];
     $init_pos = $collection["position"];
 
-// trace("---------------- INIT -----------------");
+    // trace("---------------- INIT -----------------");
     if ($delta_points > 0) {
         // si el delta es positivo (gané puntos, subí en el ranking)
         $select = array("album" => $album_id, "position" => array('$lt' => $collection["position"]));
         $order_by = array("unbox" => true, "order" => array("by" => "position", "wey" => "DESC")); // ASC|DESC
         $collections = $app["db"]->http_get("collection", $select, $order_by);
 
-// trace("updateCollectionPosition() collections ", $collections);
-// trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
+    // trace("updateCollectionPosition() collections ", $collections);
+    // trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
         foreach ($collections as $coll) {
-// trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
+    // trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
             if ($collection["points"] > $coll["points"]) {
                 $collection["position"] = $coll["position"];
-// trace("escalamos -> position:", $collection["position"]);
+    // trace("escalamos -> position:", $collection["position"]);
                 $app["db"]->http_put("collection", $coll["id"], array(
                     "position" => $coll["position"]+1 // bajar en el ranking es aumnetar el número de la posición
                 ));            
@@ -752,13 +752,13 @@ function updateCollectionPosition($collection, $delta_points, $app) {
         $select = array("album" => $album_id, "position" => array('$gt' => $collection["position"]));
         $order_by = array("unbox" => true, "order" => array("by" => "position", "wey" => "ASC")); // ASC|DESC
         $collections = $app["db"]->http_get("collection", $select, $order_by);
-// trace("updateCollectionPosition() collections ", $collections);
-// trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
+    // trace("updateCollectionPosition() collections ", $collections);
+    // trace("updateCollectionPosition() collection:", $collection["position"], "points:", $collection["points"]);
         foreach ($collections as $coll) {
-// trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
+    // trace("updateCollectionPosition() position:", $coll["position"], "points:", $coll["points"]);
             if ($collection["points"] < $coll["points"]) {
                 $collection["position"] = $coll["position"];
-// trace("descendemos -> position:", $collection["position"]);
+    // trace("descendemos -> position:", $collection["position"]);
                 $app["db"]->http_put("collection", $coll["id"], array(
                     "position" => $coll["position"]-1 // subir en el ranking es decremendar el número de la posición
                 ));
@@ -768,15 +768,56 @@ function updateCollectionPosition($collection, $delta_points, $app) {
         }
     }
     if ($init_pos != $collection["position"]) {
-// trace("quedamos en -> position:", $collection["position"]);
+    // trace("quedamos en -> position:", $collection["position"]);
         $app["db"]->http_put("collection", $collection["id"], array(
             "position" => $collection["position"]
         ));
     } 
-// trace("---------------- FIN -----------------");
+    // trace("---------------- FIN -----------------");
 
     return $collection["position"];
 }
+
+
+$app->get('/google/user', function() use ($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace GET 'google.user' ---------------------");
+    putHeaders();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $id_token = $_GET["id_token"];
+        $client = new Google_Client(['client_id' => '1079652811584-1a0710pi1pcvlnlait89dbadlo6p5emm.apps.googleusercontent.com']);
+        $payload = $client->verifyIdToken($id_token);
+        if ($payload) {
+            $userid = $payload['sub'];
+            trace("GOOGLE RESPONSE", $payload);
+            /*
+{
+    "iss": "accounts.google.com",
+    "azp": "1079652811584-1a0710pi1pcvlnlait89dbadlo6p5emm.apps.googleusercontent.com",
+    "aud": "1079652811584-1a0710pi1pcvlnlait89dbadlo6p5emm.apps.googleusercontent.com",
+    "sub": "111522924485227241656",
+    "email": "viter.rod@gmail.com",
+    "email_verified": true,
+    "at_hash": "V0vILO6SApQs02eyNiNSiA",
+    "name": "Viterbo Rodriguez",
+    "picture": "https:\\/\\/lh5.googleusercontent.com\\/-O726ebpeNtw\\/AAAAAAAAAAI\\/AAAAAAAAAGA\\/G7d3xnX9zQk\\/s96-c\\/photo.jpg",
+    "given_name": "Viterbo",
+    "family_name": "Rodriguez",
+    "locale": "es-419",
+    "iat": 1537629549,
+    "exp": 1537633149,
+    "jti": "a632eb19b010bb9c50ae3c42ada902fc5c0e2e1d"
+}            
+            */
+            return json_encode($payload);
+        } else {
+            // Invalid ID token
+            trace("GOOGLE RESPONSE: Invalid ID token", $id_token);
+            return json_encode(autenticationError());
+        }
+    }    
+});
 
 
 
@@ -795,7 +836,7 @@ $app->get('/steem/user', function() use ($app) {
         } else {
             return json_encode(autenticationError());
         }
-    }    
+    }
 });
 
 function putHeaders() {

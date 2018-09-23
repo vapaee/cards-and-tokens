@@ -33,7 +33,6 @@ import { DeployAlbumPage } from './deploy/deploy-album.page';
 import { EditorPage } from './pages/editor/editor.page';
 import { AlbumsPage } from './pages/albums/albums.page';
 import { SteemConnectPage } from './pages/steem-connect/steem-connect.page';
-import { GoogleConnectPage } from './pages/google-connect/google-connect.page';
 import { FacebookConnectPage } from './pages/facebook-connect/facebook-connect.page';
 import { InventoryPage } from './pages/inventory/inventory.page';
 import { RootPage } from './pages/root/root.page';
@@ -68,25 +67,13 @@ declare var social:any;
 
 
 // https://www.npmjs.com/package/angular-6-social-login
-import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from "angular-6-social-login";
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from "./modules/social-login/index";
 export function getAuthServiceConfigs() {
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(social);
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    
     let config = new AuthServiceConfig([
-        /*{
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider("Your-Facebook-app-id")
-        },*/
         {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(social.google)
-        }/*,
-        {
-            id: LinkedinLoginProvider.PROVIDER_ID,
-            provider: new LinkedinLoginProvider(window.social.)
-        },*/
+        }
     ]);
     return config;
 }
@@ -97,7 +84,6 @@ const routes: Routes = [
     { path: 'embedded/album/:slug', data: { state: "embedded-album", embedded: true }, component: DeployAlbumPage },
     { path: 'loading',              data: { state: "loading" }, component: LoadingPage },
     { path: 'steemconnect',         data: { state: "steemconnect" }, component: SteemConnectPage },
-    { path: 'googleconnect',         data: { state: "googleconnect" }, component: GoogleConnectPage },
     { path: 'facebookconnect',      data: { state: "facebookconnect" }, component: FacebookConnectPage },
     { path: '',                     data: { state: "root" }, redirectTo: '/home', pathMatch: 'full' },
     { path: '',                     data: { state: "root" }, component: RootPage,
@@ -160,7 +146,6 @@ const routes: Routes = [
         InventoryComponent,
         LabelComponent,
         SteemConnectPage,
-        GoogleConnectPage,
         FacebookConnectPage,
         InventoryPage,
         RootPage,
