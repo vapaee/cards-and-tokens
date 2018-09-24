@@ -67,7 +67,8 @@ export class VapaeeUserService {
                 // reject();
             });
 
-                        
+              
+            /*
             this.socialAuthService.isSignedIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
                 // userData
                 console.log("this.socialAuthService.isSignedIn", userData);
@@ -76,6 +77,8 @@ export class VapaeeUserService {
                     console.log("Response", response)
                 });
             });
+
+            */
 
 /*
 
@@ -101,7 +104,7 @@ export class VapaeeUserService {
 */
             
 
-            
+            /*
             window.setTimeout(() => {
                 if (!this.ready) {
                     this.ready = true;
@@ -112,6 +115,8 @@ export class VapaeeUserService {
                     console.log("vapaee.user.timeout YA ESTABA READY. this.logged", this.logged, this.user_name);
                 }
             }, 1500);
+
+            */
             
         });
 
