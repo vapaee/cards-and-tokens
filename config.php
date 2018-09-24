@@ -15,6 +15,7 @@ $config["google_app_id"] = "UA-71862452-1";
 $config["fb_app_id"] = "1658698094394840";
 $config["fb_page"] = "cardsandtokens";
 $config["vapaee_client_id"] = "f47ebe1ab2f388e549df8570833e18fa";
+$config["google_client_id"] = '1079652811584-1a0710pi1pcvlnlait89dbadlo6p5emm.apps.googleusercontent.com';
 $config["app_url_default"] = "/home";
 $config["app_module_name"] = "app.cnt";
 $config["upload_folder"] = "/var/www/data/cardsandtokens";

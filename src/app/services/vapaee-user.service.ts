@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { SteemService } from './steem.service';
 import { AnalyticsService } from './analytics.service';
 import { AuthService, GoogleLoginProvider } from '../modules/social-login';
+import { AppComponent } from '../app.component';
 
 @Injectable()
 export class VapaeeUserService {
@@ -11,6 +12,7 @@ export class VapaeeUserService {
     public foreign_token: string;
     public vapaee_client_id: string;
     public access_token: string;
+    public provider: string;
     public refresh_token: string;
     public user_id: Number;
     public user_name: string;
@@ -20,15 +22,17 @@ export class VapaeeUserService {
     public ready: boolean = false;
     public afterReady: Promise<void> = null;
     public isAdmin: boolean = false;
+    public appcomp: AppComponent;
 
     constructor(
         private cookies: CookieService, 
         public steem: SteemService, 
         public analytics: AnalyticsService,
         private socialAuthService: AuthService,
-        private http: HttpClient
+        private http: HttpClient,
+        private cookie: CookieService
     ) {
-        this.init();
+        // this.init();
     }
 
     logout() {
@@ -39,7 +43,8 @@ export class VapaeeUserService {
         }, 500);
     }
 
-    init() {
+    init(appcomp: AppComponent) {
+        this.appcomp = appcomp;
         this.logged = false;
         this.user_name = "Guest";
         this.ready = false;
@@ -53,6 +58,8 @@ export class VapaeeUserService {
                 this.user_name = this.steem.user.profile.name;
                 this.steemuser = this.steem.user.name;
                 this.isAdmin = this.steem.user.name == 'viterbo';
+                this.access_token = this.cookie.get("steem.access_token");
+                this.provider = "steem";
                 // analytics
                 if (this.cookies.get("login") == "init") {
                     this.analytics.emitEvent("user", "login", "steem");
@@ -126,8 +133,14 @@ export class VapaeeUserService {
 
     }
 
-    askForLogin() {
-        this.steem.askForLogin({'header':'vapaee'});
+    askForLogin(provider: string) {
+        switch(provider) {
+            case "steem":
+                this.appcomp.loginModal.show({"header":"steemconnect"});
+            case "google":
+                this.appcomp.loginModal.show({'header':'vapaee'});
+        }
+        
         this.cookies.set("login", "init");
         this.analytics.emitEvent("user", "login", "init");
     }

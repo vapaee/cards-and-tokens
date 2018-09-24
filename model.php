@@ -38,7 +38,16 @@ $DATA = array (
             "account" => array( "type" => "varchar(128)" ),
             "user" => array( "type" => "user" ),
             "expires" => array( "type" => "timestamp" )
-        ),        
+        ),
+        "oauth_google" => array(
+            "id_token" => array( "type" => "varchar(500)" ),
+            "locale" => array( "type" => "varchar(30)" ),
+            "name" => array( "type" => "varchar(128)" ),
+            "email" => array( "type" => "varchar(128)" ),
+            "picture" => array( "type" => "varchar(500)" ),
+            "user" => array( "type" => "user" ),
+            "expires" => array( "type" => "timestamp" )
+        ),
         // -------------------------
         // -------------------------
         // -------------------------

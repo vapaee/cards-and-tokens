@@ -22,6 +22,7 @@ export class AppComponent {
         public steem: SteemService,
         public dnd: DragAndDropService
     ) {
+        this.vapaee.init(this);
         this.app.init(this);
         this.cnt.init(this.app.device);
         this.steem.init(this);
