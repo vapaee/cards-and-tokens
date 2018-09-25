@@ -83,7 +83,7 @@ function syncApps($user_id, $access_token, $app) {
     }      
 }
 
-function verifyAccessToken($access_token, $app) {
+function verifyAccessToken_old($access_token, $app) {
     global $config; $namespace = $config['namespace'];
     trace("$namespace.verifyAccessToken($access_token)");
     global $VAPAEE_ENDPOINT;

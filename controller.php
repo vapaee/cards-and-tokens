@@ -214,8 +214,8 @@ $app["db"]->on("post:user", function ($user, $op, $app) {
     return $user;
 });
 
-function getUserFromSteemAccessToken($app, $op = array("secure" => true, "unbox" => true)) {
-    $result = verifySteemAccessToken($app);
+function getUserFromAccessToken($app, $op = array("secure" => true, "unbox" => true)) {
+    $result = verifyAccessToken($app);
     $user_id = $result["user"]["id"];
     $user = $app["db"]->http_get_id("user", $user_id, $op);
     return $user;
@@ -280,7 +280,7 @@ $app->get('/dailyprize/claim', function() use ($app) {
     global $config; $namespace = $config['namespace'];
     // trace("$namespace GET 'dailyprize' --------------");
     $op = array("unbox"=>true);
-    $user = getUserFromSteemAccessToken($app, $op);
+    $user = getUserFromAccessToken($app, $op);
     $remaining = getDailyPriceRemainintTimeFromUser($user);
     if ($remaining["days"] == 0) {
         $remaining["error"] = "less than a day";
@@ -368,7 +368,7 @@ $app->get('/dailyprize/countdown', function() use ($app) {
     // trace("$namespace GET 'dailyprize.countdown' --------------");
     
     $op = array("unbox"=>true);
-    $user = getUserFromSteemAccessToken($app, $op);
+    $user = getUserFromAccessToken($app, $op);
     $remaining = getDailyPriceRemainintTimeFromUser($user);
     return json_encode($remaining);
     
@@ -384,7 +384,7 @@ $app->post('/swap/slots', function() use ($app) {
         $content = json_decode($content);
         // trace("$namespace GET 'swap.slots' from ($content->from,$content->fromi) to ($content->to,$content->toi) ---------------------");
 
-        $credentials = verifySteemAccessToken($app);
+        $credentials = verifyAccessToken($app);
         if (!isset($credentials)) {
             return json_encode(array("error" => "user not logged"));
         }
@@ -458,9 +458,38 @@ $app->post('/swap/slots', function() use ($app) {
 });
 
 
+function verifyAccessToken($app) {
+    global $config; $namespace = $config['namespace'];
+    trace("$namespace.verifyAccessToken()");
+    if (!isset($_COOKIE["access_token"]) && !isset($_GET["access_token"])) {
+        trace("ERROR: no access_token found in cookies", $_COOKIE, "or GET params", $_GET);
+        return null;
+    }
+    if (!isset($_COOKIE["provider"]) && !isset($_GET["provider"])) {
+        trace("ERROR: no provider found in cookies", $_COOKIE, "or GET params", $_GET);
+        return null;
+    }
+    if (isset($_COOKIE["provider"])) {
+        $provider = $_COOKIE["provider"];    
+    }
+    if (isset($_GET["provider"])) {
+        $provider = $_GET["provider"];    
+    }
+
+    switch($provider) {
+        case "google":
+            return verifyGoogleAccessToken($app);
+        case "steem":
+            return verifySteemAccessToken($app);
+        default:
+            trace("ERROR: unknown provider: ", $provider);
+    }
+
+}
 
 
 // STEEM ----------------
+
 function verifySteemAccessToken($app) {
     global $config; $namespace = $config['namespace'];
     if (!isset($_COOKIE["access_token"]) && !isset($_GET["access_token"])) {
@@ -510,6 +539,8 @@ function verifySteemAccessToken($app) {
                 "content" => "{}"
             )
         );
+
+        
         $context  = stream_context_create($opts);
         $result = file_get_contents('https://steemconnect.com/api/me', false, $context);
         $steemuser = json_decode($result, true);
@@ -534,7 +565,6 @@ function verifySteemAccessToken($app) {
         // trace($profile);
         // trace($name);
         // trace("----------------------------------------------");
-        
 
         $old_oauth_steem = $app["db"]->http_get("oauth_steem", array("account" => $account), $op);
         if ($old_oauth_steem) {
@@ -782,22 +812,10 @@ function updateCollectionPosition($collection, $delta_points, $app) {
     return $collection["position"];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 // GOOGLE ---------------
 function verifyGoogleAccessToken($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace.verifyGoogleAccessToken()");
+    // trace("$namespace.verifyGoogleAccessToken()");
     if (!isset($_COOKIE["access_token"]) && !isset($_GET["access_token"])) {
         trace("ERROR: no access_token found in cookies", $_COOKIE, "or GET params", $_GET);
         return null;
@@ -809,44 +827,6 @@ function verifyGoogleAccessToken($app) {
         $access_token = $_GET["access_token"];    
     }
 
-
-
-
-
-/*
-
-        $client = new Google_Client(['client_id' => $config["google_client_id"]]);
-        $payload = $client->verifyIdToken($access_token);
-        if ($payload) {
-            $userid = $payload['sub'];
-            trace("GOOGLE RESPONSE", $payload);
-            return json_encode($payload);
-        } else {
-            // Invalid ID token
-            trace("GOOGLE RESPONSE: Invalid ID token", $id_token);
-            return json_encode(autenticationError());
-        }
-
-        {
-            "iss": "accounts.google.com",
-            "azp": "1079652811584-1a0710pi1pcvlnlait89dbadlo6p5emm.apps.googleusercontent.com",
-            "aud": "1079652811584-1a0710pi1pcvlnlait89dbadlo6p5emm.apps.googleusercontent.com",
-            "sub": "111522924485227241656",
-            "email": "viter.rod@gmail.com",
-            "email_verified": true,
-            "at_hash": "V0vILO6SApQs02eyNiNSiA",
-            "name": "Viterbo Rodriguez",
-            "picture": "https:\\/\\/lh5.googleusercontent.com\\/-O726ebpeNtw\\/AAAAAAAAAAI\\/AAAAAAAAAGA\\/G7d3xnX9zQk\\/s96-c\\/photo.jpg",
-            "given_name": "Viterbo",
-            "family_name": "Rodriguez",
-            "locale": "es-419",
-            "iat": 1537629549,
-            "exp": 1537633149,
-            "jti": "a632eb19b010bb9c50ae3c42ada902fc5c0e2e1d"
-        }  
-*/  
-    
-
     // $one_year = 360 * 24 * 60 * 60;
     // setcookie("access_token", $access_token, time()+$one_year);
 
@@ -854,15 +834,15 @@ function verifyGoogleAccessToken($app) {
     $credentials = null;
     $op = array("unbox"=>true, "secure" => true);
     $oauth_steem = $app["db"]->http_get("oauth_google", array("id_token" => $access_token), $op);
-    trace("$namespace.verifyGoogleAccessToken()", $access_token, $oauth_steem);
+    // trace("$namespace.verifyGoogleAccessToken()", $access_token, $oauth_steem);
     if ($oauth_steem) {
         if(is_array($oauth_steem)) {
             $oauth_steem = $oauth_steem[0];
         }
-        trace("$namespace.verifyGoogleAccessToken()   ENCONTRE!  ", $oauth_steem);
+        // trace("$namespace.verifyGoogleAccessToken()   ENCONTRE!  ", $oauth_steem);
         $user = $app["db"]->http_get_id("user", $oauth_steem["user"]["id"], $op);
     } else {
-        trace("$namespace.verifyGoogleAccessToken()   NO ENCONTRE!  CHEKAMOS EL TOKEN EN GOOGLE... ");
+        // trace("$namespace.verifyGoogleAccessToken()   NO ENCONTRE!  CHEKAMOS EL TOKEN EN GOOGLE... ");
 
         $client = new Google_Client(['client_id' => $config["google_client_id"]]);
         $payload = $client->verifyIdToken($access_token);
@@ -871,7 +851,7 @@ function verifyGoogleAccessToken($app) {
             $name = $payload['name'];
             $locale = $payload['locale'];
             $picture = $payload['picture'];
-            trace("$namespace.verifyGoogleAccessToken() TOKEN OK: ", $email, $name);
+            // trace("$namespace.verifyGoogleAccessToken() TOKEN OK: ", $email, $name);
         } else {
             // Invalid ID token
             return json_encode(autenticationError());
@@ -900,60 +880,19 @@ function verifyGoogleAccessToken($app) {
             "picture" => $picture,
         ), $op);
     }
-    trace("$namespace.verifyGoogleAccessToken() return ", array("user" => $user));
+    // trace("$namespace.verifyGoogleAccessToken() return ", array("user" => $user));
     return array(
         "user" => $user
     );
 }
 
-/*
-$app->get('/google/user', function() use ($app) {
-    global $config; $namespace = $config['namespace'];
-    trace("$namespace GET 'google.user' ---------------------");
-    putHeaders();
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $id_token = $_GET["id_token"];
-        $client = new Google_Client(['client_id' => $config["google_client_id"]]);
-        $payload = $client->verifyIdToken($id_token);
-        if ($payload) {
-            $userid = $payload['sub'];
-            trace("GOOGLE RESPONSE", $payload);
-            return json_encode($payload);
-        } else {
-            // Invalid ID token
-            trace("GOOGLE RESPONSE: Invalid ID token", $id_token);
-            return json_encode(autenticationError());
-        }
-    }    
-});
-*/
-
-$app->get('/google/user', function() use ($app) {
-    global $config; $namespace = $config['namespace'];
-    // trace("$namespace GET 'google.user' ---------------------");
-    putHeaders();
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $result = verifyGoogleAccessToken($app);
-        // trace("cnt./userdata -> verifyAccessToken devolvio: ", $result);
-        if ($result) {
-            $userdata = getUserdata($result, $app);
-            return json_encode($userdata);
-        } else {
-            return json_encode(autenticationError());
-        }
-    }
-});
-
-
-$app->get('/steem/user', function() use ($app) {
+$app->get('/userdata', function() use ($app) {
     global $config; $namespace = $config['namespace'];
     // trace("$namespace GET 'steem.user' ---------------------");
     putHeaders();
     
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $result = verifySteemAccessToken($app);
+        $result = verifyAccessToken($app);
         // trace("cnt./userdata -> verifyAccessToken devolvio: ", $result);
         if ($result) {
             $userdata = getUserdata($result, $app);

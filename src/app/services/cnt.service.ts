@@ -337,7 +337,7 @@ export class CntService {
         this.swapLocaly(from, fromi, to, toi);
         this.analytics.emitEvent("cards", action, "init");
         
-        return this.http.post<any>("//api.cardsandtokens.com/swap/slots?access_token="+this.userdata.access_token,{
+        return this.http.post<any>("//api.cardsandtokens.com/swap/slots?access_token="+this.vapaee.access_token+"&provider="+this.vapaee.provider,{
             from:from, fromi:fromi, to:to, toi:toi
         }).toPromise().then((r) => {
             if (r.error) {
@@ -421,7 +421,7 @@ export class CntService {
         return new Promise<any>((resolve, reject) => {
             this.deployToCenter({"fullsize":"/assets/card-back.png"}, img).then(() => {
                 this.app.setLoading(true);
-                var url = "http://api.cardsandtokens.com/dailyprize/claim?access_token="+this.userdata.access_token;
+                var url = "http://api.cardsandtokens.com/dailyprize/claim?access_token="+this.vapaee.access_token+"&provider="+this.vapaee.provider;
                 this.http.get<any>(url).toPromise().then((r) => {
                     if (r.error) {
                         this.deploy = null;
@@ -446,7 +446,7 @@ export class CntService {
 
 
             /*
-            var url = "http://api.cardsandtokens.com/dailyprize/claim?access_token="+this.userdata.access_token;
+            var url = "http://api.cardsandtokens.com/dailyprize/claim?access_token="+this.vapaee.access_token+"&provider="+this.vapaee.provider;;
             this.http.get<any>(url).toPromise().then((r) => {
                 if (r.error) {
                     alert(r.error);
@@ -476,7 +476,7 @@ export class CntService {
             this.userdata.waitData.then(() => {
                 this.userdata.data.dayliprice = {};
                 console.log("CntService.getDailyPrize()");
-                var url = "http://api.cardsandtokens.com/dailyprize/countdown?access_token="+this.userdata.access_token;
+                var url = "http://api.cardsandtokens.com/dailyprize/countdown?access_token="+this.vapaee.access_token+"&provider="+this.vapaee.provider;;
                 this.http.get<any>(url).toPromise().then((r) => {
                     if (r.sec == 0) {
                         this.userdata.data.dayliprice.claimable = true;
@@ -488,8 +488,6 @@ export class CntService {
             });
         });
     }
-    //http://api.cardsandtokens.com/dailyprize?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYXBwIiwicHJveHkiOiJ2YXBhZWUiLCJ1c2VyIjoidml0ZXJibyIsInNjb3BlIjpbImxvZ2luIiwib2ZmbGluZSIsInZvdGUiLCJjb21tZW50IiwiZGVsZXRlX2NvbW1lbnQiLCJjb21tZW50X29wdGlvbnMiXSwiaWF0IjoxNTMzMjczODMyLCJleHAiOjE1MzM4Nzg2MzJ9.7oVE9obJJNb_g2WrWqn_xDOAfP7zRx7PNTPdR64juQg
-
 
     // ------------------------------------------------------------------------------------------
 
@@ -671,7 +669,7 @@ export class CntService {
             this.waitData.then(() => {
                 var coll = this.userdata.data.collection["id-"+coll_id];
                 // console.error("HAY QUE PEGARLE A LA BASE DE DATOS PARA QUE ACTUALICE LOS PUNTOS Y POSICION DE LA COLLECTION coll_id");
-                return this.http.post<any>("//api.cardsandtokens.com/update_collection?access_token="+this.userdata.access_token,{
+                return this.http.post<any>("//api.cardsandtokens.com/update_collection?access_token="+this.vapaee.access_token+"&provider="+this.vapaee.provider,{
                     collection:coll_id
                 }).toPromise().then((r) => {
                     if (r.error) {
@@ -1041,7 +1039,7 @@ export class CntService {
     createCard(model:any, deploy:any, preview:any) {
         return new Promise<any>((resolve) => {
             console.log("CntService.createCard()");
-            var url = "http://api.cardsandtokens.com/crear_carta?access_token="+this.userdata.access_token;
+            var url = "http://api.cardsandtokens.com/crear_carta?access_token="+this.vapaee.access_token+"&provider="+this.vapaee.provider;
             this.http.post<any>(url, {
                 model:model, deploy:deploy, preview: preview
             }).toPromise().then((r) => {
@@ -1050,7 +1048,6 @@ export class CntService {
             });
         });
     }
-
 
 }
 

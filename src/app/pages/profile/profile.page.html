@@ -4,15 +4,16 @@
         <h3 class="card-header success-color white-text">
             <img src="/assets/steemit-white.svg" style="height: 40px;">
         </h3>
-        <div class="card-body" *ngIf="!steem.user">
+        <div class="card-body" *ngIf="vapaee.provider != 'steem'">
             <h4 class="card-title">Not connected</h4>
             <p class="card-text">Connect to your Steem account by using Steem-Connect.</p>
-            <a class="btn btn-success" (click)="vapaee.askForLogin('steem')">Connect</a>
+            <a class="btn btn-success disabled"  *ngIf="vapaee.logged">Connect</a>
+            <a class="btn btn-success" (click)="vapaee.askForLogin('steem')" *ngIf="!vapaee.logged">Connect</a>
         </div>
-        <div class="card-body" *ngIf="steem.user">
+        <div class="card-body" *ngIf="vapaee.logged && vapaee.provider == 'steem'">
             <h4 class="card-title">
-                <img [src]="steem.user.profile.avatar" style="height:32px;">&nbsp;
-                {{steem.user.profile.name}}
+                <img [src]="vapaee.avatar" style="height:32px;">&nbsp;
+                {{vapaee.user_name}}
             </h4>
             <p class="card-text">connected</p>
             <a class="btn btn-success" (click)="vapaee.logout()">Disconnect</a>
@@ -22,9 +23,21 @@
         <h3 class="card-header danger-color white-text">
             <img src="/assets/google-white.png" style="height: 40px;">
         </h3>
-        <div class="card-body">
-                <a class="btn btn-danger" (click)="loginGoogle()">Connect</a>
+        <div class="card-body" *ngIf="vapaee.provider != 'google'">
+            <h4 class="card-title">Not connected</h4>
+            <p class="card-text">Connect to your Google account.</p>
+            <a class="btn btn-danger disabled" *ngIf="vapaee.logged">Connect</a>
+            <a class="btn btn-danger" (click)="vapaee.askForLogin('google')" *ngIf="!vapaee.logged">Connect</a>
         </div>
+        <div class="card-body" *ngIf="vapaee.logged && vapaee.provider == 'google'">
+            <h4 class="card-title">
+                <img [src]="vapaee.avatar" style="height:32px;">&nbsp;
+                {{vapaee.user_name}}
+            </h4>
+            <p class="card-text">connected</p>
+            <a class="btn btn-danger" (click)="vapaee.logout()">Disconnect</a>
+        </div>
+
     </div>    
     <div class="card margin-top-xl opaque-at-work">
         <h3 class="card-header primary-color white-text">

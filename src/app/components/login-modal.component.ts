@@ -1,23 +1,32 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { CntService } from '../services/cnt.service';
 import { SteemService } from '../services/steem.service';
+import { VapaeeUserService } from '../services/vapaee-user.service';
 
 @Component({
     selector: 'login-modal',
     styles: [
         ".vapaee-logo-container { background-color: #bed1c2; background-image: -moz-linear-gradient(top, #47584a 0%, #252c27 100%); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #47584a), color-stop(100%, #252c27)); background-image: -webkit-linear-gradient(top, #47584a 0%, #252c27 100%); background-image: -o-linear-gradient(top, #47584a 0%, #252c27 100%); background-image: -ms-linear-gradient(top, #47584a 0%, #252c27 100%); background-image: linear-gradient(to bottom, #47584a 0%, #252c27 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#47584a, endColorstr=#252c27, GradientType=0); }",
         ".steemconnect-logo-container { background: linear-gradient(135deg,#1a5099,#92d7fa); background-repeat: no-repeat; }",
+        ".google-logo-container { background: linear-gradient(135deg,#C80000,#990000); background-repeat: no-repeat; }",
         ""
     ],
     template: `
         <div mdbModal #_modal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myloginModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header" [ngClass]="{'steemconnect-logo-container': config.header == 'steemconnect', 'vapaee-logo-container': config.header == 'vapaee'}">
+                <div class="modal-header"
+                    [ngClass]="{'steemconnect-logo-container': config.header == 'steemconnect',
+                            'google-logo-container': config.header == 'google',
+                            'vapaee-logo-container': config.header == 'vapaee'}">
                     <div class="text-center animated fadeIn" style="width: 100%">
                         <br>
-                        <img src="https://steemconnect.com/img/logo-white.svg" style="width: 250px">
-                        <!--img src="http://accounts.vapaee.com/catalog/view/theme/vapaee/image/Logo.png" style="width: 250px"-->
+                        <img *ngIf="config.header == 'steemconnect'"
+                                src="/assets/steemconnect-logo-white.svg" style="width: 250px">
+                        <img *ngIf="config.header == 'vapaee'"
+                                src="/assets/vapaee-logo.png" style="width: 250px">
+                        <img *ngIf="config.header == 'google'"
+                                src="/assets/google-logo-white.png" style="width: 250px">
                         <br>
                         <br>
                     </div>
@@ -25,6 +34,7 @@ import { SteemService } from '../services/steem.service';
                 <div class="modal-body">
                     <div id="icon-panel" class="text-center panel panel-default animated fadeIn">
                         <a *ngIf="config.header == 'steemconnect'" [href]="steem.url"><h4>Login with your steem account</h4></a>
+                        <a *ngIf="config.header == 'google'" (click)="vapaee.login('google')"><h4>Login with your google account</h4></a>
                         <div *ngIf="config.header == 'vapaee'">
                             <h4>Login with any social account</h4>
                             <br>
@@ -50,7 +60,10 @@ export class LoginModalComponent {
     config: any;
     @ViewChild('_modal') private loginModal;
 
-    constructor(public steem: SteemService) {
+    constructor(
+        public steem: SteemService,
+        public vapaee: VapaeeUserService
+    ) {
         // console.log("LoginModalComponent()");
         this.config = {"header":""};
     }
@@ -61,8 +74,8 @@ export class LoginModalComponent {
         this.loginModal.show();
     }
 
-    close() {
-        this.loginModal.close();
+    hide() {
+        this.loginModal.hide();
     }
 }
 

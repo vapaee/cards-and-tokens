@@ -36,10 +36,9 @@ export class UserdataService {
                     return ;
                 }
                 var API_url = "http://api.cardsandtokens.com/";
-                // var url = API_url+"userdata?access_token="+this.vapaee.access_token;
                 this.access_token = this.vapaee.access_token;
                 this.provider = this.vapaee.provider;
-                var url = API_url+this.provider+"/user?access_token="+this.access_token;
+                var url = API_url+"userdata?access_token="+this.vapaee.access_token+"&provider="+this.vapaee.provider;
                 //url +="&name="+encodeURIComponent(this.vapaee.user_name);
                 //url +="&avatar="+encodeURIComponent(this.cookie.get("steem.avatar"))
                 //url +="&account="+encodeURIComponent(this.cookie.get("steem.account"));
