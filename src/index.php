@@ -77,7 +77,8 @@
             0% { -webkit-transform: rotate(0deg); }
             100% {-webkit-transform: rotate(360deg); };
         }  
-    </style>       
+    </style>
+
 </head>
 <body class="hide-at-work-" loading="true">
     <div class="img-preload">

@@ -38,15 +38,20 @@ import { VapaeeUserService } from '../services/vapaee-user.service';
                         <div *ngIf="config.header == 'vapaee'">
                             <h4>Login with any social account</h4>
                             <br>
-                            <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=Google&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
-                                <img src="http://accounts.vapaee.com/image/themezee_social_icons/google.png" alt="Google" title="Google">
+                            <a class="margin-left" [href]="steem.url">
+                                <img src="assets/social/icon-steem.png" alt="Steemit" title="Steemit">
                             </a>
+                            <a class="margin-left" (click)="vapaee.login('google')">
+                                <img src="assets/social/icon-google.png" alt="Google" title="Google">
+                            </a>
+                            <!--
                             <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=GitHub&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
-                                <img src="http://accounts.vapaee.com/image/themezee_social_icons/github.png" alt="GitHub" title="GitHub">
+                                <img src="assets/social/icon-github.png" alt="GitHub" title="GitHub">
                             </a>
                             <a class="margin-left" href="http://accounts.vapaee.com/index.php?route=extension/module/hybrid&amp;provider=Twitter&amp;redirect=aHR0cDovL2NhcmRzYW5kdG9rZW5zLmNvbS8=">
-                                <img src="http://accounts.vapaee.com/image/themezee_social_icons/twitter.png" alt="Twitter" title="Twitter">
+                                <img src="assets/social/icon-twitter.png" alt="Twitter" title="Twitter">
                             </a>
+                            -->
                         </div>
                     </div>
                 </div>

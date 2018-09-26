@@ -45,8 +45,6 @@ export class VapaeeUserService {
         this.googleWaitLogged = new Promise((resolve) => {
             this.googleResolve = resolve;
         });
-
-        
     }
 
     logout() {
