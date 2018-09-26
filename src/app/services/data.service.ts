@@ -135,7 +135,7 @@ export class DataService {
             }
 
             promise.then((data) => {
-                console.debug("------------------>" , path, data);
+                // console.debug("------------------>" , path, data);
                 console.assert(typeof this.request[path].resolve == "function");
                 
                 var Data = this;

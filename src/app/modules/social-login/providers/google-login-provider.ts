@@ -9,7 +9,7 @@ export class GoogleLoginProvider extends BaseLoginProvider {
     public loginProviderObj: LoginProviderClass = new LoginProviderClass();
     private auth2: any;
 
-    public waitReady: Promise<any>;
+    public signedPromise: Promise<any>;
 
     constructor(private clientId: string) {
         super();
@@ -19,23 +19,27 @@ export class GoogleLoginProvider extends BaseLoginProvider {
     }
 
     initialize(): Promise<SocialUser> {
-        this.waitReady = new Promise((resolve) => {
-            this.loadScript(this.loginProviderObj, () => {
-                gapi.load('auth2', () => {
-                    this.auth2 = gapi.auth2.init({
-                        client_id: this.clientId,
-                        scope: 'email'
-                    });
+        return new Promise((resolve) => {
+            this.signedPromise = new Promise((_res, _rej) => {
+                this.loadScript(this.loginProviderObj, () => {
+                    gapi.load('auth2', () => {
+                        this.auth2 = gapi.auth2.init({
+                            client_id: this.clientId,
+                            scope: 'email'
+                        });
 
-                    this.auth2.then(() => {
-                        if (this.auth2.isSignedIn.get()) {
-                            resolve(this.drawUser());
-                        }
+                        this.auth2.then(() => {
+                            if (this.auth2.isSignedIn.get()) {
+                                resolve(this.drawUser());
+                                _res(this.drawUser());
+                            } else {
+                                _rej(null);
+                            }
+                        });    
                     });
                 });
             });
         });
-        return this.waitReady;
     }
 
     drawUser(): SocialUser {
@@ -52,9 +56,11 @@ export class GoogleLoginProvider extends BaseLoginProvider {
     }
 
     isSignedIn(): Promise<SocialUser> {
+        return this.signedPromise;
+        /*
         console.log("GoogleProvider.isSignedIn()");
-        return this.waitReady.then(() => {
-            console.log("GoogleProvider.isSignedIn()  this.waitReady OK"); 
+        return this.signedPromise.then(() => {
+            console.log("GoogleProvider.isSignedIn()  this.signedPromise OK"); 
             return this.auth2.then(() => {
                 console.log("GoogleProvider.isSignedIn()  this.auth2.then OK"); 
                 if (this.auth2.isSignedIn.get()) {
@@ -64,6 +70,7 @@ export class GoogleLoginProvider extends BaseLoginProvider {
                 }
             });
         });
+        */
     }
 
     signIn(): Promise<SocialUser> {

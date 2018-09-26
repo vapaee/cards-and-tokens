@@ -28,6 +28,12 @@ export class VapaeeUserService {
     public readyReject: Function;
     public googleWaitLogged: Promise<any> = null;
     public googleResolve: Function;
+    public googleReject: Function;
+
+
+    // public notLoggedGoogle: Promise<any> = null;
+    // public notLoggedSteem: Promise<any> = null;
+    
 
     constructor(
         private cookies: CookieService, 
@@ -37,14 +43,7 @@ export class VapaeeUserService {
         private http: HttpClient,
         private cookie: CookieService
     ) {
-        // this.init(null);
-        this.afterReady = new Promise((resolve, reject) => {
-            this.readyResolve = resolve;
-            this.readyReject = reject;
-        });
-        this.googleWaitLogged = new Promise((resolve) => {
-            this.googleResolve = resolve;
-        });
+        this.prepareForLogin();
     }
 
     logout() {
@@ -56,13 +55,16 @@ export class VapaeeUserService {
         }, 500);
     }
 
-    init(appcomp: AppComponent) {
-        this.appcomp = appcomp;
-        this.logged = false;
-        this.user_name = "Guest";
-        this.ready = false;
+    prepareForLogin() {
+        this.afterReady = new Promise((resolve, reject) => {
+            this.readyResolve = resolve;
+            this.readyReject = reject;
+        });
+        this.googleWaitLogged = new Promise((resolve, reject) => {
+            this.googleResolve = resolve;
+            this.googleReject = reject;
+        });
 
-    
         // console.log("Vapaee.user subscribe to steem.waitLogged");
         this.steem.waitLogged.then(() => {
             console.assert(!this.ready, "ERROR: será que se resolvió primero el timeout y depués el login con steemit????", [this]);
@@ -107,60 +109,33 @@ export class VapaeeUserService {
             console.log(this);
             this.readyResolve();
             this.appcomp.loginModal.hide();
+        }, () => {
+            console.log("this.socialAuthService.isSignedIn --> REJECTED");
         });
-        
+
+        this.googleWaitLogged.catch(() => {
+            this.steem.waitLogged.catch(() => {
+                this.ready = true;
+                this.logged = false;
+                this.readyReject();
+            });
+        });
+    }
+
+    init(appcomp: AppComponent) {
+        this.appcomp = appcomp;
+        this.logged = false;
+        this.user_name = "Guest";
+        this.ready = false;
+
         this.socialAuthService.isSignedIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
             console.log("this.socialAuthService.isSignedIn", userData);
             this.googleResolve(userData);
         }, (err) => {
-            console.log("this.socialAuthService.isSignedIn --> REJECTED");
+            this.googleReject();
         });
 
-        
-
-/*
-
-        
-        this.socialAuthService.isSignedIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
-            console.assert(!this.ready, "ERROR: será que se resolvió primero el timeout y depués el login con google????", [this]);
-            this.logged = true;
-            this.ready = true;
-            this.user_name = userData.name;
-            this.googleuser = userData.email.substr(0, userData.email.indexOf("@"));
-            this.isAdmin = userData.email == 'viter.rod@gmail.com';
-            // analytics
-            if (this.cookies.get("login") == "init") {
-                this.analytics.emitEvent("user", "login", "google");
-            }
-            this.analytics.setUserId("google@" + this.googleuser);
-            this.cookies.delete("login");
-            // console.log("--- vapaee.user ---");
-            this.readyResolve();
-        }, (err) => {
-            // this never executes   
-        });
-*/
-        
-
-        /*
-        window.setTimeout(() => {
-            if (!this.ready) {
-                this.ready = true;
-                this.logged = false;
-                readyReject();
-                console.log("vapaee.user.timeout reject");
-            } else {
-                console.log("vapaee.user.timeout YA ESTABA READY. this.logged", this.logged, this.user_name);
-            }
-        }, 1500);
-
-        */
-        
-
-        this.afterReady.then(() => {}, e => {
-            // console.log("--- vapaee.user rejected ---");
-        });
-
+        this.afterReady.then(() => {}, e => {});
     }
 
     askForLogin(provider: string) {
@@ -181,13 +156,15 @@ export class VapaeeUserService {
     }
 
     login(provider: string) {
+        // this.prepareForLogin();
         switch(provider) {
             case "steem":
                 console.log("LOGIN STEEM NOT IMPLEMENTED");
                 break;
             case "google":
                 this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
-                    this.googleResolve(userData);
+                    // this.googleResolve(userData);
+                    window.location.reload();
                 }, (err) => {
                     console.log("ERROR: GOOGLE sign in error : " , err);
                 });        
