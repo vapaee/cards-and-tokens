@@ -234,9 +234,9 @@ export class CntService {
                 }
             }
             // we search for an unclamed card
-            console.log('-------- PENDING ----------');
-            console.log(this.userdata.data.pending);
-            console.log('---------------------------');
+            // console.log('-------- PENDING ----------');
+            // console.log(this.userdata.data.pending);
+            // console.log('---------------------------');
             if (this.userdata.data.pending) {
                 this.app.navigate("/pendings");
             }

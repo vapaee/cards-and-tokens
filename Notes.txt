@@ -5,22 +5,31 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
+
+------ CAMPAÑA PARA QUE RECLAMEN LAS CARTAS -----
+- botón para agitar al autor: si la carta no está reclamada, debe aparecer un botón para que los usuarios puedan dejar un comentario
+  abajo de mi comentario en la publicación original de openmic.
+- Ranking de cartas: en el home debería aparecer el ranking de cartas
+- hacer 5 cartas nuevas. week 103: https://steemit.com/openmic/@luzcypher/steemit-open-mic-week-103-winners-see-who-won-open-mic-and-join-us-this-week
+- POST: hacer un post con los datos de la actualización: ranking, cartas nuevas
+
 ----- TODO -----
--- PROXIMA PUBLICACIÓN --
 - Si estamos en el embed/card/zzz y wondow.top != window.document this.app.navigate("deploy/card/zzz")
-- El botón de About de la página coming soon debe llevarte al post de steemit (del punto anterior)
-- que la gente se pueda loguear con Vapaee
+- el algoritmo que decide que carta te ganás (daily prize) debería evitar darte cartas repetidas
+- escribirles a los pibes de TelosFundation a ver que me dicen
+
+-- PROXIMA PUBLICACIÓN --
 - tenés que tener una forma de descartarte de una carta (la dejaría disponible para el daily prize)
-- el botón de claim daily prize debería tener una animación como el deploy, darse vuelta la carta y caer en el lugar del inventario
-- ver la diferencia de el width del padre y el width del device para el video-comp
 - ponele lista de tags a las cartas
-- dar formato al Título, página, ranking y demás...
 - php cuando me actualizan un votes debo actualizar el puntaje de cada usuario que tenga una copia de esa carta
 - seccion que te liste los usuarios y si le hacés click podés explorar sobre sus datos
 - el actual deploy dividirlo en data+template con tabla de template_deploy aparte
-- el album se debe de poder pasar de página con el gesto del dedo 
-- convertir el menu-comp en un ícono a la derecha en resoluciones bajas (y ocultar los botones)
 - El slot tiene el dato extra de a que carta pertenece la copia: {"collectible":22}, necesitaría agregar el slug del container {"collectible":22, "container":"cards-and-tokens"}
+-- RESOLUCIONES BAJAS --
+- el album se debe de poder pasar de página con el gesto del dedo 
+- ver la diferencia de el width del padre y el width del device para el video-comp
+- convertir el menu-comp en un ícono a la derecha en resoluciones bajas (y ocultar los botones)
+
 
 
 -- IDEAS --

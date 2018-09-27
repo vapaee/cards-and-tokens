@@ -43,6 +43,8 @@ import { ComponentHost } from './deploy/comp/comp';
 
 import { SteemUpvoteButtonComponent } from './components/steem-upvote-button.component';
 import { LoginModalComponent } from './components/login-modal.component';
+import { AlbumPositionRankingComponent } from './components/album-position-ranking.component';
+
 
 // import { BaseComponent } from './deploy/comp/base/base.component';
 import { RootComponent } from './deploy/comp/root/root.component';
@@ -132,6 +134,7 @@ const routes: Routes = [
         ScrolleableComponent,
         SteemUpvoteButtonComponent,
         LoginModalComponent,
+        AlbumPositionRankingComponent,
         VideoComponent,
         MarkDownComponent,
         SectionComponent,

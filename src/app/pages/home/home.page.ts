@@ -14,6 +14,8 @@ declare var FlipClock:any;
 })
 export class HomePage implements OnInit {
 
+    public ranking:any = {"coso":"aaaaa"}
+
     constructor(public vapaee: VapaeeUserService, public app: AppService, public cnt: CntService, public steem: SteemService) {
     }
 

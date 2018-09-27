@@ -86,12 +86,12 @@ export class VapaeeUserService {
             // console.log("--- vapaee.user ---");
             this.readyResolve();
         }, (err) => {
-            console.log("this.steem.waitLogged --> REJECTED");
+            // console.log("this.steem.waitLogged --> REJECTED");
         });
 
         this.googleWaitLogged.then((userData) => {
             console.assert(!this.ready, "ERROR: será que se resolvió primero el timeout y depués el login con google????", [this]);
-            console.log(userData);
+            // console.log(userData);
             this.logged = true;
             this.ready = true;
             this.provider = "google";
@@ -106,11 +106,11 @@ export class VapaeeUserService {
             }
             this.analytics.setUserId("google@" + this.googleuser);
             this.cookies.delete("login");            
-            console.log(this);
+            // console.log(this);
             this.readyResolve();
             this.appcomp.loginModal.hide();
         }, () => {
-            console.log("this.socialAuthService.isSignedIn --> REJECTED");
+            // console.log("this.socialAuthService.isSignedIn --> REJECTED");
         });
 
         this.googleWaitLogged.catch(() => {
@@ -129,7 +129,7 @@ export class VapaeeUserService {
         this.ready = false;
 
         this.socialAuthService.isSignedIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
-            console.log("this.socialAuthService.isSignedIn", userData);
+            // console.log("this.socialAuthService.isSignedIn", userData);
             this.googleResolve(userData);
         }, (err) => {
             this.googleReject();
