@@ -6,6 +6,9 @@ https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 
+
+
+
 ------ CAMPAÑA PARA QUE RECLAMEN LAS CARTAS -----
 - botón para agitar al autor: si la carta no está reclamada, debe aparecer un botón para que los usuarios puedan dejar un comentario
   abajo de mi comentario en la publicación original de openmic.
