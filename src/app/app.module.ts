@@ -23,6 +23,8 @@ import { AnalyticsService } from './services/analytics.service';
 
 import { HomePage } from './pages/home/home.page';
 import { CardsPage } from './pages/cards/cards.page';
+import { CardsRankingPage } from './pages/cards-ranking/cards-ranking.page';
+
 import { ProfilePage } from './pages/profile/profile.page';
 import { CommingSoonPage } from './pages/comming-soon/comming-soon.page';
 import { PrivacyPolicyPage } from './pages/privacy-policy/privacy-policy.page';
@@ -92,6 +94,7 @@ const routes: Routes = [
       children: [
         { path: 'home',                 data: { state: "home" }, component: HomePage },
         { path: 'cards',                data: { state: "cards",  logged: false }, component: CardsPage },
+        { path: 'cards/ranking',        data: { state: "cards-ranking",  logged: false }, component: CardsRankingPage },
         { path: 'profile',              data: { state: "profile", logged: false }, component: ProfilePage },
         { path: 'albums',               data: { state: "albums", logged: false }, component: AlbumsPage },
         { path: 'editor',               data: { state: "editor", logged: true }, component: EditorPage },
@@ -117,6 +120,7 @@ const routes: Routes = [
         DroppableDirective,
         HomePage,
         CardsPage,
+        CardsRankingPage,
         ProfilePage,
         NotFoundPage,
         CommingSoonPage,

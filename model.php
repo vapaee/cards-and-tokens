@@ -40,7 +40,7 @@ $DATA = array (
             "expires" => array( "type" => "timestamp" )
         ),
         "oauth_google" => array(
-            "id_token" => array( "type" => "varchar(500)" ),
+            "id_token" => array( "type" => "varchar(2000)" ),
             "locale" => array( "type" => "varchar(30)" ),
             "name" => array( "type" => "varchar(128)" ),
             "email" => array( "type" => "varchar(128)" ),

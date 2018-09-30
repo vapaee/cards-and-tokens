@@ -7,7 +7,15 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 
 
-
+-- TODO --
+- crear la ruta /cards/ranking
+- crear la CardsRankingPage class que lo implemente
+  - ordenar todas las cartas por cantidad de votos
+  - mostrar las que fueron reclamadas primero (una solam columna)
+  - una barra (o un espacio o algo que separe)
+  - el resto de las cartas con puntaje cero y sin reclamar en varias columnas como la página de cards
+- en la página de /cards poner un botón arriba de todo que diga Ranking y dirija a /cards/ranking
+  
 
 ------ CAMPAÑA PARA QUE RECLAMEN LAS CARTAS -----
 - botón para agitar al autor: si la carta no está reclamada, debe aparecer un botón para que los usuarios puedan dejar un comentario

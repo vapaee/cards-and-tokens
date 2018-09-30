@@ -422,80 +422,162 @@ table.table-inverse td, table.table-inverse th, table.table-inverse thead th {
     color: #fff !important;
 }
 
-// https://mdbootstrap.com/utilities/bootstrap-text/
-.text-xl-left, .text-lg-left, .text-md-left, .text-sm-left, .text-xs-left {
+
+.flex-grow { flex-grow: 1; }
+.flex-no-grow { flex-grow: 0; }
+
+
+
+// Insiprado en https://mdbootstrap.com/utilities/bootstrap-text/
+.text-xxxl-left, .text-xxl-left, .text-xl-left, .text-lg-left, .text-md-left, .text-sm-left, .text-xs-left {
     text-align: left;
 }
-.text-xl-right, .text-lg-right, .text-md-right, .text-sm-right, .text-xs-right {
+.text-xxxl-right, .text-xxl-right, .text-xl-right, .text-lg-right, .text-md-right, .text-sm-right, .text-xs-right {
     text-align: right;
 }
+.text-xxxl-center, .text-xxl-center, .text-xl-center, .text-lg-center, .text-md-center, .text-sm-center, .text-xs-center {
+    text-align: center;
+}
 
 
-.text-xl-left, .text-xl-right {
-    font-size: 30px;
+.text-xxxl-left, .text-xxxl-right, .text-xxxl-center, .text-xxxl {
+    font-size: 45px;
 }
-.text-lg-left, .text-lg-right {
-    font-size: 15px; // 24
+.text-xxl-left, .text-xxl-right, .text-xxl-center, .text-xxl {
+    font-size: 36px;
 }
-.text-md-left, .text-md-right {
-    font-size: 16px;
+.text-xl-left, .text-xl-right, .text-xl-center, .text-xl {
+    font-size: 26px;
 }
-.text-sm-left, .text-sm-right {
-    font-size: 12px;
+.text-lg-left, .text-lg-right, .text-lg-center, .text-lg {
+    font-size: 20px;
 }
-.text-xs-left, .text-xs-right {
+.text-md-left, .text-md-right, .text-md-center, .text-md {
+    font-size: 14px;
+}
+.text-sm-left, .text-sm-right, .text-sm-center, .text-sm {
+    font-size: 10px;
+}
+.text-xs-left, .text-xs-right, .text-xs-center, .text-xs {
     font-size: 8px;
 }
 
-
-
-
-
-
-
-
-
 @media (min-width: 420px) {
-    .text-xl-left, .text-xl-right {
-        &.text-responsive { font-size: 10.5px; }
+    .text-xxxl-left, .text-xxxl-right, .text-xxxl-center, .text-xxxl {
+        font-size: 48px;
     }
-    .text-lg-left, .text-lg-right {
-        &.text-responsive { font-size: 16px; }
-    }    
+    .text-xxl-left, .text-xxl-right, .text-xxl-center, .text-xxl {
+        font-size: 38px;
+    }
+    .text-xl-left, .text-xl-right, .text-xl-center, .text-xl {
+        font-size: 28px;
+    }
+    .text-lg-left, .text-lg-right, .text-lg-center, .text-lg {
+        font-size: 22px;
+    }
+    .text-md-left, .text-md-right, .text-md-center, .text-md {
+        font-size: 15px;
+    }
+    .text-sm-left, .text-sm-right, .text-sm-center, .text-sm {
+        font-size: 12px;
+    }
+    .text-xs-left, .text-xs-right, .text-xs-center, .text-xs {
+        font-size: 9px;
+    }
 }
 
 @media (min-width: 576px) {
-    .text-xl-left, .text-xl-right {
-        &.text-responsive { font-size: 14.4px; }
+    .text-xxxl-left, .text-xxxl-right, .text-xxxl-center, .text-xxxl {
+        font-size: 52px;
     }
-    .text-lg-left, .text-lg-right {
-        &.text-responsive { font-size: 18px; }
-    }    
+    .text-xxl-left, .text-xxl-right, .text-xxl-center, .text-xxl {
+        font-size: 40px;
+    }
+    .text-xl-left, .text-xl-right, .text-xl-center, .text-xl {
+        font-size: 32px;
+    }
+    .text-lg-left, .text-lg-right, .text-lg-center, .text-lg {
+        font-size: 24px;
+    }
+    .text-md-left, .text-md-right, .text-md-center, .text-md {
+        font-size: 16px;
+    }
+    .text-sm-left, .text-sm-right, .text-sm-center, .text-sm {
+        font-size: 13px;
+    }
+    .text-xs-left, .text-xs-right, .text-xs-center, .text-xs {
+        font-size: 9px;
+    }
 }
 
 @media (min-width: 768px) {
-    .text-xl-left, .text-xl-right {
-        &.text-responsive { font-size: 19.2px; }
+    .text-xxxl-left, .text-xxxl-right, .text-xxxl-center, .text-xxxl {
+        font-size: 55px;
     }
-    .text-lg-left, .text-lg-right {
-        &.text-responsive { font-size: 20px; }
-    }    
+    .text-xxl-left, .text-xxl-right, .text-xxl-center, .text-xxl {
+        font-size: 42px;
+    }
+    .text-xl-left, .text-xl-right, .text-xl-center, .text-xl {
+        font-size: 34px;
+    }
+    .text-lg-left, .text-lg-right, .text-lg-center, .text-lg {
+        font-size: 25px;
+    }
+    .text-md-left, .text-md-right, .text-md-center, .text-md {
+        font-size: 16px;
+    }
+    .text-sm-left, .text-sm-right, .text-sm-center, .text-sm {
+        font-size: 14px;
+    }
+    .text-xs-left, .text-xs-right, .text-xs-center, .text-xs {
+        font-size: 10px;
+    }  
 }
 
 @media (min-width: 992px) {
-    .text-xl-left, .text-xl-right {
-        &.text-responsive { font-size: 24.8px; }
+    .text-xxxl-left, .text-xxxl-right, .text-xxxl-center, .text-xxxl {
+        font-size: 60px;
     }
-    .text-lg-left, .text-lg-right {
-        &.text-responsive { font-size: 22px; }
-    }    
+    .text-xxl-left, .text-xxl-right, .text-xxl-center, .text-xxl {
+        font-size: 46px;
+    }
+    .text-xl-left, .text-xl-right, .text-xl-center, .text-xl {
+        font-size: 36px;
+    }
+    .text-lg-left, .text-lg-right, .text-lg-center, .text-lg {
+        font-size: 26px;
+    }
+    .text-md-left, .text-md-right, .text-md-center, .text-md {
+        font-size: 18px;
+    }
+    .text-sm-left, .text-sm-right, .text-sm-center, .text-sm {
+        font-size: 15px;
+    }
+    .text-xs-left, .text-xs-right, .text-xs-center, .text-xs {
+        font-size: 11px;
+    }
 }
 
 @media (min-width: 1200px) {
-    .text-xl-left, .text-xl-right {
-        &.text-responsive { font-size: 30px; }
+    .text-xxxl-left, .text-xxxl-right, .text-xxxl-center, .text-xxxl {
+        font-size: 65px;
     }
-    .text-lg-left, .text-lg-right {
-        &.text-responsive { font-size: 24px; }
+    .text-xxl-left, .text-xxl-right, .text-xxl-center, .text-xxl {
+        font-size: 50px;
     }
+    .text-xl-left, .text-xl-right, .text-xl-center, .text-xl {
+        font-size: 38px;
+    }
+    .text-lg-left, .text-lg-right, .text-lg-center, .text-lg {
+        font-size: 28px;
+    }
+    .text-md-left, .text-md-right, .text-md-center, .text-md {
+        font-size: 20px;
+    }
+    .text-sm-left, .text-sm-right, .text-sm-center, .text-sm {
+        font-size: 16px;
+    }
+    .text-xs-left, .text-xs-right, .text-xs-center, .text-xs {
+        font-size: 12px;
+    }    
 }

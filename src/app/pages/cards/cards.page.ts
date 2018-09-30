@@ -48,7 +48,6 @@ export class CardsPage implements OnInit {
     }
 
     deployCard(card, e) {
-
         var img:HTMLImageElement = e.target;
         this.cnt.deployCard(card, img);
     }

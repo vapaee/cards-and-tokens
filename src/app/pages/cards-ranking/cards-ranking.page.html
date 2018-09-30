@@ -1,0 +1,142 @@
+<div class="container margin-top-lg text-center">
+
+
+
+    <!--div class="margin-top-xxl margin-bottom-xxl">
+        <div class="text-xxxl-left">text-xxxl-left</div>
+        <div class="text-xxl-left">text-xxl-left</div>
+        <div class="text-xl-left">text-xl-left</div>
+        <div class="text-lg-left">text-lg-left</div>
+        <div class="text-md-left">text-md-left</div>
+        <div class="text-sm-left">text-sm-left</div>
+        <div class="text-xs-left">text-xs-left</div>
+        <hr>
+        <div class="text-xxxl-right">text-xxxl-right</div>
+        <div class="text-xxl-right">text-xxl-right</div>
+        <div class="text-xl-right">text-xl-right</div>
+        <div class="text-lg-right">text-lg-right</div>
+        <div class="text-md-right">text-md-right</div>
+        <div class="text-sm-right">text-sm-right</div>
+        <div class="text-xs-right">text-xs-right</div>
+        <hr>
+        <div class="text-xxxl-center">text-xxxl-center</div>
+        <div class="text-xxl-center">text-xxl-center</div>
+        <div class="text-xl-center">text-xl-center</div>
+        <div class="text-lg-center">text-lg-center</div>
+        <div class="text-md-center">text-md-center</div>
+        <div class="text-sm-center">text-sm-center</div>
+        <div class="text-xs-center">text-xs-center</div>
+        <hr>
+        <div class="text-xxxl">text-xxxl</div>
+        <div class="text-xxl">text-xxl</div>
+        <div class="text-xl">text-xl</div>
+        <div class="text-lg">text-lg</div>
+        <div class="text-md">text-md</div>
+        <div class="text-sm">text-sm</div>
+        <div class="text-xs">text-xs</div>
+    </div-->
+
+
+    <div class="flex-center flex-column animated fadeIn">
+        <div class="text-xxl">OpenMic Trading Cards Ranking</div>
+    </div>
+
+    <p class="text-md">
+        This is the ranking of most voted trading cards from the Steemit OpenMic card collection.<br>
+        There will be huge prizes in tokens for the top most voted trading cards.
+    </p>
+
+    <div class="flex-center flex-column animated fadeIn">
+    
+        <div class="card flex-column hide-at-work margin-top-lg"
+             style="flex-grow: 0; width:100%"
+            *ngFor="let card of ranking.claimed; let i = index"
+        >
+            <div class="card-header special-color-dark lighten-1 white-text expand">
+                <div class="row d-none d-sm-flex">
+                    <div class="text-left col-sm">
+                        <span class="nowrap text-xxxl"><span class="badge border-radius special-color">{{getPositionNumber(i+1)}}</span> <span class="text-xl-left"> position</span></span>
+                    </div>
+                    <div class="text-right col-sm">
+                        <span class="nowrap"><span class="text-xxxl">{{card.steem_votes}} </span> <span class="text-xl"> votes </span></span>
+                    </div>
+                </div>
+                <div class="row d-flex d-sm-none">
+                    <div class="text-left col-sm">
+                        <span class="nowrap text-xl"><span class="badge border-radius special-color">{{getPositionNumber(i+1)}}</span> <span class="text-md-left"> position</span></span>
+                    </div>
+                    <div class="text-left col-sm">
+                        <span class="nowrap"><span class="text-xl">{{card.steem_votes}} </span> <span class="text-md"> votes </span></span>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="card-body text-left flex-left flex-column" style="flex-grow: 0; width:100%">
+                <div class="d-block">
+                    <div class="text-xl">{{card.text.title}}</div>
+                    <div class="text-lg">{{card.text.subtitle}}</div>
+                </div>
+
+                <div class="d-flex">
+                    <div style="flex-grow: 0;">
+                        <div class="cnt-card card cursor-pointer inline-block hide-at-work d-inline-block"
+                            (click)="deployCard(card)"
+                            [ngStyle]="getCardStyle(card)"
+                        >   
+                            <img [id]="card.slug" [src]="card.edition.preview.images.thumbnail" class="card-img">
+                        </div>    
+                    </div>
+
+                    <div class="d-none d-sm-flex text-right justify-content-end flex-column" style="flex-grow: 0;">
+                        <div class="d-inline-block">
+                            <a class="btn btn-primary btn-sm" (click)="deployCard(card)">Deploy</a>
+                            <a class="btn btn-info btn-sm" target="_blank" href="https://steemit.com/openmic/@{{card.steem.author}}/{{card.steem.permlink}}">vote</a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex text-right justify-content-end flex-column" style="flex-grow: 1;">
+                        <div class="text-lg"
+                            [hidden]="!(card.edition.data.position > 0 && card.edition.data.position < 6)"
+                        ><b>{{getPositionNumber(card.edition.data.position)}} place</b></div>
+                        <div class="nowrap text-md"><b>week {{card.edition.data.week}} </b></div>
+                    </div>
+                </div>
+
+                <div class="d-flex d-sm-none margin-top">
+                    <div class="flex-center flex-column flex-grow"><a class="btn btn-primary btn-sm" (click)="deployCard(card)">Deploy</a></div>
+                    <div class="flex-center flex-column flex-grow"><a class="btn btn-info btn-sm" target="_blank" href="https://steemit.com/openmic/@{{card.steem.author}}/{{card.steem.permlink}}">vote</a></div>
+                </div>
+                
+            </div>
+        
+        </div>
+        
+    </div>
+
+    <hr>
+
+    <div class="flex-center flex-column animated fadeIn margin-top-xxl">
+        <div class="text-xxl">Unclaimed Trading Cards</div>
+    </div>
+
+    <p class="text-md">
+        If you are one of the authors of these cards and you haven't claimed them yet, please
+        <b><a (click)="vapaee.askForlogin('steem')">login</a></b>
+        and make a post on the steem blockchain to claim authorship of your cards. 
+        If you are a collector and you have a copy of any unclamed card, let the author know that you support his or her work.
+    </p>
+
+    <hr>
+
+    <div class="cnt-card card cursor-pointer inline-block margin hide-at-work d-inline-block"
+        *ngFor="let card of ranking.unclaimed"
+        (click)="deployCard(card, $event)"
+        [ngStyle]="getCardStyle(card)"
+    >
+        
+        <img [id]="card.slug" [src]="card.edition.preview.images.thumbnail" class="card-img">
+    </div>
+
+    <!--hr>
+    <pre>{{cnt.deploy|json}}</pre-->
+</div>
