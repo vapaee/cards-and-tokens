@@ -1,0 +1,476 @@
+{
+    "comp": "root",
+    "children": [
+        {
+            "comp": "row-three",
+            "data": {
+                "header": {
+                    "min-height": "10vh"
+                },
+                "footer": {
+                    "min-height": "6vh"
+                }
+            },
+            "children": [
+                {
+                    "comp": "background",
+                    "data": {
+                        "container": true,
+                        "image": {
+                            "url": "/assets/albums/openmic/marmol.png",
+                            "repeat": "repeat"
+                        },
+                        "gradient": {
+                            "dir": "top",
+                            "points": [
+                                {
+                                    "color": "black",
+                                    "percent": 0
+                                },
+                                {
+                                    "color": "rgba(0,0,0,0)",
+                                    "percent": 50
+                                }
+                            ]
+                        },
+                        "fgcolor": "white"
+                    },
+                    "children": [
+                        {
+                            "comp": "grid",
+                            "data": {
+                                "rows": [
+                                    [
+                                        {
+                                            "grow": 1,
+                                            "rows": [
+                                                [
+                                                    {
+                                                        "grow": 1,
+                                                        "padding": true
+                                                    }
+                                                ],
+                                                [
+                                                    {
+                                                        "grow": 0,
+                                                        "padding": true
+                                                    },
+                                                    {
+                                                        "grow": 0,
+                                                        "padding": true
+                                                    }
+                                                ]
+                                            ]
+                                        },
+                                        {
+                                            "grow": 0,
+                                            "rows": [
+                                                [
+                                                    {
+                                                        "padding": true,
+                                                        "align": "right"
+                                                    }
+                                                ],
+                                                [
+                                                    {
+                                                        "padding": true,
+                                                        "align": "right"
+                                                    }
+                                                ]
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            },
+                            "children": [
+                                {
+                                    "comp": "label",
+                                    "data": {
+                                        "class": "text-xl-left white-text",
+                                        "textid": "album-name"
+                                    }
+                                },
+                                {
+                                    "comp": "label",
+                                    "data": {
+                                        "class": "text-md-left white-text",
+                                        "hidden": true,
+                                        "textid": "album-current-page"
+                                    }
+                                },
+                                {
+                                    "comp": "label",
+                                    "data": {
+                                        "hidden": true,
+                                        "textid": "album-page-title"
+                                    }
+                                },
+                                {
+                                    "comp": "label",
+                                    "data": {
+                                        "hidden": true,
+                                        "textid": "album-ranking"
+                                    }
+                                },
+                                {
+                                    "comp": "label",
+                                    "data": {
+                                        "hidden": true,
+                                        "textid": "album-points"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "comp": "background",
+                    "data": {
+                        "image": {
+                            "url": "/assets/albums/openmic/billartable.png",
+                            "repeat": "repeat"
+                        },
+                        "gradient": {
+                            "dir": "top",
+                            "points": [
+                                {
+                                    "color": "rgba(255,255,255,0.1)",
+                                    "percent": 0
+                                },
+                                {
+                                    "color": "rgba(255,255,255,0.3)",
+                                    "percent": 30
+                                },
+                                {
+                                    "color": "rgba(255,255,255,0.3)",
+                                    "percent": 70
+                                },
+                                {
+                                    "color": "rgba(255,255,255,0.1)",
+                                    "percent": 100
+                                }
+                            ]
+                        }
+                    },
+                    "children": [
+                        {
+                            "comp": "grid",
+                            "data": {
+                                "rows": [
+                                    [
+                                        {
+                                            "grow": 0,
+                                            "padding": true
+                                        },
+                                        {
+                                            "grow": 1
+                                        },
+                                        {
+                                            "grow": 0,
+                                            "padding": true
+                                        }
+                                    ]
+                                ]
+                            },
+                            "children": [
+                                {
+                                    "comp": "menu",
+                                    "data": {
+                                        "menu": [
+                                            {
+                                                "class": "btn btn-floating btn-success",
+                                                "icon": "fa fa-angle-left",
+                                                "section": "openmic-100-weeks",
+                                                "move": -1
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "comp": "album",
+                                    "data": {
+                                        "name": "openmic-100-weeks",
+                                        "title": "Steemit OpenMic 100 weaks commemoration album",
+                                        "pages": [
+                                            {
+                                                "title": "Coverpage",
+                                                "background": {
+                                                    "fadein": true,
+                                                    "image": {
+                                                        "url": "/assets/albums/openmic/cover-fullsize.png",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/banjo-player-fashion-man-387.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "30%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "10%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "30%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "10%"
+                                                        },
+                                                        "dark": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/acoustic-antique-art-290660.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "left": "10%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "left": "30%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "left": "10%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "left": "30%"
+                                                        },
+                                                        "dark": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/audio-black-black-and-white-159472.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "27%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "7%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "27%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "7%"
+                                                        },
+                                                        "dark": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/adult-art-background-756507.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "12%",
+                                                            "left": "10%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "12%",
+                                                            "left": "30%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "12%",
+                                                            "left": "50%"
+                                                        },
+                                                        "dark": true
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "12%",
+                                                            "left": "20%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "12%",
+                                                            "left": "40%"
+                                                        },
+                                                        "dark": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "title": "Steem OpenMic collectible trading cards",
+                                                "background": {
+                                                    "fadesides": true,
+                                                    "image": {
+                                                        "url": "/assets/backgrounds/bass-bass-guitar-black-35610.jpg",
+                                                        "repeat": "no-repeat",
+                                                        "size": "cover"
+                                                    }
+                                                },
+                                                "slots": [
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "left": "23%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "25%",
+                                                            "left": "3%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "left": "20%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "10%",
+                                                            "right": "22%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "top": "25%",
+                                                            "right": "3%"
+                                                        }
+                                                    },
+                                                    {
+                                                        "position": {
+                                                            "bottom": "10%",
+                                                            "right": "26%"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "comp": "menu",
+                                    "data": {
+                                        "menu": [
+                                            {
+                                                "class": "btn btn-floating btn-success",
+                                                "icon": "fa fa-angle-right",
+                                                "section": "openmic-100-weeks",
+                                                "move": 1
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "comp": "background",
+                    "data": {
+                        "image": {
+                            "url": "/assets/albums/openmic/marmol.png",
+                            "repeat": "repeat"
+                        },
+                        "gradient": {
+                            "dir": "top",
+                            "points": [
+                                {
+                                    "color": "rgba(0,0,0,0)",
+                                    "percent": 50
+                                },
+                                {
+                                    "color": "black",
+                                    "percent": 100
+                                }
+                            ]
+                        }
+                    },
+                    "children": [
+                        {
+                            "comp": "inventory",
+                            "data": {
+                                "horizontal": true
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "deploy": {
+        "comp": "root",
+        "children": [
+            {
+                "comp": "grid",
+                "data": {
+                    "rows": [ 2,1,2 ]
+                },
+                "children": [
+                    {
+                        "comp": "background",
+                        "data": {
+                            "color": "#BFBAB4",
+                            "image": {
+                                "url": "/assets/backgrounds/lwt.jpg",
+                                "position": "left",
+                                "positions": "center | left | right | top | bottom",
+                                "repeat": "no-repeat",
+                                "repeats": "round | repeat | no-repeat",
+                                "size": "contain",
+                                "sizes": "contain | cover"
+                            }
+                        },
+                        "children": [
+                            { "comp": "place-holder", "data":{"text":"Hola mundo"} }
+                        ]
+                    },
+                    {
+                        "comp": "background",
+                        "data": {
+                            "color": "red"
+                        }
+                    },
+                    {
+                        "comp": "video",
+                        "data": {
+                            "youtube": {
+                                "videoId": "DnpO_RTSNmQ",
+                                "autoplay": false
+                            }
+                        }
+                    },
+                    {
+                        "comp": "markdown",
+                        "data": {
+                            "markdown": "# Markdown\n```typescript\n   const myProp: string = 'value';\n```\n"
+                        }
+                    },
+                    {
+                        "comp": "background",
+                        "data": {
+                            "color": "blue"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

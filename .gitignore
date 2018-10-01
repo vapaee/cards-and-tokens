@@ -28,7 +28,6 @@
 /.sass-cache
 /connect.lock
 /coverage
-/www
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
@@ -40,6 +39,6 @@ testem.log
 Thumbs.db
 
 # cards & tokens 
-api/vendor
+config.php
 Notes.passwords.txt
 src/app/app.extras.js

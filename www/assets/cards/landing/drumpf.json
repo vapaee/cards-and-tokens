@@ -1,0 +1,55 @@
+{
+    "slug": "landing-drumpf",
+    "text": {
+        "title": "Last Week Tonight",
+        "subtitle": "Make Donald Drumpf Again"
+    },
+    "images": {
+        "opengraph": "./assets/cards/landing/images/opengraph/drumpf.png",
+        "fullsize": "./assets/cards/landing/images/fullsize/drumpf.png",
+        "thumbnail": "./assets/cards/landing/images/thumbnail/drumpf.png"
+    },
+    "deploy": {
+        "comp":"root",
+        "children": [{
+            "comp":"row-three",
+            "data": {
+                "header": { "min-height": "12vh" },
+                "footer": { "min-height": "5vh" }
+            },
+            "children": [
+                {
+                    "comp": "background",
+                    "data": {
+                        "color":"#BFBAB4",
+                        "image": {
+                            "url": "http://imagenes.subadictos.net/afiche/36744.jpg",
+                            "position": "left",    "positions": "center | left | right | top | bottom",
+                            "repeat": "no-repeat",   "repeats": "round | repeat | no-repeat",
+                            "size": "contain",         "sizes": "contain | cover"
+                        }
+                    }
+                },
+                {
+                    "comp": "background",
+                    "data": {
+                        "color":"#141414"
+                    },
+                    "children": [{
+                        "comp": "video",
+                        "data": {
+                            "youtube": {
+                                "videoId": "DnpO_RTSNmQ",
+                                "autoplay": false
+                            }
+                        }
+                    }]
+                },
+                {
+                    "comp": "background",
+                    "data": { "color": "#BFBAB4" }
+                }
+            ]
+        }]
+    }
+}
