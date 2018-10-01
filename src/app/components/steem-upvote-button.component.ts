@@ -28,6 +28,10 @@ import { SteemService } from '../services/steem.service';
             <span [hidden]="!loading">&nbsp;loading</span>
             <span [hidden]="loading">&nbsp;{{votes}} votes</span>
         </a>
+
+        <a [ngClass]="{'loading': loading}" [hidden]="steemdata.author" class="steem-vote-btn waves-effect waves-light upvoted" (click)="encorage()">
+            <span>Encourage @{{card.edition.data.steemuser}} to claim this card authorship</span>
+        </a>        
     `
 })
 export class SteemUpvoteButtonComponent implements OnChanges {
@@ -42,7 +46,7 @@ export class SteemUpvoteButtonComponent implements OnChanges {
     }
 
     update() {
-        console.log("SteemUpvoteButtonComponent.update() ------------- ", this.steemdata);
+        console.log("SteemUpvoteButtonComponent.update() ------------- ", this.steemdata, this.card);
         this.loading = true;
         
         return new Promise((resolve,reject) => {
@@ -92,6 +96,7 @@ export class SteemUpvoteButtonComponent implements OnChanges {
         if (typeof this.steemdata.author == "string" && typeof this.steemdata.permlink == "string") {
             this.update();
         }
+        console.log("SteemUpvoteButtonComponent.ngOnChanges() ------------- ", this.steemdata, this.card);
     }
 
     vote() {
@@ -116,6 +121,15 @@ export class SteemUpvoteButtonComponent implements OnChanges {
         }).catch(() => {
             this.loading = false;
         });
+    }
+
+    encorage() {
+        var url = "https://steemit.com/openmic/@"+this.card.edition.data.steemuser+"/"+this.card.edition.data.permlink;
+
+        this.steem.steemjs.api.getRepliesByLastUpdate(this.card.edition.data.steemuser, this.card.edition.data.permlink, 100, function(err, result) {
+            console.log("STEEM: this.steem.steemjs.api.getRepliesByLastUpdate", err, result);
+        });
+        window.open(url,'_blank');
     }
 
 
