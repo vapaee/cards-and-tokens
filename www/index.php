@@ -78,24 +78,19 @@
             100% {-webkit-transform: rotate(360deg); };
         }  
     </style>
-
-</head>
+      
+<link rel="stylesheet" href="styles.d47bfca6e51d77edf594.css"></head>
 <body class="hide-at-work-" loading="true">
     <div class="img-preload">
         <img src="/assets/loading.gif">
         <img src="/assets/coming-soon.jpg">
-    </div>    
+    </div>
     <div id="fb-root"></div>
     <!-- loading -->
     <div class="cnt-page-preload-anim circle1"></div>
     <div class="cnt-page-preload-anim circle2"></div>
-    
+
     <app-root></app-root>
-    <script type="text/javascript" src="runtime.js" size="5.2kb" ></script>
-    <script type="text/javascript" src="polyfills.js" size="227.7kb"></script>
-    <script type="text/javascript" src="styles.js" size="936.9kb"></script>
-    <script type="text/javascript" src="scripts.js" size="1.1Mb"></script>
-    <script type="text/javascript" src="vendor.js" size="5.2Mb"></script>
-    <script type="text/javascript" src="main.js" size="413.0kb"></script>
-</body>
+<script type="text/javascript" src="runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="polyfills.2c76d7e644202d6cda56.js"></script><script type="text/javascript" src="scripts.8c207f9bd5b40aba18d3.js"></script><script type="text/javascript" src="main.2b7298ca29963f2f134d.js"></script></body>
 </html>
+ 
