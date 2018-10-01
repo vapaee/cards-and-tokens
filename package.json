@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "publish": "git merge master -m 'merge master'; ng build; git add -A; git commit -m 'update'; git push; amazon_server_console",
-    "back": "git checkout master; cp /var/www/cards-and-tokens-rv0.1.0/api/vendor/ /var/www/cards-and-tokens/api/ -R; ng build;",
+    "back": "git checkout master; cp /var/www/cards-and-tokens-rv0.1.1/api/vendor/ /var/www/cards-and-tokens/api/ -R; ng build;",
     "postinstall": "node patch.js; ng serve -o"
   },
   "private": true,
