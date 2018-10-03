@@ -317,14 +317,39 @@ $app->get('/dailyprize/claim', function() use ($app) {
         }
     }
 
-    // trace('$slot_index', $slot_index, '$candidates: ', $candidates);
-
 
     // ---------------------------------------------------------------------
-    // we create the new slot and the item
+    // Intento por seleccionar la carta con menor total supply de forma que no sea repetida para el usuario
+    $candidates = array();
     $collectibles = $app["db"]->http_get("card", null, $op);
-    $coll_index = rand(0, sizeof($collectibles)-1);
-    $card = $collectibles[$coll_index];
+    $slots = $app["db"]->http_get("slot", null, $op);
+
+    foreach ($collectibles as $card) {
+        $card["supply"] = 0;
+        $card["repeated"] = false;
+        $candidates["id-".$card["id"]] = $card;
+    }
+    foreach ($slots as $slot) {
+        // trace("slot: ", $slot);
+        $card_id = $slot["data"]["collectible"];
+        $candidates["id-$card_id"]["supply"]++;
+        if ($slot["owner"]["id"] == $user["id"]) {
+            $candidates["id-$card_id"]["repeated"] = true;
+            // trace("repeated collectible: ", $card_id);
+        }
+    }
+    $winner = array("supply" => sizeof($slots));
+    foreach ($candidates as $candidate) {
+        // trace("candidate: ", $candidate["slug"], $candidate["supply"]);
+        if ($candidate["supply"] < $winner["supply"]) {
+            $winner = $candidate;
+            // trace("winner: ", $winner["slug"], $winner["supply"]);
+        }
+    }
+    // return '{"error":"SSSSSSSSSSSSSS"}';
+    // -------------------------------------------------------
+
+    $card = $winner;
     $edition = $app["db"]->http_get_id("edition", $card["edition"]["id"], $op);
 
     $copy = array(
@@ -460,7 +485,7 @@ $app->post('/swap/slots', function() use ($app) {
 
 function verifyAccessToken($app) {
     global $config; $namespace = $config['namespace'];
-    trace("$namespace.verifyAccessToken()");
+    // trace("$namespace.verifyAccessToken()");
     if (!isset($_COOKIE["access_token"]) && !isset($_GET["access_token"])) {
         trace("ERROR: no access_token found in cookies", $_COOKIE, "or GET params", $_GET);
         return null;
@@ -667,7 +692,7 @@ $app->post("/crear_carta", function() use ($app) {
         $content = $app["request"]->getContent();
         $content = json_decode($content, true);
 
-        $credentials = verifySteemAccessToken($app);
+        $credentials = verifyAccessToken($app);
         if (!isset($credentials)) {
             trace("ERROR: user not logged -- ");
             return json_encode(array("error" => "user not logged"));

@@ -8,26 +8,21 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 
 -- TODO --
-- crear la ruta /cards/ranking
-- crear la CardsRankingPage class que lo implemente
-  - ordenar todas las cartas por cantidad de votos
-  - mostrar las que fueron reclamadas primero (una solam columna)
-  - una barra (o un espacio o algo que separe)
-  - el resto de las cartas con puntaje cero y sin reclamar en varias columnas como la página de cards
-- en la página de /cards poner un botón arriba de todo que diga Ranking y dirija a /cards/ranking
-  
-
------- CAMPAÑA PARA QUE RECLAMEN LAS CARTAS -----
-- botón para agitar al autor: si la carta no está reclamada, debe aparecer un botón para que los usuarios puedan dejar un comentario
-  abajo de mi comentario en la publicación original de openmic.
-- Ranking de cartas: en el home debería aparecer el ranking de cartas
-- hacer 5 cartas nuevas. week 103: https://steemit.com/openmic/@luzcypher/steemit-open-mic-week-103-winners-see-who-won-open-mic-and-join-us-this-week
-- POST: hacer un post con los datos de la actualización: ranking, cartas nuevas
-
------ TODO -----
-- Si estamos en el embed/card/zzz y wondow.top != window.document this.app.navigate("deploy/card/zzz")
+- subir la imagen arreglada de Kisses for Breakfast 
+- el ranking debería actualizarse mejor:
+  - si se actualiza el puntaje de una carta
+  - no basarse en si la carta tiene puntaje 0 si no en si ya tiene author y permlink
+  - al cargarse la página deberían actualizarse los votos de todas las cartas que fueron reclamadas (author y permlink)
+- Agregar 5 cartas (week 104): https://steemit.com/openmic/@luzcypher/steemit-open-mic-week-104-winners-see-who-won-open-mic-and-join-us-this-week  
+- Si estamos en el embed/card/zzz
+  - si window.top != window.document this.app.navigate("deploy/card/zzz")
+  - si hay pendings no mostrarlos (así el usuario puede ver las cartas a pesar de que tiene cartas para reclamar)
 - el algoritmo que decide que carta te ganás (daily prize) debería evitar darte cartas repetidas
 - escribirles a los pibes de TelosFundation a ver que me dicen
+
+
+
+
 
 -- PROXIMA PUBLICACIÓN --
 - tenés que tener una forma de descartarte de una carta (la dejaría disponible para el daily prize)
@@ -88,7 +83,7 @@ https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3Nf
 
 
 
-
+Hola, como estás? Lo prometido es deuda, vas a encontrar un comentario como el de arriba en cada uno de las tres canciones con las que paricipaste en el concurso de steemit openmic
 
 
 
@@ -106,13 +101,14 @@ Saludos y mucha suerte !
 
 
 
-@aaaaaaaaaaaaaaaa, tu canción fue seleccionada para formar parte del conjunto inicial de cartas coleccionables para el álbum de Steemit OpenMic.
+@aaaaaaaaaaaaaaaa, tu canción fue seleccionada para formar parte del conjunto de cartas coleccionables para el álbum de Steemit OpenMic.
 <b>Felicitaciones !!</b>
 <center><a href="http://cardsandtokens.com/deploy/card/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><img src="aaaaaaaaaaaaaaaaaaaaaaaa"></a></center>
 <p>lee más sobre:
 <ul>
-<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">el concurso de cartas de Steemit Openmic</a></li>
-<li><a href="https://steemit.com/openmic/@viterbo/reclama-tu-autoria-steemit-openmic-trading-cards">cómo reclamar la autoría de tus cartas</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Qué es el album de Steemit Openmic</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Concurso de cartas</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/reclama-tu-autoria-steemit-openmic-trading-cards">Cómo reclamar la autoría de tus cartas</a></li>
 </ul>
 </p>
 
@@ -122,12 +118,13 @@ Saludos y mucha suerte !
 <a href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options">login</a>
 
 
-@aaaaaaaaaaaaaaaa, your song was selected to be part of the initial collection set of trading cards for the album of Steemit OpenMic.
+@aaaaaaaaaaaaaaaa, your song was selected to be part of the collection set of trading cards for the album of Steemit OpenMic.
 <b>Congratulations !!</b>
 <center><a href="http://cardsandtokens.com/deploy/card/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><img src="aaaaaaaaaaaaaaaaaaaaa"></a></center>
 <p>read more about:
 <ul>
-<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Openmic trading cards contest</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Openmic trading cards album</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Trading cards contest</a></li>
 <li><a href="https://steemit.com/openmic/@viterbo/claim-your-steemit-openmic-trading-card-authorship">How to claim authorship of your cards</a></li>
 </ul>
 </p>

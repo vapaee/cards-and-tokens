@@ -193,7 +193,29 @@ export class EditorPage implements OnInit {
         }
     }
 
+    public prueba() {
+        // creo que ya no necesito esta funcion. Era para recuperar los colores y ya los tengo en data-aux
+        
+        this.data.getAll("data_aux", {}).then((r) => {
+            var data_aux = r.data_aux;
+            var autores = {};
+            var autores_str = "";
+            for (var d in data_aux) {
+                
+                var autor = data_aux[d].data.steemuser;
+                autores[autor] = autores[autor] || 0;
+                autores[autor]++;
+            }
+
+            for (var a in autores) {
+                autores_str += "@" + a + ", ";
+            }
+            console.log([autores_str]);
+        });        
+    }
+
     ngOnInit() {
+        this.prueba();
     }
 
     public getMarkDownLyrics() {
