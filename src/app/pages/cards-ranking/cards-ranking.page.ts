@@ -3,6 +3,7 @@ import { VapaeeUserService } from "../../services/vapaee-user.service";
 import { AppService } from "../../services/app.service";
 import { CntService } from '../../services/cnt.service';
 import { ActivatedRoute } from '@angular/router';
+import { BroadcastService } from '../../services/broadcast.service';
 
 @Component({
     selector: 'cards-ranking-page',
@@ -14,7 +15,13 @@ export class CardsRankingPage implements OnInit {
     public waitInit: Promise<void> = null;
     public ranking: {claimed:any[], unclaimed:any[]};
 
-    constructor(public vapaee: VapaeeUserService, public app: AppService, public cnt: CntService, private route: ActivatedRoute) {
+    constructor(
+        public vapaee: VapaeeUserService,
+        public app: AppService,
+        public cnt: CntService,
+        private route: ActivatedRoute,
+        private events: BroadcastService
+    ) {
         this.ranking = {claimed:[], unclaimed:[]};
         this.cnt.getAllCards().then(e => {
             this.proccessData();
@@ -23,16 +30,21 @@ export class CardsRankingPage implements OnInit {
         this.waitInit = new Promise((resolve) => {
             this.initResolve = resolve;
         });
+
+        this.events.on("card-votes-updated").subscribe(() => {
+            this.proccessData();
+        });
     }
 
     proccessData() {
         console.log("CardsRankingPage.proccessData() cards: ", this.cnt.cards);
-        console.assert(Array.isArray(this.ranking.claimed), typeof this.ranking.claimed);
-        console.assert(Array.isArray(this.ranking.unclaimed), typeof this.ranking.unclaimed);
-        
+        this.ranking.unclaimed = [];
+        this.ranking.claimed = [];
+
         for (let i in this.cnt.cards) {
             let card = this.cnt.cards[i];
-            if (card.steem_votes == 0) {
+            console.log(card);
+            if (card.steem.empty) {
                 this.ranking.unclaimed.push(card);
             } else {
                 this.ranking.claimed.push(card);
@@ -40,7 +52,10 @@ export class CardsRankingPage implements OnInit {
         }
 
         this.ranking.claimed.sort((a,b) => {
-            return b.steem_votes - a.steem_votes;
+            if (b.steem_votes != a.steem_votes) return b.steem_votes - a.steem_votes;
+            if (a.edition.data.week != b.edition.data.week) return b.edition.data.week - a.edition.data.week;
+            if (a.edition.data.position != b.edition.data.position) return a.edition.data.position - b.edition.data.position;
+            return (a.slug > b.slug) ? 1 : -1;
         });
 
         this.ranking.unclaimed.sort((a,b) => {

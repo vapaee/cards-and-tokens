@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { VapaeeUserService } from './vapaee-user.service';
 import { LabelService } from '../deploy/comp/label/label.service';
 import { AnalyticsService } from './analytics.service';
+import { BroadcastService } from './broadcast.service';
 
 
 
@@ -55,7 +56,8 @@ export class CntService {
         public app: AppService,
         public vapaee: VapaeeUserService,
         private labels: LabelService,
-        public analytics: AnalyticsService
+        public analytics: AnalyticsService,
+        private events: BroadcastService
 
     ) {
         this.cards = [];
@@ -555,6 +557,7 @@ export class CntService {
                         }
                     }
                 }
+                this.events.broadcast("card-votes-updated");
                 resolve(r);
             });
         });

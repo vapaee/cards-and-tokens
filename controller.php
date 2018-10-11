@@ -263,6 +263,8 @@ $app->post('/update/collectible/votes', function() use ($app) {
             }
     trace('$collectible', '-->', $collectible);
             if ($collectible["steem_votes"] == $content->votes) {
+                $edition = $app["db"]->http_get_id("edition", $collectible["edition"]["id"], $op);
+                $collectible["edition"] = $edition;
                 return '{"success":true, "card":'.json_encode($collectible).'}';
             }
             

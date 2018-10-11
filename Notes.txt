@@ -8,11 +8,11 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 
 -- TODO --
-- subir la imagen arreglada de Kisses for Breakfast 
 - el ranking debería actualizarse mejor:
-  - si se actualiza el puntaje de una carta
-  - no basarse en si la carta tiene puntaje 0 si no en si ya tiene author y permlink
   - al cargarse la página deberían actualizarse los votos de todas las cartas que fueron reclamadas (author y permlink)
+    - migrar el código this.steem.steemjs.api.getActiveVotes para dentro de steemservice y preguntar cuantos votos tienen una carta y si yo ya voté
+    - en proccessData de card-ranking.page llamar a esta función por cada carta claimed y hacer una lista con las prómises
+      luego de que terminen las promises habría que hacer un proccessData pero hay que tener cuidado de no caer en un loop infinito.
 - Agregar 5 cartas (week 104): https://steemit.com/openmic/@luzcypher/steemit-open-mic-week-104-winners-see-who-won-open-mic-and-join-us-this-week  
 - Si estamos en el embed/card/zzz
   - si window.top != window.document this.app.navigate("deploy/card/zzz")
@@ -166,7 +166,7 @@ sudo mv composer.phar /usr/local/bin/composer
   - 0x224DCf86D7A1818Cc3CB8CF7ADd09dDF3f9ae3C4 - shuvomahfuz
   - 0x3A0d032939ff3A7745f2FA2361FC7F5000935616 - cryptogecko
   - 0xEF308E49659ea1A0DCCB384c39c01ecF53979DE8 - yesmin
-  - 0x4543f502cb0962282E41bd65F2667f7a0Ca3BE44 - bitcoinquest
+  - 0x4543f502cb0962282E41bd65F2667f7a0Ca3BE44 - bitcoinquest 
   - 0xa30b5e3c8Fee56C135Aecb733cd708cC31A5657a - gcalvete
   - 0xf14F05b4568D94c6c31BE44D53F251759801dab1 - devcore
   - 0x79e2Dbf7aBE8385767B798A7bfACEf4CA2E93299 - yepidan
