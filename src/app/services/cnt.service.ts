@@ -98,7 +98,11 @@ export class CntService {
 
             this.when_FB.then(() => {
                 // this.updateFB();
-            }, () => {}); 
+            }, () => {});
+
+            this.events.on<any>("card-votes-outdated").subscribe((e) => {
+                this.updateCollectibleVotes(e.card_slug, e.actual_votes);
+            });
         }
         return this.waitReady;
     }
@@ -539,13 +543,17 @@ export class CntService {
                 var card = r.card;
                 var index = this.cards.indexOf(this.card[card.slug]);
                 if (index >= 0) {
-                    this.cards[index] = card;
+                    Object.assign(this.cards[index], card);
                 } else {
                     this.cards.push(card);
                 }
-                this.card[card.slug] = card;
+                Object.assign(this.card[card.slug], card);
                 if (this.userdata.logged) {
-                    this.userdata.data.card["id-"+card.id] = card;
+                    if (this.userdata.data.card["id-"+card.id]) {
+                        Object.assign(this.userdata.data.card["id-"+card.id], card);
+                    } else {
+                        this.userdata.data.card["id-"+card.id] = card;
+                    }                    
                     this.proccessData();
                     var collectible = this.card[slug];
                     for (var i in this.userdata.data.slot) {

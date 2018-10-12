@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { SteemJs, FinallyComments } from './datatypes.service';
 import { AppComponent } from '../app.component';
 import { DataService } from './data.service';
+import { BroadcastService } from './broadcast.service';
 
 // TUTORIAL:
 // https://steemit.com/utopian-io/@hsynterkr/how-to-create-an-app-with-steem-connect-2-0
@@ -72,7 +73,7 @@ export class SteemService {
     loggedReject:(value?:void) => void;
     appcomp: AppComponent;
 
-    constructor(private cookie: CookieService, private data: DataService) {
+    constructor(private cookie: CookieService, private data: DataService, private events: BroadcastService) {
 
         this.waitTimeout = new Promise((resolve) => {
             this.timeoutResolve = resolve;
@@ -100,6 +101,49 @@ export class SteemService {
             // console.log("STEEMCONNECT NOT LOGGED !!!!!!!!!!!!!!!! ");
         });
     }
+
+    getActiveVotes(author:string, permlink:string, current_votes:number, card_slug:string) {
+        return new Promise<any>((resolve, reject) => {
+            var response:any = {};
+            this.steemjs.api.getActiveVotes(author, permlink, (err, result) => {
+                console.log(author, permlink, " votes --> ", [err, result]);
+                console.assert(Array.isArray(result), result);
+                if (err) {
+                    err.error = true;
+                    resolve(err);
+                    return;
+                }
+                response.voted = false;
+                response.votes = 0;
+                var list = result;
+                for (var i=0; i<list.length; i++) {
+                    if (list[i].percent > 0) {
+                        response.votes++;
+                    }
+                }
+
+                if (response.votes != current_votes) {
+                    this.events.broadcast("card-votes-outdated", {
+                        card_slug: card_slug,
+                        current_votes: current_votes,
+                        actual_votes:response.votes
+                    });
+                }
+
+                this.waitLogged.then(() => {
+                    for (var i=0; i<list.length; i++) {
+                        if (list[i].voter == this.user.name && list[i].percent > 0) {
+                            response.voted = true;
+                        }
+                    }
+                    resolve(response);
+                }).catch(() => {
+                    resolve(response);
+                });
+            });        
+        });
+    }
+
     
     askForLogin() {
         // habría que sacar esto de acá

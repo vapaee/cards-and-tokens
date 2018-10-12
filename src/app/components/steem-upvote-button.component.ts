@@ -54,41 +54,11 @@ export class SteemUpvoteButtonComponent implements OnChanges {
                 return resolve();
             }
 
-            this.steem.steemjs.api.getActiveVotes(this.steemdata.author, this.steemdata.permlink, (err, result) => {
-                console.log("this.steem.steemjs.api.getActiveVotes -------------- ", err, result);
-                console.assert(Array.isArray(result), result);
-                if (err) {
-                    this.loading = false;
-                    resolve(err);
-                    return;
-                }
-                this.voted = false;
-                this.votes = 0;
-                this.list = result;
-                for (var i=0; i<this.list.length; i++) {
-                    if (this.list[i].percent > 0) {
-                        this.votes++;
-                    }
-                }
-                
-                if (this.votes != this.steemdata.votes) {
-                    this.cnt.updateCollectibleVotes(this.card.slug, this.votes);
-                }
+            this.steem.getActiveVotes(this.steemdata.author, this.steemdata.permlink, this.steemdata.votes, this.card.slug).then((response) => {
+                this.loading = false;
+                this.votes = response.votes;
+            });
 
-                this.steem.waitLogged.then(() => {
-                    for (var i=0; i<this.list.length; i++) {
-                        if (this.list[i].voter == this.steem.user.name && this.list[i].percent > 0) {
-                            this.voted = true;
-                        }
-                    }
-                    this.loading = false;
-                    resolve();
-                }).catch(() => {
-                    this.loading = false;
-                    resolve();
-                });
-            });    
-            
         })
     }
 
@@ -96,7 +66,6 @@ export class SteemUpvoteButtonComponent implements OnChanges {
         if (typeof this.steemdata.author == "string" && typeof this.steemdata.permlink == "string") {
             this.update();
         }
-        console.log("SteemUpvoteButtonComponent.ngOnChanges() ------------- ", this.steemdata, this.card);
     }
 
     vote() {

@@ -7,13 +7,12 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 
 
+-- TODO CASA --
+- poner https://dappradar.com en la lista de sites
+- Hacer 10 cartas nuevas (weeks 104 y 105) https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3NfOEU/edit#gid=0
+
 -- TODO --
-- el ranking debería actualizarse mejor:
-  - al cargarse la página deberían actualizarse los votos de todas las cartas que fueron reclamadas (author y permlink)
-    - migrar el código this.steem.steemjs.api.getActiveVotes para dentro de steemservice y preguntar cuantos votos tienen una carta y si yo ya voté
-    - en proccessData de card-ranking.page llamar a esta función por cada carta claimed y hacer una lista con las prómises
-      luego de que terminen las promises habría que hacer un proccessData pero hay que tener cuidado de no caer en un loop infinito.
-- Agregar 5 cartas (week 104): https://steemit.com/openmic/@luzcypher/steemit-open-mic-week-104-winners-see-who-won-open-mic-and-join-us-this-week  
+- el botón del daily price debe ser clickeable una sola vez. Hay que volverlo disabled despliés del click
 - Si estamos en el embed/card/zzz
   - si window.top != window.document this.app.navigate("deploy/card/zzz")
   - si hay pendings no mostrarlos (así el usuario puede ver las cartas a pesar de que tiene cartas para reclamar)
