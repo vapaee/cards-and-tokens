@@ -19,6 +19,7 @@ export class InventoryPage implements OnInit, OnDestroy {
     inventory:any;
     slots:any[];
     dailycard:any;
+    claimBtnDisabled: boolean;
 
     constructor(
         public vapaee: VapaeeUserService, 
@@ -32,6 +33,7 @@ export class InventoryPage implements OnInit, OnDestroy {
 
 
     ngOnInit() {
+        this.claimBtnDisabled = false;
         this.dailycard = {backface:true,draggable:false,drops:false, id:"dailycard"};
         var inventory_name = "cards-and-tokens";
         this.slots = [[],[]];
@@ -59,15 +61,21 @@ export class InventoryPage implements OnInit, OnDestroy {
                 this.createCountDownClock();
             } else {
                 this.dailycard.remaining = 0;
+                this.claimBtnDisabled = false;
             }
         });
     }
 
     claimDailyPrize() {
+        console.log("claimDailyPrize    this.claimBtnDisabled", this.claimBtnDisabled);
+        if (this.claimBtnDisabled) return;
+        this.claimBtnDisabled = true;
         if (this.cnt.userdata.data.dayliprice.claimable) {
             var dailycardimg = this.elRef.nativeElement.querySelector("#item-dailycard");
             this.cnt.claimDailyPrize(dailycardimg).then(() => {
                 this.updateCountdown();
+            }).catch(() => {
+                this.claimBtnDisabled = false;
             });
         } else {
             alert("You have to wait " + this.cnt.userdata.data.dayliprice.remaining + " seconds to claim your daily price");

@@ -31,16 +31,24 @@ export class DeployCardPage implements OnInit {
     }
 
     ngOnInit() {
-        this.analytics.emitEvent("cards", "deploy", "success");
         var slug = this.route.snapshot.paramMap.get('slug');
-        // console.log("-- ETAPA 1 -- this.cnt.getCardBySlug()");
-        this.cnt.getCardBySlug(slug).then(card => {
-            // console.log("-- ETAPA 2 -- this.preloadCard()");
-            this.preloadCard(card).then(() => {
-                // console.log("-- ETAPA 3 -- this.comp.createAndDeployTree");
-                this.comp.createAndDeployTree(card.edition, this.main.view);
-            });
-        });
+        if (
+            window.top.document == window.document &&
+            window.location.pathname.indexOf("/embedded") == 0
+        ) {
+            console.log("evitamos que la carta se despliegue embebida en window.top.document");
+            this.app.navigate("deploy/card/" + slug);
+        } else {
+            this.analytics.emitEvent("cards", "deploy", "success");
+            // console.log("-- ETAPA 1 -- this.cnt.getCardBySlug()");
+            this.cnt.getCardBySlug(slug).then(card => {
+                // console.log("-- ETAPA 2 -- this.preloadCard()");
+                this.preloadCard(card).then(() => {
+                    // console.log("-- ETAPA 3 -- this.comp.createAndDeployTree");
+                    this.comp.createAndDeployTree(card.edition, this.main.view);
+                });
+            });    
+        }
     }
 
     preloadCard(card:any) {

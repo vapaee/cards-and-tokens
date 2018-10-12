@@ -32,7 +32,10 @@
                 </div>
                 <div class="col-9" *ngIf="dailycard.claimable">
                     <div class="flex-center flex-column color-white animated fadeIn">
-                        <a class="btn btn-success btn-lg waves-effect waves-light" (click)="claimDailyPrize()">
+                        <a class="btn btn-success btn-lg waves-effect waves-light"
+                            [ngClass]="{'disabled': claimBtnDisabled}"
+                            (click)="claimDailyPrize()"
+                        >
                             Claim your daily price
                         </a>
                     </div>
