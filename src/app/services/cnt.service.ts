@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { VapaeeUserService } from './vapaee-user.service';
 import { LabelService } from '../deploy/comp/label/label.service';
 import { AnalyticsService } from './analytics.service';
+import { BroadcastService } from './broadcast.service';
 
 
 
@@ -55,7 +56,8 @@ export class CntService {
         public app: AppService,
         public vapaee: VapaeeUserService,
         private labels: LabelService,
-        public analytics: AnalyticsService
+        public analytics: AnalyticsService,
+        private events: BroadcastService
 
     ) {
         this.cards = [];
@@ -96,7 +98,11 @@ export class CntService {
 
             this.when_FB.then(() => {
                 // this.updateFB();
-            }, () => {}); 
+            }, () => {});
+
+            this.events.on<any>("card-votes-outdated").subscribe((e) => {
+                this.updateCollectibleVotes(e.card_slug, e.actual_votes);
+            });
         }
         return this.waitReady;
     }
@@ -237,10 +243,9 @@ export class CntService {
             // console.log('-------- PENDING ----------');
             // console.log(this.userdata.data.pending);
             // console.log('---------------------------');
-            if (this.userdata.data.pending) {
+            if (window.top.document == window.document && this.userdata.data.pending) {
                 this.app.navigate("/pendings");
-            }
-    
+            }   
         });
         // we search for an unclamed card
         console.log('-------- data proccessed ----------');
@@ -537,13 +542,17 @@ export class CntService {
                 var card = r.card;
                 var index = this.cards.indexOf(this.card[card.slug]);
                 if (index >= 0) {
-                    this.cards[index] = card;
+                    Object.assign(this.cards[index], card);
                 } else {
                     this.cards.push(card);
                 }
-                this.card[card.slug] = card;
+                Object.assign(this.card[card.slug], card);
                 if (this.userdata.logged) {
-                    this.userdata.data.card["id-"+card.id] = card;
+                    if (this.userdata.data.card["id-"+card.id]) {
+                        Object.assign(this.userdata.data.card["id-"+card.id], card);
+                    } else {
+                        this.userdata.data.card["id-"+card.id] = card;
+                    }                    
                     this.proccessData();
                     var collectible = this.card[slug];
                     for (var i in this.userdata.data.slot) {
@@ -555,6 +564,7 @@ export class CntService {
                         }
                     }
                 }
+                this.events.broadcast("card-votes-updated");
                 resolve(r);
             });
         });

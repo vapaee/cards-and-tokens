@@ -3,6 +3,8 @@ import { VapaeeUserService } from "../../services/vapaee-user.service";
 import { AppService } from "../../services/app.service";
 import { CntService } from '../../services/cnt.service';
 import { ActivatedRoute } from '@angular/router';
+import { BroadcastService } from '../../services/broadcast.service';
+import { SteemService } from '../../services/steem.service';
 
 @Component({
     selector: 'cards-ranking-page',
@@ -14,41 +16,81 @@ export class CardsRankingPage implements OnInit {
     public waitInit: Promise<void> = null;
     public ranking: {claimed:any[], unclaimed:any[]};
 
-    constructor(public vapaee: VapaeeUserService, public app: AppService, public cnt: CntService, private route: ActivatedRoute) {
+    constructor(
+        public vapaee: VapaeeUserService,
+        public app: AppService,
+        public cnt: CntService,
+        private route: ActivatedRoute,
+        private events: BroadcastService,
+        private steem: SteemService
+    ) {
         this.ranking = {claimed:[], unclaimed:[]};
         this.cnt.getAllCards().then(e => {
             this.proccessData();
+            for (let i in this.ranking.claimed) {
+                this.updateCardVotes(this.ranking.claimed[i]);
+            }            
         });
 
         this.waitInit = new Promise((resolve) => {
             this.initResolve = resolve;
         });
+
+        this.events.on("card-votes-updated").subscribe(() => {
+            this.sortCards();
+        });
+    }
+
+    updateCardVotes(card) {
+        this.steem.getActiveVotes(card.steem.author, card.steem.permlink, card.steem_votes, card.slug).then((response) => {
+            /*if (!response.error) {
+                if (response.votes != card.steem_votes) {
+                    this.cnt.updateCollectibleVotes(card.slug, response.votes);
+                }
+            }*/
+        })
     }
 
     proccessData() {
-        console.log("CardsRankingPage.proccessData() cards: ", this.cnt.cards);
-        console.assert(Array.isArray(this.ranking.claimed), typeof this.ranking.claimed);
-        console.assert(Array.isArray(this.ranking.unclaimed), typeof this.ranking.unclaimed);
-        
+        // console.log("CardsRankingPage.proccessData() cards: ", this.cnt.cards);
+        this.ranking.unclaimed = [];
+        this.ranking.claimed = [];
+
         for (let i in this.cnt.cards) {
             let card = this.cnt.cards[i];
-            if (card.steem_votes == 0) {
+            // console.log(card);
+            if (card.steem.empty) {
                 this.ranking.unclaimed.push(card);
             } else {
                 this.ranking.claimed.push(card);
             }
         }
 
-        this.ranking.claimed.sort((a,b) => {
-            return b.steem_votes - a.steem_votes;
-        });
+        this.sortCards();
+    }
 
-        this.ranking.unclaimed.sort((a,b) => {
-            if (a.edition.data.week != b.edition.data.week) return b.edition.data.week - a.edition.data.week;
-            if (a.edition.data.position != b.edition.data.position) return a.edition.data.position - b.edition.data.position;
-            return (a.slug > b.slug) ? 1 : -1;
-        });
-
+    sortTimer = null;
+    sortCards() {
+        if (this.sortTimer) {
+            window.clearTimeout(this.sortTimer);
+            this.sortTimer = null;
+        }
+        this.sortTimer = window.setTimeout(() => {
+            this.sortTimer = null;
+            console.log("Sorting Ranking");
+            this.ranking.claimed.sort((a,b) => {
+                if (b.steem_votes != a.steem_votes) return b.steem_votes - a.steem_votes;
+                if (a.edition.data.position != b.edition.data.position) return a.edition.data.position - b.edition.data.position;
+                if (a.edition.data.week != b.edition.data.week) return a.edition.data.week - b.edition.data.week; // cuanto más viejo mejor
+                return (a.slug > b.slug) ? 1 : -1;
+            });
+    
+            this.ranking.unclaimed.sort((a,b) => {
+                if (a.edition.data.week != b.edition.data.week) return b.edition.data.week - a.edition.data.week;
+                if (a.edition.data.position != b.edition.data.position) return a.edition.data.position - b.edition.data.position;
+                return (a.slug > b.slug) ? 1 : -1;
+            });    
+        }, 250);
     }
 
     ngOnInit() {

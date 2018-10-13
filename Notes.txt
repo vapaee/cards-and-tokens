@@ -7,22 +7,16 @@ https://www.facebook.com/Zoinerk/videos/1969029813148206/
 
 
 
+Someone told me long ago\nThere's a calm before the storm\nI know it's been comin' for some time\nWhen it's over so they say\nIt'll rain a sunny day\nI know shinin' down like water\nI want to know\nHave you ever seen the rain?\nI want to know\nHave you ever seen the rain\nComin' down on a sunny day?\nYesterday and days before\nSun is cold and rain is hard\nI know been that way for all my time\n'Til forever, on it goes\nThrough the circle, fast and slow,\nI know it can't stop, I wonder\nI want to know\nHave you ever seen the rain?\nI want to know\nHave you ever seen the rain\nComin' down on a sunny day?\nYeah\nI want to know\nHave you ever seen the rain?\nI want to know\nHave you ever seen the rain\nComin' down on a sunny day?\nCompositores: John Cameron Fogerty\nLetra de Have You Ever Seen the Rain? © Peermusic Publishing
+
+-- TODO CASA --
+
+- Hacer 10 cartas nuevas (weeks 104 y 105) https://docs.google.com/spreadsheets/d/1ghaxNVQkhmGeZXOvUEY3Vp2B0aIHGOO5UPtwu3NfOEU/edit#gid=0
+
 -- TODO --
-- subir la imagen arreglada de Kisses for Breakfast 
-- el ranking debería actualizarse mejor:
-  - si se actualiza el puntaje de una carta
-  - no basarse en si la carta tiene puntaje 0 si no en si ya tiene author y permlink
-  - al cargarse la página deberían actualizarse los votos de todas las cartas que fueron reclamadas (author y permlink)
-- Agregar 5 cartas (week 104): https://steemit.com/openmic/@luzcypher/steemit-open-mic-week-104-winners-see-who-won-open-mic-and-join-us-this-week  
-- Si estamos en el embed/card/zzz
-  - si window.top != window.document this.app.navigate("deploy/card/zzz")
-  - si hay pendings no mostrarlos (así el usuario puede ver las cartas a pesar de que tiene cartas para reclamar)
 - el algoritmo que decide que carta te ganás (daily prize) debería evitar darte cartas repetidas
 - escribirles a los pibes de TelosFundation a ver que me dicen
-
-
-
-
+- Tengo que arreglar el problema del menu sumerior para definiciones chicas. No se muestra entero cuando estás logueado
 
 -- PROXIMA PUBLICACIÓN --
 - tenés que tener una forma de descartarte de una carta (la dejaría disponible para el daily prize)
@@ -72,6 +66,7 @@ https://github.com/EOSEssentials/EOSDrops
 -- TELOS --
 https://medium.com/@viter.rod/i-represent-a-small-development-team-with-which-im-planning-to-develop-an-entertainment-platform-23f16b1f3cd6
 https://www.youtube.com/watch?v=wNfH6-lxq1M&lc=UgxoDcivjOgeHzGAmEx4AaABAg
+
 
 
 IMAGENES (free):
@@ -166,7 +161,7 @@ sudo mv composer.phar /usr/local/bin/composer
   - 0x224DCf86D7A1818Cc3CB8CF7ADd09dDF3f9ae3C4 - shuvomahfuz
   - 0x3A0d032939ff3A7745f2FA2361FC7F5000935616 - cryptogecko
   - 0xEF308E49659ea1A0DCCB384c39c01ecF53979DE8 - yesmin
-  - 0x4543f502cb0962282E41bd65F2667f7a0Ca3BE44 - bitcoinquest
+  - 0x4543f502cb0962282E41bd65F2667f7a0Ca3BE44 - bitcoinquest 
   - 0xa30b5e3c8Fee56C135Aecb733cd708cC31A5657a - gcalvete
   - 0xf14F05b4568D94c6c31BE44D53F251759801dab1 - devcore
   - 0x79e2Dbf7aBE8385767B798A7bfACEf4CA2E93299 - yepidan
