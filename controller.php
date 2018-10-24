@@ -340,14 +340,18 @@ $app->get('/dailyprize/claim', function() use ($app) {
             // trace("repeated collectible: ", $card_id);
         }
     }
-    $winner = array("supply" => sizeof($slots));
+    $winner = null;
     foreach ($candidates as $candidate) {
+        if (!$winner) {
+            $winner = $candidate;
+        }
         // trace("candidate: ", $candidate["slug"], $candidate["supply"]);
-        if ($candidate["supply"] < $winner["supply"]) {
+        if ($candidate["supply"] < $winner["supply"] && !$candidate["repeated"]) {
             $winner = $candidate;
             // trace("winner: ", $winner["slug"], $winner["supply"]);
         }
     }
+    
     // return '{"error":"SSSSSSSSSSSSSS"}';
     // -------------------------------------------------------
 
