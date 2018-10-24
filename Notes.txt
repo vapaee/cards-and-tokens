@@ -13,6 +13,7 @@ Someone told me long ago\nThere's a calm before the storm\nI know it's been comi
 - hacer cartas week 106
   - incluir este pedido: https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album#@kkarenmp/re-viterbo-cards-and-tokens-openmic-album-20181011t191045871z
 
+
 -- TODO --
 - escribirles a los pibes de TelosFundation a ver que me dicen
 - Tengo que arreglar el problema del menu sumerior para definiciones chicas. No se muestra entero cuando estás logueado
