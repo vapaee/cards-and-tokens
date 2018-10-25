@@ -22,7 +22,14 @@ export class UserdataService {
     public access_token: string;
     public provider: string;
     public logged: boolean = false;
-    public data: any = {};
+    public data: {
+        album:any, app:any, card:any, collectible:any,
+        collection:any, container:any, copy:any, edition:any,
+        envelop:any, inventory:any, item:any, profile:any, slot:any, publisher: any,
+        pending: any[],
+        dayliprice: {claimable?:boolean, remaining?:number},
+        slug:{container:any, collectible:any, publisher:any}};
+
     constructor(private http: HttpClient, public vapaee: VapaeeUserService, public cookie: CookieService) {
         this.waitData = new Promise((resolve) => {
             // reject();

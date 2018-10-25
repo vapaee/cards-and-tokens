@@ -286,15 +286,24 @@ export class EditorPage implements OnInit {
             });
             */
 
+            
+           console.log(this.cnt.userdata.data);
+            
             for (var i in r.data_aux) {
                 var data_aux = r.data_aux[i];
                 if (data_aux.data) {
-                    promise = this.daleCreateCard(data_aux.data, promise);
+                    if (!this.cnt.userdata.data.slug.collectible[data_aux.slug]) {
+                        console.log("NEW CARD: ", data_aux.slug);
+                        promise = this.daleCreateCard(data_aux.data, promise);
+                    } else {
+                        console.log("SKIP: ", data_aux.slug);
+                    }
                 } else {
                     console.error("ERROR: no tiene data", data_aux);
                 }                
             }
-        });        
+            
+        });       
     }
 
     daleCreateCard(data, promise) {
