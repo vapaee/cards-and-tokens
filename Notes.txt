@@ -106,6 +106,7 @@ Saludos y mucha suerte !
 
 @aaaaaaaaaaaaaaaa, your song was selected to be part of the collection set of trading cards for the album of Steemit OpenMic.
 <b>Congratulations !!</b>
+<p>Please, <a href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options" target="_blank">claim your authorship</a> of this card and start collecting votes to win the Cards & Tokens <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Trading cards contest</a></p>
 <center><a href="http://cardsandtokens.com/deploy/card/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><img src="aaaaaaaaaaaaaaaaaaaaa"></a></center>
 <p>read more about:
 <ul>
@@ -116,6 +117,21 @@ Saludos y mucha suerte !
 </p>
 
 ------------------------------------------------------------------------------------------------------
+<p>@mariajruizb, como estás? Que gusto me da gusto encontrarlos de vuelta entre los mejores 5 de esta semana.<br>
+<b>Felicitaciones !!</b></p>
+<p>Como ya sabes estoy invitando a todos los ganadores de openmic a participar concurso inaugural de <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version" target="_blank">Cards & Tokens</a>. </p>
+<p>Así que te invito a que  <a target="_blank" href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options">reclames la autoría de esta nueva carta</a> y así empieces a captar votos de tus seguidores. Recuerda que cuantos más votos más alto estarás en el ranking</p>
+<center><a href="http://cardsandtokens.com/deploy/card/openmic-w106-dianakyv-hurt"><img src="https://cdn.steemitimages.com/DQmbhEHPUQTYxj8EFiVJWwdv73bsEZsUoyj7d741Z4HZPaV/openmic-w106-dianakyv-hurt.png"></a></center>
+<p>lee más sobre:
+<ul>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Qué es el album de Steemit Openmic</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Concurso de cartas</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/reclama-tu-autoria-steemit-openmic-trading-cards">Cómo reclamar la autoría de tus cartas</a></li>
+</ul>
+</p>
+
+
+
 <p>@aaaaaaaaaaaaaaaaaaaa, cómo estás? hermano, que gusto verte de vuelta entre los ganadores de la semana.<br>
 <b>Felicitaciones !!</b></p>
 <p>Te invito a ti a que reclames la autoría de tu nueva carta para participar del concurso inaugural de <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version" target="_blank">Cards & Tokens</a>. </p>
@@ -131,7 +147,22 @@ Saludos y mucha suerte !
 </p>
 
 
+
 ------------------------------------------------------------------------------------------------------
+
+<p>@aaaaaaaaaaaaaaaaaaaa, como estás? que hermosa versión que interpretaron. Me da gusto encontrarlos de vuelta entre los mejores 5 de esta semana.<br>
+<b>Felicitaciones !!</b></p>
+<p>Como ya sabes estoy invitando a todos los ganadores de openmic a participar concurso inaugural de <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version" target="_blank">Cards & Tokens</a>. </p>
+<p>Así que te invito a que  <a target="_blank" href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options">reclames la autoría de esta nueva carta</a> y así empieces a captar votos de tus seguidores. Recuerda que cuantos más votos más alto estarás en el ranking</p>
+<center><a href="http://cardsandtokens.com/deploy/card/aaaaaaaaaaaaaaaaaaaa"><img src="aaaaaaaaaaaaaaaaaaaa"></a></center>
+<p>lee más sobre:
+<ul>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Qué es el album de Steemit Openmic</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Concurso de cartas</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/reclama-tu-autoria-steemit-openmic-trading-cards">Cómo reclamar la autoría de tus cartas</a></li>
+</ul>
+</p>
+
 
 <p>@aaaaaaaaaaaaaaaaaaaa, me da gusto comunicarte que tu canción podrá participar en el concurso de cartas coleccionables para el álbum de Steemit OpenMic.<br>
 <b>Felicitaciones !!</b></p>
@@ -147,13 +178,10 @@ Saludos y mucha suerte !
 </ul>
 </p>
 
-
-
 <p>@aaaaaaaaaaaaaaaa, I am glad to communicate that your song can participate in the trading card contest for the Steemit OpenMic album.<br>
 <b>Congratulations !!</b></p>
 <p>All the winners of the weekly openmic contest will be invited to participate in the inaugural <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version" target="_blank">Cards & Tokens</a> contest. </p>
-<b>How to participate in the contest?</b></p>
-<p>All you have to do is <a target="_blank" href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options">login</a> on the platform and you will be automatically redirected to the page where you can claim the authorship of your cards and thus start to get votes from your followers.</p>
+<p>Please, <a href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options" target="_blank">claim your authorship</a> of this card and start collecting votes to win the Cards & Tokens <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Trading cards contest</a></p>
 <center><a href="http://cardsandtokens.com/deploy/card/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><img src="aaaaaaaaaaaaaaaaaaaaaaaa"></a></center>
 <p>read more about:
 <ul>
@@ -163,7 +191,18 @@ Saludos y mucha suerte !
 </ul>
 </p>
 
-
+<p>@drewsmusic, How are doing? It always a pleasure to hear your music and I'm glad you are in the top 5 of this week.<br>
+<b>Congratulations !!</b></p>
+<p>You may don't know but all the winners of the weekly openmic contest are being invited to participate in the inaugural <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version" target="_blank">Cards & Tokens</a> contest. </p>
+<p>Please, <a href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options" target="_blank">claim your authorship</a> of this card and all the other great cards the you have and start collecting votes to win the Cards & Tokens <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Trading cards contest</a></p>
+<center><a href="http://cardsandtokens.com/deploy/card/openmic-w107-drewsmusic-you-are-the-best-thing"><img src="https://cdn.steemitimages.com/DQmSjDtewPPzLFyqdsbcRjXxTiPYbWUHyXkkAVHnCBnF536/openmic-w107-drewsmusic-you-are-the-best-thing.png"></a></center>
+<p>read more about:
+<ul>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Openmic trading cards album</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Trading cards contest</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/claim-your-steemit-openmic-trading-card-authorship">How to claim authorship of your cards</a></li>
+</ul>
+</p>
 
 
 
@@ -274,3 +313,71 @@ sudo mv composer.phar /usr/local/bin/composer
       + init
       + success
     + logout
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+https://steemit.com/openmic/@kkarenmp/ueifyeeo
+----------------------------------------------------------------------------------------
+<p>@kkarenmp, me da gusto comunicarte que tu canción podrá participar en el concurso de cartas coleccionables para el álbum de Steemit OpenMic.<br>
+<b>Felicitaciones !!</b></p>
+<p>Todos los ganadores del concurso semanal de openmic serán invitados a participar del concurso inaugural de <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version" target="_blank">Cards & Tokens</a>. </p>
+<b>¿Cómo participar del concurso?</b></p>
+<p>Lo único que debes hacer es <a target="_blank" href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options">autenticarte</a> en la plataforma y serás automáticamente redirigido a la página donde podrás reclamar la autoría de tus cartas y así empezar a captar votos de tus seguidores.</p>
+<center><a href="http://cardsandtokens.com/deploy/card/openmic-w106-kkarenmp-el-cielo-a-mi-favor"><img src="https://cdn.steemitimages.com/DQmV9FVyA2ASobq1N928digxqogePxru4WLPUpbrwCq68No/openmic-w106-kkarenmp-el-cielo-a-mi-favor.png"></a></center>
+<p>lee más sobre:
+<ul>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Qué es el album de Steemit Openmic</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Concurso de cartas</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/reclama-tu-autoria-steemit-openmic-trading-cards">Cómo reclamar la autoría de tus cartas</a></li>
+</ul>
+</p>
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+https://steemit.com/cardsandtokens/@kkarenmp/re-viterbo-cards-and-tokens-openmic-album-20181011t191045871z
+----------------------------------------------------------------------------------------
+
+<p>@kkarenmp, como estás? he notado que eres de Venezuela así que decidí escribirte en español ;)</p>
+<p>Como te prometí, he incluido tu carta en esta nueva edición. Espero te guste!! Ahora ya puedes participar del concurso de cartas de Cards & Tokens.</p>
+<p><b>¿Cómo participar del concurso?</b></p>
+<p>Lo único que debes hacer es <a target="_blank" href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options">autenticarte</a> en la plataforma y serás automáticamente redirigido a la página donde podrás reclamar la autoría de tus cartas y así empezar a captar votos de tus seguidores.</p>
+<center><a href="http://cardsandtokens.com/deploy/card/openmic-w106-kkarenmp-el-cielo-a-mi-favor"><img src="https://cdn.steemitimages.com/DQmV9FVyA2ASobq1N928digxqogePxru4WLPUpbrwCq68No/openmic-w106-kkarenmp-el-cielo-a-mi-favor.png"></a></center>
+<p>lee más sobre:
+<ul>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Qué es el album de Steemit Openmic</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Concurso de cartas</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/reclama-tu-autoria-steemit-openmic-trading-cards">Cómo reclamar la autoría de tus cartas</a></li>
+</ul>
+</p>
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+https://steemit.com/openmic/@k0wsk1/btx0b7df
+----------------------------------------------------------------------------------------
+<p>@k0wsk1, I am glad to communicate that your song can participate in the trading card contest for the Steemit OpenMic album.<br>
+<b>Congratulations !!</b></p>
+<p>All the winners of the weekly openmic contest will be invited to participate in the inaugural <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version" target="_blank">Cards & Tokens</a> contest. </p>
+<p>Please, <a href="https://steemconnect.com/oauth2/authorize?client_id=vapaee&redirect_uri=http%3A%2F%2Fcardsandtokens.com%2Fsteemconnect&scope=login,offline,vote,comment,delete_comment,comment_options" target="_blank">claim your authorship</a> of this card and start collecting votes to win the Cards & Tokens <a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Trading cards contest</a></p>
+<center><a href="http://cardsandtokens.com/deploy/card/openmic-w106-k0wsk1-fever-dream"><img src="aaaaaaaaaaaaaaaaaaaaaaaa"></a></center>
+<p>read more about:
+<ul>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-openmic-album">Openmic trading cards album</a></li>
+<li><a href="https://steemit.com/cardsandtokens/@viterbo/cards-and-tokens-alpha-0-1-1-version">Trading cards contest</a></li>
+<li><a href="https://steemit.com/openmic/@viterbo/claim-your-steemit-openmic-trading-card-authorship">How to claim authorship of your cards</a></li>
+</ul>
+</p>
