@@ -395,7 +395,7 @@ export class CntService {
                     this.deploy.front.style["transition-duration"] = "1s";
                     this.deployFromCenterToSlot(r.edition.preview.images, <HTMLElement>targetimg).then(() => {
                         console.assert(!!this.userdata);
-                        console.assert(this.userdata.data);
+                        console.assert(!!this.userdata.data);
                         console.assert(this.userdata.data.slot);
                         console.assert(this.userdata.data.copy);
                         console.assert(this.userdata.data.card);
@@ -475,7 +475,7 @@ export class CntService {
             */
         });
     }
-
+    
     getDailyPrizeCountdown() {
         return new Promise<any>((resolve, reject) => {
             this.userdata.waitData.then(() => {
