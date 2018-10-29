@@ -61,6 +61,8 @@ export class CardsRankingPage implements OnInit {
             // console.log(card);
             if (card.steem.empty) {
                 this.ranking.unclaimed.push(card);
+            } if (card.steem.permlink && card.steem.permlink.indexOf("telos") == 0) {
+                this.ranking.unclaimed.push(card);
             } else {
                 this.ranking.claimed.push(card);
             }
