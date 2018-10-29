@@ -702,7 +702,7 @@ $app->post("/update_collection", function() use ($app) {
 
 $app->post("/crear_carta", function() use ($app) {
     global $config; $namespace = $config['namespace'];
-    // trace("$namespace POST 'crear_carta' ---------------------");
+    trace("$namespace POST 'crear_carta' ---------------------");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $content = $app["request"]->getContent();

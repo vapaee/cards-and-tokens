@@ -746,7 +746,7 @@ export class EditorPage implements OnInit {
     }
 
     public createCard() {
-        //*/
+        /*/
         console.log("this.deploy", this.deploy);
         // console.log(JSON.stringify(this._deploy));
         // console.log([JSON.stringify(this._deploy)]);
