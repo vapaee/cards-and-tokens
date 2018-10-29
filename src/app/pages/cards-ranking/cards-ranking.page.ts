@@ -52,16 +52,14 @@ export class CardsRankingPage implements OnInit {
     }
 
     proccessData() {
-        // console.log("CardsRankingPage.proccessData() cards: ", this.cnt.cards);
         this.ranking.unclaimed = [];
         this.ranking.claimed = [];
 
         for (let i in this.cnt.cards) {
             let card = this.cnt.cards[i];
-            // console.log(card);
             if (card.steem.empty) {
                 this.ranking.unclaimed.push(card);
-            } if (card.steem.permlink && card.steem.permlink.indexOf("telos") == 0) {
+            } else if (card.steem.permlink && card.steem.permlink.indexOf("telos") == 0) {
                 this.ranking.unclaimed.push(card);
             } else {
                 this.ranking.claimed.push(card);
