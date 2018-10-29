@@ -20,6 +20,7 @@ interface CompSpec {
 export class EditorPage implements OnInit {
     model:any;
     _deploy:CompSpec;
+    cardset: string;
     constructor(
         public vapaee: VapaeeUserService, 
         public app: AppService, 
@@ -28,10 +29,20 @@ export class EditorPage implements OnInit {
         public data: DataService
     ) {
         
-        this.model = {
+        this.cardset = "telos";
+        var telos_model = {
+            week:1,
+            steemuser: "viterbo",
+            album: "telos",
+            color: "#5C5949",
+            bgimage: "telos-bg.png",
+            link: "https://steemit.com/cardsandtokens/@viterbo/telos-trading-cards-album"
         };
+        var openmic_model = {
+            album: "openmic"
+        }
 
-        this._deploy = {
+        var openmic = {
             "comp": "root",
             "children": [
                 {
@@ -191,6 +202,178 @@ export class EditorPage implements OnInit {
                 }
             ]
         }
+
+        var telos = {
+            "comp": "root",
+            "children": [
+                {
+                    "comp": "grid",
+                    "data": {
+                        "rows": [
+                            [ { "height": "10vh" } ],
+                            { "grow": 0, "cols": [ 1 ] },
+                            [ { "grow": 1 } ],
+                            [ { "height": "3vh" } ]
+                        ]
+                    },
+                    "children": [
+                        {
+                            "comp": "background",
+                            "data": {
+                                "color": "white",
+                                "image": {
+                                    "url": "/assets/cards/openmic/images/steemit.svg",
+                                    "position": "left", "repeat": "no-repeat", "size": "contain"
+                                }
+                            }
+                        },
+                        {
+                            "comp": "background",
+                            "data": {
+                                "color": "grey",
+                                "padding-sm": true,
+                                "container": true
+                            },
+                            "children": [
+                                {
+                                    "comp": "grid",
+                                    "data": {
+                                        "rows": [ [ { "grow": 1 }, { "grow": 0 } ] ]
+                                    },
+                                    "children": [
+                                        {
+                                            "comp": "label",
+                                            "data": {
+                                                "class": "text-xl-left white-text",
+                                                "text": "Unseen (The Good Fight)"
+                                            }
+                                        },
+                                        {
+                                            "comp": "menu",
+                                            "data": {
+                                                "menu": [
+                                                    {
+                                                        "text": "Video",
+                                                        "class": "btn btn-sm btn-outline-white",
+                                                        "section": "main",
+                                                        "value": "Video"
+                                                    },
+                                                    {
+                                                        "text": "Lyrics",
+                                                        "class": "btn btn-sm btn-outline-white",
+                                                        "section": "main",
+                                                        "value": "Lyrics"
+                                                    },
+                                                    {
+                                                        "text": "Steemit post",
+                                                        "class": "btn btn-sm btn-outline-white",
+                                                        "link": "https://steemit.com/@viterbo"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "comp": "background",
+                            "data": {
+                                "color": "rgba(72, 72, 72, 0.0)",
+                                "gradient": {
+                                    "dir": "top",
+                                    "points": [
+                                        { "color": "rgba(0,0,0,0.6)", "percent": 0 },
+                                        { "color": "rgba(0,0,0,0.0)", "percent": 30 },
+                                        { "color": "rgba(0,0,0,0.0)", "percent": 70 },
+                                        { "color": "rgba(0,0,0,0.6)", "percent": 100 }
+                                    ]
+                                },
+                                "image": {
+                                    "url": "/assets/backgrounds/maxresdefault.jpg",
+                                    "repeat": "no-repeat",
+                                    "size": "cover",
+                                    "position": "center",
+                                    "blend-mode": "multiply"
+                                }
+                            },
+                            "children": [
+                                {
+                                    "comp": "section",
+                                    "data": {
+                                        "name": "main",
+                                        "current": "Video",
+                                        "sections": [
+                                            "Video",
+                                            "Lyrics"
+                                        ]
+                                    },
+                                    "children": [
+                                        {
+                                            "comp": "video",
+                                            "data": {
+                                                "youtube": {
+                                                    "videoId": "8vQb2JRloQ8",
+                                                    "autoplay": false
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "comp": "background",
+                                            "data": {
+                                                "container": true,
+                                                "padding": true
+                                            },
+                                            "children": [
+                                                {
+                                                    "comp": "background",
+                                                    "data": {
+                                                        "color": "rgba(0,0,0,0.3)",
+                                                        "fgcolor": "white",
+                                                        "padding": true,
+                                                        "expand": true
+                                                    },
+                                                    "children": [
+                                                        {
+                                                            "comp": "scrolleable",
+                                                            "children": [
+                                                                {
+                                                                    "comp": "markdown",
+                                                                    "data": {
+                                                                        "markdown": ""
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "comp": "background",
+                            "data": {
+                                "color": "#FFF"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        switch (this.cardset) {
+            case "telos": 
+                this._deploy = telos;
+                this.model = this.model = telos_model;
+                break;
+            default:
+                this._deploy = openmic;
+                this.model = openmic_model;
+        }
+        
     }
 
     public prueba() {
@@ -315,6 +498,37 @@ export class EditorPage implements OnInit {
     }
 
     public extractData(card) {
+        switch (this.cardset) {
+            case "telos": return this.extractDataTelos;
+            default: return this.extractDataOpenmic;
+        }
+    }
+
+    public extractDataTelos(card) {
+        var obj:any = card.edition.deploy.data || {};
+        // background image
+        obj.bgimage = card.edition.deploy.children[0].children[2].data.image.url;
+
+        // el título
+        obj.title = card.edition.deploy.children[0].children[1].children[0].children[0].data.text = "#" + this.model.position + " - " +this.model.title;
+
+        // el video
+        obj.youtube = card.edition.deploy.children[0].children[2].children[0].children[0].data.youtube.videoId = this.model.youtube;
+
+        // el link
+        obj.link = card.edition.deploy.children[0].children[1].children[0].children[1].data.menu[2].link = this.model.link;
+
+        // lyrics
+        obj.lyrics = card.edition.deploy.children[0].children[2].children[0].children[1].children[0].children[0].children[0].data.markdown;
+        obj.has_lyrics = !!obj.lyrics;
+        
+        // deploy colors 
+        obj.colors = card.edition.preview.colors;
+
+        return obj;
+    }
+
+    public extractDataOpenmic(card) {
         var obj:any = card.edition.deploy.data || {};
         // background image
         obj.bgimage = card.edition.deploy.children[0].children[2].data.image.url;
@@ -336,9 +550,42 @@ export class EditorPage implements OnInit {
         obj.colors = card.edition.preview.colors;
 
         return obj;
-    }    
-
+    }
+    
     get deploy(): CompSpec {
+        switch (this.cardset) {
+            case "telos": return this.deployTelos;
+            default: return this.deployOpenmic;
+        }        
+    }
+
+    get deployTelos(): CompSpec {
+        
+        // background image
+        this._deploy.children[0].children[2].data.image.url = this.getBgImage();
+
+        // el título
+        this._deploy.children[0].children[1].children[0].children[0].data.text = this.model.title;
+
+        // el video
+        this._deploy.children[0].children[2].children[0].children[0].data.youtube.videoId = this.model.youtube;
+
+        // el link
+        this._deploy.children[0].children[1].children[0].children[1].data.menu[2].link = this.model.link;
+
+        // si tienen lyrics
+        if (this.model.has_lyrics) {
+            var lyrics = this.getMarkDownLyrics();
+            this._deploy.children[0].children[1].children[0].children[1].data.menu[1].hidden = false;
+            this._deploy.children[0].children[2].children[0].children[1].children[0].children[0].children[0].data.markdown = lyrics;
+        } else {
+            this._deploy.children[0].children[1].children[0].children[1].data.menu[1].hidden = true;
+        }
+
+        return this._deploy;
+    }
+
+    get deployOpenmic(): CompSpec {
         
         // background image
         this._deploy.children[0].children[2].data.image.url = this.getBgImage();
@@ -367,9 +614,9 @@ export class EditorPage implements OnInit {
     get preview(): any {    
         return {
             "images": {
-                "opengraph": "./assets/cards/openmic/images/opengraph/" + this.model.slug + ".png",
-                "fullsize": "./assets/cards/openmic/images/fullsize/" + this.model.slug + ".png",
-                "thumbnail": "./assets/cards/openmic/images/thumbnail/" + this.model.slug + ".png"
+                "opengraph": "./assets/cards/"+this.cardset+"/images/opengraph/" + this.model.slug + ".png",
+                "fullsize": "./assets/cards/"+this.cardset+"/images/fullsize/" + this.model.slug + ".png",
+                "thumbnail": "./assets/cards/"+this.cardset+"/images/thumbnail/" + this.model.slug + ".png"
             },
             "colors": {
                 "bg":  this.model.color

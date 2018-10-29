@@ -325,7 +325,8 @@ $app->get('/dailyprize/claim', function() use ($app) {
     $candidates = array();
     $collectibles = $app["db"]->http_get("card", null, $op);
     $slots = $app["db"]->http_get("slot", null, $op);
-
+    $editions = $app["db"]->http_get("edition", null, array("unbox"=>true, "mapping"=>"id", "no-detail" => true, "secure" => true));
+   
     foreach ($collectibles as $card) {
         $card["supply"] = 0;
         $card["repeated"] = false;
@@ -342,13 +343,22 @@ $app->get('/dailyprize/claim', function() use ($app) {
     }
     $winner = null;
     foreach ($candidates as $candidate) {
+        $edition_id = "id-".$candidate["edition"]["id"];
+        $edition = $editions[$edition_id];
+        
+        trace('$edition["data"]["slug"]: ', $edition["data"]["slug"]);
+        if (isset($edition["data"]["album"]) && "telos" == $edition["data"]["album"]) {
+            trace('SKIPED album Ttelos');
+            continue;
+        }
+
         if (!$winner) {
             $winner = $candidate;
         }
-        // trace("candidate: ", $candidate["slug"], $candidate["supply"]);
+
         if ($candidate["supply"] < $winner["supply"] && !$candidate["repeated"]) {
             $winner = $candidate;
-            // trace("winner: ", $winner["slug"], $winner["supply"]);
+            trace("winner: ", $winner["slug"], $winner["supply"]);
         }
     }
     

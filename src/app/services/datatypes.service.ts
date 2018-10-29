@@ -8,6 +8,15 @@ export interface AlbumI {
     // 
 }
 */
+
+export interface BackgroundLayer {
+    url?:string,
+    position?:string,
+    repeat?:string,
+    size?:string,
+    "blend-mode"?: string;
+}
+
 export interface ContainerCtrl {
     // API
     // 
