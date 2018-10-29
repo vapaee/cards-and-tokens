@@ -210,10 +210,27 @@ export class EditorPage implements OnInit {
                     "comp": "grid",
                     "data": {
                         "rows": [
-                            [ { "height": "10vh" } ],
-                            { "grow": 0, "cols": [ 1 ] },
-                            [ { "grow": 1 } ],
-                            [ { "height": "3vh" } ]
+                            [
+                                {
+                                    "height": "10vh"
+                                }
+                            ],
+                            {
+                                "grow": 0,
+                                "cols": [
+                                    1
+                                ]
+                            },
+                            [
+                                {
+                                    "grow": 1
+                                }
+                            ],
+                            [
+                                {
+                                    "height": "3vh"
+                                }
+                            ]
                         ]
                     },
                     "children": [
@@ -221,16 +238,44 @@ export class EditorPage implements OnInit {
                             "comp": "background",
                             "data": {
                                 "color": "white",
+                                "gradient": {
+                                    "dir": "left",
+                                    "points": [
+                                        {
+                                            "color": "rgba(0,0,0,0.0)",
+                                            "percent": 70
+                                        },
+                                        {
+                                            "color": "rgba(0,0,0,0.6)",
+                                            "percent": 100
+                                        }
+                                    ]
+                                },
                                 "image": {
-                                    "url": "/assets/cards/openmic/images/steemit.svg",
-                                    "position": "left", "repeat": "no-repeat", "size": "contain"
+                                    "url": "/assets/cards/telos/images/header.png",
+                                    "position": "left",
+                                    "repeat": "no-repeat",
+                                    "size": "contain"
                                 }
                             }
                         },
                         {
                             "comp": "background",
                             "data": {
-                                "color": "grey",
+                                "color": "#5C5949",
+                                "gradient": {
+                                    "dir": "left",
+                                    "points": [
+                                        {
+                                            "color": "rgba(0,0,0,0.6)",
+                                            "percent": 0
+                                        },
+                                        {
+                                            "color": "rgba(0,0,0,0.0)",
+                                            "percent": 30
+                                        }
+                                    ]
+                                },
                                 "padding-sm": true,
                                 "container": true
                             },
@@ -238,14 +283,23 @@ export class EditorPage implements OnInit {
                                 {
                                     "comp": "grid",
                                     "data": {
-                                        "rows": [ [ { "grow": 1 }, { "grow": 0 } ] ]
+                                        "rows": [
+                                            [
+                                                {
+                                                    "grow": 1
+                                                },
+                                                {
+                                                    "grow": 0
+                                                }
+                                            ]
+                                        ]
                                     },
                                     "children": [
                                         {
                                             "comp": "label",
                                             "data": {
                                                 "class": "text-xl-left white-text",
-                                                "text": "Unseen (The Good Fight)"
+                                                "text": "Introducing the Telos Blockchain"
                                             }
                                         },
                                         {
@@ -259,15 +313,16 @@ export class EditorPage implements OnInit {
                                                         "value": "Video"
                                                     },
                                                     {
-                                                        "text": "Lyrics",
+                                                        "text": "More info",
                                                         "class": "btn btn-sm btn-outline-white",
                                                         "section": "main",
-                                                        "value": "Lyrics"
+                                                        "value": "Specs",
+                                                        "hidden": false
                                                     },
                                                     {
-                                                        "text": "Steemit post",
+                                                        "text": "White Paper",
                                                         "class": "btn btn-sm btn-outline-white",
-                                                        "link": "https://steemit.com/@viterbo"
+                                                        "link": "http://colintalkscrypto.com/files/telos_white_paper_7_12.pdf"
                                                     }
                                                 ]
                                             }
@@ -279,23 +334,43 @@ export class EditorPage implements OnInit {
                         {
                             "comp": "background",
                             "data": {
-                                "color": "rgba(72, 72, 72, 0.0)",
+                                "color": "white",
                                 "gradient": {
                                     "dir": "top",
                                     "points": [
-                                        { "color": "rgba(0,0,0,0.6)", "percent": 0 },
-                                        { "color": "rgba(0,0,0,0.0)", "percent": 30 },
-                                        { "color": "rgba(0,0,0,0.0)", "percent": 70 },
-                                        { "color": "rgba(0,0,0,0.6)", "percent": 100 }
+                                        {
+                                            "color": "rgba(0,0,0,0.3)",
+                                            "percent": 0
+                                        },
+                                        {
+                                            "color": "rgba(0,0,0,0.0)",
+                                            "percent": 30
+                                        },
+                                        {
+                                            "color": "rgba(0,0,0,0.0)",
+                                            "percent": 70
+                                        },
+                                        {
+                                            "color": "rgba(0,0,0,0.3)",
+                                            "percent": 100
+                                        }
                                     ]
                                 },
-                                "image": {
-                                    "url": "/assets/backgrounds/maxresdefault.jpg",
-                                    "repeat": "no-repeat",
-                                    "size": "cover",
-                                    "position": "center",
-                                    "blend-mode": "multiply"
-                                }
+                                "image": [
+                                    {
+                                        "url": "/assets/cards/telos/images/telos-big-iton-transparent.png",
+                                        "position": "center",
+                                        "repeat": "no-repeat",
+                                        "size": "contain"
+                                    },
+                                    {
+                                        "url": "/assets/backgrounds/telos-bg.png",
+                                        "repeat": "no-repeat",
+                                        "size": "cover",
+                                        "position": "center",
+                                        "blend-mode": "multiply"
+                                    }
+                                ]
                             },
                             "children": [
                                 {
@@ -305,7 +380,7 @@ export class EditorPage implements OnInit {
                                         "current": "Video",
                                         "sections": [
                                             "Video",
-                                            "Lyrics"
+                                            "Specs"
                                         ]
                                     },
                                     "children": [
@@ -313,7 +388,7 @@ export class EditorPage implements OnInit {
                                             "comp": "video",
                                             "data": {
                                                 "youtube": {
-                                                    "videoId": "8vQb2JRloQ8",
+                                                    "videoId": "fvsvzCL46eI",
                                                     "autoplay": false
                                                 }
                                             }
@@ -356,7 +431,20 @@ export class EditorPage implements OnInit {
                         {
                             "comp": "background",
                             "data": {
-                                "color": "#FFF"
+                                "color": "#FFF",
+                                "gradient": {
+                                    "dir": "left",
+                                    "points": [
+                                        {
+                                            "color": "rgba(0,0,0,0.6)",
+                                            "percent": 0
+                                        },
+                                        {
+                                            "color": "rgba(0,0,0,0.0)",
+                                            "percent": 30
+                                        }
+                                    ]
+                                }
                             }
                         }
                     ]
@@ -575,7 +663,7 @@ export class EditorPage implements OnInit {
 
         // si tienen lyrics
         if (this.model.has_lyrics) {
-            var lyrics = this.getMarkDownLyrics();
+            var lyrics = this.model.lyrics;
             this._deploy.children[0].children[1].children[0].children[1].data.menu[1].hidden = false;
             this._deploy.children[0].children[2].children[0].children[1].children[0].children[0].children[0].data.markdown = lyrics;
         } else {
@@ -658,10 +746,10 @@ export class EditorPage implements OnInit {
     }
 
     public createCard() {
-        /*/
+        //*/
         console.log("this.deploy", this.deploy);
-        console.log(JSON.stringify(this._deploy));
-        console.log([JSON.stringify(this._deploy)]);        
+        // console.log(JSON.stringify(this._deploy));
+        // console.log([JSON.stringify(this._deploy)]);
         /*/
         return this.cnt.createCard(this.model, this.deploy, this.preview).then((e) => {
             if (e.error) {
