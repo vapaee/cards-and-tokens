@@ -59,7 +59,7 @@ export class CardsRankingPage implements OnInit {
             let card = this.cnt.cards[i];
             if (card.steem.empty) {
                 this.ranking.unclaimed.push(card);
-            } else if (card.steem.permlink && card.steem.permlink.indexOf("telos") == 0) {
+            } else if (card.steem.permlink && (card.steem.permlink.indexOf("telos") == 0 || card.steem.permlink.indexOf("elos") == 0)) {
                 this.ranking.unclaimed.push(card);
             } else {
                 this.ranking.claimed.push(card);
