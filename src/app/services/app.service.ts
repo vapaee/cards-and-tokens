@@ -185,12 +185,12 @@ export class AppService {
                     return this.navigate(this.prev_state);
                 } else {
                     // console.log("app.checkRedirect() no esta logueado REDIRECTION --> home (attempt to enter state '"+this.prev_state+"' not beign logged)");
-                    return this.navigate('home');
+                    return this.navigate('cards'); // antes era home pero lo cambié a pedido de justin
                 }
             } else {
                 if (this.getStateData().logged && !this.vapaee.logged) {
                     // console.log("app.checkRedirect() REDIRECTION --> home (attempt to enter state '"+this.state+"' not beign logged)");
-                    return this.navigate('home');
+                    return this.navigate('cards'); // antes era home pero lo cambié a pedido de justin
                 }    
             }
         } else {

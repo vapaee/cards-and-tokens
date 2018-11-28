@@ -20,19 +20,22 @@
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('editor')}" *ngIf="vapaee.logged" >
                   <a class="nav-link waves-light" routerLink="/editor" mdbWavesEffect>Editor</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('cards')}">
+          <li class="nav-item" [ngClass]="{active: app.state == 'cards'}">
                   <a class="nav-link waves-light" routerLink="/cards" mdbWavesEffect>Cards</a>
+          </li>
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('cards-ranking')}">
+                  <a class="nav-link waves-light" routerLink="/cards/ranking" mdbWavesEffect>Ranking</a>
           </li>
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('albums')}">
                   <a class="nav-link waves-light" routerLink="/albums" mdbWavesEffect>Albums</a>
-          </li>
+          </li>          
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('inventory')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/inventory" mdbWavesEffect>Inventory</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.logged">
+          <!--li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/market" mdbWavesEffect>Market</a>
           </li>
-          <!--li class="nav-item" [ngClass]="{active: app.stateStartsWith('games')}" *ngIf="vapaee.logged">
+          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('games')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/games" mdbWavesEffect>Games</a>
           </li-->
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.isAdmin">

@@ -90,7 +90,7 @@ const routes: Routes = [
     { path: 'loading',              data: { state: "loading" }, component: LoadingPage },
     { path: 'steemconnect',         data: { state: "steemconnect" }, component: SteemConnectPage },
     { path: 'facebookconnect',      data: { state: "facebookconnect" }, component: FacebookConnectPage },
-    { path: '',                     data: { state: "root" }, redirectTo: '/home', pathMatch: 'full' },
+    { path: '',                     data: { state: "root" }, redirectTo: '/cards', pathMatch: 'full' },
     { path: '',                     data: { state: "root" }, component: RootPage,
       children: [
         { path: 'home',                 data: { state: "home" }, component: HomePage },
