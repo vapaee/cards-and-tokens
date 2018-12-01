@@ -29,9 +29,9 @@ import { SteemService } from '../services/steem.service';
             <span [hidden]="loading">&nbsp;{{votes}} votes</span>
         </a>
 
-        <a [ngClass]="{'loading': loading}" [hidden]="steemdata.author" class="steem-vote-btn waves-effect waves-light upvoted" (click)="encorage()">
+        <!--a [ngClass]="{'loading': loading}" [hidden]="steemdata.author" class="steem-vote-btn waves-effect waves-light upvoted" (click)="encorage()">
             <span>Encourage @{{card.edition.data.steemuser}} to claim this card authorship</span>
-        </a>        
+        </a-->        
     `
 })
 export class SteemUpvoteButtonComponent implements OnChanges {

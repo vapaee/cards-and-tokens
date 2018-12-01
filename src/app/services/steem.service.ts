@@ -229,8 +229,8 @@ export class SteemService {
         var parentPermlink = "cardsandtokens";
         var permlink = card.edition.data.slug;
         
-        var link = "http://cardsandtokens.com/deploy/card/"+card.edition.data.slug;
-        var image = "http://cardsandtokens.com/assets/cards/openmic/images/steem-image/"+card.edition.data.slug+".png";
+        var link = "http://app.cardsandtokens.com/deploy/card/"+card.edition.data.slug;
+        var image = "http://app.cardsandtokens.com/assets/cards/openmic/images/steem-image/"+card.edition.data.slug+".png";
         var jsonMetadata = {
             "tags": [parentPermlink, "openmic", "eos", "music", "cards"],
             "data": card.edition.data,
@@ -289,7 +289,7 @@ export class SteemService {
         var permlink = "prueba-con-rechazo-e-pago-re-" + Math.random().toString(36).replace(/[^a-z]+/g, '');//.substr(0, 5);;
         var jsonMetadata = '{"jsonMetadata":true}';
         var title = "Cards & Tokens - test 2";
-        var body = '<p><center><img src="http://cardsandtokens.com/assets/cards/openmic/images/steem-image/openmic-w100-pechichemena-el-balcon.png"></center></p>';
+        var body = '<p><center><img src="http://app.cardsandtokens.com/assets/cards/openmic/images/steem-image/openmic-w100-pechichemena-el-balcon.png"></center></p>';
         // ------------------------
         parentAuthor = "";
         parentPermlink = "debug";
