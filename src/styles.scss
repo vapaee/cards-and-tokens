@@ -44,6 +44,13 @@ button, html [type="button"], [type="reset"], [type="submit"] {
     -webkit-appearance: none !important;
 }
 
+markdown.text-light pre {
+    color: #d4d4d4;
+}
+
+markdown img {
+    max-width: 100%;
+}
 
 
 

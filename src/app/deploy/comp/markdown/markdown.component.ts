@@ -35,4 +35,20 @@ export class MarkDownComponent extends BaseComponent implements OnInit {
         };
     }
 
+    getClass() {
+        // console.log("MarkDownComponent.getClass()", this.data ? this.data.class : "null", [this.data]);
+        if (!this.data) return {};
+        if (typeof this.data.class == "object") {
+            return this.data.class;
+        }
+        if (typeof this.data.class == "string") {
+            var list = this.data.class.split(" ");
+            var _class = {};
+            for (let i in list) {
+                _class[list[i]] = true;
+            }
+            this.data.class = _class;
+        }
+        return this.data.class;
+    }
 }
