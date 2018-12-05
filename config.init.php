@@ -2,7 +2,7 @@
 $config = array();
 $config["site_url"] = "http://cardsandtokens.com";
 $config["site_name"] = "Cards & Tokens";
-$config["site_social_image"] = "http://cardsandtokens.com/assets/cards-and-tokens.jpg";
+$config["site_social_image"] = "http://app.cardsandtokens.com/assets/cards-and-tokens.jpg";
 $config["image_size"] = array(
     "width" => "670",
     "height" => "380"
