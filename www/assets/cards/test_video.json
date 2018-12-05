@@ -1,0 +1,40 @@
+{
+    "deploy": {
+        "comp":"root",
+        "children": [{
+            "comp":"row-three",
+            "data": {
+                "header": { "min-height": "10vh" },
+                "footer": { "min-height": "6vh" }
+            },
+            "children": [
+                {
+                    "comp": "background",
+                    "data": {
+                        "image": {
+                            "url": "/assets/prueba.png",
+                            "position": "center",    "positions": "center | left | right | top | bottom",
+                            "repeat": "no-repeat",   "repeats": "round | repeat | no-repeat",
+                            "size": "cover",         "sizes": "contain | cover"
+                        }
+                    },
+                    "children": [ { "comp": "place-holder", "data":{"text":"header"} } ]
+                },
+                {
+                    "comp": "video",
+                    "data": {
+                        "youtube": {
+                            "videoId": "Y0MuVQV0W0w",
+                            "autoplay": false
+                        }
+                    }
+                },
+                {
+                    "comp": "background",
+                    "data": { "color": "darkgreen" },
+                    "children": [ { "comp": "place-holder", "data":{"text":"footer"} } ]
+                }
+            ]
+        }]
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "deploy": {
+        "comp":"root",
+        "children": [{
+            "comp":"row-three",
+            "data": {
+                "header": { "min-height": "10vh" },
+                "footer": { "min-height": "6vh" }
+            },
+            "children": [
+                {
+                    "comp": "background",
+                    "data": { "color":"#2A247B", "fgcolor":"white" }                    
+                },
+                {
+                    "comp": "float",
+                    "data": {
+                        "_style": {
+                            "_width": "500px",
+                            "_height": "500px",
+                            "bottom": "100px",
+                            "right": "100px"
+                        },
+                        "positions": [{
+                            "top": "10%",
+                            "left": "10%"
+                        },{
+                            "top": "20%",
+                            "left": "20%"
+                        }]
+                    },
+                    "children": [
+                        {
+                            "comp": "markdown",
+                            "data": {
+                                "markdown": "El float debe tener tantos hijos como entradas en la lista de positions"
+                            }
+                        },
+                        {
+                            "comp": "markdown",
+                            "data": {
+                                "markdown": "# Markdown\n```typescript\n   const myProp: string = 'value';\n```\n"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "comp": "background",
+                    "data": { "color": "darkblue" }
+                }
+            ]
+        }]
+    }
+}
