@@ -543,6 +543,19 @@ export class EditorPage implements OnInit {
         });
     }
 
+    public setPermlinkToAllCards() {
+        for (var i in this.cnt.cards) {
+            var card = this.cnt.cards[i];
+            card.steem = {
+                author: card.edition.data.steemuser,
+                permlink: card.edition.data.permlink
+            }
+            this.data.update("card", card).then((c) => {
+                console.log("card updated: ", c.id, c.slug);
+            })
+        }
+    }
+
     public crearCartasAPartirDeDataAux() {
         var promise = new Promise((resolve) => {
             resolve();
