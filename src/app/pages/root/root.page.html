@@ -17,9 +17,9 @@
           <li class="nav-item">
                   <a class="nav-link waves-dark" href="http://cardsandtokens.com" target="_blank" mdbWavesEffect>More Info</a>
           </li>
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('editor')}" *ngIf="vapaee.logged" >
+          <!--li class="nav-item" [ngClass]="{active: app.stateStartsWith('editor')}" *ngIf="vapaee.logged" >
                   <a class="nav-link waves-light" routerLink="/editor" mdbWavesEffect>Editor</a>
-          </li>
+          </li-->
           <li class="nav-item" [ngClass]="{active: app.state == 'cards'}">
                   <a class="nav-link waves-light" routerLink="/cards" mdbWavesEffect>Cards</a>
           </li>
@@ -38,9 +38,9 @@
           <li class="nav-item" [ngClass]="{active: app.stateStartsWith('games')}" *ngIf="vapaee.logged">
                   <a class="nav-link waves-light" routerLink="/games" mdbWavesEffect>Games</a>
           </li-->
-          <li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.isAdmin">
+          <!--li class="nav-item" [ngClass]="{active: app.stateStartsWith('market')}" *ngIf="vapaee.isAdmin">
                   <a class="nav-link waves-light" (click)="printData()" mdbWavesEffect>DATA</a>
-          </li>
+          </li-->
 
           <!-- Dropdown 
           <li class="nav-item dropdown" dropdown>
