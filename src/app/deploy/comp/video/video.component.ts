@@ -57,18 +57,25 @@ export class VideoComponent extends BaseComponent implements OnInit {
 
     onResize(e) {
         var target = this.elRef.nativeElement.querySelector(".embed-responsive");
-        var ratio = 16/9;
-        var maxHeight = this.elRef.nativeElement.offsetHeight - 2 * this.getPadding();
-        var maxWidth = maxHeight * ratio;
-        if (this.app.device.width <= 380) {
-            var old = maxWidth;
-            maxWidth = this.app.device.width - 2 * this.getPadding();
-            var marginLeft = (2*this.app.device.width-(375+maxWidth)) + "px";
-            // console.log("AAAAAAAAAAAA", this.app.device.width-41, maxWidth-375, 2*this.app.device.width-(375+maxWidth), maxWidth+41);
-            this.renderer.setStyle(target, 'margin-left', marginLeft);
-        }
-        
-        this.renderer.setStyle(target, 'max-width', maxWidth + "px");
+        this.renderer.setStyle(target, 'max-width', "10px");
+        this.renderer.setStyle(target, 'opacity', "0");
+
+        setTimeout(_ => {
+            var ratio = 16/9;
+            var maxHeight = this.elRef.nativeElement.offsetHeight - 2 * this.getPadding();
+            var maxWidth = maxHeight * ratio;
+            if (this.app.device.width <= 380) {
+                var old = maxWidth;
+                maxWidth = this.app.device.width - 2 * this.getPadding();
+                var marginLeft = (2*this.app.device.width-(375+maxWidth)) + "px";
+                // console.log("AAAAAAAAAAAA", this.app.device.width-41, maxWidth-375, 2*this.app.device.width-(375+maxWidth), maxWidth+41);
+                this.renderer.setStyle(target, 'margin-left', marginLeft);
+            }
+            
+            this.renderer.setStyle(target, 'max-width', maxWidth + "px");
+            this.renderer.setStyle(target, 'opacity', "1");
+            
+        }, 400);
     }
 
     getPadding() {

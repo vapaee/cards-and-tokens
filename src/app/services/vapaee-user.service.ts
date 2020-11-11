@@ -37,8 +37,8 @@ export class VapaeeUserService {
 
     constructor(
         private cookies: CookieService, 
-        public steem: SteemService, 
         public analytics: AnalyticsService,
+        public steem: SteemService, 
         private socialAuthService: AuthService,
         private http: HttpClient,
         private cookie: CookieService
@@ -73,7 +73,7 @@ export class VapaeeUserService {
             this.user_name = this.steem.user.profile.name;
             this.steemuser = this.steem.user.name;
             this.isAdmin = this.steem.user.name == 'viterbo';
-            this.access_token = this.cookie.get("steem.access_token");
+            this.access_token = this.cookies.get("steem.access_token");
             this.provider = "steem";
             this.avatar = this.steem.user ? this.steem.user.profile.avatar : '/assets/noavatar.png';
             // analytics
